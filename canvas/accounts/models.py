@@ -9,4 +9,4 @@ class Profile(models.Model):
     bio = models.TextField(max_length=1000, blank=True)
     location = models.CharField(max_length=30, blank=True)
     birthdate = models.DateField(null=True, blank=True)
-    photo = models.ImageField()
+    photo = models.ImageField(blank=True, null=True)
