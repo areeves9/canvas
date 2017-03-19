@@ -11,5 +11,4 @@ urlpatterns = [
         success_url='/accounts/login/',
     ), name='register'),
     url(r'^profile', views.profile, name='profile'),
-    url(r'^accounts', include('django.contrib.auth.urls', namespace='auth')),
 ]
