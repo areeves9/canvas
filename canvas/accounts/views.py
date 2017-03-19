@@ -24,7 +24,7 @@ def profile_update(request):
             profile = profile_form.save(commit=False)
             user.save()
             profile.save()
-            return redirect("profile")
+            return redirect("accounts:profile")
         else:
             pass
     else:
