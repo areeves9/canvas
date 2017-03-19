@@ -3,7 +3,16 @@
 {% block content %}
 <h1>Profile</h1>
 <h3>{{ user.username }}</h3>
+{% if user.profile.birthdate %}
 <h3>{{ user.profile.birthdate }}</h3>
+{% endif %}
+{% if user.profile.location %}
 <h3>{{ user.profile.location }}</h3>
+{% endif %}
+{% if user.profile.bio %}
 <h3>{{ user.profile.bio }}</h3>
+{% endif %}
+{% if user.profile.photo %}
+<h3>{{ user.profile.photo }}</h3>
+{% endif %}
 {% endblock %}
