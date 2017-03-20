@@ -1,4 +1,5 @@
 from django.db import models
+from django.conf import settings
 from django.utils import timezone
 
 # Create your models here.
@@ -38,7 +39,7 @@ class Review(models.Model):
     method = models.CharField(
         max_length=20,
         choices=METHOD_CHOICES,
-        default='FLOWER,
+        default='FLOWER',
         blank=False
     )
     timestamp = models.DateTimeField(auto_now=False, auto_now_add=True)
