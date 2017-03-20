@@ -1,3 +1,4 @@
+from django.contrib.auth.decorators import login_required
 from django.shortcuts import render, get_object_or_404
 
 from reviews.models import Strain, Review
@@ -30,3 +31,7 @@ def strain_detail(request, id=None):
         "strain": strain,
     }
     return render(request, "reviews/strain_detail.html", context)
+
+@login_required
+def strain_review(request, id=None):
+    strain = get_object_or
