@@ -16,9 +16,20 @@ def create_user_profile(sender, instance, created, **kwargs):
 def save_user_profile(sender, instance, **kwargs):
     instance.profile.save()
 
+def upload_location(instance, filename):
+    return "%s/%s" % (instance.user, filename)
+
 class Profile(models.Model):
     user = models.OneToOneField(settings.AUTH_USER_MODEL, on_delete=models.CASCADE)
     bio = models.TextField(max_length=1000, blank=True)
     location = models.CharField(max_length=30, blank=True)
     birthdate = models.DateField(null=True, blank=True)
-    photo = models.ImageField(blank=True, null=True)
+    photo = models.ImageField(
+        upload_to=upload_location,
+        blank=True,
+        null=True,
+        height_field="height_field",
+        width_field="width_field",
+    )
+    height_field = models.IntegerField(default=0)
+    width_field = models.IntegerField(default=0)
