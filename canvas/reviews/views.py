@@ -1,6 +1,10 @@
 from django.contrib.auth.decorators import login_required
+from django.core.urlresolvers import reverse
 from django.shortcuts import render, get_object_or_404
+from django.http import HttpResponseRedirect
 
+from django.contrib.auth.models import User
+from reviews.forms import ReviewForm
 from reviews.models import Strain, Review
 # Create your views here.
 
@@ -34,4 +38,23 @@ def strain_detail(request, id=None):
 
 @login_required
 def strain_review(request, id=None):
-    strain = get_object_or
+    strain = get_object_or_404(Strain, id=id)
+    form = ReviewForm(request.POST or None, request.FILES or None)
+    if form.is_valid():
+        content = form.cleaned_data['content']
+        method = form.cleaned_data['method']
+        user = request.user
+        review = Review()
+        review.strain = strain
+        review.user = user
+        review.content = content
+        review.method = method
+        review.photo = photo
+        review.save()
+        return HttpResponseRedirect(review.get_absolute_url())
+    else:
+        pass
+    context = {
+        "form": form
+    }
+    return render(request, "reviews/review_form.html", context)
