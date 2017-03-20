@@ -1,10 +1,14 @@
 {% extends "base.html" %}
-{% block title %}Strains{% endblock %}
+{% block head_title %} Strains | {{ block.super }}{% endblock head_title %}
+
 
 {% block content %}
+{% if strains %}
+<h1>Strains</h1>
 <ul>
   {% for strain in strains %}
-  <li>{{ strain.name }}</li>
+  <li>{{ strain.name|upper }}</li>
   {% endfor %}
 </ul>
+{% endif %}
 {% endblock %}
