@@ -2,6 +2,19 @@
 {% block title %}Login{% endblock %}
 
 {% block content %}
+
+{% if form.errors %}
+  <p>Opps! Username and password did not match. Please try again.</p>
+{% endif %}
+
+{% if next %}
+  {% if user.is_authenticated %}
+  <p>Your account does not have access to this page. Please login with an account with access to proceed.</p>
+  {% else %}
+  <p>Please login to access this page.</p>
+  {% endif %}
+{% endif %}
+
 <h1>Login to Your Account</h1>
 <form method="POST" action="{% url 'auth:login' %}">
   {% csrf_token %}
