@@ -2,9 +2,10 @@
 {% block title %}Reviews{% endblock %}
 
 {% block content %}
+<h3>Latest Reviews</h3>
 <ul>
   {% for review in reviews %}
-  <li>{{ review.title }}</li>
+  <a href="{{ review.get_absolute_url }}"><li>{{ review.title|upper }}</li></a>
   {% endfor %}
 </ul>
 {% endblock %}
