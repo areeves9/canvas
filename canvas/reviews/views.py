@@ -23,3 +23,10 @@ def strains(request):
         "strains": strains,
     }
     return render(request, "reviews/strains.html", context)
+
+def strain_detail(request, id=None):
+    strain = get_object_or_404(Strain, id=id)
+    context = {
+        "strain": strain,
+    }
+    return render(request, "reviews/strain_detail.html", context)
