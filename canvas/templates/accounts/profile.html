@@ -2,15 +2,15 @@
 
 {% block content %}
 <h1>Profile</h1>
-<h3>{{ user.username }}</h3>
+<h3>Username: {{ user.username }}</h3>
 {% if user.profile.birthdate %}
-<h3>{{ user.profile.birthdate }}</h3>
+<h3>Birthdate: {{ user.profile.birthdate }}</h3>
 {% endif %}
 {% if user.profile.location %}
-<h3>{{ user.profile.location }}</h3>
+<h3>Location: {{ user.profile.location }}</h3>
 {% endif %}
 {% if user.profile.bio %}
-<h3>{{ user.profile.bio }}</h3>
+<h3>Bio: {{ user.profile.bio }}</h3>
 {% endif %}
 {% if user.profile.photo %}
 <img src="{{ user.profile.photo.url }}">
