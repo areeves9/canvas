@@ -126,5 +126,14 @@ USE_TZ = True
 
 STATIC_URL = '/static/'
 
+STATICFILES_DIRS = [
+    os.path.join("accounts", "static")
+]
+
+STATIC_ROOT = os.path.join(BASE_DIR, "static_production")
+
+MEDIA_URL = '/media/'
+MEDIA_ROOT = os.path.join(BASE_DIR, "media_production")
+
 LOGIN_URL = reverse_lazy('auth:login')
 LOGIN_REDIRECT_URL = reverse_lazy('accounts:profile')
