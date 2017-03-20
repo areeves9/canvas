@@ -1,6 +1,17 @@
 <!DOCTYPE html>
 <html>
-  <head></head>
+  <head>
+    <meta charset="utf-8"/>
+    <meta content="width=device-width, user-scalable=no, initial-scale=1.0" name="viewport"/>
+    <title>{% block head_title %}Canvas Reviews{% endblock head_title %}</title>
+    <script src="https://code.jquery.com/jquery-2.2.4.min.js" integrity="sha256-BbhdlvQf/xTY9gja0Dq3HiwQF8LaCRTXxZKRutelT44=" crossorigin="anonymous"></script>
+    {% load bootstrap3 %}
+
+    {% bootstrap_css %}
+    {% bootstrap_javascript %}
+
+    {% load static %}
+  </head>
   <body>
     <h1>Home</h1>
     {% block content %}{% endblock %}
