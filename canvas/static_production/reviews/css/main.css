@@ -1,0 +1,10 @@
+a {
+  text-decoration: none;
+}
+
+.thumbnail.image-left > img {
+  float: left;
+  margin: 10px;
+  max-width: 200px;
+  max-height: 200px;
+}
