@@ -7,7 +7,7 @@
 <h1>Strains</h1>
 <ul>
   {% for strain in strains %}
-  <a href="">li>{{ strain.name|upper }}</li></a>
+  <a href="{{ strain.get_absolute_url }}"><li>{{ strain.name|upper }}</li></a>
   {% endfor %}
 </ul>
 {% endif %}

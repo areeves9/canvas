@@ -12,6 +12,9 @@ class Strain(models.Model):
     name = models.CharField(max_length=60)
     summary = models.TextField(blank=True, null=True)
 
+    def get_absolute_url(self):
+        return reverse("reviews:strain", kwargs={"id": self.id})
+
     def __str__(self):
         return self.name
 
