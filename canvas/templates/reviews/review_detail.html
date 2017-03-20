@@ -1,0 +1,18 @@
+{% extends "base.html" %}
+{% block head_title %}{{ review.title }} | {{ block.super }}{% endblock head_title %}
+
+{% block content %}
+<div class="row">
+  <div class="col-sm-6">
+    <h1>Title: {{ review.title }}</h1>
+    <p>Review: {{ review.content }}</h1>
+    <p>Author: {{ review.user }}</p>
+  </div>
+  <div class="col-sm-6">
+    {% if review.photo %}
+    <img class="img-responsive" src={{ review.photo.url }}/>
+    {% endif %}
+  </div>
+</div>
+
+{% endblock %}

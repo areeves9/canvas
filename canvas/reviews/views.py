@@ -15,7 +15,7 @@ def review_detail(request, id=None):
     context = {
         "review": review,
     }
-    return render(request, "reviews/strain_detail.html", context)
+    return render(request, "reviews/review_detail.html", context)
 
 def strains(request):
     strains = Strain.objects.all()
