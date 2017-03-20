@@ -8,3 +8,5 @@ class ProfileModelAdmin(admin.ModelAdmin):
     list_display_link = ["user"]
     class Meta:
         model = Profile
+
+admin.site.register(Profile, ProfileModelAdmin)
