@@ -4,9 +4,24 @@
 
 {% block content %}
 <h3>Latest Reviews</h3>
-<ul>
-  {% for review in reviews %}
-  <a href="{{ review.get_absolute_url }}"><li>{{ review.title|upper }}</li></a>
-  {% endfor %}
-</ul>
+<div class="row">
+  <div class="col-sm-12">
+      {% for review in reviews %}
+    <div class="thumbnail image-left">
+      {% if review.photo %}
+      <img class="img-responsive img-ciricle" src="{{ review.photo.url }}">
+      {% endif %}
+      <div class="caption">
+        <a href="{{ review.get_absolute_url }}">{{ review.title|upper}}</a>
+        <h3>{{ review.content|linebreaks|truncatechars:95}}</h3>
+      </br>
+        <h3>Updated: {{ review.updated }}</h3>
+      </br>
+        <h3>Reviewer: {{ review.user.username }}</h3>
+      </div> <!--/.caption-->
+    </div> <!--/.thumbnail image-left-->
+    {% endfor %}
+  </div> <!--/.col-sm-12-->
+</div>
+
 {% endblock %}
