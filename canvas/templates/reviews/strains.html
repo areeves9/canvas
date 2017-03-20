@@ -1,0 +1,10 @@
+{% extends "base.html" %}
+{% block title %}Strains{% endblock %}
+
+{% block content %}
+<ul>
+  {% for strain in strains %}
+  <li>{{ strain.name }}</li>
+  {% endfor %}
+</ul>
+{% endblock %}
