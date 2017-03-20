@@ -1,12 +1,21 @@
 {% extends "base.html" %}
-{% block title %}Update Profile{% endblock %}
+{% block head_title %}Update Profile | {{ block.super }}{% endblock head_title %}
+
+{% load bootstrap3 %}
 
 {% block content %}
-<h1>Update Profile</h1>
-<form method="POST" action="" enctype="multipart/form-data">
-  {% csrf_token %}
-  {{ user_form.as_p }}
-  {{ profile_form.as_p }}
-  <button type=submit>Update</button>
-</form>
+<div class="row">
+  <div class="col-sm-6">
+    <h1>Update Profile</h1>
+    <form method="POST" action="{% url 'accounts:profile' %}" class="form">
+      {% csrf_token %}
+      {% bootstrap_form form layout="inline" %}
+      {% buttons %}
+      <button type=submit class="btn btn-default">
+        {% bootstrap_icon "star" %} Update
+      </button>
+      {% endbuttons %}
+    </form>
+  </div>
+</div>
 {% endblock %}

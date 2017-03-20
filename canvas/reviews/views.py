@@ -41,12 +41,15 @@ def strain_review(request, id=None):
     strain = get_object_or_404(Strain, id=id)
     form = ReviewForm(request.POST or None, request.FILES or None)
     if form.is_valid():
+        title = form.cleaned_data['title']
         content = form.cleaned_data['content']
         method = form.cleaned_data['method']
+        photo = form.cleaned_data['photo']
         user = request.user
         review = Review()
         review.strain = strain
         review.user = user
+        review.title = title
         review.content = content
         review.method = method
         review.photo = photo
@@ -55,6 +58,7 @@ def strain_review(request, id=None):
     else:
         pass
     context = {
-        "form": form
+        "form": form,
+        "strain": strain,
     }
     return render(request, "reviews/review_form.html", context)
