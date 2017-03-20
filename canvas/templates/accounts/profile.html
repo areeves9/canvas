@@ -1,18 +1,18 @@
 {% extends "base.html" %}
+{% block head_title %}{{ user.username }} | {{ block.super }}{% endblock head_title %}
 
 {% block content %}
-<h1>Profile</h1>
-<h3>Username: {{ user.username }}</h3>
-{% if user.profile.birthdate %}
-<h3>Birthdate: {{ user.profile.birthdate }}</h3>
-{% endif %}
-{% if user.profile.location %}
-<h3>Location: {{ user.profile.location }}</h3>
-{% endif %}
-{% if user.profile.bio %}
-<h3>Bio: {{ user.profile.bio }}</h3>
-{% endif %}
-{% if user.profile.photo %}
-<img src="{{ user.profile.photo.url }}">
-{% endif %}
+<div class="row">
+  <div class="col-sm-6">
+    <h1>Profile</h1>
+    <h3> {{ user.username }}</h3>
+    <h3> {{ user.profile.location }}</h3>
+    <h3> {{ user.profile.bio }}</h3>
+  </div>
+  <div class="col-sm-6">
+    {% if user.profile.photo %}
+    <img class="img-responsive" src="{{ user.profile.photo.url }}"/>
+    {% endif %}
+  </div>
+</div>
 {% endblock %}
