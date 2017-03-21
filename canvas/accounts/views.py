@@ -1,7 +1,8 @@
-from django.shortcuts import render, redirect
+from django.shortcuts import render
 
 from django.contrib.auth.models import User
 from django.contrib.auth.decorators import login_required
+from django.http import Http404
 
 from accounts.models import Profile
 from accounts.forms import ProfileForm, UserForm
@@ -17,6 +18,19 @@ def profile(request):
         "review_list": review_list,
     }
     return render(request, "accounts/profile.html", context)
+
+@login_required
+def profile_user(request, username=""):
+    if username:
+        try:
+            user = User.objects.get(username=username)
+        except User.DoesNotExist:
+            raise Http404
+        context = {
+            "user": user,
+        }
+        return render(request, "accounts/profile_user.html", context)
+
 
 @login_required
 def profile_update(request):

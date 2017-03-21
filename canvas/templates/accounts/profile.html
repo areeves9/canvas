@@ -3,11 +3,11 @@
 
 {% block content %}
 <div class="row">
+  <h1>Profile</h1>
   <div class="col-sm-4">
-    <h1>Profile</h1>
     {% if user.profile.photo %}
     <div class="profile-photo">
-      <img class="img-responsive" src="{{ user.profile.photo.url }}"/>
+      <img class="img-responsive img-rounded" src="{{ user.profile.photo.url }}"/>
     </div> <!--/.profile-photo-->
     {% endif %}
   </div>
@@ -20,7 +20,7 @@
     {% if review_list %}
     <h4>My Reviews</h4>
       {% for review in review_list %}
-    <h3>{{ review.title }}</h3>
+    <h3><a href="{{ review.get_absolute_url }}">{{ review.title }}</a></h3>
       {% endfor %}
     {% endif %}
   </div>

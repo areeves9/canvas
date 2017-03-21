@@ -13,4 +13,6 @@ urlpatterns = [
     ), name='register'),
     url(r'^profile/$', views.profile, name='profile'),
     url(r'^profile/update/$', views.profile_update),
+    # url(r'^profile/users/$', views.profile_user, name='user')
+    url(r'^profile/(?P<username>\w+)/$', views.profile_user, name='user')
 ]
