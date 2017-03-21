@@ -22,6 +22,21 @@ def review_detail(request, id=None):
     }
     return render(request, "reviews/review_detail.html", context)
 
+@login_required
+def review_update(request, id=None):
+    review = get_object_or_404(Review, id=id)
+    if review.user == request.user:
+        form = ReviewForm(request.POST or None, request.FILES or None, instance=review)
+        if form.is_valid():
+            review = form.save(commit=False)
+            review.save()
+            return HttpResponseRedirect(review.get_absolute_url())
+        context = {
+            "form": form,
+            "review": review,
+        }
+        return render(request, "reviews/review_form.html", context)
+
 def strains(request):
     strains = Strain.objects.all()
     context = {
