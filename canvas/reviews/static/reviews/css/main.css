@@ -8,3 +8,8 @@ a {
   max-width: 200px;
   max-height: 200px;
 }
+
+.profile-photo {
+  height: 250px;
+  width: 250px;
+}
