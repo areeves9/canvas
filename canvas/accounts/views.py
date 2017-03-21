@@ -9,8 +9,10 @@ from accounts.forms import ProfileForm, UserForm
 @login_required
 def profile(request):
     user = request.user
+    reviews = Review.object.filter(user=user)
     context = {
         "user": user,
+        "reviews": reviews,
     }
     return render(request, "accounts/profile.html", context)
 
