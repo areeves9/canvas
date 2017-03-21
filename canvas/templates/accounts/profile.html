@@ -17,8 +17,9 @@
 </div>
 <div class="row">
   <div class="col-sm-12">
-    {% if user.review %}
-      {% for review in reviews %}
+    {% if review_list %}
+    <h4>My Reviews</h4>
+      {% for review in review_list %}
     <h3>{{ review.title }}</h3>
       {% endfor %}
     {% endif %}

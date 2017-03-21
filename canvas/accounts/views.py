@@ -5,14 +5,16 @@ from django.contrib.auth.decorators import login_required
 
 from accounts.models import Profile
 from accounts.forms import ProfileForm, UserForm
+
+from reviews.models import Review
 # Create your views here.
 @login_required
 def profile(request):
     user = request.user
-    reviews = Review.object.filter(user=user)
+    review_list = Review.objects.filter(user=user)
     context = {
         "user": user,
-        "reviews": reviews,
+        "review_list": review_list,
     }
     return render(request, "accounts/profile.html", context)
 
