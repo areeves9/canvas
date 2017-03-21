@@ -24,10 +24,12 @@ def profile_user(request, username=""):
     if username:
         try:
             user = User.objects.get(username=username)
+            review_list = Review.objects.filter(user=user)
         except User.DoesNotExist:
             raise Http404
         context = {
             "user": user,
+            "review_list": review_list,
         }
         return render(request, "accounts/profile.html", context)
 
