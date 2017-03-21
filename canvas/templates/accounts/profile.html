@@ -1,9 +1,18 @@
 {% extends "base.html" %}
 {% block head_title %}{{ user.username }} | {{ block.super }}{% endblock head_title %}
+{% load bootstrap3 %}
 
 {% block content %}
 <div class="row">
   <h1>Profile</h1>
+  <a href="{% url 'accounts:update' %}">
+    {% buttons %}
+    <button type=submit class="btn btn-default">
+    {% bootstrap_icon "pencil" %} Update
+    </button>
+  {% endbuttons %}
+  </a>
+
   <div class="col-sm-4">
     {% if user.profile.photo %}
     <div class="profile-photo">

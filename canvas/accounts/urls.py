@@ -12,7 +12,6 @@ urlpatterns = [
         success_url='/accounts/login/',
     ), name='register'),
     url(r'^profile/$', views.profile, name='profile'),
-    url(r'^profile/update/$', views.profile_update),
-    # url(r'^profile/users/$', views.profile_user, name='user')
+    url(r'^profile/update/$', views.profile_update, name='update'),
     url(r'^profile/(?P<username>\w+)/$', views.profile_user, name='user')
 ]
