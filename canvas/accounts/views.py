@@ -29,7 +29,7 @@ def profile_user(request, username=""):
         context = {
             "user": user,
         }
-        return render(request, "accounts/profile_user.html", context)
+        return render(request, "accounts/profile.html", context)
 
 
 @login_required
