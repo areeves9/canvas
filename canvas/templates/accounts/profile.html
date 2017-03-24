@@ -4,28 +4,15 @@
 
 {% block content %}
 <div class="row">
-  <h1>Profile</h1>
   {% if request.user.profile.id == user.profile.id %}
-  <a href="{% url 'accounts:update' %}">
-    {% buttons %}
-    <button type=submit class="btn btn-default">
-    {% bootstrap_icon "pencil" %} Update
-    </button>
-  {% endbuttons %}
-  </a>
+  <h1>Profile<a href="{% url 'accounts:update' %}">  {% bootstrap_icon "pencil" %}</a></h1>
   {% endif %}
-
   <div class="col-sm-4">
     {% if user.profile.photo %}
     <div class="profile-photo">
       <img class="img-responsive img-rounded" src="{{ user.profile.photo.url }}"/>
     </div> <!--/.profile-photo-->
     {% endif %}
-  </div>
-  <div class="col-sm-4">
-    <h3> username {{ user.username|upper }}</h3>
-    <h3> location {{ user.profile.location|upper }}</h3>
-    <h3> bio {{ user.profile.bio|upper }}</h3>
   </div>
   <div class="col-sm-4">
     {% if review_list %}
@@ -35,6 +22,13 @@
       {% endfor %}
     {% endif %}
   </div>
+</div>
+<div class="row">
+<div class="col-sm-4">
+  <h3> USERNAME {{ user.username }}</h3>
+  <h3> LOCATION {{ user.profile.location }}</h3>
+  <h3> BIO {{ user.profile.bio }}</h3>
+</div>
 </div>
 
 
