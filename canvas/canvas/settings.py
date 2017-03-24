@@ -21,7 +21,7 @@ BASE_DIR = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
 # See https://docs.djangoproject.com/en/1.10/howto/deployment/checklist/
 
 # SECURITY WARNING: keep the secret key used in production secret!
-SECRET_KEY = '_y2&=f+fz%yvf&^zdq#-1%!47-7(6n8)kmt(c*1l92&=_bmm&x'
+SECRET_KEY = os.environ['CANVAS_KEY']
 
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = True
@@ -82,7 +82,7 @@ DATABASES = {
         'ENGINE': 'django.db.backends.postgresql_psycopg2',
         'NAME': 'canvas',
         'USER': 'toker',
-        'PASSWORD': 'milk1234',
+        'PASSWORD': os.environ['DB_CANVAS_PW'],
         'HOST': 'localhost',
         'PORT': '',
 
