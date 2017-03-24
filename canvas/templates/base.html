@@ -14,6 +14,30 @@
     <link rel="stylesheet" href="{% static 'reviews/css/main.css' %}"/>
   </head>
   <body>
+    <nav class="navbar navbar-default navbar-static-top">
+      <div class="container-fluid">
+        <div class="navbar-header">
+          <button type="button" class="navbar-toggle" data-toggle="collapse" data-target="#myNavbar">
+           <span class="glyphicon glyphicon-menu-hamburger"></span>
+         </button>
+         <a class="navbar-brand" href="#">Canvas</a>
+       </div> <!--/.navbar header-->
+       <div class="collapse navbar-collapse" id="myNavbar">
+         <ul class="nav navbar-nav navbar-left">
+           <li><a href="{% url 'reviews:strains' %}">Strains</a></li>
+         </ul> <!--/.nav navbar-nav navbar-left-->
+         <ul class="nav navbar-nav navbar-right">
+           {% if user.is_authenticated %}
+            <li><p class="navbar-text">Logged in as <a href="{% url 'accounts:profile' %}" class="navbar-link">{{ user.username }}</a></p></li>
+            <li><a href="{% url 'auth:logout' %}">Logout</a></li>
+            {% else %}
+            <li><a href="{% url 'accounts:register' %}">Register</a></li>
+            <li><a href="{% url 'auth:login' %}">Login</a></li>
+            {% endif %}
+         </ul> <!--/.nav navbar-nav navbar-right-->
+       </div> <!---/.collapse navbar-collapse-->
+      </div> <!--/.container-fluid-->
+    </nav> <!--/.navbar navbar-default navbar-static-top-->
     <div class="container">
       <h1>Canvas Cannabis</h1>
       {% block content %}
