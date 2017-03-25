@@ -14,13 +14,13 @@
     <link rel="stylesheet" href="{% static 'reviews/css/main.css' %}"/>
   </head>
   <body>
-    <nav class="navbar navbar-default navbar-static-top">
+    <nav class="navbar navbar-inverse navbar-static-top">
       <div class="container-fluid">
         <div class="navbar-header">
           <button type="button" class="navbar-toggle" data-toggle="collapse" data-target="#myNavbar">
            <span class="glyphicon glyphicon-menu-hamburger"></span>
          </button>
-         <a class="navbar-brand" href="#">Canvas</a>
+         <a class="navbar-brand" href="{% url 'reviews:reviews' %}">Canvas</a>
        </div> <!--/.navbar header-->
        <div class="collapse navbar-collapse" id="myNavbar">
          <ul class="nav navbar-nav navbar-left">
@@ -39,7 +39,6 @@
       </div> <!--/.container-fluid-->
     </nav> <!--/.navbar navbar-default navbar-static-top-->
     <div class="container">
-      <h1>Canvas Cannabis</h1>
       {% block content %}
       {% endblock %}
     </div> <!--/.container-->

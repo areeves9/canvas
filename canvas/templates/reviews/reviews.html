@@ -3,7 +3,7 @@
 
 
 {% block content %}
-<h3>Latest Reviews</h3>
+<h1>Latest Reviews</h1>
 <div class="row">
   <div class="col-sm-12 col-lg-12">
       {% for review in reviews %}
@@ -18,7 +18,7 @@
       </br>
         <h3>Strain {{ review.strain }}</h3>
         <h3>Updated {{ review.updated }}</h3>
-        <h3>Reviewed by {{ review.user.username }}</h3>
+        <h3>Reviewed by <a href="{% url 'accounts:user' review.user.username %}">{{ review.user.username }}</a></h3>
       </div> <!--/.caption-->
     </div> <!--/.thumbnail image-left-->
     {% endfor %}
