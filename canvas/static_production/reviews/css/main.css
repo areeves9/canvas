@@ -9,7 +9,12 @@ a {
   max-height: 200px;
 }
 
+.img-responsive.img-rounded.profile {
+  height: 60px;
+  width: 60px;
+}
+
 .profile-photo {
-  height: 300px;
-  width: 300px;
+  height: 250px;
+  width: 250px;
 }

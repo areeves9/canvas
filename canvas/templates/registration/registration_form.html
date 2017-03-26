@@ -2,6 +2,7 @@
 {% block head_title %}Registration | {{ block.super }}{% endblock head_title %}
 {% load bootstrap3 %}
 
+{% load staticfiles %}
 {% block content %}
 <div class="row">
   <div class="col-sm-6">
@@ -15,6 +16,10 @@
       </button>
       {% endbuttons %}
     </form>
+  </div> <!--/.col-sm-6-->
+  <div class="col-sm-12">
+    {% load static %}
+    <img class="img-responsive" src="{% static 'reviews/images/dunes.jpg' %}">
   </div>
-</div>
+</div> <!--/.row-->
 {% endblock %}
