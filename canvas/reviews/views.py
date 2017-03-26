@@ -11,17 +11,17 @@ from reviews.models import Strain, Review
 # Create your views here.
 
 def reviews(request):
-    reviews = Review.objects.all()
-    paginator = Paginator(reviews, 10)
+    review_list = Review.objects.all()
+    paginator = Paginator(review_list, 10)
     page = request.GET.get('page')
     try:
-        queryset = paginator.page(page)
+        reviews = paginator.page(page)
     except PageNotAnInteger:
-        queryset = paginator.page(1)
+        reviews = paginator.page(1)
     except EmptyPage:
-        queryset = paginator.page(paginator.num_pages)
+        reviews = paginator.page(paginator.num_pages)
     context = {
-        "reviews": queryset,
+        "reviews": reviews,
     }
     return render(request, "reviews/reviews.html", context)
 
