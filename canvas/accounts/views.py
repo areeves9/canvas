@@ -27,11 +27,13 @@ def profile_user(request, username=""):
         try:
             user = User.objects.get(username=username)
             review_list = Review.objects.filter(user=user)
+            review_numbers = Review.objects.filter(user=user).count()
         except User.DoesNotExist:
             raise Http404
         context = {
             "user": user,
             "review_list": review_list,
+            "review_numbers": review_numbers,
         }
         return render(request, "accounts/profile.html", context)
 

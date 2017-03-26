@@ -3,12 +3,16 @@
 
 
 {% block content %}
-{% if strains %}
-<h1>Strains</h1>
-<ul>
-  {% for strain in strains %}
-  <a href="{{ strain.get_absolute_url }}"><li>{{ strain.name|upper }}</li></a>
-  {% endfor %}
-</ul>
-{% endif %}
+<div class="row">
+  <div class="col-xs-4">
+    {% if strains %}
+    <h1>Strains</h1>
+      {% for strain in strains %}
+      <h3>
+        <a href="{{ strain.get_absolute_url }}">{{ strain.name|upper }}</a>
+      </h3>
+      {% endfor %}
+    {% endif %}
+  </div> <!--/.col-xs-4-->
+</div> <!--/.row-->
 {% endblock %}
