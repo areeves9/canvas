@@ -1,11 +1,13 @@
 from django.contrib.auth.decorators import login_required
+from django.contrib.auth.models import User
+from django.contrib import messages
+
 from django.core.urlresolvers import reverse
 from django.shortcuts import render, get_object_or_404
 
 from django.core.paginator import Paginator, EmptyPage, PageNotAnInteger
 from django.http import HttpResponseRedirect
 
-from django.contrib.auth.models import User
 from reviews.forms import ReviewForm
 from reviews.models import Strain, Review
 # Create your views here.
@@ -40,7 +42,10 @@ def review_update(request, id=None):
         if form.is_valid():
             review = form.save(commit=False)
             review.save()
+            messages.success(request, "Successfully Updated")
             return HttpResponseRedirect(review.get_absolute_url())
+        else:
+            messages.error(request, "Update Failed")
         context = {
             "form": form,
             "review": review,
@@ -79,9 +84,10 @@ def strain_review(request, id=None):
         review.method = method
         review.photo = photo
         review.save()
+        messages.success(request, "Successfully Updated")
         return HttpResponseRedirect(review.get_absolute_url())
     else:
-        pass
+        messages.error(request, "Review Failed to Save")
     context = {
         "form": form,
         "strain": strain,
