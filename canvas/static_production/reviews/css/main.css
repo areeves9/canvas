@@ -1,5 +1,22 @@
+* {
+    -webkit-box-sizing: border-box;
+       -moz-box-sizing: border-box;
+            box-sizing: border-box;
+  }
+body, html {
+    height: 100%;
+    width: 100%;
+    padding: 0;
+    margin: 0 auto;
+  }
+
+
 a {
   text-decoration: none;
+}
+
+.row.my-reviews > h4 {
+  color: green;
 }
 
 .thumbnail.image-left > img {
@@ -10,8 +27,8 @@ a {
 }
 
 .img-responsive.img-rounded.profile {
-  height: 60px;
-  width: 60px;
+  height: 100px;
+  width: 100px;
 }
 
 .profile-photo {
