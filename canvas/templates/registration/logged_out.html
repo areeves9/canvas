@@ -1,8 +1,15 @@
 {% extends "base.html" %}
 
 {% block content %}
-  <h1>Login Out</h1>
+<div class="row">
+  <div class="col-xs-12">
+    <h1>Login Out</h1>
     <p>Logged Out</p>
     <a href="{% url 'auth:login'%}">Login again</a>
-
+  </div> <!--/.col-xs-12-->
+  <div class="col-xs-12">
+    {% load static %}
+    <img class="img-responsive" src="{% static 'reviews/images/grow.jpg' %}">
+  </div>
+</div>  <!--/.row-->
 {% endblock%}
