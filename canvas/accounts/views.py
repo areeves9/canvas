@@ -1,6 +1,6 @@
 from django.shortcuts import render, redirect
 
-from django.contrib import messages 
+from django.contrib import messages
 from django.contrib.auth.models import User
 from django.contrib.auth.decorators import login_required
 from django.http import Http404
@@ -49,9 +49,10 @@ def profile_update(request):
             profile = profile_form.save(commit=False)
             user.save()
             profile.save()
+            messages.success(request, "Profile Update Successful.")
             return redirect("accounts:profile")
         else:
-            pass
+            messages.success(request, "Profile Updated Unsuccessful.")
     else:
         user_form = UserForm(instance=request.user)
         profile_form = ProfileForm(instance=request.user.profile)
