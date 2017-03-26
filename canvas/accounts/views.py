@@ -13,9 +13,11 @@ from reviews.models import Review
 def profile(request):
     user = request.user
     review_list = Review.objects.filter(user=user)
+    review_numbers = Review.objects.filter(user=user).count()
     context = {
         "user": user,
         "review_list": review_list,
+        "review_numbers": review_numbers,
     }
     return render(request, "accounts/profile.html", context)
 
