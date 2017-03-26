@@ -4,9 +4,12 @@
 {% block content %}
 <div class="row">
   <div class="col-sm-6">
-    <h1>Title: {{ review.title }}</h1>
-    <p>Review: {{ review.content }}</h1>
-    <p>Author: {{ review.user }}</p>
+    <h1>{{ review.title }}</h1>
+    <h3>{{ review.strain }}</h3>
+    <h3>{{ review.method }}</h3>
+    <p>{{ review.content }}</p>
+    <p>Reviewd by <a href="{% url 'accounts:user' review.user.username %}">{{ review.user }}</a></p>
+    <p>{{ review.updated }}</p>
   </div>
   <div class="col-sm-6">
     {% if review.photo %}
