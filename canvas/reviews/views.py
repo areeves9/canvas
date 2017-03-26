@@ -1,6 +1,8 @@
 from django.contrib.auth.decorators import login_required
 from django.core.urlresolvers import reverse
 from django.shortcuts import render, get_object_or_404
+
+from django.core.paginator import Paginator, EmptyPage, PageNotAnInteger
 from django.http import HttpResponseRedirect
 
 from django.contrib.auth.models import User
@@ -10,8 +12,16 @@ from reviews.models import Strain, Review
 
 def reviews(request):
     reviews = Review.objects.all()
+    paginator = Paginator(reviews, 10)
+    page = request.GET.get('page')
+    try:
+        queryset = paginator.page(page)
+    except PageNotAnInteger:
+        queryset = paginator.page(1)
+    except EmptyPage:
+        queryset = paginator.page(paginator.num_pages)
     context = {
-        "reviews": reviews,
+        "reviews": queryset,
     }
     return render(request, "reviews/reviews.html", context)
 
