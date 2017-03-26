@@ -42,10 +42,10 @@ def review_update(request, id=None):
         if form.is_valid():
             review = form.save(commit=False)
             review.save()
-            messages.success(request, "Successfully Updated")
+            messages.success(request, "Successfully updated.")
             return HttpResponseRedirect(review.get_absolute_url())
         else:
-            messages.error(request, "Update Failed")
+            messages.error(request, "Update failed.")
         context = {
             "form": form,
             "review": review,
@@ -84,10 +84,10 @@ def strain_review(request, id=None):
         review.method = method
         review.photo = photo
         review.save()
-        messages.success(request, "Review Saved.")
+        messages.success(request, "Review saved.")
         return HttpResponseRedirect(review.get_absolute_url())
     else:
-        messages.error(request, "Review Failed to Save")
+        messages.error(request, "Review failed to save.")
     context = {
         "form": form,
         "strain": strain,

@@ -49,10 +49,10 @@ def profile_update(request):
             profile = profile_form.save(commit=False)
             user.save()
             profile.save()
-            messages.success(request, "Profile Update Successful.")
+            messages.success(request, "Profile updated successfully.")
             return redirect("accounts:profile")
         else:
-            messages.success(request, "Profile Updated Unsuccessful.")
+            messages.error(request, "Please correct the fields below.")
     else:
         user_form = UserForm(instance=request.user)
         profile_form = ProfileForm(instance=request.user.profile)
