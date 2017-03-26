@@ -10,6 +10,7 @@
     <form method="POST" action="" enctype="multipart/form-data" class="form">
       {% csrf_token %}
       {% bootstrap_form profile_form layout="inline" %}
+      {% bootstrap_form user_form layout="inline" %}
       {% buttons %}
       <button type=submit class="btn btn-default">
         {% bootstrap_icon "star" %} Update

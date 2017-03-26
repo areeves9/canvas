@@ -84,7 +84,7 @@ def strain_review(request, id=None):
         review.method = method
         review.photo = photo
         review.save()
-        messages.success(request, "Successfully Updated")
+        messages.success(request, "Review Saved.")
         return HttpResponseRedirect(review.get_absolute_url())
     else:
         messages.error(request, "Review Failed to Save")

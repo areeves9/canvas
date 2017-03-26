@@ -13,18 +13,8 @@
     {% load static %}
     <link rel="stylesheet" href="{% static 'reviews/css/main.css' %}"/>
   </head>
-
   <body>
-    {% if messages %}
-    <div class="mesasges">
-      <ul class="messages">
-        {% for message in messages %}
-        <li{% if message.tags %} class="{{ message.tags }}"{% endif %}>{{ message }}</li>
-        {% endfor %}
-      </ul>
-    </div>
-    {% endif %}
-    
+    {% include "messages_display.html" %}
     <nav class="navbar navbar-inverse navbar-static-top">
       <div class="container-fluid">
         <div class="navbar-header">
