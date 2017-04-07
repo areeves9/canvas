@@ -84,7 +84,7 @@ DATABASES = {
         'USER': 'toker',
         'PASSWORD': os.environ['DB_CANVAS_PW'],
         'HOST': 'localhost',
-        'PORT': '',
+        'PORT': '5432',
 
     }
 }

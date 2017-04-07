@@ -42,8 +42,8 @@ def review_update(request, id=None):
         if form.is_valid():
             review = form.save(commit=False)
             review.save()
-            messages.success(request, "<a href='{{ review.get_absolute_url }}'>Item</a> Saved", extra_tags="html_safe")
-            return HttpResponseRedirect(review.get_absolute_url())
+            messages.success(request, "<a href=''>Item</a> Saved", extra_tags="html_safe") 
+            return HttpResponseRedirect( '/reviews/')
         else:
             messages.error(request, "Update failed.")
         context = {
