@@ -1,5 +1,6 @@
 {% extends "base.html" %}
 {% block head_title %}{{ strain.name }} | {{ block.super }}{% endblock head_title %}
+{% load bootstrap3 %}
 
 {% block content %}
 <div class="row">
@@ -14,6 +15,13 @@
       <h1>Flavors</h1>
       <h1>Seed Co.</h1>
       <h1>Type</h1>
+      {% buttons %}
+      <a href="{% url 'reviews:review' strain.id %}">
+      <button class="btn btn-default">
+        {% bootstrap_icon "star" %} Review
+      </button>
+    </a>
+      {% endbuttons %}
   </div>
 </div>
 {% endblock %}
