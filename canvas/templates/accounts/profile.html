@@ -10,6 +10,7 @@
     {% endif %}
     {{ user.username }}'s Profile
   </h1>
+  <h3>Joined on {{ user.date_joined }}</h3>
   <div class="well col-xs-12 col-md-4">
     {% if user.profile.photo %}
       <img class="img-responsive img-rounded" src="{{ user.profile.photo.url }}"/>
