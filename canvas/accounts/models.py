@@ -33,3 +33,11 @@ class Profile(models.Model):
     )
     height_field = models.IntegerField(default=0)
     width_field = models.IntegerField(default=0)
+
+class Follow(models.Model):
+    followed = models.ForeignKey(User, related_name='followed')
+    following = models.ForeginKey(User, related_nam='following')
+    created = models.DateTimeField(auto_now_add=True, db_index=True)
+
+    def __str__(self):
+        return '%s follows %s' % (self.following, self.followed)

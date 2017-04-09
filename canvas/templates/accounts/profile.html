@@ -8,7 +8,7 @@
     {% if request.user.profile.id == user.profile.id %}
     <a href="{% url 'accounts:update' %}">  {% bootstrap_icon "edit" %}</a>
     {% endif %}
-    {{ user.username }}'s Profile
+    @{{ user.username }}'s Profile
   </h1>
   <h3>Joined on {{ user.date_joined }}</h3>
   <div class="well col-xs-12 col-md-4">
@@ -29,7 +29,7 @@
   <h4>My Reviews ({{ review_numbers }})</h4>
     {% if review_list %}
     {% for review in review_list %}
-    <div class="col-xs-12 col-md-6 profile">
+    <div class="col-xs-12 col-md-12 profile">
       <div class="thumbnail image-left">
       {% if review.photo %}
         <img class="img-responsive img-rounded profile" src="{{ review.photo.url }}">
