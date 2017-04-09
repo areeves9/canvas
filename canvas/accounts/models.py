@@ -35,9 +35,11 @@ class Profile(models.Model):
     width_field = models.IntegerField(default=0)
 
 class Follow(models.Model):
-    followed = models.ForeignKey(User, related_name='followed')
-    following = models.ForeginKey(User, related_nam='following')
+    follow_from = models.ForeignKey(User, related_name='follow_from')
+    follow_to = models.ForeignKey(User, related_name='follow_to')
     created = models.DateTimeField(auto_now_add=True, db_index=True)
 
     def __str__(self):
         return '%s follows %s' % (self.following, self.followed)
+
+User.add_to_class('following', models.ManyToManyField('self', through=Follow, related_name='followers', symmetrical=False))
