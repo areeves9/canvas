@@ -11,7 +11,7 @@ from accounts.forms import ProfileForm, UserForm
 from reviews.models import Review
 # Create your views here.
 def users(request):
-    users = User.objects.filer(is_active=True)
+    users = User.objects.filter(is_active=True)
     context = {
         "users": users,
     }
