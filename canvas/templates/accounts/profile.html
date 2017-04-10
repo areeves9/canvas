@@ -4,12 +4,13 @@
 
 {% block content %}
 <div class="row">
-  <h1>
+  <h1 class="username-header">
+    @{{ user.username }}'s Profile
     {% if request.user.profile.id == user.profile.id %}
-    <a href="{% url 'accounts:update' %}">  {% bootstrap_icon "edit" %}</a>
+      <span><a href="{% url 'accounts:update' %}">{% bootstrap_icon "edit" %}</a></span>
     {% endif %}
-    @{{ user.username }}'s Profile <span>{{ user.id }}</span>
   </h1>
+  <hr/>
   <h3>Joined on {{ user.date_joined }}</h3>
   <div class="well col-xs-12 col-md-4">
     {% if user.profile.photo %}
@@ -21,10 +22,10 @@
     <h3> {% bootstrap_icon "calendar" %} {{ user.profile.birthdate }}</h3>
     {% with total_followers=user.followers.count %}
     <span class="count">
-      <span class="total">{{ total_followers }}</span> follower{{ total_followers|pluralize }}
+      <span class="total">{{ total_followers }}</span> Follower{{ total_followers|pluralize }}
     </span>
     {% if request.user.profile.id != user.profile.id %}
-    | <a href="#" data-id="{{ user.id }}" data-action="{% if request.user in user.followers.all %}un{% endif %}follow" class="follow button">
+     <a href="#" data-id="{{ user.id }}" data-action="{% if request.user in user.followers.all %}un{% endif %}follow" class="follow button">
       {% if request.user not in user.followers.all %}
         Follow
       {% else %}
@@ -34,7 +35,7 @@
     {% endif %}
   </div> <!--/.well col-xs-12 col-md-4-->
   <div class="col-xs-12 col-md-8">
-    <h3> {{ user.profile.bio }}</h3>
+    <h3 class="text-center"> {{ user.profile.bio }}</h3>
   </div> <!--/.col-xs-12 col-md-8-->
 </div> <!--/.row-->
 <div class="row my-reviews">
@@ -51,6 +52,7 @@
         </div> <!--/.caption-->
       </div> <!--/.thumbnail-image-left-->
     </div> <!--/.well.col-xs-12.col-md-6-->
+
     {% endfor %}
     {% endif %}
 </div> <!--/.row-->

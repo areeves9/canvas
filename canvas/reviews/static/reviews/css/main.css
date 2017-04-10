@@ -12,6 +12,7 @@ body, html {
 
 a {
   text-decoration: none !important;
+  color: black;
 }
 
 .row.my-reviews{
@@ -35,6 +36,24 @@ a {
   width: 300px;
 }
 
+.count {
+    color: black;
+    font-weight: bold;
+    border:3px solid black;
+    border-radius:26px;
+    padding:10px 20px;
+    margin:20px 10px 0;
+    float: left;
+}
+.follow {
+  color: white;
+  font-weight: bold;
+  background-color: black;
+  border:3px solid white;
+  padding:10px 20px;
+  margin:20px 10px 0;
+  float: right;
+}
 .user-list h3 {
   margin-bottom: 50px;
 }

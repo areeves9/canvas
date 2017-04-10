@@ -10,13 +10,12 @@ body, html {
     margin: 0 auto;
   }
 
-
 a {
-  text-decoration: none;
+  text-decoration: none !important;
 }
 
-.row.my-reviews > h4 {
-  color: green;
+.row.my-reviews{
+  margin-top: 100px;
 }
 
 .thumbnail.image-left > img {
@@ -27,11 +26,28 @@ a {
 }
 
 .img-responsive.img-rounded.profile {
-  height: 100px;
-  width: 100px;
+  height: 55px;
+  width: 55px;
+}
+
+.username-header > a {
+  text-decoration: none !important;
 }
 
 .profile-photo {
-  height: 250px;
-  width: 250px;
+  height: 300px;
+  width: 300px;
+}
+
+.user-list h3 {
+  margin-bottom: 50px;
+}
+
+.user-list a {
+  color: black;
+}
+
+.user-list-element {
+  height: 200px;
+  width: 200px;
 }
