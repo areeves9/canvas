@@ -10,6 +10,14 @@ from accounts.forms import ProfileForm, UserForm
 
 from reviews.models import Review
 # Create your views here.
+def users(request):
+    users = User.objects.all()
+    context = {
+        "users": users,
+    }
+    return render(request, "accounts/users.html", context)
+
+
 @login_required
 def profile(request):
     user = request.user
