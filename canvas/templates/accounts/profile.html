@@ -8,7 +8,7 @@
     {% if request.user.profile.id == user.profile.id %}
     <a href="{% url 'accounts:update' %}">  {% bootstrap_icon "edit" %}</a>
     {% endif %}
-    @{{ user.username }}'s Profile
+    @{{ user.username }}'s Profile <span>{{ user.id }}</span>
   </h1>
   <h3>Joined on {{ user.date_joined }}</h3>
   <div class="well col-xs-12 col-md-4">

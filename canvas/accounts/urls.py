@@ -11,6 +11,7 @@ urlpatterns = [
         form_class=UserCreationForm,
         success_url='/accounts/login/',
     ), name='register'),
+    url(r'^users/follow/$', views.user_follow, name='user_follow'),
     url(r'^users/$', views.users, name='users'),
     url(r'^profile/$', views.profile, name='profile'),
     url(r'^profile/update/$', views.profile_update, name='update'),

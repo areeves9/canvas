@@ -2,10 +2,11 @@ from django.shortcuts import render, redirect
 
 from django.contrib import messages
 from django.contrib.auth.models import User
-from django.contrib.auth.decorators import login_required
-from django.http import Http404
+from django.views.decorators.http import require_POST
+from django.contrib.auth.decorators import login_required, ajax_required
+from django.http import Http404, JsonResponse
 
-from accounts.models import Profile
+from accounts.models import Profile, Follow
 from accounts.forms import ProfileForm, UserForm
 
 from reviews.models import Review
@@ -16,6 +17,24 @@ def users(request):
         "users": users,
     }
     return render(request, "accounts/users.html", context)
+
+@ajax_required
+@require_POST
+@login_required
+def user_follow(request):
+    user_id = request.POST.get('id')
+    action = request.POST.get('action')
+    if user_id and action:
+        try:
+            user = User.objects.get(id=user_id)
+            if action == 'follow':
+                Follow.objects.get_or_create(follow_from=request.user, follow_to=user)
+            else:
+                Follow.objects.filter(follow_from=request.user, follow_to=user).delete()
+            return JsonResponse({'status': 'ok'})
+        except User.DoesNotExist:
+            return JsonResponse({'status': 'ko'})
+        return JsonResponse({'status': 'ko'})
 
 
 @login_required
