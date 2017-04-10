@@ -31,6 +31,15 @@ a {
 }
 
 .profile-photo {
-  height: 250px;
-  width: 250px;
+  height: 300px;
+  width: 300px;
+}
+
+.user-list h3 {
+  text-align: center;
+}
+
+.user-list-element {
+  height: 300px;
+  width: 300px;
 }
