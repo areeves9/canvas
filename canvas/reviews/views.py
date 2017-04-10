@@ -13,7 +13,7 @@ from reviews.models import Strain, Review
 # Create your views here.
 
 def reviews(request):
-    review_list = Review.objects.all()
+    review_list = Review.objects.all().order_by("-timestamp")
     paginator = Paginator(review_list, 10)
     page = request.GET.get('page')
     try:
@@ -42,7 +42,7 @@ def review_update(request, id=None):
         if form.is_valid():
             review = form.save(commit=False)
             review.save()
-            messages.success(request, "<a href=''>Item</a> Saved", extra_tags="html_safe") 
+            messages.success(request, "<a href=''>Item</a> Saved", extra_tags="html_safe")
             return HttpResponseRedirect( '/reviews/')
         else:
             messages.error(request, "Update failed.")

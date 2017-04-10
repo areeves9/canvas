@@ -7,11 +7,17 @@
   {% for user in users %}
   <div class="user-list col-md-4 col-xs-12">
     {% if user.profile.photo %}
-    <img src="{{ user.profile.photo.url }}" class="user-list-element img-responsive img-circle">
+    <a href="{% url 'accounts:user' user.username %}">
+      <img src="{{ user.profile.photo.url }}" class="user-list-element img-responsive img-circle">
+    </a>
     {% else %}
-    <img src="http://placehold.it/300x300" class="user-list-element img-responsive img-circle">
+    <a href="{% url 'accounts:user' user.username %}">
+      <img src="http://placehold.it/300x300" class="user-list-element img-responsive img-circle">
+    </a>
     {% endif %}
-    <h3>@{{ user.username }}</h3>
+    <a class="username-link" href="{% url 'accounts:user' user.username %}">
+      <h3>@{{ user.username }}</h3>
+    </a>
   </div>
   {% endfor %}
 </row>

@@ -39,6 +39,14 @@ a {
   text-align: center;
 }
 
+.user-list a {
+  color: black;
+}
+
+.username-link > h3 {
+  margin-bottom: 50px;
+}
+
 .user-list-element {
   height: 300px;
   width: 300px;

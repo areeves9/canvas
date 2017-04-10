@@ -27,6 +27,7 @@
          <ul class="nav navbar-nav navbar-left">
            <li><a href="{% url 'reviews:strains' %}">Strains</a></li>
            <li><a href="{% url 'reviews:reviews' %}">Reviews</a></li>
+           <li><a href="{% url 'accounts:users' %}">Users</a></li>
          </ul> <!--/.nav navbar-nav navbar-left-->
          <ul class="nav navbar-nav navbar-right">
            {% if request.user.is_authenticated %}

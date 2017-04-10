@@ -4,7 +4,7 @@ from django.contrib import admin
 from accounts.models import Profile
 
 class ProfileModelAdmin(admin.ModelAdmin):
-    list_display = ["user", "location", "birthdate"]
+    list_display = ["user", "location", "birthdate", "photo"]
     list_display_link = ["user"]
     class Meta:
         model = Profile
