@@ -3,7 +3,7 @@ from django.shortcuts import render, redirect
 from django.contrib import messages
 from django.contrib.auth.models import User
 from django.views.decorators.http import require_POST
-from django.contrib.auth.decorators import login_required, ajax_required
+from django.contrib.auth.decorators import login_required
 from django.http import Http404, JsonResponse
 
 from accounts.models import Profile, Follow
@@ -18,7 +18,6 @@ def users(request):
     }
     return render(request, "accounts/users.html", context)
 
-@ajax_required
 @require_POST
 @login_required
 def user_follow(request):
