@@ -20,8 +20,8 @@
     <h3> {% bootstrap_icon "globe" %} {{ user.profile.location }}</h3>
     <h3> {% bootstrap_icon "calendar" %} {{ user.profile.birthdate }}</h3>
     {% with total_followers=user.followers.count %}
-    <span>
-      <span>{{ total_followers }}</span> follower{{ total_followers|pluralize }}
+    <span class="count">
+      <span class="total">{{ total_followers }}</span> follower{{ total_followers|pluralize }}
     </span>
     {% if request.user.profile.id != user.profile.id %}
     | <a href="#" data-id="{{ user.id }}" data-action="{% if request.user in user.followers.all %}un{% endif %}follow" class="follow button">
@@ -55,4 +55,28 @@
     {% endif %}
 </div> <!--/.row-->
 {% endwith %}
+{% endblock %}
+
+{% block domready %}
+  $('a.follow').click(function(e){
+    e.preventDefault();
+    $.post('{% url "accounts:user_follow" %}',
+    {
+      id: $(this).data('id'),
+      action: $(this).data('action')
+    },
+    function(data){
+      if (data['status'] == 'ok') {
+        var previous_action = $('a.follow').data('action');
+
+        $('a.follow').data('action', previous_action == 'follow' ? 'unfollow' : 'follow');
+        $('a.follow').text(previous_action == 'follow' ? 'Unfollow' : 'Follow');
+
+        var previous_followers = parseInt(
+          $('span.count .total').text());
+        $('span.count .total').text(previous_action == 'follow' ? previous_followers + 1 : previous_followers -1);
+      }
+    }
+    );
+  });
 {% endblock %}
