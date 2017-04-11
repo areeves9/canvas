@@ -21,7 +21,7 @@ class Strain(models.Model):
 class Review(models.Model):
     title = models.CharField(max_length=35)
     content = models.TextField(max_length=500)
-    strain = models.ForeignKey(Strain)
+    strain = models.ForeignKey(Strain, related_name="user_review")
     user = models.ForeignKey(settings.AUTH_USER_MODEL,  related_name="user" ,default=1)
     photo = models.ImageField(
         upload_to=upload_location,

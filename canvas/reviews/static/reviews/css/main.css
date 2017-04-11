@@ -26,6 +26,11 @@ a {
   max-height: 200px;
 }
 
+.img-responsive.img-circle.profile {
+  height: 55px;
+  width: 55px;
+}
+
 .img-responsive.img-rounded.profile {
   height: 55px;
   width: 55px;

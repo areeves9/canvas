@@ -43,10 +43,12 @@ def profile(request):
     user = request.user
     review_list = Review.objects.filter(user=user)
     review_numbers = Review.objects.filter(user=user).count()
+    followers = user.followers.all()
     context = {
         "user": user,
         "review_list": review_list,
         "review_numbers": review_numbers,
+        "followers": followers,
     }
     return render(request, "accounts/profile.html", context)
 
@@ -57,12 +59,14 @@ def profile_user(request, username=""):
             user = User.objects.get(username=username)
             review_list = Review.objects.filter(user=user)
             review_numbers = Review.objects.filter(user=user).count()
+            followers = user.followers.all()
         except User.DoesNotExist:
             raise Http404
         context = {
             "user": user,
             "review_list": review_list,
             "review_numbers": review_numbers,
+            "followers": followers,
         }
         return render(request, "accounts/profile.html", context)
 

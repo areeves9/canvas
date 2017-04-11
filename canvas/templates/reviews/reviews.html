@@ -5,7 +5,7 @@
 {% block content %}
 <h1>Latest Reviews</h1>
 <div class="row reviews">
-  <div class="col-sm-12 col-lg-12">
+  <div class="well col-sm-12 col-lg-12">
       {% for review in reviews %}
     <div class="thumbnail image-left">
       {% if review.photo %}
@@ -15,10 +15,11 @@
         <h3><a href="{{ review.get_absolute_url }}">{{ review.title|upper}}</a></h3>
       <hr/>
         <h3>{{ review.content|linebreaks|truncatechars:95}}</h3>
+        <p class="text-center">Updated {{ review.updated }}</p>
       </br>
-        <h3>Strain {{ review.strain }}</h3>
-        <h3>Updated {{ review.updated }}</h3>
-        <h3>Reviewed by <a href="{% url 'accounts:user' review.user.username %}">{{ review.user.username }}</a></h3>
+        <h3>Strain <a href="{{ review.strain.get_absolute_url }}">{{ review.strain }}</a></h3>
+        <h4>Reviewed by <a href="{% url 'accounts:user' review.user.username %}">{{ review.user.username }}</a></h4>
+        <img class="float-right img-responsive img-circle profile" src="{{ review.user.profile.photo.url }}">
       </div> <!--/.caption-->
     </div> <!--/.thumbnail image-left-->
     {% endfor %}

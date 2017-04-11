@@ -7,11 +7,11 @@
   <h1 class="username-header">
     @{{ user.username }}'s Profile
     {% if request.user.profile.id == user.profile.id %}
-      <span><a href="{% url 'accounts:update' %}">{% bootstrap_icon "edit" %}</a></span>
+      <a href="{% url 'accounts:update' %}">{% bootstrap_icon "edit" %}</a>
     {% endif %}
   </h1>
+  <!-- <p>Joined on {{ user.date_joined }}</p> -->
   <hr/>
-  <h3>Joined on {{ user.date_joined }}</h3>
   <div class="well col-xs-12 col-md-4">
     {% if user.profile.photo %}
       <img class="img-responsive img-circle" src="{{ user.profile.photo.url }}"/>
@@ -41,7 +41,7 @@
 <div class="row my-reviews">
   <h4>My Reviews ({{ review_numbers }})</h4>
     {% if review_list %}
-    {% for review in review_list %}
+      {% for review in review_list %}
     <div class="col-xs-12 col-md-12 profile">
       <div class="thumbnail image-left">
       {% if review.photo %}
@@ -51,11 +51,29 @@
           <h3><a href="{{ review.get_absolute_url }}">{{ review.title }}</a></h3>
         </div> <!--/.caption-->
       </div> <!--/.thumbnail-image-left-->
-    </div> <!--/.well.col-xs-12.col-md-6-->
-
+    </div> <!--/.col-xs-12 col-md-12 profile-->
     {% endfor %}
     {% endif %}
 </div> <!--/.row-->
+<div class="row my-followers">
+  <h4>My Followers ({{ total_followers }})</h4>
+  {% if followers %}
+    {% for follower in followers %}
+  <div class="col-xs-12 col-md-12 profile">
+    <div class="thumbnail image-left">
+      {% if follower.profile.photo %}
+        <img class="img-responsive img-rounded profile" src="{{ follower.profile.photo.url }}">
+      {% endif %}
+      <div class="caption">
+        <h4><a href="{% url 'accounts:user' follower.username %}">@{{ follower.username }}</a></h4>
+      </div> <!--/.caption-->
+    </div> <!--/.thumbnail-image-left-->
+  </div> <!--/.col-xs-12 col-md-12 profile-->
+      {% endfor %}
+    {% endif %}
+</row> <!--/.row my-followers-->
+
+
 {% endwith %}
 {% endblock %}
 
