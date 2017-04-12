@@ -71,3 +71,8 @@ a {
   height: 200px;
   width: 200px;
 }
+.strain.thumbnail > img {
+  max-height: 60px;
+  max-width: 60px;
+  float:left;
+}

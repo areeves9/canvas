@@ -8,9 +8,21 @@ from django.utils import timezone
 def upload_location(instance, filename):
     return "%s/%s" % (instance.user, filename)
 
+def upload_location1(instance, filename):
+    return "%s/%s" % (instance, filename)
+
 class Strain(models.Model):
     name = models.CharField(max_length=60)
     summary = models.TextField(blank=True, null=True)
+    photo = models.ImageField(
+        upload_to=upload_location1,
+        blank=True,
+        null=True,
+        height_field="height_field",
+        width_field="width_field",
+    )
+    height_field = models.IntegerField(default=0, null=True)
+    width_field = models.IntegerField(default=0, null=True)
 
     def get_absolute_url(self):
         return reverse("reviews:strain", kwargs={"id": self.id})

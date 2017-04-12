@@ -15,6 +15,8 @@
   <div class="well col-xs-12 col-md-4">
     {% if user.profile.photo %}
       <img class="img-responsive img-circle" src="{{ user.profile.photo.url }}"/>
+    {% else %}
+      <img class="img-responsive img-circle" src="http://placehold.it/300x300"/>
     {% endif %}
     <h3> {% bootstrap_icon "user" %} {{ user.first_name }} {{ user.last_name }}</h3>
     <h3> {% bootstrap_icon "envelope" %} {{ user.email }}</h3>

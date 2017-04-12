@@ -19,7 +19,7 @@
       </br>
         <h3>Strain <a href="{{ review.strain.get_absolute_url }}">{{ review.strain }}</a></h3>
         <h4>Reviewed by <a href="{% url 'accounts:user' review.user.username %}">{{ review.user.username }}</a></h4>
-        <img class="float-right img-responsive img-circle profile" src="{{ review.user.profile.photo.url }}">
+        <img class="img-responsive img-circle profile" src="{{ review.user.profile.photo.url }}">
       </div> <!--/.caption-->
     </div> <!--/.thumbnail image-left-->
     {% endfor %}

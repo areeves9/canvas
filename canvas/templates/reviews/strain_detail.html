@@ -7,7 +7,9 @@
   <div class="well col-sm-12 col-lg-6">
     <div class="thumbnail">
       {% load static %}
-      <img class="img-responsive" src="http://placehold.it/350x350">
+      {% if strain.photo %}
+      <img class="img-responsive" src="{{ strain.photo.url }}">
+      {% endif %}
     </div>
     <h1>{{ strain.name }}</h1>
     <p>{{ strain.summary }}</h1>
