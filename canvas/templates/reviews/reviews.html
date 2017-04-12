@@ -15,11 +15,11 @@
         <h3><a href="{{ review.get_absolute_url }}">{{ review.title|upper}}</a></h3>
       <hr/>
         <h3>{{ review.content|linebreaks|truncatechars:95}}</h3>
-        <p class="text-center">Updated {{ review.updated }}</p>
       </br>
         <h3>Strain <a href="{{ review.strain.get_absolute_url }}">{{ review.strain }}</a></h3>
         <h4>Reviewed by <a href="{% url 'accounts:user' review.user.username %}">{{ review.user.username }}</a></h4>
         <img class="img-responsive img-circle profile" src="{{ review.user.profile.photo.url }}">
+        <p class="text-left">Updated {{ review.updated }}</p>
       </div> <!--/.caption-->
     </div> <!--/.thumbnail image-left-->
     {% endfor %}
