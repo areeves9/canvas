@@ -50,6 +50,15 @@ a {
     margin:20px 10px 0;
     float: left;
 }
+.like.button {
+  color: black;
+  font-weight: bold;
+  border:3px solid black;
+  border-radius:26px;
+  padding:10px 20px;
+  margin:20px 10px 0;
+  float: right;
+}
 .follow {
   color: white;
   font-weight: bold;

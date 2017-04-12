@@ -47,7 +47,7 @@ def review_like(request):
             if action == 'like':
                 review.users_like.add(request.user)
             else:
-                image.users_like.remove(request.user)
+                review.users_like.remove(request.user)
             return JsonResponse({'status': 'ok'})
         except:
             pass
