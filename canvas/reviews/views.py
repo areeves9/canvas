@@ -6,10 +6,12 @@ from django.core.urlresolvers import reverse
 from django.shortcuts import render, get_object_or_404
 
 from django.core.paginator import Paginator, EmptyPage, PageNotAnInteger
-from django.http import HttpResponseRedirect
+from django.http import HttpResponseRedirect, JsonResponse
 
 from reviews.forms import ReviewForm
 from reviews.models import Strain, Review
+
+from django.views.decorators.http import require_POST
 # Create your views here.
 
 def reviews(request):
@@ -33,6 +35,23 @@ def review_detail(request, id=None):
         "review": review,
     }
     return render(request, "reviews/review_detail.html", context)
+
+@login_required
+@require_POST
+def review_like(request):
+    review_id = request.POST.get('id')
+    action = request.POST.get('action')
+    if review_id and action:
+        try:
+            review = Review.objects.get(id=review_id)
+            if action == 'like':
+                review.users_like.add(request.user)
+            else:
+                image.users_like.remove(request.user)
+            return JsonResponse({'status': 'ok'})
+        except:
+            pass
+    return JsonResponse({'status': 'ko'})
 
 @login_required
 def review_update(request, id=None):
