@@ -60,6 +60,7 @@ class Review(models.Model):
     )
     timestamp = models.DateTimeField(auto_now=False, auto_now_add=True)
     updated = models.DateTimeField(auto_now=True, auto_now_add=False)
+    users_like = models.ManyToManyField(settings.AUTH_USER_MODEL, related_name="reviews_liked", blank=True)
 
     class Meta:
         ordering = ["-timestamp", "-updated"]
