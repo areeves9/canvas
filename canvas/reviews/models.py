@@ -1,3 +1,5 @@
+import requests
+from PIL import Image
 from django.db import models
 from django.core.urlresolvers import reverse
 from django.conf import settings
@@ -27,6 +29,13 @@ class Strain(models.Model):
     def get_absolute_url(self):
         return reverse("reviews:strain", kwargs={"id": self.id})
 
+    def get_strain_image(self):
+        cannabis_reports_url = "https://www.cannabisreports.com/api/v1.0/strains/search/%s" % (self.name)
+        r = requests.get(cannabis_reports_url)
+        data = r.json()
+        image_url = data['data'][0]['image']
+        return image_url
+        
     def __str__(self):
         return self.name
 
