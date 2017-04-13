@@ -41,6 +41,11 @@ a {
   width: 300px;
 }
 
+.strain-photo {
+  max-height: 500px;
+  max-width: 500px;
+}
+
 .count {
     color: black;
     font-weight: bold;

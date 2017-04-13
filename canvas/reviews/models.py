@@ -7,6 +7,10 @@ from django.utils import timezone
 
 # Create your models here.
 
+headers = {
+    'X-API-Key': '08dd8bf42f9ca621002213991f9ef5bf96fdd66a',
+}
+
 def upload_location(instance, filename):
     return "%s/%s" % (instance.user, filename)
 
@@ -31,11 +35,19 @@ class Strain(models.Model):
 
     def get_strain_image(self):
         cannabis_reports_url = "https://www.cannabisreports.com/api/v1.0/strains/search/%s" % (self.name)
-        r = requests.get(cannabis_reports_url)
-        data = r.json()
-        image_url = data['data'][0]['image']
-        return image_url
-        
+        r = requests.get(cannabis_reports_url, headers)
+        if r.status_code == 200:
+            data = r.json()
+            image_url = data['data'][0]['image']
+            # im = Image.open(requests.get(image_url, stream=True).raw)
+            # size = (300, 300)
+            # new_im = im.resize(size)
+            # new_im.save('resized_image', 'png')
+            return image_url
+        else:
+            placehold = "http://placehold.it/500x500"
+            return placehold
+
     def __str__(self):
         return self.name
 

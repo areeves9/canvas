@@ -6,12 +6,7 @@
 <div class="row">
   <div class="well col-sm-12 col-lg-6">
     <div class="thumbnail">
-      {% load static %}
-      {% if strain.photo %}
-      <img class="img-responsive" src="{{ strain.get_strain_image }}">
-      {% endif %}
-      <!-- <img class="img-responsive" src="{{ strain.get_strain_image }}"> -->
-
+      <img class="img-responsive strain-photo" src="{{ strain.get_strain_image }}">
     </div>
     <h1>{{ strain.name }}</h1>
     <p>{{ strain.summary }}</h1>
