@@ -1,3 +1,4 @@
+import os
 import requests
 from PIL import Image
 from django.db import models
@@ -40,9 +41,10 @@ class Strain(models.Model):
             data = r.json()
             image_url = data['data'][0]['image']
             # im = Image.open(requests.get(image_url, stream=True).raw)
-            # size = (300, 300)
+            # size = (500, 500)
             # new_im = im.resize(size)
-            # new_im.save('resized_image', 'png')
+            # save_location = '/Users/ivorybook/code/canvas/canvas/reviews/static/reviews/images/%s.jpg' % (self.name)
+            # new_im.save(save_location)
             return image_url
         else:
             placehold = "http://placehold.it/500x500"

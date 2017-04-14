@@ -4,6 +4,8 @@
     <meta charset="utf-8"/>
     <meta content="width=device-width, user-scalable=no, initial-scale=1.0" name="viewport"/>
     <title>{% block head_title %}Canvas Reviews{% endblock head_title %}</title>
+    <script src="https://code.jquery.com/jquery-2.2.4.min.js" integrity="sha256-BbhdlvQf/xTY9gja0Dq3HiwQF8LaCRTXxZKRutelT44=" crossorigin="anonymous"></script>
+
 
     {% load bootstrap3 %}
 
@@ -45,7 +47,6 @@
       {% block content %}
       {% endblock %}
     </div> <!--/.container-->
-    <script src="https://code.jquery.com/jquery-2.2.4.min.js" integrity="sha256-BbhdlvQf/xTY9gja0Dq3HiwQF8LaCRTXxZKRutelT44=" crossorigin="anonymous"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery-cookie/1.4.1/jquery.cookie.js"></script>
     <script>
       var csrftoken = $.cookie('csrftoken');
