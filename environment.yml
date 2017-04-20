@@ -1,0 +1,59 @@
+name: canvas
+channels:
+- !!python/unicode
+  'anaconda'
+- !!python/unicode
+  'conda-forge'
+- !!python/unicode
+  'anaconda-fusion'
+- !!python/unicode
+  'defaults'
+dependencies:
+- !!python/unicode
+  'requests=2.13.0=py35_0'
+- !!python/unicode
+  'gunicorn=19.7.1=py35_0'
+- !!python/unicode
+  'django=1.10.5=py35_0'
+- !!python/unicode
+  'freetype=2.5.5=2'
+- !!python/unicode
+  'jbig=2.1=0'
+- !!python/unicode
+  'jpeg=9b=0'
+- !!python/unicode
+  'libpng=1.6.27=0'
+- !!python/unicode
+  'libpq=9.5.4=0'
+- !!python/unicode
+  'libtiff=4.0.6=3'
+- !!python/unicode
+  'olefile=0.44=py35_0'
+- !!python/unicode
+  'openssl=1.0.2k=1'
+- !!python/unicode
+  'pillow=4.0.0=py35_1'
+- !!python/unicode
+  'pip=9.0.1=py35_1'
+- !!python/unicode
+  'psycopg2=2.7.1=py35_0'
+- !!python/unicode
+  'python=3.5.3=1'
+- !!python/unicode
+  'readline=6.2=2'
+- !!python/unicode
+  'setuptools=27.2.0=py35_0'
+- !!python/unicode
+  'sqlite=3.13.0=0'
+- !!python/unicode
+  'tk=8.5.18=0'
+- !!python/unicode
+  'wheel=0.29.0=py35_0'
+- !!python/unicode
+  'xz=5.2.2=1'
+- !!python/unicode
+  'zlib=1.2.8=3'
+- pip:
+  - django-bootstrap3==8.2.1
+prefix: !!python/unicode '/Users/ivorybook/anaconda2/envs/canvas'
+
