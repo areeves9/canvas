@@ -26,16 +26,19 @@ a {
   max-height: 200px;
 }
 
+/*for review list and profile*/
 .img-responsive.img-circle.strain {
   height: 55px;
   width: 55px;
 }
 
+/*for review list and profile*/
 .img-responsive.img-circle.profile {
   height: 55px;
   width: 55px;
 }
 
+/*for review list and profile*/
 .img-responsive.img-rounded.profile {
   height: 55px;
   width: 55px;
