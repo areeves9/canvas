@@ -9,7 +9,11 @@
     {% for strain in strains %}
     {% load static %}
     <div class="strain thumbnail">
-      <image class="img-responsive img-circle" src="{{ strain.get_strain_image }}">
+      {% if strain.photo_url %}
+      <image class="img-responsive img-circle strain" src="{{ strain.photo_url }}">
+      {% else %}
+      <image class="img-responsive img-circle strain" src="{{ strain.get_strain_image }}">
+      {% endif %}
       <div class="caption">
         <h3><a href="{{ strain.get_absolute_url }}">{{ strain.name|upper }}</a></h3>
       </div> <!--/.caption-->

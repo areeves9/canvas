@@ -2,12 +2,14 @@ import os
 import requests
 from PIL import Image
 from django.db import models
+from django.core.files import File
 from django.core.urlresolvers import reverse
 from django.conf import settings
 from django.utils import timezone
 
 # Create your models here.
 
+# save key to environment variable
 headers = {
     'X-API-Key': '08dd8bf42f9ca621002213991f9ef5bf96fdd66a',
 }
@@ -28,6 +30,7 @@ class Strain(models.Model):
         height_field="height_field",
         width_field="width_field",
     )
+    photo_url = models.URLField(null=True, blank=True)
     height_field = models.IntegerField(default=0, null=True)
     width_field = models.IntegerField(default=0, null=True)
 
@@ -35,20 +38,32 @@ class Strain(models.Model):
         return reverse("reviews:strain", kwargs={"id": self.id})
 
     def get_strain_image(self):
-        cannabis_reports_url = "https://www.cannabisreports.com/api/v1.0/strains/search/%s" % (self.name)
-        r = requests.get(cannabis_reports_url, headers)
-        if r.status_code == 200:
-            data = r.json()
-            image_url = data['data'][0]['image']
-            # im = Image.open(requests.get(image_url, stream=True).raw)
-            # size = (500, 500)
-            # new_im = im.resize(size)
-            # save_location = '/Users/ivorybook/code/canvas/canvas/reviews/static/reviews/images/%s.jpg' % (self.name)
-            # new_im.save(save_location)
-            return image_url
-        else:
-            placehold = "http://placehold.it/500x500"
-            return placehold
+        if not self.photo_url:
+            cannabis_reports_url = "https://www.cannabisreports.com/api/v1.0/strains/search/%s" % (self.name)
+            r = requests.get(cannabis_reports_url, headers)
+            if r.status_code == 200:
+                data = r.json() # json strain object
+                image_url = data['data'][0]['image'] # url property of object
+                self.photo_url = image_url
+                self.save()
+                return self.photo_url
+            # im = Image.open(requests.get(image_url, stream=True).raw) # open that url to get the image
+                # size = (500, 500) # desired image dimensions
+                # new_im = im.resize(size) # resize image
+                # save_location =  ('reviews/static/reviews/images/%s.jpg') % (self.name) # set location to save image
+                # im.save(save_location) # save image
+
+                # self.photo.save(
+                #     os.path.basename(save_location),
+                #     File(open(os.path.dirname(save_location), 'rb'))
+                # )
+                # self.save()
+                # return image_url
+            # elif (r.status_code != 200) or (not self.photo_url):
+            #     placehold = "http://placehold.it/500x500"
+            #     return placehold
+            else:
+                return self.photo_url
 
     def __str__(self):
         return self.name
