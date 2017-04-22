@@ -16,25 +16,23 @@
     <h3>Summary</h3>
     <p>From <a href="https://www.leafly.com">Leafly.com</a>--{{ strain.summary }}</p>
     {% if strain.lineage %}
-      <h3 class="text-center">Lineage</h3>
+    <h3 class="text-center">Lineage</h3>
       {% for country, value in countries.items %}
-        <img src="http://www.geognos.com/api/en/countries/flag/{{ value }}.png">
-        <p>{{ country }}</p>
+    <img style="display:inline-block" src="http://www.geognos.com/api/en/countries/flag/{{ value }}.png">
+    <p>{{ country }}</p>
       {% endfor %}
-    {% else %}
+      {% elif not strain.lineage %}
+      {% else %}
     <h3>Lineage </h3>
     <p>{{ strain.get_strain_lineage }}</p>
-    {% endif %}
-      <h1>Flavors</h1>
-      <h1>Seed Co.</h1>
-      <h1>Type</h1>
-      {% buttons %}
-      <a href="{% url 'reviews:review' strain.id %}">
-        <button class="btn btn-default">
-          {% bootstrap_icon "star" %} Review
-        </button>
-      </a>
-      {% endbuttons %}
+      {% endif %}
+    {% buttons %}
+    <a href="{% url 'reviews:review' strain.id %}">
+      <button class="btn btn-default">
+        {% bootstrap_icon "star" %} Review
+      </button>
+    </a>
+    {% endbuttons %}
   </div>
 </div>
 {% endblock %}
