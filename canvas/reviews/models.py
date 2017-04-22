@@ -67,19 +67,6 @@ class Strain(models.Model):
                 self.save()
                 return self.lineage
 
-    # def get_flags(self):
-    #     countries = self.lineage
-    #     iso = []
-    #     for key, value in countires.item():
-    #         value.append(iso)
-    #     flags = []
-    #     for country in countries:
-    #         r = requests.get('https://restcountries.eu/rest/v2/name/%s?fullText=true') %s (country)
-    #         data = r.json()
-    #         flag = data[0]['flag']
-    #         # flags.append(flag)
-    #         return flag
-
     def __str__(self):
         return self.name
 
