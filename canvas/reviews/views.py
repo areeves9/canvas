@@ -12,6 +12,8 @@ from reviews.forms import ReviewForm
 from reviews.models import Strain, Review
 
 from django.views.decorators.http import require_POST
+
+import json
 # Create your views here.
 
 def reviews(request):
@@ -80,8 +82,10 @@ def strains(request):
 
 def strain_detail(request, id=None):
     strain = get_object_or_404(Strain, id=id)
+    countries = strain.lineage
     context = {
         "strain": strain,
+        "countries": countries,
     }
     return render(request, "reviews/strain_detail.html", context)
 

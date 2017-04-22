@@ -4,6 +4,7 @@ from PIL import Image
 from django.db import models
 from django.core.files import File
 from django.core.urlresolvers import reverse
+from django.contrib.postgres.fields import JSONField
 from django.conf import settings
 from django.utils import timezone
 
@@ -14,6 +15,9 @@ headers = {
     'X-API-Key': '08dd8bf42f9ca621002213991f9ef5bf96fdd66a',
 }
 
+cannabis_reports_url = "https://www.cannabisreports.com/api/v1.0/strains/search/"
+flag_api_url = "https://restcountries.eu/rest/v2/name/"
+
 def upload_location(instance, filename):
     return "%s/%s" % (instance.user, filename)
 
@@ -23,6 +27,7 @@ def upload_location1(instance, filename):
 class Strain(models.Model):
     name = models.CharField(max_length=60)
     summary = models.TextField(blank=True, null=True)
+    lineage = JSONField(blank=True, null=True)
     photo = models.ImageField(
         upload_to=upload_location1,
         blank=True,
@@ -39,8 +44,8 @@ class Strain(models.Model):
 
     def get_strain_image(self):
         if not self.photo_url:
-            cannabis_reports_url = "https://www.cannabisreports.com/api/v1.0/strains/search/%s" % (self.name)
-            r = requests.get(cannabis_reports_url, headers)
+            strain_query_url = cannabis_reports_url + "%s" % (self.name)
+            r = requests.get(strain_query_url, headers)
             if r.status_code == 200:
                 data = r.json() # json strain object
                 image_url = data['data'][0]['image'] # url property of object
@@ -48,22 +53,32 @@ class Strain(models.Model):
                 self.save()
                 return self.photo_url
             # im = Image.open(requests.get(image_url, stream=True).raw) # open that url to get the image
-                # size = (500, 500) # desired image dimensions
-                # new_im = im.resize(size) # resize image
-                # save_location =  ('reviews/static/reviews/images/%s.jpg') % (self.name) # set location to save image
-                # im.save(save_location) # save image
-
-                # self.photo.save(
-                #     os.path.basename(save_location),
-                #     File(open(os.path.dirname(save_location), 'rb'))
-                # )
-                # self.save()
-                # return image_url
-            # elif (r.status_code != 200) or (not self.photo_url):
-            #     placehold = "http://placehold.it/500x500"
-            #     return placehold
             else:
                 return self.photo_url
+
+    def get_strain_lineage(self):
+        if not self.lineage:
+            strain_query_url = cannabis_reports_url + "%s" % (self.name)
+            r = requests.get(strain_query_url, headers)
+            if r.status_code == 200:
+                data = r.json() # json strain object
+                lineage_json = data['data'][0]['lineage'] # lineage property of object
+                self.lineage = lineage_json
+                self.save()
+                return self.lineage
+
+    # def get_flags(self):
+    #     countries = self.lineage
+    #     iso = []
+    #     for key, value in countires.item():
+    #         value.append(iso)
+    #     flags = []
+    #     for country in countries:
+    #         r = requests.get('https://restcountries.eu/rest/v2/name/%s?fullText=true') %s (country)
+    #         data = r.json()
+    #         flag = data[0]['flag']
+    #         # flags.append(flag)
+    #         return flag
 
     def __str__(self):
         return self.name

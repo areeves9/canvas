@@ -6,11 +6,25 @@
 <div class="row">
   <div class="well col-sm-12 col-lg-6">
     <div class="thumbnail">
+      {% if strain.photo_url%}
       <img class="img-responsive strain-photo" src="{{ strain.photo_url }}">
+      {% else %}
+      <image class="img-responsive strain-photo" src="{{ strain.get_strain_image }}">
+      {% endif %}
     </div>
     <h1>{{ strain.name }}</h1>
-    <p>{{ strain.summary }}</h1>
-      <h1>Lineage</h1>
+    <h3>Summary</h3>
+    <p>From <a href="https://www.leafly.com">Leafly.com</a>--{{ strain.summary }}</p>
+    {% if strain.lineage %}
+      <h3 class="text-center">Lineage</h3>
+      {% for country, value in countries.items %}
+        <img src="http://www.geognos.com/api/en/countries/flag/{{ value }}.png">
+        <p>{{ country }}</p>
+      {% endfor %}
+    {% else %}
+    <h3>Lineage </h3>
+    <p>{{ strain.get_strain_lineage }}</p>
+    {% endif %}
       <h1>Flavors</h1>
       <h1>Seed Co.</h1>
       <h1>Type</h1>
