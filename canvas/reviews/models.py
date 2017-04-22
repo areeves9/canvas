@@ -62,10 +62,11 @@ class Strain(models.Model):
             r = requests.get(strain_query_url, headers)
             if r.status_code == 200:
                 data = r.json() # json strain object
-                lineage_json = data['data'][0]['lineage'] # lineage property of object
-                self.lineage = lineage_json
-                self.save()
-                return self.lineage
+            lineage_json = data['data'][0]['lineage'] # lineage property of object
+            self.lineage = lineage_json
+            self.save()
+            return self.lineage
+
 
     def __str__(self):
         return self.name
