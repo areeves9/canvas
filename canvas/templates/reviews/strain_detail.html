@@ -33,10 +33,12 @@
     {% else %}
       {{ strain.get_strain_lineage }}
     {% endif %}
+    {% if reviews %}
     <h3>Reviews</h3>
-    {% for review in reviews %}
+      {% for review in reviews %}
     <a href="{{ review.get_absolute_url }}"><p>{{ review.title }}</p></a>
-    {% endfor %}
+      {% endfor %}
+    {% endif %}
   </div> <!--/.well col-sm-12 col-lg-6-->
 </div> <!--/.row-->
 {% endblock %}

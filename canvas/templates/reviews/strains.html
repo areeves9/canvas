@@ -18,9 +18,9 @@
       <image class="img-responsive img-circle strain" src="{{ strain.get_strain_image }}">
       {% endif %}
       <div class="caption">
-        <h4 class="text-left"><a href="{{ strain.get_absolute_url }}">{{ strain.name|upper }}</a></h4>
+        <h4 style="margin:20px;"class="text-left"><a href="{{ strain.get_absolute_url }}">{{ strain.name|upper }}</a></h4>
         <span>
-          <span>{{ total_reviews }}</span>review{{ total_reviews|pluralize }}
+          <span>{{ total_reviews }} </span>review{{ total_reviews|pluralize }}
         </span>
       </div> <!--/.caption-->
     </div> <!--/.strain thumbnail-->
