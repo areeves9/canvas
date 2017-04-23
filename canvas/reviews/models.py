@@ -42,6 +42,12 @@ class Strain(models.Model):
     def get_absolute_url(self):
         return reverse("reviews:strain", kwargs={"id": self.id})
 
+
+
+    def get_average_rating(self):
+        all_ratings = [x.rating * 1 for x.rating in self.user_review.all()]
+        return float(sum(all_ratings))/len(all_ratings)
+
     def get_strain_image(self):
         if not self.photo_url:
             strain_query_url = cannabis_reports_url + "%s" % (self.name)
@@ -67,7 +73,7 @@ class Strain(models.Model):
             self.save()
             return self.lineage
 
-    
+
 
     def __str__(self):
         return self.name
@@ -105,6 +111,14 @@ class Review(models.Model):
         default='FLOWER',
         blank=False
     )
+    RATING_CHOICES = (
+        (1, '1'),
+        (2, '2'),
+        (3, '3'),
+        (4, '4'),
+        (5, '5'),
+    )
+    rating = models.IntegerField(choices=RATING_CHOICES, default=5)
     timestamp = models.DateTimeField(auto_now=False, auto_now_add=True)
     updated = models.DateTimeField(auto_now=True, auto_now_add=False)
     users_like = models.ManyToManyField(settings.AUTH_USER_MODEL, related_name="reviews_liked", blank=True)
