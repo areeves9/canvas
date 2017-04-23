@@ -56,6 +56,9 @@ class Strain(models.Model):
             else:
                 return self.photo_url
 
+    class Meta:
+        ordering = ["name"]
+
     def get_strain_lineage(self):
         if not self.lineage:
             strain_query_url = cannabis_reports_url + "%s" % (self.name)

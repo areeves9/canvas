@@ -33,7 +33,7 @@
         <img class="img-responsive img-circle profile" src="{{ review.user.profile.photo.url }}">
         <h4>Reviewed by <a href="{% url 'accounts:user' review.user.username %}">{{ review.user.username }}</a></h4>
         <p class="text-left">Updated {{ review.updated }}</p>
-        <span>{% bootstrap_icon "thumbs-up" %} {{ review.users_like.count }}</span>
+        <span>{% bootstrap_icon "heart" %} {{ review.users_like.count }}</span>
       </div> <!--/.caption-->
     </div> <!--/.thumbnail image-left-->
     {% endfor %}

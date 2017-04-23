@@ -26,11 +26,25 @@ a {
   max-height: 200px;
 }
 
+/* review's photo in thumbnail of reviews.html */
+.img-responsive.img-circle.review {
+  height: 300px;
+  width: 300px;
+}
+
+/* small circle thumbnail for strains.html div*/
+.img-responsive.img-circle.strain {
+  height: 55px;
+  width: 55px;
+}
+
+/*user profile photo on review list*/
 .img-responsive.img-circle.profile {
   height: 55px;
   width: 55px;
 }
 
+/*for review list and profile followers section*/
 .img-responsive.img-rounded.profile {
   height: 55px;
   width: 55px;
@@ -89,4 +103,8 @@ a {
   max-height: 60px;
   max-width: 60px;
   float:left;
+}
+
+.flag {
+  display: inline;
 }

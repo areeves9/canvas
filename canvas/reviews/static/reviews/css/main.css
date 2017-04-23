@@ -104,3 +104,9 @@ a {
   max-width: 60px;
   float:left;
 }
+
+.flag {
+  /*float: left;*/
+  margin-left: 10px;
+  margin-top: 20px;
+}
