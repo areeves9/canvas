@@ -13,7 +13,7 @@
     <p>{{ review.updated }}</p>
     <span class="count">
       <span class="total">{{ total_likes }}</span>
-      like{{ total_likes|pluralize }}
+      Like{{ total_likes|pluralize }}
     </span>
 
     <a href="#" data-id="{{ review.id }}" data-action="{% if request.user in users_like %}un{% endif %}like" class="like button">

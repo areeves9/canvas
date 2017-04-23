@@ -82,9 +82,11 @@ def strains(request):
 
 def strain_detail(request, id=None):
     strain = get_object_or_404(Strain, id=id)
+    reviews = strain.user_review.all()
     countries = strain.lineage
     context = {
         "strain": strain,
+        "reviews": reviews,
         "countries": countries,
     }
     return render(request, "reviews/strain_detail.html", context)
