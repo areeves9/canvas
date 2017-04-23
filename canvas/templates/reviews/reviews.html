@@ -10,16 +10,28 @@
       {% for review in reviews %}
     <div class="thumbnail image-left">
       {% if review.photo %}
-      <img class="img-responsive img-circle" src="{{ review.photo.url }}">
+      <img class="img-responsive img-circle review" src="{{ review.photo.url }}">
+      {% else %}
+      <img class="img-responsive img-circle" src="https://www.placehold.it/300x300">
       {% endif %}
       <div class="caption">
         <h3><a href="{{ review.get_absolute_url }}">{{ review.title|upper}}</a></h3>
+        <br/>
+        <h3>
+          <a href="{{ review.strain.get_absolute_url }}">{{ review.strain }}</a>
+          {% if review.method == 'FLOWER'%}
+          <span class="glyphicon glyphicon-leaf"></span>
+          {% elif review.method == 'EXTRACT' %}
+          <span class="glyphicon glyphicon-tint"></span>
+          {% else %}
+          <span class="glyphicon glyphicon-ice-lolly-tasted"></span>
+          {% endif %}
+        </h3>
       <hr/>
         <h3>{{ review.content|linebreaks|truncatechars:95}}</h3>
       </br>
-        <h3>Strain <a href="{{ review.strain.get_absolute_url }}">{{ review.strain }}</a></h3>
-        <h4>Reviewed by <a href="{% url 'accounts:user' review.user.username %}">{{ review.user.username }}</a></h4>
         <img class="img-responsive img-circle profile" src="{{ review.user.profile.photo.url }}">
+        <h4>Reviewed by <a href="{% url 'accounts:user' review.user.username %}">{{ review.user.username }}</a></h4>
         <p class="text-left">Updated {{ review.updated }}</p>
         <span>{% bootstrap_icon "thumbs-up" %} {{ review.users_like.count }}</span>
       </div> <!--/.caption-->
