@@ -13,9 +13,7 @@
       {% endif %}
     </div>
     <h1>{{ strain.name }}</h1>
-    {% if strain.rating %}
-    <p>{{ strain.get_average_rating }}</p>
-    {% endif %}
+    <p>Rating: {{ strain.get_average_rating }}</p>
     {% buttons %}
     <a href="{% url 'reviews:review' strain.id %}">
       <button class="btn btn-default">

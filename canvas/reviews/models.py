@@ -42,11 +42,12 @@ class Strain(models.Model):
     def get_absolute_url(self):
         return reverse("reviews:strain", kwargs={"id": self.id})
 
-
-
     def get_average_rating(self):
-        all_ratings = [x.rating * 1 for x.rating in self.user_review.all()]
-        return float(sum(all_ratings))/len(all_ratings)
+        strain_ratings = self.user_review.all()
+        l1 = []
+        for x in strain_ratings:
+            l1.append(x.rating)
+        return float(sum(l1))/len(l1)
 
     def get_strain_image(self):
         if not self.photo_url:

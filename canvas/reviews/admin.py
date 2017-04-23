@@ -4,7 +4,7 @@ from reviews.models import Review, Strain
 # Register your models here.
 
 class ReviewModelAdmin(admin.ModelAdmin):
-    list_display = ["title", "user", "strain", "timestamp"]
+    list_display = ["title", "user", "strain", "rating", "timestamp"]
     list_display_links = ["title"]
     list_filter = ["strain"]
     class Meta:
