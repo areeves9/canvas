@@ -56,9 +56,6 @@ class Strain(models.Model):
             else:
                 return self.photo_url
 
-    class Meta:
-        ordering = ["name"]
-
     def get_strain_lineage(self):
         if not self.lineage:
             strain_query_url = cannabis_reports_url + "%s" % (self.name)
@@ -70,9 +67,15 @@ class Strain(models.Model):
             self.save()
             return self.lineage
 
+    
 
     def __str__(self):
         return self.name
+
+    class Meta:
+        ordering = ["name"]
+
+
 
 class Review(models.Model):
     title = models.CharField(max_length=35)
