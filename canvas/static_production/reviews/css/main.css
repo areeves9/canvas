@@ -106,5 +106,21 @@ a {
 }
 
 .flag {
-  display: inline;
+  /*float: left;*/
+  margin-left: 10px;
+  margin-top: 20px;
+}
+
+.icon-right {
+  float:right;
+}
+
+.icon-guide {
+  display: inline-block;
+}
+
+#guide-list {
+  float: right;
+  list-style-type: none;
+  margin-top: 20px;
 }
