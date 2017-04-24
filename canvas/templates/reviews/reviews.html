@@ -9,11 +9,11 @@
     <h1>Latest Reviews</h1>
   </div>
   <div class="col-xs-9">
-    <h3 class="text-right">
-      <span class="glyphicon glyphicon-leaf">Flower</span>
-      <span class="glyphicon glyphicon-tint">Extract</span>
-      <span class="glyphicon glyphicon-ice-lolly-tasted">Edible</span>
-  </h3>
+    <ul id="guide-list">
+      <li class="glyphicon glyphicon-leaf icon-guide">Flower</li>
+      <li class="glyphicon glyphicon-tint icon-guide">Extract</li>
+      <li class="glyphicon glyphicon-ice-lolly-tasted icon-guide">Edible</li>
+    </ul>
   </div>
 </div>
 
@@ -27,25 +27,23 @@
       <img class="img-responsive img-circle" src="https://www.placehold.it/300x300">
       {% endif %}
       <div class="caption">
-        <h3><a href="{{ review.get_absolute_url }}">{{ review.title|upper}}</a></h3>
+        <h3><a href="{{ review.get_absolute_url }}">{{ review.title|upper}}</a> <span class="icon-right" style="float:right;">{% bootstrap_icon "heart" %} {{ review.users_like.count }}</span></h3>
         <br/>
         <h3>
           <a href="{{ review.strain.get_absolute_url }}">{{ review.strain }}</a>
           {% if review.method == 'FLOWER'%}
-          <span class="glyphicon glyphicon-leaf"></span>
+          <span class="glyphicon glyphicon-leaf icon-right"></span>
           {% elif review.method == 'EXTRACT' %}
-          <span class="glyphicon glyphicon-tint"></span>
+          <span class="glyphicon glyphicon-tint icon-right"></span>
           {% else %}
-          <span class="glyphicon glyphicon-ice-lolly-tasted"></span>
+          <span class="glyphicon glyphicon-ice-lolly-tasted icon-right"></span>
           {% endif %}
         </h3>
       <hr/>
         <h3>{{ review.content|linebreaks|truncatechars:95}}</h3>
       </br>
         <img class="img-responsive img-circle profile" src="{{ review.user.profile.photo.url }}">
-        <h4>Reviewed by <a href="{% url 'accounts:user' review.user.username %}">{{ review.user.username }}</a></h4>
-        <p class="text-left">Updated {{ review.updated }}</p>
-        <span>{% bootstrap_icon "heart" %} {{ review.users_like.count }}</span>
+        <span>Reviewed by <a href="{% url 'accounts:user' review.user.username %}">{{ review.user.username }}</a>, updated {{ review.updated }}</span>
       </div> <!--/.caption-->
     </div> <!--/.thumbnail image-left-->
     {% endfor %}
