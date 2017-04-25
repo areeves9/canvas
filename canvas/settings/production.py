@@ -26,3 +26,15 @@ AWS_S3_CUSTOM_DOMAIN = "%s.s3.amazonaws.com" % AWS_STORAGE_BUCKET_NAME
 
 STATIC_URL = "https://%s/" % AWS_S3_CUSTOM_DOMAIN
 STATICFILES_STORAGE = 'storages.backends.s3boto3.S3Boto3Storage'
+
+
+# STATIC_URL = '/static/'
+
+# STATICFILES_DIRS = [
+#     os.path.join("reviews", "static")
+# ]
+#
+# STATIC_ROOT = os.path.join(BASE_DIR, "static_production")
+#
+# MEDIA_URL = '/media/'
+# MEDIA_ROOT = os.path.join(BASE_DIR, "media_production")
