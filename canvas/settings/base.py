@@ -40,6 +40,7 @@ INSTALLED_APPS = [
     'accounts',
     'reviews',
     'bootstrap3',
+    'storages',
 ]
 
 MIDDLEWARE = [
