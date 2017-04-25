@@ -12,7 +12,7 @@ from django.utils import timezone
 
 # save key to environment variable
 headers = {
-    'X-API-Key': '08dd8bf42f9ca621002213991f9ef5bf96fdd66a',
+    'X-API-Key': os.environ['CANNABIS_REPORTS_API'],
 }
 
 cannabis_reports_url = "https://www.cannabisreports.com/api/v1.0/strains/search/"
@@ -47,7 +47,11 @@ class Strain(models.Model):
         l1 = []
         for x in strain_ratings:
             l1.append(x.rating)
-        return float(sum(l1))/len(l1)
+            average = float(sum(l1))/len(l1)
+            if average == 0:
+                return "N/A"
+            else:
+                return average
 
     def get_strain_image(self):
         if not self.photo_url:
