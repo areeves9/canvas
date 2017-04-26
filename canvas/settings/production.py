@@ -1,6 +1,5 @@
 from .base import *
 import os
-import dj_database_url
 
 SECRET_KEY = os.environ['SECRET_KEY']
 DEBUG = False
@@ -9,13 +8,16 @@ ADMINS = (
     ('Andrew R.', 'areeves9@icloud.com')
 )
 
-ALLOWED_HOSTS = ['https://cryptic-forest-89537.herokuapp.com/', 'herokuapp.com']
+ALLOWED_HOSTS = ['https://arcane-bayou-81981.herokuapp.com/', 'herokuapp.com']
 
-DATABASES = {
-    'default': {}
-}
-
+import dj_database_url
 DATABASES['default'] =  dj_database_url.config()
+
+INSTALLED_APPS += [
+'bootstrap3',
+'storages',
+'gunicorn',
+]
 
 AWS_ACCESS_KEY_ID = os.environ['AWS_ACCESS_KEY_ID']
 AWS_SECRET_ACCESS_KEY = os.environ['AWS_SECRET_ACCESS_KEY']
