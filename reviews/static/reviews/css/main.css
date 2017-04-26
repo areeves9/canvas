@@ -12,7 +12,7 @@ body, html {
 
 a {
   text-decoration: none !important;
-  color: black;
+  color: red;
 }
 
 .row.my-reviews{
@@ -28,8 +28,8 @@ a {
 
 /* review's photo in thumbnail of reviews.html */
 .img-responsive.img-circle.review {
-  height: 300px;
-  width: 300px;
+  height: 250px;
+  width: 250px;
 }
 
 /* small circle thumbnail for strains.html div*/
@@ -51,13 +51,13 @@ a {
 }
 
 .profile-photo {
-  height: 300px;
-  width: 300px;
+  height: 250px;
+  width: 250px;
 }
 
 .strain-photo {
-  max-height: 500px;
-  max-width: 500px;
+  max-height: 350px;
+  max-width: 350px;
 }
 
 .count {
@@ -96,8 +96,8 @@ a {
 }
 
 .user-list-element {
-  height: 200px;
-  width: 200px;
+  height: 250px;
+  width: 250px;
 }
 .strain.thumbnail > img {
   max-height: 60px;

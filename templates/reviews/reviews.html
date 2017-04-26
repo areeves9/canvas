@@ -24,7 +24,7 @@
       {% if review.photo %}
       <img class="img-responsive img-circle review" src="{{ review.photo.url }}">
       {% else %}
-      <img class="img-responsive img-circle" src="https://www.placehold.it/300x300">
+      <img class="img-responsive img-circle" src="https://www.placehold.it/250x250">
       {% endif %}
       <div class="caption">
         <h3><a href="{{ review.get_absolute_url }}">{{ review.title|upper}}</a> <span class="icon-right" style="float:right;">{% bootstrap_icon "heart" %} {{ review.users_like.count }}</span></h3>

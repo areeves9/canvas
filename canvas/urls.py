@@ -20,7 +20,6 @@ from django.conf.urls.static import static
 from django.contrib import admin
 from canvas.settings import local
 
-
 urlpatterns = [
     url(r'^admin/', admin.site.urls),
     url(r'^accounts/', include('django.contrib.auth.urls', namespace='auth')),
