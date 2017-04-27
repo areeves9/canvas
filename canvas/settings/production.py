@@ -1,14 +1,14 @@
 from .base import *
 import os
 
-SECRET_KEY = os.environ['SECRET_KEY']
+SECRET_KEY = os.environ.get['SECRET_KEY']
 DEBUG = False
 
 ADMINS = (
     ('Andrew R.', 'areeves9@icloud.com')
 )
 
-ALLOWED_HOSTS = ['https://arcane-bayou-81981.herokuapp.com/', 'herokuapp.com']
+ALLOWED_HOSTS = ['https://infinite-gorge-34857.herokuapp.com/', 'herokuapp.com']
 
 import dj_database_url
 DATABASES['default'] =  dj_database_url.config()
@@ -22,7 +22,6 @@ INSTALLED_APPS += [
 AWS_ACCESS_KEY_ID = os.environ['AWS_ACCESS_KEY_ID']
 AWS_SECRET_ACCESS_KEY = os.environ['AWS_SECRET_ACCESS_KEY']
 AWS_STORAGE_BUCKET_NAME = os.environ['S3_BUCKET_NAME']
-SECRET_KEY = os.environ['SECRET_KEY']
 
 AWS_S3_CUSTOM_DOMAIN = "%s.s3.amazonaws.com" % AWS_STORAGE_BUCKET_NAME
 

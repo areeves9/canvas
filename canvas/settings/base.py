@@ -18,18 +18,16 @@ BASE_DIR = os.path.dirname(os.path.dirname(os.path.abspath(os.path.join(__file__
 
 # Quick-start development settings - unsuitable for production
 # See https://docs.djangoproject.com/en/1.10/howto/deployment/checklist/
-ALLOWED_HOSTS = ['https://infinite-gorge-34857.herokuapp.com/', 'herokuapp.com']
 
 # SECURITY WARNING: keep the secret key used in production secret!
-SECRET_KEY = os.environ['SECRET_KEY']
+SECRET_KEY = os.environ['CANVAS_KEY']
 
 # SECURITY WARNING: don't run with debug turned on in production!
-DEBUG = False
+DEBUG = True
+
+ALLOWED_HOSTS = []
 
 
-ADMINS = (
-    ('Andrew R.', 'areeves9@icloud.com')
-)
 # Application definition
 
 INSTALLED_APPS = [
@@ -42,8 +40,6 @@ INSTALLED_APPS = [
     'accounts',
     'reviews',
     'bootstrap3',
-    'storages',
-    'gunicorn',
 ]
 
 MIDDLEWARE = [
@@ -79,9 +75,18 @@ WSGI_APPLICATION = 'canvas.wsgi.application'
 
 # Database
 # https://docs.djangoproject.com/en/1.10/ref/settings/#databases
-import dj_database_url
-DATABASES['default'] =  dj_database_url.config()
 
+DATABASES = {
+    'default': {
+        'ENGINE': 'django.db.backends.postgresql_psycopg2',
+        'NAME': 'canvas',
+        'USER': 'toker',
+        'PASSWORD': os.environ['DB_CANVAS_PW'],
+        'HOST': 'localhost',
+        'PORT': '5432',
+
+    }
+}
 
 
 # Password validation
@@ -133,14 +138,3 @@ MEDIA_ROOT = os.path.join(BASE_DIR, "media_production")
 
 LOGIN_URL = reverse_lazy('auth:login')
 LOGIN_REDIRECT_URL = reverse_lazy('accounts:profile')
-
-
-AWS_ACCESS_KEY_ID = os.environ['AWS_ACCESS_KEY_ID']
-AWS_SECRET_ACCESS_KEY = os.environ['AWS_SECRET_ACCESS_KEY']
-AWS_STORAGE_BUCKET_NAME = os.environ['S3_BUCKET_NAME']
-SECRET_KEY = os.environ['SECRET_KEY']
-
-AWS_S3_CUSTOM_DOMAIN = "%s.s3.amazonaws.com" % AWS_STORAGE_BUCKET_NAME
-
-STATIC_URL = "https://%s/" % AWS_S3_CUSTOM_DOMAIN
-STATICFILES_STORAGE = 'storages.backends.s3boto3.S3Boto3Storage'
