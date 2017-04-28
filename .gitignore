@@ -2,3 +2,4 @@
 media_production/
 static_production/
 local_settings.py
+reviews/static/reviews/images
