@@ -124,23 +124,26 @@ LOGIN_REDIRECT_URL = reverse_lazy('accounts:profile')
 
 # Static files (CSS, JavaScript, Images)
 # https://docs.djangoproject.com/en/1.10/howto/static-files/
-# if not DEBUG:
-#     STATIC_URL = "https://" + AWS_STORAGE_BUCKET_NAME + ".s3.amazonaws.com/"
-#
-#     STATICFILES_DIRS = ( os.path.join(BASE_DIR, "static"))
-#
-#     STATIC_ROOT = "staticfiles"
-#
-#     DEFAULT_FILE_STORAGE = "storages.backends.s3boto.S3BotoStorage"
-#     AWS_ACCESS_KEY_ID = os.environ.get('AWS_ACCESS_KEY_ID')
-#     AWS_SECRET_ACCESS_KEY = os.environ.get('AWS_SECRET_ACCESS_KEY')
-#     AWS_STORAGE_BUCKET_NAME = os.environ.get('S3_BUCKET_NAME')
-#     AWS_S3_CUSTOM_DOMAIN = "%s.s3.amazonaws.com" % AWS_STORAGE_BUCKET_NAME
-#     STATICFILES_STORAGE = "storages.backends.s3boto.S3BotoStorage"
-#     STATIC_ROOT = STATIC_URL
-    # MEDIA_URL = STATIC_URL + "media/"
 
 try:
     from .local_settings import *
 except ImportError:
     pass
+
+if DEBUG==False:
+    DEFAULT_FILE_STORAGE = 'storages.backends.s3boto3.S3Boto3Storage'
+    STATICFILES_STORAGE = 'storages.backends.s3boto3.S3Boto3Storage'
+
+    AWS_ACCESS_KEY_ID = os.environ.get('AWS_ACCESS_KEY_ID')
+    AWS_SECRET_ACCESS_KEY = os.environ.get('AWS_SECRET_ACCESS_KEY')
+    AWS_STORAGE_BUCKET_NAME = os.environ.get('AWS_STORAGE_BUCKET_NAME')
+    # AWS_S3_CUSTOM_DOMAIN = "http://canvasreviews.s3-website-us-west-2.amazonaws.com"
+    AWS_S3_CUSTOM_DOMAIN = "%s.s3.amazonaws.com" % AWS_STORAGE_BUCKET_NAME
+
+    STATIC_URL = "https://%s/" % AWS_S3_CUSTOM_DOMAIN
+    # STATICFILES_DIRS = ( os.path.join(BASE_DIR, "static"))
+
+    STATICFILES_DIRS = [
+        os.path.join("reviews", "static")
+    ]
+    # STATIC_ROOT = "staticfiles"

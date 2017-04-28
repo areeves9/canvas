@@ -12,7 +12,7 @@ from django.utils import timezone
 
 # save key to environment variable
 headers = {
-    'X-API-Key': os.environ['CANNABIS_REPORTS_API'],
+    'X-API-Key': os.environ.get('CANNABIS_REPORTS_API'),
 }
 
 cannabis_reports_url = "https://www.cannabisreports.com/api/v1.0/strains/search/"
