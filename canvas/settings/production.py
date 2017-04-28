@@ -1,17 +1,18 @@
-import os
 from .base import *
 
+########## SECRET KEY CONFIGURATION
+SECRET_KEY = os.environ.get('DJANGO_SECRET_KEY', '')
+########## END SECRET KEY CONFIGURATION
 
-# SECRET_KEY = '_y2&=f+fz%yvf&^zdq#-1%!47-7(6n8)kmt(c*1l92&=_bmm&x'
-SECRET_KEY = os.environ.get('DJANGO_SECRET_KEY')
 DEBUG = False
 
 ADMINS = (
     ('Andrew R.', 'areeves9@icloud.com')
 )
 
-# ALLOWED_HOSTS = ['https://infinite-gorge-34857.herokuapp.com/']
-ALLOWED_HOSTS = ['infinite-gorge-34857.herokuapp.com']
+ALLOWED_HOSTS = ['*']
+# ALLOWED_HOSTS = ['https://infinite-gorge-34857.herokuapp.com/', 'herokuapp.com']
+
 
 
 DATABASES = {
@@ -37,7 +38,7 @@ INSTALLED_APPS += [
 DEFAULT_FILE_STORAGE = "storages.backends.s3boto.S3BotoStorage"
 AWS_ACCESS_KEY_ID = os.environ.get('AWS_ACCESS_KEY_ID')
 AWS_SECRET_ACCESS_KEY = os.environ.get('AWS_SECRET_ACCESS_KEY')
-AWS_STORAGE_BUCKET_NAME = os.environ.get('S3_BUCKET_NAME', '')
+AWS_STORAGE_BUCKET_NAME = os.environ.get('S3_BUCKET_NAME')
 
 # AWS_S3_CUSTOM_DOMAIN = "%s.s3.amazonaws.com" % AWS_STORAGE_BUCKET_NAME
 # STATIC_URL = "https://" + AWS_STORAGE_BUCKET_NAME + ".s3.amazonaws.com/"
