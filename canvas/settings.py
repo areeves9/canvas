@@ -13,12 +13,16 @@ https://docs.djangoproject.com/en/1.10/ref/settings/
 import os
 from django.core.urlresolvers import reverse_lazy
 
-# Build paths inside the project like this: os.path.join(BASE_DIR, ...)
-BASE_DIR = os.path.dirname(os.path.dirname(os.path.abspath(os.path.join(__file__, os.pardir))))
-# SECRET_KEY = os.environ.get('SECRET_KEY')
 
-# Quick-start development settings - unsuitable for production
-# See https://docs.djangoproject.com/en/1.10/howto/deployment/checklist/
+# Build paths inside the project like this: os.path.join(BASE_DIR, ...)
+BASE_DIR = os.path.dirname(os.path.dirname(__file__))
+
+SECRET_KEY = os.environ.get('CANVAS_KEY', '')
+
+DEBUG = False
+
+ALLOWED_HOSTS = ['*']
+
 
 # Application definition
 
@@ -32,6 +36,8 @@ INSTALLED_APPS = [
     'accounts',
     'reviews',
     'bootstrap3',
+    'storages',
+    'gunicorn',
 ]
 
 MIDDLEWARE = [
@@ -67,7 +73,17 @@ WSGI_APPLICATION = 'canvas.wsgi.application'
 
 # Database
 # https://docs.djangoproject.com/en/1.10/ref/settings/#databases
+DATABASES = {
+    'default': {
+        'ENGINE': 'django.db.backends.postgresql_psycopg2',
+    }
+}
 
+import dj_database_url
+DATABASES['default'] = dj_database_url.config()
+
+# db_from_env = dj_database_url.config(conn_max_age=500)
+# DATABASES['default'].update(db_from_env)
 
 
 
@@ -103,6 +119,28 @@ USE_L10N = True
 
 USE_TZ = True
 
+LOGIN_URL = reverse_lazy('auth:login')
+LOGIN_REDIRECT_URL = reverse_lazy('accounts:profile')
 
 # Static files (CSS, JavaScript, Images)
 # https://docs.djangoproject.com/en/1.10/howto/static-files/
+# if not DEBUG:
+#     STATIC_URL = "https://" + AWS_STORAGE_BUCKET_NAME + ".s3.amazonaws.com/"
+#
+#     STATICFILES_DIRS = ( os.path.join(BASE_DIR, "static"))
+#
+#     STATIC_ROOT = "staticfiles"
+#
+#     DEFAULT_FILE_STORAGE = "storages.backends.s3boto.S3BotoStorage"
+#     AWS_ACCESS_KEY_ID = os.environ.get('AWS_ACCESS_KEY_ID')
+#     AWS_SECRET_ACCESS_KEY = os.environ.get('AWS_SECRET_ACCESS_KEY')
+#     AWS_STORAGE_BUCKET_NAME = os.environ.get('S3_BUCKET_NAME')
+#     AWS_S3_CUSTOM_DOMAIN = "%s.s3.amazonaws.com" % AWS_STORAGE_BUCKET_NAME
+#     STATICFILES_STORAGE = "storages.backends.s3boto.S3BotoStorage"
+#     STATIC_ROOT = STATIC_URL
+    # MEDIA_URL = STATIC_URL + "media/"
+
+try:
+    from .local_settings import *
+except ImportError:
+    pass

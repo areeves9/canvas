@@ -18,7 +18,6 @@ from django.conf import settings
 from django.conf.urls import include, url
 from django.conf.urls.static import static
 from django.contrib import admin
-from canvas.settings import local
 
 urlpatterns = [
     url(r'^admin/', admin.site.urls),
@@ -27,6 +26,6 @@ urlpatterns = [
     url(r'^reviews/', include('reviews.urls', namespace='reviews')),
 ]
 
-if local.DEBUG:
-    urlpatterns += static(local.STATIC_URL, document_root=local.STATIC_ROOT)
-    urlpatterns += static(local.MEDIA_URL, document_root=local.MEDIA_ROOT)
+if settings.DEBUG==True:
+    urlpatterns += static(settings.STATIC_URL, document_root=settings.STATIC_ROOT)
+    urlpatterns += static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)
