@@ -20,10 +20,8 @@ BASE_DIR = os.path.dirname(os.path.dirname(os.path.abspath(os.path.join(__file__
 # See https://docs.djangoproject.com/en/1.10/howto/deployment/checklist/
 
 # SECURITY WARNING: keep the secret key used in production secret!
-SECRET_KEY = os.environ.get('CANVAS_KEY')
 
 # SECURITY WARNING: don't run with debug turned on in production!
-DEBUG = True
 
 ALLOWED_HOSTS = []
 
@@ -76,17 +74,7 @@ WSGI_APPLICATION = 'canvas.wsgi.application'
 # Database
 # https://docs.djangoproject.com/en/1.10/ref/settings/#databases
 
-DATABASES = {
-    'default': {
-        'ENGINE': 'django.db.backends.postgresql_psycopg2',
-        'NAME': 'canvas',
-        'USER': 'toker',
-        'PASSWORD': os.environ['DB_CANVAS_PW'],
-        'HOST': 'localhost',
-        'PORT': '5432',
 
-    }
-}
 
 
 # Password validation
@@ -124,17 +112,3 @@ USE_TZ = True
 
 # Static files (CSS, JavaScript, Images)
 # https://docs.djangoproject.com/en/1.10/howto/static-files/
-
-STATIC_URL = '/static/'
-
-STATICFILES_DIRS = [
-    os.path.join("reviews", "static")
-]
-
-STATIC_ROOT = os.path.join(BASE_DIR, "static_production")
-
-MEDIA_URL = '/media/'
-MEDIA_ROOT = os.path.join(BASE_DIR, "media_production")
-
-LOGIN_URL = reverse_lazy('auth:login')
-LOGIN_REDIRECT_URL = reverse_lazy('accounts:profile')
