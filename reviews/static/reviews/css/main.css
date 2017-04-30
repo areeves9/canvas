@@ -56,8 +56,8 @@ a {
 }
 
 .img-responsive.strain-photo {
-  max-height: 450px;
-  max-width: 450px;
+  max-height: 350px;
+  max-width: 350px;
 }
 
 .count {
