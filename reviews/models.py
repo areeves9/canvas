@@ -28,6 +28,7 @@ class Strain(models.Model):
     name = models.CharField(max_length=60)
     summary = models.TextField(blank=True, null=True)
     lineage = JSONField(blank=True, null=True)
+    genetics = JSONField
     photo = models.ImageField(
         upload_to=upload_location1,
         blank=True,
@@ -68,12 +69,13 @@ class Strain(models.Model):
                 return self.photo_url
 
     def get_strain_lineage(self):
-        if not self.lineage:
+        if not self.lineage and not self.genetics:
             strain_query_url = cannabis_reports_url + "%s" % (self.name)
             r = requests.get(strain_query_url, headers)
             if r.status_code == 200:
                 data = r.json() # json strain object
             lineage_json = data['data'][0]['lineage'] # lineage property of object
+            genetics_json = data['data'][0]['genetics']
             self.lineage = lineage_json
             self.save()
             return self.lineage
