@@ -21,7 +21,7 @@ SECRET_KEY = os.environ.get('CANVAS_KEY', '')
 
 DEBUG = False
 
-ALLOWED_HOSTS = ['*']
+ALLOWED_HOSTS = ['https://canvasreviews.herokuapp.com/']
 
 
 # Application definition
@@ -124,11 +124,7 @@ LOGIN_REDIRECT_URL = reverse_lazy('accounts:profile')
 
 # Static files (CSS, JavaScript, Images)
 # https://docs.djangoproject.com/en/1.10/howto/static-files/
-try:
-    from .local_settings import *
-except ImportError:
-    pass
-    
+
 if DEBUG==False:
     # to use boto3
     # DEFAULT_FILE_STORAGE = 'storages.backends.s3boto3.S3Boto3Storage'
@@ -148,3 +144,8 @@ if DEBUG==False:
     MEDIA_URL = "https://%s/media/" % (AWS_S3_CUSTOM_DOMAIN)
     DEFAULT_FILE_STORAGE = 'canvas.custom_storages.MediaRootS3BotoStorage'
     STATICFILES_STORAGE = 'canvas.custom_storages.StaticRootS3BotoStorage'
+
+# try:
+#     from .local_settings import *
+# except ImportError:
+#     pass
