@@ -21,7 +21,7 @@ SECRET_KEY = os.environ.get('CANVAS_KEY', '')
 
 DEBUG = False
 
-ALLOWED_HOSTS = [".herokuapp.com", ".canvasreviews"]
+ALLOWED_HOSTS = ['DJANGO_ALLOWED_HOSTS']
 
 
 # Application definition
