@@ -125,13 +125,15 @@ LOGIN_REDIRECT_URL = reverse_lazy('accounts:profile')
 # Static files (CSS, JavaScript, Images)
 # https://docs.djangoproject.com/en/1.10/howto/static-files/
 
+# Have to move this try statement before and after the following
+# debug check, need to refactor so the block under if DEBUG check
+# runs to update MEDIA_URL and STATIC_URL
+try:
+    from .local_settings import *
+except ImportError:
+    pass
 
 if DEBUG==False:
-    # to use boto3
-    # DEFAULT_FILE_STORAGE = 'storages.backends.s3boto3.S3Boto3Storage'
-    # let django-admin.py automatically collect static files and place in bucket
-    # STATICFILES_STORAGE = 'storages.backends.s3boto3.S3Boto3Storage'
-
     STATICFILES_LOCATION = 'static'
     STATICFILES_DIRS = [
         os.path.join("reviews", "static"),
@@ -145,8 +147,3 @@ if DEBUG==False:
     MEDIA_URL = "https://%s/media/" % (AWS_S3_CUSTOM_DOMAIN)
     DEFAULT_FILE_STORAGE = 'canvas.custom_storages.MediaRootS3BotoStorage'
     STATICFILES_STORAGE = 'canvas.custom_storages.StaticRootS3BotoStorage'
-
-# try:
-#     from .local_settings import *
-# except ImportError:
-#     pass
