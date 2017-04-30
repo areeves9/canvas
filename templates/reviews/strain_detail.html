@@ -14,7 +14,7 @@
     </div>
     {% buttons %}
     <h1>{{ strain.name }}</h1>
-    <span>Rating: {{ strain.get_average_rating }}</span>
+    <span>Rating: {{ strain.get_average_rating }} of 5.0 </span>
     <a href="{% url 'reviews:review' strain.id %}">
       <button class="btn btn-default">
         {% bootstrap_icon "pencil" %} Review

@@ -13,20 +13,15 @@ https://docs.djangoproject.com/en/1.10/ref/settings/
 import os
 from django.core.urlresolvers import reverse_lazy
 
+
 # Build paths inside the project like this: os.path.join(BASE_DIR, ...)
-BASE_DIR = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
+BASE_DIR = os.path.dirname(os.path.dirname(__file__))
 
+SECRET_KEY = os.environ.get('CANVAS_KEY', '')
 
-# Quick-start development settings - unsuitable for production
-# See https://docs.djangoproject.com/en/1.10/howto/deployment/checklist/
+DEBUG = False
 
-# SECURITY WARNING: keep the secret key used in production secret!
-SECRET_KEY = os.environ['CANVAS_KEY']
-
-# SECURITY WARNING: don't run with debug turned on in production!
-DEBUG = True
-
-ALLOWED_HOSTS = []
+ALLOWED_HOSTS = ['https://canvasreviews.herokuapp.com/']
 
 
 # Application definition
@@ -41,6 +36,8 @@ INSTALLED_APPS = [
     'accounts',
     'reviews',
     'bootstrap3',
+    'storages',
+    'gunicorn',
 ]
 
 MIDDLEWARE = [
@@ -76,18 +73,18 @@ WSGI_APPLICATION = 'canvas.wsgi.application'
 
 # Database
 # https://docs.djangoproject.com/en/1.10/ref/settings/#databases
-
 DATABASES = {
     'default': {
         'ENGINE': 'django.db.backends.postgresql_psycopg2',
-        'NAME': 'canvas',
-        'USER': 'toker',
-        'PASSWORD': os.environ['DB_CANVAS_PW'],
-        'HOST': 'localhost',
-        'PORT': '5432',
-
     }
 }
+
+import dj_database_url
+DATABASES['default'] = dj_database_url.config()
+
+# db_from_env = dj_database_url.config(conn_max_age=500)
+# DATABASES['default'].update(db_from_env)
+
 
 
 # Password validation
@@ -122,20 +119,33 @@ USE_L10N = True
 
 USE_TZ = True
 
+LOGIN_URL = reverse_lazy('auth:login')
+LOGIN_REDIRECT_URL = reverse_lazy('accounts:profile')
 
 # Static files (CSS, JavaScript, Images)
 # https://docs.djangoproject.com/en/1.10/howto/static-files/
 
-STATIC_URL = '/static/'
+if DEBUG==False:
+    # to use boto3
+    # DEFAULT_FILE_STORAGE = 'storages.backends.s3boto3.S3Boto3Storage'
+    # let django-admin.py automatically collect static files and place in bucket
+    # STATICFILES_STORAGE = 'storages.backends.s3boto3.S3Boto3Storage'
 
-STATICFILES_DIRS = [
-    os.path.join("reviews", "static")
-]
+    STATICFILES_LOCATION = 'static'
+    STATICFILES_DIRS = [
+        os.path.join("reviews", "static"),
+    ]
+    AWS_ACCESS_KEY_ID = os.environ.get('AWS_ACCESS_KEY_ID')
+    AWS_SECRET_ACCESS_KEY = os.environ.get('AWS_SECRET_ACCESS_KEY')
+    AWS_STORAGE_BUCKET_NAME = os.environ.get('AWS_STORAGE_BUCKET_NAME')
+    AWS_S3_CUSTOM_DOMAIN = "%s.s3.amazonaws.com" % AWS_STORAGE_BUCKET_NAME
 
-STATIC_ROOT = os.path.join(BASE_DIR, "static_production")
+    STATIC_URL = "https://%s/static/" % (AWS_S3_CUSTOM_DOMAIN)
+    MEDIA_URL = "https://%s/media/" % (AWS_S3_CUSTOM_DOMAIN)
+    DEFAULT_FILE_STORAGE = 'canvas.custom_storages.MediaRootS3BotoStorage'
+    STATICFILES_STORAGE = 'canvas.custom_storages.StaticRootS3BotoStorage'
 
-MEDIA_URL = '/media/'
-MEDIA_ROOT = os.path.join(BASE_DIR, "media_production")
-
-LOGIN_URL = reverse_lazy('auth:login')
-LOGIN_REDIRECT_URL = reverse_lazy('accounts:profile')
+# try:
+#     from .local_settings import *
+# except ImportError:
+#     pass
