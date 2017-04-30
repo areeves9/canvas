@@ -33,6 +33,10 @@
     {% else %}
       {{ strain.get_strain_lineage }}
     {% endif %}
+    {% if genetics %}
+    <h3>Genetics</h3>
+      <p>{{ strain.genetics }}</p>
+    {% endif %}
     {% if reviews %}
     <h3>Reviews</h3>
       {% for review in reviews %}

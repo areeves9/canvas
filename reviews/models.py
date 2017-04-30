@@ -28,7 +28,7 @@ class Strain(models.Model):
     name = models.CharField(max_length=60)
     summary = models.TextField(blank=True, null=True)
     lineage = JSONField(blank=True, null=True)
-    genetics = JSONField
+    genetics = JSONField(blank=True, null=True)
     photo = models.ImageField(
         upload_to=upload_location1,
         blank=True,
@@ -77,8 +77,9 @@ class Strain(models.Model):
             lineage_json = data['data'][0]['lineage'] # lineage property of object
             genetics_json = data['data'][0]['genetics']
             self.lineage = lineage_json
+            self.genetics = genetics_json
             self.save()
-            return self.lineage
+            return self.lineage, self.genetics
 
 
 
