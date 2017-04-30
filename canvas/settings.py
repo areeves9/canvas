@@ -144,7 +144,7 @@ if DEBUG==False:
     DEFAULT_FILE_STORAGE = 'canvas.custom_storages.MediaRootS3BotoStorage'
     STATICFILES_STORAGE = 'canvas.custom_storages.StaticRootS3BotoStorage'
 
-try:
-    from .local_settings import *
-except ImportError:
-    pass
+# try:
+#     from .local_settings import *
+# except ImportError:
+#     pass
