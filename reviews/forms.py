@@ -11,6 +11,7 @@ class ReviewForm(forms.ModelForm):
             "method",
             "content",
             "photo",
+            "rating",
         ]
         # widgets = {
         #     "content": Textarea(attrs={"cols": 40, "rows": 15}),
