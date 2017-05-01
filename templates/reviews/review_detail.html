@@ -15,8 +15,9 @@
       {% endif %}
       <div class="caption">
         {% load rating_icon %}
+        <h1>{{review.rating|rating_icon}}</h1>
         <h1>{{ review.title }}</h1>
-        <h3>{{ review.strain }} {{ review.method|lower }} Rating: {{review.rating|rating_icon}}</h3>
+        <h3>{{ review.strain }} {{ review.method|lower }}</h3>
         <p>{{ review.content }}</p>
         <p>Reviewd by <a href="{% url 'accounts:user' review.user.username %}">{{ review.user }}</a></p>
         <p>Last Update: {{ review.updated }}</p>

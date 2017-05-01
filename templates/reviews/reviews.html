@@ -27,8 +27,10 @@
       <img class="img-responsive img-circle" src="https://www.placehold.it/175px175">
       {% endif %}
       <div class="caption">
+        {% load rating_icon %}
         <h3><a href="{{ review.get_absolute_url }}">{{ review.title|upper}}</a></h3>
         <br/>
+        <span>{{ review.rating|rating_icon }}</span>
         <h3>
           <a href="{{ review.strain.get_absolute_url }}">{{ review.strain }}</a>
           {% if review.method == 'FLOWER'%}
@@ -40,7 +42,7 @@
           {% endif %}
         </h3>
       <hr/>
-        <h3>{{ review.content|linebreaks|truncatechars:95}}</h3>
+        <h3>{{ review.content|linebreaks|truncatechars:65}}</h3>
       </br>
         <img class="img-responsive img-circle profile icon-left" src="{{ review.user.profile.photo.url }}">
         <span>Reviewed by <a href="{% url 'accounts:user' review.user.username %}">{{ review.user.username }}</a>, updated {{ review.updated }}
