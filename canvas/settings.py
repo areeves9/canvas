@@ -129,6 +129,11 @@ LOGIN_REDIRECT_URL = reverse_lazy('accounts:profile')
 # debug check, need to refactor so the block under if DEBUG check
 # runs to update MEDIA_URL and STATIC_URL
 
+try:
+    from .local_settings import *
+except ImportError:
+    pass
+
 if DEBUG==False:
     STATICFILES_LOCATION = 'static'
     STATICFILES_DIRS = [
@@ -143,8 +148,3 @@ if DEBUG==False:
     MEDIA_URL = "https://%s/media/" % (AWS_S3_CUSTOM_DOMAIN)
     DEFAULT_FILE_STORAGE = 'canvas.custom_storages.MediaRootS3BotoStorage'
     STATICFILES_STORAGE = 'canvas.custom_storages.StaticRootS3BotoStorage'
-
-# try:
-#     from .local_settings import *
-# except ImportError:
-#     pass
