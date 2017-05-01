@@ -108,6 +108,7 @@ a {
 
 .heart {
   color: green;
+  float: right;
 }
 
 .icon-guide {
