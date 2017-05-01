@@ -69,17 +69,27 @@ class Strain(models.Model):
                 return self.photo_url
 
     def get_strain_lineage(self):
-        if not self.lineage and not self.genetics:
+        if not self.lineage or not self.genetics:
             strain_query_url = cannabis_reports_url + "%s" % (self.name)
             r = requests.get(strain_query_url, headers)
             if r.status_code == 200:
                 data = r.json() # json strain object
-            lineage_json = data['data'][0]['lineage'] # lineage property of object
-            genetics_json = data['data'][0]['genetics']
-            self.lineage = lineage_json
-            self.genetics = genetics_json
-            self.save()
+                lineage_json = data['data'][0]['lineage'] # lineage property of object
+                genetics_json = data['data'][0]['genetics']['names']
+                if len(lineage_json) == 0:
+                    self.lineage = False
+                else:
+                    self.lineage = lineage_json
+                self.genetics = genetics_json
+                self.save()
+                return self.lineage, self.genetics
+            elif r.status_code != 200:
+                return "No Data Present"
+        else:
             return self.lineage, self.genetics
+
+
+
 
 
 
