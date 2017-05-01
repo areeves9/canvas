@@ -128,10 +128,7 @@ LOGIN_REDIRECT_URL = reverse_lazy('accounts:profile')
 # Have to move this try statement before and after the following
 # debug check, need to refactor so the block under if DEBUG check
 # runs to update MEDIA_URL and STATIC_URL
-<<<<<<< HEAD
 
-=======
->>>>>>> first-wave
 try:
     from .local_settings import *
 except ImportError:

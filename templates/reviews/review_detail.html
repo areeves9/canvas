@@ -4,34 +4,35 @@
 {% block content %}
 {% with total_likes=review.users_like.count users_like=review.users_like.all %}
 <div class="row">
-  <div class="col-xs-12 col-md-6">
-    <h1>{{ review.title }}</h1>
-    <h3>{{ review.strain }} {{ review.method }}</h3>
-    <h4>Rating: {{ review.rating }}</h4>
-    <p>{{ review.content }}</p>
-    <p>Reviewd by <a href="{% url 'accounts:user' review.user.username %}">{{ review.user }}</a></p>
-    <p>Last Update: {{ review.updated }}</p>
-    <span class="count">
-      <span class="total">{{ total_likes }}</span>
-      Like{{ total_likes|pluralize }}
-    </span>
-
-    <a href="#" data-id="{{ review.id }}" data-action="{% if request.user in users_like %}un{% endif %}like" class="like button">
-      {% if request.user not in users_like %}
-        Like
+  <div class="well col-xs-12 col-md-12">
+    <div class="thumbnail">
+      {% if review.photo %}
+      <img class="img-responsive img-rounded strain-photo" src="{{ review.photo.url }}"/>
       {% else %}
-        Unlike
+      <img class="img-responsive img-rounded strain-photo" src="https://www.placehold.it/300x300"/>
       {% endif %}
-    </a>
-  </div>
-  <div class="col-xs-12 col-md-6">
-    {% if review.photo %}
-    <img class="img-responsive img-rounded" src="{{ review.photo.url }}"/>
-    {% else %}
-    <img class="img-responsive img-rounded" src="https://www.placehold.it/350x350"/>
-    {% endif %}
-  </div>
-</div>
+      <div class="caption">
+        <h1>{{ review.title }}</h1>
+        <h3>{{ review.strain }} {{ review.method|lower }} Rating: {{ review.rating }}</h3>
+        <p>{{ review.content }}</p>
+        <p>Reviewd by <a href="{% url 'accounts:user' review.user.username %}">{{ review.user }}</a></p>
+        <p>Last Update: {{ review.updated }}</p>
+      </div> <!--/.caption-->
+      <span class="count">
+        <span class="total">{{ total_likes }}</span>
+        Like{{ total_likes|pluralize }}
+      </span>
+      <a href="#" data-id="{{ review.id }}" data-action="{% if request.user in users_like %}un{% endif %}like" class="like button">
+        {% if request.user not in users_like %}
+          Like
+        {% else %}
+          Unlike
+        {% endif %}
+      </a>
+    </div> <!--/.thumbnail-->
+  </div> <!--/.well.col-xs-12.col-lg-6-->
+</div> <!--/.row-->
+
 {% endwith %}
 {% endblock %}
 

@@ -4,7 +4,7 @@
 
 {% block content %}
 <div class="row">
-  <div class="well col-xs-12 col-lg-6">
+  <div class="well col-xs-12 col-md-12">
     <div class="thumbnail">
       {% if strain.photo_url %}
       <img class="img-responsive strain-photo" src="{{ strain.photo_url }}">
@@ -12,10 +12,7 @@
       <image class="img-responsive strain-photo" src="{{ strain.get_strain_image }}">
       {% endif %}
     </div>
-
     <h1>{{ strain.name }}</h1><span>Rating: {{ strain.get_average_rating }} of 5.0 </span>
-
-
     <h3>Summary</h3>
     <p>From <a href="https://www.leafly.com">Leafly.com</a>--{{ strain.summary }}</p>
     {% if countries %}

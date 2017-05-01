@@ -19,17 +19,12 @@ a {
   margin-top: 100px;
 }
 
+/*set maxium size of review images in thumbnail of reviews template*/
 .thumbnail.image-left > img {
   float: left;
   margin: 10px;
-  max-width: 200px;
-  max-height: 200px;
-}
-
-/* review's photo in thumbnail of reviews.html */
-.img-responsive.img-circle.review {
-  height: 200px;
-  width: 200px;
+  height: 175px;
+  width: 175px;
 }
 
 /* small circle thumbnail for strains.html div*/
@@ -56,8 +51,8 @@ a {
 }
 
 .img-responsive.strain-photo {
-  max-height: 100%;
-  max-width: 100%;
+  height: 100%;
+  width: 100%;
 }
 
 .count {
@@ -111,12 +106,8 @@ a {
   margin-top: 20px;
 }
 
-.icon-right {
-  float:right;
-}
-
 .heart {
-  color: black;
+  color: green;
 }
 
 .icon-guide {
