@@ -74,7 +74,15 @@ def review_update(request, id=None):
         return render(request, "reviews/review_form.html", context)
 
 def strains(request):
-    strains = Strain.objects.all()
+    strain_list = Strain.objects.all().order_by("name")
+    paginator = Paginator(strain_list, 10)
+    page = request.GET.get('page')
+    try:
+        strains = paginator.page(page)
+    except PageNotAnInteger:
+        strains = paginator.page(1)
+    except EmptyPage:
+        strains = paginator.page(paginator.num_pages)
     context = {
         "strains": strains,
     }

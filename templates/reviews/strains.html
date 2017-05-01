@@ -29,6 +29,19 @@
     </div> <!--/.strain thumbnail-->
     {% endwith %}
     {% endfor %}
+    <div class="pagination">
+      <span class="step-links">
+        {% if strains.has_previous %}
+          <a href="?page={{ strains.previous_page_number }}">previous</a>
+        {% endif %}
+      <span class="current">
+          Page {{ strains.number }} of {{ strains.paginator.num_pages }}.
+      </span>
+        {% if strains.has_next %}
+            <a href="?page={{ strains.next_page_number }}">next</a>
+        {% endif %}
+      </span>
+    </div> <!--./pagination-->
   </div> <!--/.col-xs-12 col-md-12-->
 </div> <!--/.row-->
 {% endblock %}
