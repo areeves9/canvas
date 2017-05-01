@@ -5,48 +5,39 @@
 
 {% block content %}
 <div class="row">
-  <div class="col-xs-3">
-    <h1>Latest Reviews</h1>
-  </div>
-  <div class="col-xs-9">
-    <ul id="guide-list">
-      <li class="glyphicon glyphicon-leaf icon-guide">Flower</li>
-      <li class="glyphicon glyphicon-tint icon-guide">Extract</li>
-      <li class="glyphicon glyphicon-ice-lolly-tasted icon-guide">Edible</li>
-    </ul>
+  <div class="col-xs-12">
+    <h3>Latest Reviews</h3>
   </div>
 </div>
 
 <div class="row reviews">
   <div class="well col-sm-12 col-lg-12">
+      {% load rating_icon %}
       {% for review in reviews %}
     <div class="thumbnail image-left">
+      <img class="img-responsive img-circle profile icon-left" src="{{ review.user.profile.photo.url }}">
+      <span><a href="{% url 'accounts:user' review.user.username %}">{{ review.user.username }}</a> reviewed <a href="{{ review.strain.get_absolute_url }}">{{ review.strain }} </a>
+        {% if review.method == 'FLOWER'%}
+        <span class="glyphicon glyphicon-leaf"></span>
+        {% elif review.method == 'EXTRACT' %}
+        <span class="glyphicon glyphicon-tint"></span>
+        {% else %}
+        <span class="glyphicon glyphicon-ice-lolly-tasted"></span>
+        {% endif %}
+      </span>
+      <p>{{ review.rating|rating_icon }}</p>
+
       {% if review.photo %}
       <img class="img-responsive img-circle review" src="{{ review.photo.url }}">
       {% else %}
       <img class="img-responsive img-circle" src="https://www.placehold.it/175px175">
       {% endif %}
       <div class="caption">
-        {% load rating_icon %}
-        <h3><a href="{{ review.get_absolute_url }}">{{ review.title|upper}}</a></h3>
-        <br/>
-        <span>{{ review.rating|rating_icon }}</span>
-        <h3>
-          <a href="{{ review.strain.get_absolute_url }}">{{ review.strain }}</a>
-          {% if review.method == 'FLOWER'%}
-          <span class="glyphicon glyphicon-leaf"></span>
-          {% elif review.method == 'EXTRACT' %}
-          <span class="glyphicon glyphicon-tint"></span>
-          {% else %}
-          <span class="glyphicon glyphicon-ice-lolly-tasted"></span>
-          {% endif %}
-        </h3>
-      <hr/>
-        <h3>{{ review.content|linebreaks|truncatechars:65}}</h3>
-      </br>
-        <img class="img-responsive img-circle profile icon-left" src="{{ review.user.profile.photo.url }}">
-        <span>Reviewed by <a href="{% url 'accounts:user' review.user.username %}">{{ review.user.username }}</a>, updated {{ review.updated }}
-        <span class="icon-right heart">{% bootstrap_icon "heart" %} {{ review.users_like.count }}</span>
+        <h4><a href="{{ review.get_absolute_url }}">{{ review.title }}</a></h4>
+        <p>{{ review.updated }}</p>
+        <hr/>
+        <p>{{ review.content|linebreaks|truncatechars:65}}</p>
+        <span>{% bootstrap_icon "heart" %} {{ review.users_like.count }}</span>
       </div> <!--/.caption-->
     </div> <!--/.thumbnail image-left-->
     {% endfor %}
