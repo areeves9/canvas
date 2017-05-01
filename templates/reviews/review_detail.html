@@ -2,6 +2,8 @@
 {% block head_title %}{{ review.title }} | {{ block.super }}{% endblock head_title %}
 
 {% block content %}
+
+
 {% with total_likes=review.users_like.count users_like=review.users_like.all %}
 <div class="row">
   <div class="well col-xs-12 col-md-12">
@@ -12,8 +14,9 @@
       <img class="img-responsive img-rounded strain-photo" src="https://www.placehold.it/300x300"/>
       {% endif %}
       <div class="caption">
+        {% load rating_icon %}
         <h1>{{ review.title }}</h1>
-        <h3>{{ review.strain }} {{ review.method|lower }} Rating: {{ review.rating }}</h3>
+        <h3>{{ review.strain }} {{ review.method|lower }} Rating: {{review.rating|rating_icon}}</h3>
         <p>{{ review.content }}</p>
         <p>Reviewd by <a href="{% url 'accounts:user' review.user.username %}">{{ review.user }}</a></p>
         <p>Last Update: {{ review.updated }}</p>
