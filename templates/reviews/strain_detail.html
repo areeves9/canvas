@@ -12,15 +12,9 @@
       <image class="img-responsive strain-photo" src="{{ strain.get_strain_image }}">
       {% endif %}
     </div>
-    {% buttons %}
-    <h1>{{ strain.name }}</h1>
-    <span>Rating: {{ strain.get_average_rating }} of 5.0 </span>
-    <a href="{% url 'reviews:review' strain.id %}">
-      <button class="btn btn-default">
-        {% bootstrap_icon "pencil" %} Review
-      </button>
-    </a>
-    {% endbuttons %}
+
+    <h1>{{ strain.name }}</h1><span>Rating: {{ strain.get_average_rating }} of 5.0 </span>
+
 
     <h3>Summary</h3>
     <p>From <a href="https://www.leafly.com">Leafly.com</a>--{{ strain.summary }}</p>
@@ -53,6 +47,14 @@
     <a href="{{ review.get_absolute_url }}"><p>{{ review.title }}</p></a>
       {% endfor %}
     {% endif %}
+    <hr/>
+    {% buttons %}
+    <a href="{% url 'reviews:review' strain.id %}">
+      <button class="btn btn-default">
+        {% bootstrap_icon "pencil" %} Review
+      </button>
+    </a>
+    {% endbuttons %}
   </div> <!--/.well col-sm-12 col-lg-6-->
 </div> <!--/.row-->
 {% endblock %}
