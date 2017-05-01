@@ -11,7 +11,7 @@ class ReviewModelAdmin(admin.ModelAdmin):
         model = Review
 
 class StrainModelAdmin(admin.ModelAdmin):
-    list_display = ["name"]
+    list_display = ["name", "genetics", "lineage"]
     list_display_links = ["name"]
 
 

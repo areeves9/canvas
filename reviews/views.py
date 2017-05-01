@@ -84,10 +84,12 @@ def strain_detail(request, id=None):
     strain = get_object_or_404(Strain, id=id)
     reviews = strain.user_review.all()
     countries = strain.lineage
+    genetics = strain.genetics
     context = {
         "strain": strain,
         "reviews": reviews,
         "countries": countries,
+        "genetics": genetics,
     }
     return render(request, "reviews/strain_detail.html", context)
 
@@ -100,6 +102,7 @@ def strain_review(request, id=None):
         content = form.cleaned_data['content']
         method = form.cleaned_data['method']
         photo = form.cleaned_data['photo']
+        rating = form.cleaned_data['rating']
         user = request.user
         review = Review()
         review.strain = strain
@@ -108,6 +111,7 @@ def strain_review(request, id=None):
         review.content = content
         review.method = method
         review.photo = photo
+        review.rating = rating
         review.save()
         messages.success(request, "Review saved.")
         return HttpResponseRedirect(review.get_absolute_url())

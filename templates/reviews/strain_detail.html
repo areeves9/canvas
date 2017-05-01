@@ -6,7 +6,7 @@
 <div class="row">
   <div class="well col-xs-12 col-lg-6">
     <div class="thumbnail">
-      {% if strain.photo_url%}
+      {% if strain.photo_url %}
       <img class="img-responsive strain-photo" src="{{ strain.photo_url }}">
       {% else %}
       <image class="img-responsive strain-photo" src="{{ strain.get_strain_image }}">
@@ -27,12 +27,26 @@
     {% if countries %}
     <h3>Lineage</h3>
       {% for country, value in countries.items %}
-      <img class="flag" src="http://www.geognos.com/api/en/countries/flag/{{ value }}.png">
-      {{ country }}
+    <img class="flag" src="http://www.geognos.com/api/en/countries/flag/{{ value }}.png">
+        {{ country }}
       {% endfor %}
+    {% elif countries == False %} <!--if lineage field is set to empty list-->
+    <h3>Lineage</h3>
+    <p>No Lineage Data for {{ strain.name }}</p>
+    {% elif countries != False %} <!--if lineage field is set to empty list-->
+      {{ strain.get_strain_lineage }}
+    {% endif %}
+
+    {% if genetics %}
+    <h3>Genetics</h3>
+    <p>{{ genetics }}</p>
+    {% elif genetics == False %}
+    <h3>Genetics</h3>
+    <p>No data availabe for {{ strain.name }}</p>
     {% else %}
       {{ strain.get_strain_lineage }}
     {% endif %}
+
     {% if reviews %}
     <h3>Reviews</h3>
       {% for review in reviews %}
