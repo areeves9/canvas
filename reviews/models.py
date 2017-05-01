@@ -49,7 +49,7 @@ class Strain(models.Model):
         for x in strain_ratings:
             l1.append(x.rating)
             average = float(sum(l1))/len(l1)
-            if average == 0:
+            if average == False:
                 return "N/A"
             else:
                 return average
@@ -87,11 +87,6 @@ class Strain(models.Model):
                 return "No Data Present"
         else:
             return self.lineage, self.genetics
-
-
-
-
-
 
     def __str__(self):
         return self.name
