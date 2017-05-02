@@ -32,7 +32,7 @@
          </ul> <!--/.nav navbar-nav navbar-left-->
          <ul class="nav navbar-nav navbar-right">
            {% if request.user.is_authenticated %}
-            <li><p class="navbar-text">Hi, <a href="{% url 'accounts:profile' %}" class="navbar-link">{{ request.user.username }}</a></p></li>
+            <li><p class="navbar-text">Welcome, <a href="{% url 'accounts:profile' %}" class="navbar-link">{{ request.user.username }}</a></p></li>
             <li><a href="{% url 'auth:logout' %}">{% bootstrap_icon "log-out" %} Logout</a></li>
             {% else %}
             <li><a href="{% url 'accounts:register' %}">{% bootstrap_icon "user" %} Register</a></li>
