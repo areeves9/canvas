@@ -15,25 +15,32 @@
       {% load rating_icon %}
       {% for review in reviews %}
     <div class="thumbnail image-left">
-      <img class="img-responsive img-circle profile icon-left" src="{{ review.user.profile.photo.url }}">
-      <span><a href="{% url 'accounts:user' review.user.username %}">{{ review.user.username }}</a> reviewed <a href="{{ review.strain.get_absolute_url }}">{{ review.strain }} </a>
-        {% if review.method == 'FLOWER'%}
-        <span class="glyphicon glyphicon-leaf"></span>
-        {% elif review.method == 'EXTRACT' %}
-        <span class="glyphicon glyphicon-tint"></span>
-        {% else %}
-        <span class="glyphicon glyphicon-ice-lolly-tasted"></span>
-        {% endif %}
+      <img class="img-responsive img-circle profile" src="{{ review.user.profile.photo.url }}">
+      <span>
+        <a href="{% url 'accounts:user' review.user.username %}">
+          {{ review.user.username }}
+        </a> reviewed
+        <a href="{{ review.strain.get_absolute_url }}">
+          {{ review.strain }}
+        </a>
       </span>
       <p>{{ review.rating|rating_icon }}</p>
-
       {% if review.photo %}
       <img class="img-responsive img-circle review" src="{{ review.photo.url }}">
       {% else %}
-      <img class="img-responsive img-circle" src="https://www.placehold.it/175px175">
+      <img class="img-responsive img-circle review" src="https://www.placehold.it/175px175">
       {% endif %}
       <div class="caption">
-        <h4><a href="{{ review.get_absolute_url }}">{{ review.title }}</a></h4>
+        <h4>
+          <a href="{{ review.get_absolute_url }}">{{ review.title }} </a>
+          {% if review.method == 'FLOWER'%}
+          <span class="glyphicon glyphicon-leaf"></span>
+          {% elif review.method == 'EXTRACT' %}
+          <span class="glyphicon glyphicon-tint"></span>
+          {% else %}
+          <span class="glyphicon glyphicon-ice-lolly-tasted"></span>
+          {% endif %}
+        </h4>
         <p>{{ review.updated }}</p>
         <hr/>
         <p>{{ review.content|linebreaks|truncatechars:65}}</p>
