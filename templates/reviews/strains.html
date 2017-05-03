@@ -14,17 +14,15 @@
     {% load static %}
     <div class="strain thumbnail">
       {% if strain.photo_url %}
-      <image class="img-responsive img-circle strain" src="{{ strain.photo_url }}">
+      <image class="img-responsive img-circle profile" src="{{ strain.photo_url }}">
       {% else %}
-      <image class="img-responsive img-circle strain" src="{{ strain.get_strain_image }}">
+      <image class="img-responsive img-circle profile" src="{{ strain.get_strain_image }}">
       {% endif %}
       <div class="caption">
-        <h4 style="margin:20px;"class="text-center"><a href="{{ strain.get_absolute_url }}">{{ strain.name|upper }}</a></h4>
-        <h5>
+        <h4 class="text-center"><a href="{{ strain.get_absolute_url }}">{{ strain.name|upper }}</a></h4>
         <span>
           <span>{{ total_reviews }} </span>review{{ total_reviews|pluralize }}
         </span>
-      </h5>
       </div> <!--/.caption-->
     </div> <!--/.strain thumbnail-->
     {% endwith %}

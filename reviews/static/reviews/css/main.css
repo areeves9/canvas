@@ -13,49 +13,40 @@ body, html {
 
 a {
   text-decoration: none !important;
-  color: green;
+  color: grey;
 }
-
-.row.my-reviews{
+.row.my-reviews {
   margin-top: 100px;
 }
-
 /*set maxium size of review images in thumbnail of reviews template*/
 .thumbnail.image-left > img {
-  /*float: left;*/
   margin: 10px;
   height: 175px;
   width: 175px;
 }
-
-/* small circle thumbnail for strains.html div*/
-.img-responsive.img-circle.strain {
-  height: 55px;
-  width: 55px;
+.img-responsive.strain-photo {
+  height: 100%;
+  width: 100%;
+}
+.thumbnail.image-left span >  a {
+  color: green;
+}
+.caption h4 > a {
+  color: green;
 }
 
-
-/*user profile photo on review list*/
+/*small thumbnail images of user and review */
 .img-responsive.img-circle.profile {
   float: left;
   height: 55px;
   width: 55px;
 }
-
-/*for review list and profile followers section*/
-.img-responsive.img-rounded.profile {
-  height: 55px;
-  width: 55px;
-}
-
-.profile-photo {
-  height: 250px;
-  width: 250px;
-}
-
-.img-responsive.strain-photo {
+.img-responsive.img-circle.avatar {
+  max-height: 250px;
+  max-width: 250px;
   height: 100%;
   width: 100%;
+  margin: auto;
 }
 
 .count {
@@ -104,7 +95,6 @@ a {
 }
 
 .flag {
-  /*float: left;*/
   margin-left: 10px;
   margin-top: 20px;
 }
