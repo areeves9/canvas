@@ -48,7 +48,7 @@ class Strain(models.Model):
         l1 = []
         for x in strain_ratings:
             l1.append(x.rating)
-            average = float(sum(l1))/len(l1)
+            average = sum(l1)/len(l1)
             if average == False:
                 return "N/A"
             else:
@@ -64,7 +64,6 @@ class Strain(models.Model):
                 self.photo_url = image_url
                 self.save()
                 return self.photo_url
-            # im = Image.open(requests.get(image_url, stream=True).raw) # open that url to get the image
             else:
                 return self.photo_url
 
