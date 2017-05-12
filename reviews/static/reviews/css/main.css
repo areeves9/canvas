@@ -121,11 +121,8 @@ a {
   background: -webkit-linear-gradient(to left, #2F80ED, #56CCF2);  /* Chrome 10-25, Safari 5.1-6 */
   background: linear-gradient(to left, #2F80ED, #56CCF2); /* W3C, IE 10+/ Edge, Firefox 16+, Chrome 26+, Opera 12+, Safari 7+ */
   color: #F4FAFF;
-  height: 40px;
   width: 100%;
-  /*line-height: 40px;*/
-  /*position: absolute;*/
-  /*bottom: 0px;*/
+  height: 40px;
 }
 
 #list {
