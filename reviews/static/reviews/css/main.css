@@ -15,6 +15,9 @@ a {
   text-decoration: none !important;
   color: grey;
 }
+.navbar {
+  margin-bottom: 0em;
+}
 .row.my-reviews {
   margin-top: 100px;
 }
@@ -97,4 +100,14 @@ a {
 .flag {
   margin-left: 10px;
   margin-top: 20px;
+}
+.jumbotron {
+  background-image: url("/static/reviews/images/washington1.jpg");
+  background-size: cover;
+  height: 375px;
+
+}
+
+.jumbotron > .container h1, p {
+  color: white;
 }
