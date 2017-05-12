@@ -9,6 +9,7 @@ body, html {
     width: 100%;
     padding: 0;
     margin: 0 auto;
+    overflow-x: hidden;
   }
 
 a {
@@ -22,6 +23,11 @@ a {
   background-image: url("/static/reviews/images/washington1.jpg");
   background-size: cover;
   height: 375px;
+}
+.jumbotron.jumbotron-fluid > div {
+  color: white;
+  position: relative;
+  bottom: -10em;
 }
 /*list of user reviews on profile*/
 .row.my-reviews {
@@ -60,7 +66,6 @@ a {
   width: 100%;
   margin: auto;
 }
-
 .count {
     color: black;
     font-weight: bold;
@@ -110,4 +115,32 @@ a {
 .flag {
   margin-left: 10px;
   margin-top: 20px;
+}
+.footer {
+  background: #56CCF2;  /* fallback for old browsers */
+  background: -webkit-linear-gradient(to left, #2F80ED, #56CCF2);  /* Chrome 10-25, Safari 5.1-6 */
+  background: linear-gradient(to left, #2F80ED, #56CCF2); /* W3C, IE 10+/ Edge, Firefox 16+, Chrome 26+, Opera 12+, Safari 7+ */
+  color: #F4FAFF;
+  height: 40px;
+  width: 100%;
+  /*line-height: 40px;*/
+  /*position: absolute;*/
+  /*bottom: 0px;*/
+}
+
+#list {
+  list-style: none;
+  text-decoration: none;
+  color: white;
+}
+#list > .social {
+  float: right;
+}
+#list > li {
+  display: inline-block;
+  margin: 0.5em;
+}
+
+#list a {
+  color: white;
 }
