@@ -12,6 +12,7 @@
 
     {% load static %}
     <link rel="stylesheet" href="{% static 'reviews/css/main.css' %}"/>
+    <link rel="stylesheet" href="{% static 'reviews/css/navbar.css' %}"
     <link href="https://fonts.googleapis.com/css?family=Raleway" rel="stylesheet">
   </head>
   <body>
@@ -22,7 +23,7 @@
           <button type="button" class="navbar-toggle" data-toggle="collapse" data-target="#myNavbar">
            <span class="glyphicon glyphicon-menu-hamburger"></span>
          </button>
-         <a class="navbar-brand" href="{% url 'reviews:reviews' %}">Canvas</a>
+         <a class="navbar-brand" href="{% url 'home' %}">Canvas</a>
        </div> <!--/.navbar header-->
        <div class="collapse navbar-collapse" id="myNavbar">
          <ul class="nav navbar-nav navbar-left">
@@ -46,8 +47,28 @@
       <div class="jumbotron jumbotron-fluid">
         <div class="container">
           <h1 class="display-3">Canvas Reviews</h1>
-          <br/>
           <p class="lead">Discover dozens of cannabis strains</p>
+        </div> <!--/.container-->
+      </div> <!--/.jumbotron jumbotron-fluid-->
+      <div class="container">
+        <div class="row">
+          <div class="col-xs-12">
+            <h3>Discover strains. Review your favorites.</h3>
+            <p>
+              Review dozens of cannabis strains.
+              Share your experiences with the cannabis community.
+            </p>
+          </div>
+        </div>
+      </div>
+      <div class="container">
+        <div class="row">
+          <div class="col-xs-12">
+            <h3>Social Network</h3>
+            <p>
+              Follow users. Like reviews. Let other cannabis lovers know your preferences.
+            </p>
+          </div>
         </div>
       </div>
       {% endblock %}

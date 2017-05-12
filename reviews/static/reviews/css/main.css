@@ -18,6 +18,12 @@ a {
 .navbar {
   margin-bottom: 0em;
 }
+.jumbotron {
+  background-image: url("/static/reviews/images/washington1.jpg");
+  background-size: cover;
+  height: 375px;
+}
+/*list of user reviews on profile*/
 .row.my-reviews {
   margin-top: 100px;
 }
@@ -27,23 +33,26 @@ a {
   height: 175px;
   width: 175px;
 }
+/*strain thumnail on strain detail template*/
 .img-responsive.strain-photo {
   height: 100%;
   width: 100%;
 }
+/*user name for strain review thumbnail*/
 .thumbnail.image-left span >  a {
   color: green;
 }
+/*review title in thumbnail caption*/
 .caption h4 > a {
   color: green;
 }
-
 /*small thumbnail images of user and review */
 .img-responsive.img-circle.profile {
   float: left;
   height: 55px;
   width: 55px;
 }
+/*profile user photo*/
 .img-responsive.img-circle.avatar {
   max-height: 250px;
   max-width: 250px;
@@ -91,6 +100,7 @@ a {
   height: 200px;
   width: 200px;
 }
+/*thumbnail strain image for strain list*/
 .strain.thumbnail > img {
   max-height: 55px;
   max-width: 55px;
@@ -100,14 +110,4 @@ a {
 .flag {
   margin-left: 10px;
   margin-top: 20px;
-}
-.jumbotron {
-  background-image: url("/static/reviews/images/washington1.jpg");
-  background-size: cover;
-  height: 375px;
-
-}
-
-.jumbotron > .container h1, p {
-  color: white;
 }

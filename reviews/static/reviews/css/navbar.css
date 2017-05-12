@@ -1,0 +1,48 @@
+.navbar-default {
+  background: #56CCF2;  /* fallback for old browsers */
+  background: -webkit-linear-gradient(to left, #2F80ED, #56CCF2);  /* Chrome 10-25, Safari 5.1-6 */
+  background: linear-gradient(to left, #2F80ED, #56CCF2); /* W3C, IE 10+/ Edge, Firefox 16+, Chrome 26+, Opera 12+, Safari 7+ */
+
+  border-color: #56CCF2;
+  border-radius: 0;
+}
+
+.navbar-default .navbar-brand,
+.navbar-default .navbar-brand:hover,
+.navbar-default .navbar-brand:focus {
+    color: #F4FAFF;
+}
+
+.navbar-default .navbar-nav > li > a {
+    color: #F4FAFF;
+}
+
+.navbar-default .navbar-nav > li > a:hover,
+.navbar-default .navbar-nav > li > a:focus {
+    background-color: #78E3FD;
+}
+
+.navbar-default .navbar-nav > .active > a,
+.navbar-default .navbar-nav > .active > a:hover,
+.navbar-default .navbar-nav > .active > a:focus {
+    color: #FFF;
+    background-color: #AA0000;
+}
+
+.navbar-default .navbar-text {
+    color: #FFF;
+}
+
+.navbar-default .navbar-toggle {
+    border-color: #78E3FD;
+    color: #56CCF2;
+}
+
+.navbar-default .navbar-toggle:hover,
+.navbar-default .navbar-toggle:focus {
+    background-color: #006494;
+}
+
+.navbar-default .navbar-toggle .icon-bar {
+    background-color: #FEE797;
+}
