@@ -20,7 +20,7 @@ a {
   margin-bottom: 0em;
 }
 .jumbotron {
-  background-image: url("https://canvasreviews.s3.amazonaws.com/static/reviews/images/washington1.jpg");
+  background-image: url("/static/reviews/images/washington1.jpg");
   background-size: cover;
   height: 375px;
 }
