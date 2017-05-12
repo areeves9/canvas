@@ -5,6 +5,7 @@
     <meta content="width=device-width, user-scalable=no, initial-scale=1.0" name="viewport"/>
     <title>{% block head_title %}Canvas Reviews{% endblock head_title %}</title>
     <script src="https://code.jquery.com/jquery-2.2.4.min.js" integrity="sha256-BbhdlvQf/xTY9gja0Dq3HiwQF8LaCRTXxZKRutelT44=" crossorigin="anonymous"></script>
+    <script src="https://use.fontawesome.com/54e1e15d73.js"></script>
     {% load bootstrap3 %}
 
     {% bootstrap_css %}
@@ -12,6 +13,7 @@
 
     {% load static %}
     <link rel="stylesheet" href="{% static 'reviews/css/main.css' %}"/>
+    <link rel="stylesheet" href="{% static 'reviews/css/navbar.css' %}">
     <link href="https://fonts.googleapis.com/css?family=Raleway" rel="stylesheet">
   </head>
   <body>
@@ -22,7 +24,7 @@
           <button type="button" class="navbar-toggle" data-toggle="collapse" data-target="#myNavbar">
            <span class="glyphicon glyphicon-menu-hamburger"></span>
          </button>
-         <a class="navbar-brand" href="{% url 'reviews:reviews' %}">Canvas</a>
+         <a class="navbar-brand" href="{% url 'home' %}">Canvas</a>
        </div> <!--/.navbar header-->
        <div class="collapse navbar-collapse" id="myNavbar">
          <ul class="nav navbar-nav navbar-left">
@@ -42,10 +44,60 @@
        </div> <!---/.collapse navbar-collapse-->
       </div> <!--/.container-fluid-->
     </nav> <!--/.navbar navbar-default navbar-static-top-->
-    <div class="container">
       {% block content %}
-      {% endblock %}
+    <section id="home">
+      <div class="jumbotron jumbotron-fluid">
+        <div class="container">
+          <h1 class="display-3">Canvas Reviews</h1>
+          <p class="lead">Discover dozens of cannabis strains</p>
+        </div> <!--/.container-->
+      </div> <!--/.jumbotron jumbotron-fluid-->
+      <div class="container-fluid">
+        <div class="row">
+          <div class="col-xs-12">
+            <h3>Discover strains. Share your favorites.</h3>
+            <p>
+              Review dozens of cannabis <strong><a href="{% url 'reviews:strains' %}">strains</a></strong>.
+              Share your experiences with the cannabis community.
+            </p>
+            <button class="btn btn-default"><a href="{% url 'reviews:strains' %}">View Strains</a></button>
+          </div>
+          <div class="col-xs-12">
+            <h3>Share reviews.</h3>
+            <p>
+              Follow users. Like reviews. Find your preferences.
+            </p>
+            <button class="btn btn-default"><a href="{% url 'accounts:register' %}">Register</a></button>
+        </div>
+        <div class="col-xs-12">
+          <h3>More to Come</h3>
+          <p>
+            Activity feeds. Multiple photo uploads for reviews. Instagram API integration. Strain finder.
+          </p>
+        </div>
+        <div class="col-xs-6">
+          <h4>Powered by</h4>
+          <a href="https://www.cannabisreports.com"><img style="margin-bottom:10px;" class="img-responsive" src="{% static 'reviews/images/brand-cannabis-reports.svg' %}"></a>
+        </div>
+      </div> <!--/.row-->
     </div> <!--/.container-->
+
+<div class="container-fluid">
+    <div class="row">
+      <footer class="footer">
+        <div class="col-xs-12">
+          <ul id="list">
+            <li>Made in the PNW <span class="glyphicon glyphicon-tree-conifer"></span></li>
+            <li class="social"><a href="https://www.instagram.com"><i class="fa fa-instagram fa-2x" aria-hidden="true"></i></a></li>
+            <li class="social"><a href="https://www.twitter.com"><i class="fa fa-twitter fa-2x" aria-hidden="true"></i></a></li>
+          </ul>
+        </div>
+      </footer>
+    </div>
+  </div>
+
+    </section>
+      {% endblock %}
     <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery-cookie/1.4.1/jquery.cookie.js"></script>
     <script>
       var csrftoken = $.cookie('csrftoken');
