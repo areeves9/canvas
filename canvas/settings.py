@@ -38,6 +38,7 @@ INSTALLED_APPS = [
     'bootstrap3',
     'storages',
     'gunicorn',
+    'actions',
 ]
 
 MIDDLEWARE = [
