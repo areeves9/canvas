@@ -11,6 +11,8 @@ from django.http import HttpResponseRedirect, JsonResponse
 from reviews.forms import ReviewForm
 from reviews.models import Strain, Review
 
+from actions.models import Action, create_action
+
 from django.views.decorators.http import require_POST
 
 import json
@@ -48,6 +50,7 @@ def review_like(request):
             review = Review.objects.get(id=review_id)
             if action == 'like':
                 review.users_like.add(request.user)
+                create_action(request.user, 'likes', review)
             else:
                 review.users_like.remove(request.user)
             return JsonResponse({'status': 'ok'})
@@ -121,6 +124,7 @@ def strain_review(request, id=None):
         review.photo = photo
         review.rating = rating
         review.save()
+        create_action(request.user, 'wrote', review)
         messages.success(request, "Review saved.")
         return HttpResponseRedirect(review.get_absolute_url())
     else:

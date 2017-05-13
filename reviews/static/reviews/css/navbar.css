@@ -8,13 +8,14 @@
 }
 
 .navbar-default .navbar-brand,
+.navbar-default .navbar-link,
 .navbar-default .navbar-brand:hover,
 .navbar-default .navbar-brand:focus {
-    color: #F4FAFF;
+    color: #fcf8e3;
 }
 
 .navbar-default .navbar-nav > li > a {
-    color: #F4FAFF;
+    color: #fcf8e3;
 }
 
 .navbar-default .navbar-nav > li > a:hover,
@@ -30,9 +31,8 @@
 }
 
 .navbar-default .navbar-text {
-    color: #FFF;
+    color: #FCF8E3;
 }
-
 .navbar-default .navbar-toggle {
     border-color: #78E3FD;
     color: #56CCF2;

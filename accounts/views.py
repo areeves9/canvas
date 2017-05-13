@@ -11,6 +11,7 @@ from accounts.models import Profile, Follow
 from accounts.forms import ProfileForm, UserForm
 
 from reviews.models import Review
+from actions.models import Action, create_action
 # Create your views here.
 def users(request):
     users = User.objects.filter(is_active=True).order_by("username")
@@ -30,6 +31,7 @@ def user_follow(request):
             user = User.objects.get(id=user_id)
             if action == 'follow':
                 Follow.objects.get_or_create(follow_from=request.user, follow_to=user)
+                create_action(request.user, 'is following', user)
             else:
                 Follow.objects.filter(follow_from=request.user, follow_to=user).delete()
             return JsonResponse({'status': 'ok'})
@@ -44,11 +46,19 @@ def profile(request):
     review_list = Review.objects.filter(user=user)
     review_numbers = Review.objects.filter(user=user).count()
     followers = user.followers.all()
+    following = user.following.all()
+    following_ids = request.user.following.values_list('id', flat=True)
+
+    if following_ids:
+        actions = actions.filter(user_id__in=following_ids)
+    actions = actions[:10]
     context = {
         "user": user,
         "review_list": review_list,
         "review_numbers": review_numbers,
         "followers": followers,
+        "following": following,
+        "actions": action,
     }
     return render(request, "accounts/profile.html", context)
 
