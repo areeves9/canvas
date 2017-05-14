@@ -47,6 +47,7 @@ def profile(request):
     review_numbers = Review.objects.filter(user=user).count()
     followers = user.followers.all()
     following = user.following.all()
+    actions = Action.objects.exclude(user=request.user)
     following_ids = request.user.following.values_list('id', flat=True)
 
     if following_ids:
@@ -58,7 +59,7 @@ def profile(request):
         "review_numbers": review_numbers,
         "followers": followers,
         "following": following,
-        "actions": action,
+        "actions": actions,
     }
     return render(request, "accounts/profile.html", context)
 

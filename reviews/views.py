@@ -124,7 +124,7 @@ def strain_review(request, id=None):
         review.photo = photo
         review.rating = rating
         review.save()
-        create_action(request.user, 'wrote', review)
+        create_action(request.user, 'wrote review', review.title)
         messages.success(request, "Review saved.")
         return HttpResponseRedirect(review.get_absolute_url())
     else:

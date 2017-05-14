@@ -12,7 +12,7 @@ def create_action(user, verb, target=None):
     now = timezone.now()
     last_minute = now - datetime.timedelta(seconds=60)
     # similar actions that have occured in the past 60s
-    similar_actions = Actions.objects.filter(user_id=user.id, verb=verb, timestamp__gte=last_minute)
+    similar_actions = Action.objects.filter(user_id=user.id, verb=verb, created__gte=last_minute)
 
     if target:
         target_content = ContentType.objects.get_for_model(target)

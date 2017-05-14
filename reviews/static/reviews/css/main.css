@@ -133,6 +133,7 @@ a {
 #list > .social {
   float: right;
 }
+
 #list > li {
   display: inline-block;
   margin: 0.5em;

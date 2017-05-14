@@ -74,6 +74,12 @@
   </div> <!--/.col-xs-12 col-md-12 profile-->
 </div>
 </row> <!--/.row my-followers-->
+{% for action in actions %}
+<div class="row">
+  {% include "actions/detail.html" %}
+</div>
+  {% endfor %}
+
 
 
 {% endwith %}

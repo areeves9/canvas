@@ -1,0 +1,46 @@
+{% with user=action.user profile=action.user.profile %}
+  <div class="col-xs-4">
+    {% if profile.photo %}
+      <a class="thumbnail" href="{% url 'accounts:user' user.username %}">
+        <img class="img-responsive" src="{{user.profile.photo.url}}">
+      </a>
+    </div>
+    {% endif %}
+{% endwith %}
+
+    {% if action.target %}
+      {% with target=action.target %}
+        {% if target.photo %}
+        <div class="col-xs-4">
+          <a class="thumbnail" href="{% url 'accounts:user' user.username %}">
+            <img class="img-responsive" src="{{ target.photo.url }}">
+          </a>
+        </div>
+        {% endif %}
+        {% if target.profile %}
+        <div class="col-xs-4">
+          <a class="thumbnail" href="{% url 'accounts:user' target.username %}">
+            <img class="img-responsive" src="{{ target.profile.photo.url }}">
+          </a>
+        </div>
+        {% endif %}
+      {% endwith %}
+    {% endif %}
+
+  <div class="col-xs-4">
+    <p>
+      <span>{{ action.created|timesince }} ago</span>
+      <br />
+      <a href="{% url 'accounts:user' user.username %}">
+        {{ user.username }}
+      </a>
+      {{ action.verb }}
+      {% if action.target %}
+        {% with target=action.target %}
+        <a href="">
+        {{ target }}
+      </a>
+      {% endwith %}
+      {% endif %}
+    </p>
+  </div>
