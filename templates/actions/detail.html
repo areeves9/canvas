@@ -1,8 +1,8 @@
 {% with user=action.user profile=action.user.profile %}
-  <div class="col-xs-4">
+  <div class="col-xs-4 col-md-4">
     {% if profile.photo %}
       <a class="thumbnail" href="{% url 'accounts:user' user.username %}">
-        <img class="img-responsive" src="{{user.profile.photo.url}}">
+        <img class="img-responsive" src="{{ profile.photo.url }}">
       </a>
     </div>
     {% endif %}
@@ -10,24 +10,23 @@
 
     {% if action.target %}
       {% with target=action.target %}
-        {% if target.photo %}
-        <div class="col-xs-4">
-          <a class="thumbnail" href="{% url 'accounts:user' user.username %}">
+      {% if target.profile.photo %}
+      <div class="col-xs-4 col-md-4">
+        <a class="thumbnail" href="{% url 'accounts:user' target.username %}">
+          <img class="img-responsive" src="{{ target.profile.photo.url }}">
+        </a>
+      </div>
+      {% elif target.photo %}
+        <div class="col-xs-4 col-md-4">
+          <a class="thumbnail" href="{{ target.get_absolute_url }}">
             <img class="img-responsive" src="{{ target.photo.url }}">
-          </a>
-        </div>
-        {% endif %}
-        {% if target.profile %}
-        <div class="col-xs-4">
-          <a class="thumbnail" href="{% url 'accounts:user' target.username %}">
-            <img class="img-responsive" src="{{ target.profile.photo.url }}">
           </a>
         </div>
         {% endif %}
       {% endwith %}
     {% endif %}
 
-  <div class="col-xs-4">
+  <div class="col-xs-4 col-md-4">
     <p>
       <span>{{ action.created|timesince }} ago</span>
       <br />
@@ -37,10 +36,16 @@
       {{ action.verb }}
       {% if action.target %}
         {% with target=action.target %}
-        <a href="">
+        {% if target.profile %}
+        <a href="{% url 'accounts:user' target.username %}">
         {{ target }}
-      </a>
-      {% endwith %}
+        </a>
+        {% else %}
+        <a href="{{ target.get_absolute_url }}">
+        {{ target }}
+        </a>
+        {% endif %}
+        {% endwith %}
       {% endif %}
     </p>
   </div>
