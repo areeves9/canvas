@@ -8,8 +8,8 @@ from django.shortcuts import render, get_object_or_404
 from django.core.paginator import Paginator, EmptyPage, PageNotAnInteger
 from django.http import HttpResponse, HttpResponseRedirect, JsonResponse
 
-from reviews.forms import ReviewForm
-from reviews.models import Strain, Review
+from reviews.forms import ReviewForm, CommentForm
+from reviews.models import Strain, Review, Comment
 
 from actions.models import Action, create_action
 
@@ -41,10 +41,25 @@ def reviews(request):
     }
     return render(request, "reviews/reviews.html", context)
 
+@login_required
 def review_detail(request, id=None):
     review = get_object_or_404(Review, id=id)
+    comments = review.comments.filter(active=True)
+    if request.method == 'POST':
+        comment_form = CommentForm(request.POST or None)
+        if comment_form.is_valid():
+            new_comment = comment_form.save(commit=False)
+            new_comment.review = review
+            new_comment.name = request.user.username
+            new_comment.email = request.user.email
+            new_comment.save()
+    else:
+        comment_form = CommentForm()
+
     context = {
         "review": review,
+        "comments": comments,
+        "comment_form": comment_form,
     }
     return render(request, "reviews/review_detail.html", context)
 

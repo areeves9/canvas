@@ -1,7 +1,7 @@
 from django import forms
 
 from django.contrib.auth.models import User
-from reviews.models import Review
+from reviews.models import Review, Comment
 
 class ReviewForm(forms.ModelForm):
     class Meta:
@@ -12,6 +12,13 @@ class ReviewForm(forms.ModelForm):
             "content",
             "photo",
             "rating",
+        ]
+
+class CommentForm(forms.ModelForm):
+    class Meta:
+        model = Comment
+        fields = [
+            "body"
         ]
         # widgets = {
         #     "content": Textarea(attrs={"cols": 40, "rows": 15}),
