@@ -9,12 +9,10 @@ body, html {
     width: 100%;
     padding: 0;
     margin: 0 auto;
-
   }
 body {
   overflow-x: hidden;
 }
-
 a {
   text-decoration: none !important;
   color: grey;
@@ -114,11 +112,9 @@ a {
 .user-list h3 {
   margin-bottom: 50px;
 }
-
 .user-list a {
   color: black;
 }
-
 .user-list-element {
   height: 200px;
   width: 200px;
@@ -142,7 +138,6 @@ a {
   width: 100%;
   height: 40px;
 }
-
 #list {
   list-style: none;
   text-decoration: none;
@@ -151,26 +146,20 @@ a {
 #list > .social {
   float: right;
 }
-
 #list > li {
   display: inline-block;
   margin: 0.5em;
 }
-
 #list a {
   color: white;
 }
-
 .col-xs-12.discover {
   background-color: #E6EBE0;
 }
-
 .col-xs-6.col-md-6.discover {
   background-color: #E6EBE0;
 }
-
 #home  button {
   margin-bottom: 1em;
   margin-top: 1em;
-
 }
