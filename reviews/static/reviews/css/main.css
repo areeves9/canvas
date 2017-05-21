@@ -27,6 +27,9 @@ a {
   background-size: cover;
   height: 375px;
 }
+.jumbotron.jumbotron-fluid {
+  margin-bottom: 0px;
+}
 .jumbotron.jumbotron-fluid > div {
   color: white;
   position: relative;
@@ -60,6 +63,18 @@ a {
   float: left;
   height: 55px;
   width: 55px;
+}
+#discover-list {
+  list-style: none;
+}
+#discover-list > li {
+  display: inline-block;
+  margin: 0.5em;
+  float: right;
+}
+.img-responsive.img-circle.discover-profile {
+  max-height: 5em;
+  max-width: 5em;
 }
 /*profile user photo*/
 .img-responsive.img-circle.avatar {
@@ -144,4 +159,18 @@ a {
 
 #list a {
   color: white;
+}
+
+.col-xs-12.discover {
+  background-color: #E6EBE0;
+}
+
+.col-xs-6.col-md-6.discover {
+  background-color: #E6EBE0;
+}
+
+#home  button {
+  margin-bottom: 1em;
+  margin-top: 1em;
+
 }

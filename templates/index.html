@@ -8,28 +8,51 @@
   </div> <!--/.jumbotron jumbotron-fluid-->
   <div class="container-fluid">
     <div class="row">
-      <div class="col-xs-12">
-        <h3>Discover strains. Share your favorites.</h3>
-        <p>
-          Review dozens of cannabis <strong><a href="{% url 'reviews:strains' %}">strains</a></strong>.
+      <div class="col-xs-12 md-6 discover">
+        <h3>Discover Strains</h3>
+        <i class="fa fa-search fa-4x" aria-hidden="true"></i>
+        <ul id="discover-list">
+          <li>
+            <image  class="img-responsive img-circle discover-profile" src="{% static 'reviews/images/Purple Hindu Kush.jpg' %}">
+          </li>
+           <li>
+            <image  class="img-responsive img-circle discover-profile" src="{% static 'reviews/images/Cinex.jpg' %}">
+          </li>
+          <li>
+            <image  class="img-responsive img-circle discover-profile" src="{% static 'reviews/images/Blue Dream.jpg' %}">
+          </li>
+        </ul>
+        <span class="text-left">
+          Review dozens of cannabis <strong><a href="{% url 'reviews:strains' %}">strains.</a></strong>
+          <br/>
           Share your experiences with the cannabis community.
-        </p>
+          <br/>
+        </span>
+        <!-- <image style="{float:right;}" class="img-responsive img-circle profile" src="{% static 'reviews/images/Purple Hindu Kush.jpg' %}"> -->
         <button class="btn btn-default"><a href="{% url 'reviews:strains' %}">View Strains</a></button>
       </div>
+
       <div class="col-xs-12">
-        <h3>Share reviews.</h3>
-        <p>
-          Follow users. Like reviews. Find your preferences.
-        </p>
+        <h3>Share Reviews</h3>
+        <i class="fa fa-user fa-4x" aria-hidden="true"></i>
+        <span>
+          Follow users. Like reviews. Discover cannabis with a community of like minded people.
+        </span>
+        <br/>
+        <br/>
         <button class="btn btn-default"><a href="{% url 'accounts:register' %}">Register</a></button>
     </div>
-    <div class="col-xs-12">
+    <div class="col-xs-12 discover">
       <h3>More to Come</h3>
-      <p>
-        Activity feeds. Multiple photo uploads for reviews. Instagram API integration. Strain finder.
-      </p>
+      <i class="fa fa-wrench fa-4x" aria-hidden="true"></i>
+      <span>
+        Activity feeds. Multiple photo uploads for reviews. Instagram API integration. Strain finder. Comments,
+        tags, and more...
+      </span>
+      <br/>
+      <br/>
     </div>
-    <div class="col-xs-6">
+    <div class="col-xs-6 col-md-6">
       <h4>Powered by</h4>
       <a href="https://www.cannabisreports.com"><img style="margin-bottom:10px;" class="img-responsive" src="{% static 'reviews/images/brand-cannabis-reports.svg' %}"></a>
     </div>
@@ -44,7 +67,7 @@
           <li class="social"><a href="https://www.instagram.com"><i class="fa fa-instagram fa-2x" aria-hidden="true"></i></a></li>
           <li class="social"><a href="https://www.twitter.com"><i class="fa fa-twitter fa-2x" aria-hidden="true"></i></a></li>
         </ul>
-        <p>Created in the PNW <span class="glyphicon glyphicon-tree-conifer"></span></p>
+        <p><i class="fa fa-tree fa-1x" aria-hidden="true"></i> Created in the PNW</p>
       </div>
     </footer>
   </div>
