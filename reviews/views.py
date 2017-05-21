@@ -6,7 +6,7 @@ from django.core.urlresolvers import reverse
 from django.shortcuts import render, get_object_or_404
 
 from django.core.paginator import Paginator, EmptyPage, PageNotAnInteger
-from django.http import HttpResponseRedirect, JsonResponse
+from django.http import HttpResponse, HttpResponseRedirect, JsonResponse
 
 from reviews.forms import ReviewForm
 from reviews.models import Strain, Review
@@ -14,20 +14,28 @@ from reviews.models import Strain, Review
 from actions.models import Action, create_action
 
 from django.views.decorators.http import require_POST
+from common.decorators import ajax_required
+
 
 import json
 # Create your views here.
-
 def reviews(request):
     review_list = Review.objects.all().order_by("-timestamp")
-    paginator = Paginator(review_list, 10)
+    paginator = Paginator(review_list, 3)
     page = request.GET.get('page')
     try:
         reviews = paginator.page(page)
     except PageNotAnInteger:
         reviews = paginator.page(1)
     except EmptyPage:
+        if request.is_ajax():
+            return HttpResponse('')
         reviews = paginator.page(paginator.num_pages)
+    if request.is_ajax():
+        context = {
+            "reviews": reviews,
+        }
+        return render(request, "reviews/review_list_ajax.html", context)
     context = {
         "reviews": reviews,
     }

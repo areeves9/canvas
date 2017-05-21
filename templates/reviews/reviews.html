@@ -1,69 +1,52 @@
 {% extends "base.html" %}
 {% block head_title %} Latest Reviews | {{ block.super }}{% endblock head_title %}
-
-{% load bootstrap3 %}
-
 {% block content %}
 <div class="container">
-<div class="row">
-  <div class="col-xs-12">
-    <h3>Latest Reviews</h3>
+  <div class="row">
+    <div class="col-xs-12">
+      <h3>Latest Reviews</h3>
+    </div>
   </div>
-</div>
-
-<div class="row reviews">
-  <div class="well col-sm-12 col-lg-12">
-      {% load rating_icon %}
-      {% for review in reviews %}
-    <div class="thumbnail image-left">
-      <img class="img-responsive img-circle profile" src="{{ review.user.profile.photo.url }}">
-      <span>
-        <a href="{% url 'accounts:user' review.user.username %}">
-          {{ review.user.username }}
-        </a> reviewed
-        <a href="{{ review.strain.get_absolute_url }}">
-          {{ review.strain }}
-        </a>
-      </span>
-      <p>{{ review.rating|rating_icon }}</p>
-      {% if review.photo %}
-      <img class="img-responsive img-circle review" src="{{ review.photo.url }}">
-      {% else %}
-      <img class="img-responsive img-circle review" src="https://www.placehold.it/175px175">
-      {% endif %}
-      <div class="caption">
-        <h4>
-          <a href="{{ review.get_absolute_url }}">{{ review.title }} </a>
-          {% if review.method == 'FLOWER'%}
-          <span class="glyphicon glyphicon-leaf"></span>
-          {% elif review.method == 'EXTRACT' %}
-          <span class="glyphicon glyphicon-tint"></span>
-          {% else %}
-          <span class="glyphicon glyphicon-ice-lolly-tasted"></span>
-          {% endif %}
-        </h4>
-        <p>{{ review.updated }}</p>
-        <hr/>
-        <p>{{ review.content|linebreaks|truncatechars:65}}</p>
-        <span>{% bootstrap_icon "heart" %} {{ review.users_like.count }}</span>
-      </div> <!--/.caption-->
-    </div> <!--/.thumbnail image-left-->
-    {% endfor %}
-    <div class="pagination">
-      <span class="step-links">
-        {% if reviews.has_previous %}
-          <a href="?page={{ reviews.previous_page_number }}">previous</a>
-        {% endif %}
-      <span class="current">
-          Page {{ reviews.number }} of {{ reviews.paginator.num_pages }}.
-      </span>
-        {% if reviews.has_next %}
-            <a href="?page={{ reviews.next_page_number }}">next</a>
-        {% endif %}
-      </span>
-    </div> <!--./pagination-->
-  </div> <!--/.col-sm-12-->
+  <div class="row reviews">
+    <div id="review-list" class="well col-sm-12 col-lg-12">
+      {% include "reviews/review_list_ajax.html" %}
+    </div>  <!--/.col-sm-12-->
 </div> <!--/.row reviews-->
-</div>
+{% endblock %}
 
+<div class="pagination">
+     <span class="step-links">
+       {% if reviews.has_previous %}
+         <a href="?page={{ reviews.previous_page_number }}">previous</a>
+       {% endif %}
+     <span class="current">
+         Page {{ reviews.number }} of {{ reviews.paginator.num_pages }}.
+     </span>
+       {% if reviews.has_next %}
+           <a href="?page={{ reviews.next_page_number }}">next</a>
+       {% endif %}
+     </span>
+   </div>
+
+{% block domready %}
+     var page = 1;
+     var empty_page = false;
+     var block_request = false;
+
+     $(window).scroll(function() {
+       var margin = $(document).height() - $(window).height() - 200;
+       if  ($(window).scrollTop() > margin && empty_page == false && block_request == false)
+       {
+        block_request = true;
+         page += 1;
+         $.get('?page=' + page, function(data) {
+          if(data == '') {
+             empty_page = true;
+           } else {
+             block_request = false;
+             $('#review-list').append(data);
+           }
+         });
+       }
+     });
 {% endblock %}
