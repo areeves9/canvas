@@ -74,6 +74,9 @@ a {
   max-height: 5em;
   max-width: 5em;
 }
+.user-list-element.img-responsive.img-circle {
+  margin: auto; 
+}
 /*profile user photo*/
 .img-responsive.img-circle.avatar {
   max-height: 250px;
