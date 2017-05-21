@@ -21,7 +21,7 @@ import json
 # Create your views here.
 def reviews(request):
     review_list = Review.objects.all().order_by("-timestamp")
-    paginator = Paginator(review_list, 3)
+    paginator = Paginator(review_list, 8)
     page = request.GET.get('page')
     try:
         reviews = paginator.page(page)
@@ -86,14 +86,21 @@ def review_update(request, id=None):
 
 def strains(request):
     strain_list = Strain.objects.all().order_by("name")
-    paginator = Paginator(strain_list, 10)
+    paginator = Paginator(strain_list, 8)
     page = request.GET.get('page')
     try:
         strains = paginator.page(page)
     except PageNotAnInteger:
         strains = paginator.page(1)
     except EmptyPage:
+        if request.is_ajax():
+            return HttpResponse('')
         strains = paginator.page(paginator.num_pages)
+    if request.is_ajax():
+        context = {
+            "strains": strains,
+        }
+        return render(request, "reviews/strain_list_ajax.html", context)
     context = {
         "strains": strains,
     }

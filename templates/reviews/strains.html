@@ -1,70 +1,52 @@
 {% extends "base.html" %}
 {% block head_title %} Strains | {{ block.super }}{% endblock head_title %}
 
-
 {% block content %}
-
 <div class="container">
-<div class="row">
-  <div class="col-xs-12">
-    <h3>Strains</h3>
-  </div>
-  <div class="well col-xs-12 col-md-6">
-    {% for strain in strains %}
-    {% with total_reviews=strain.user_review.count %}
-    {% load static %}
-    <div class="strain thumbnail">
-      {% if strain.photo_url %}
-      <image class="img-responsive img-circle profile" src="{{ strain.photo_url }}">
-      {% else %}
-      <image class="img-responsive img-circle profile" src="{{ strain.get_strain_image }}">
-      {% endif %}
-      <div class="caption">
-        <h4 class="text-center"><a href="{{ strain.get_absolute_url }}">{{ strain.name|upper }}</a></h4>
-        <span>
-          <span>{{ total_reviews }} </span>review{{ total_reviews|pluralize }}
-        </span>
-      </div> <!--/.caption-->
-    </div> <!--/.strain thumbnail-->
-    {% endwith %}
-    {% endfor %}
-    <div class="pagination">
-      <span class="step-links">
-        {% if strains.has_previous %}
-          <a href="?page={{ strains.previous_page_number }}">previous</a>
-        {% endif %}
-      <span class="current">
-          Page {{ strains.number }} of {{ strains.paginator.num_pages }}.
-      </span>
-        {% if strains.has_next %}
-            <a href="?page={{ strains.next_page_number }}">next</a>
-        {% endif %}
-      </span>
-    </div> <!--./pagination-->
-  </div> <!--/.col-xs-12 col-md-12-->
-</div> <!--/.row-->
-</div>
+  <div class="row">
+    <div class="col-xs-12">
+      <h3>Strains</h3>
+    </div> <!--/.col-xs-12-->
+  </div> <!--/.row-->
+  <div class="row strains">
+    <div id="strain-list" class="well col-xs-12 col-md-6">
+    {% include "reviews/strain_list_ajax.html" %}
+    </div> <!--/.well col-xs-12 col-md-6-->
+  </div> <!--/.row-->
+</div> <!--/.container-->
 {% endblock %}
 
 {% block domready %}
-     var page = 1;
-     var empty_page = false;
-     var block_request = false;
-
-     $(window).scroll(function() {
-       var margin = $(document).height() - $(window).height() - 200;
-       if  ($(window).scrollTop() > margin && empty_page == false && block_request == false)
-       {
-        block_request = true;
-         page += 1;
-         $.get('?page=' + page, function(data) {
-          if(data == '') {
-             empty_page = true;
-           } else {
-             block_request = false;
-             $('#review-list').append(data);
+var page = 1;
+var empty_page = false;
+var block_request = false;
+$(window).scroll(function() {
+  var margin = $(document).height() - $(window).height() - 200;
+  if  ($(window).scrollTop() > margin && empty_page == false && block_request == false){
+    block_request = true;
+    page += 1;
+    $.get('?page=' + page, function(data) {
+    if(data == '') {
+      empty_page = true;
+    } else {
+      block_request = false;
+      $('#strain-list').append(data);
            }
          });
        }
      });
 {% endblock %}
+
+  <!-- <div class="pagination">
+    <span class="step-links">
+    {% if strains.has_previous %}
+      <a href="?page={{ strains.previous_page_number }}">previous</a>
+      {% endif %}
+      <span class="current">
+          Page {{ strains.number }} of {{ strains.paginator.num_pages }}.
+      </span>
+      {% if strains.has_next %}
+      <a href="?page={{ strains.next_page_number }}">next</a>
+      {% endif %}
+      </span>
+  </div> -->
