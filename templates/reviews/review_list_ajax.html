@@ -32,6 +32,7 @@
         <hr/>
         <p>{{ review.content|linebreaks|truncatechars:65}}</p>
         <span>{% bootstrap_icon "heart" %} {{ review.users_like.count }}</span>
+        <span>{% bootstrap_icon "comment" %} {{ review.comments.count }}</span>
       </div> <!--/.caption-->
     </div> <!--/.thumbnail image-left-->
     {% endfor %}

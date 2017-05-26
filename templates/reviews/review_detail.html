@@ -43,7 +43,7 @@
   <div class="col-xs-12">
     {% with comments.count as total_comments %}
     <h2>
-      {{ total_comments }} comment {{ total_comments|pluralize }}
+      {{ total_comments }} comment{{ total_comments|pluralize }}
     </h2>
 
     {% for comment in comments %}
