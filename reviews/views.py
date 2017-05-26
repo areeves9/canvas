@@ -53,7 +53,8 @@ def review_detail(request, id=None):
         new_comment.email = request.user.email
         new_comment.save()
         # create_action(request.user, 'commented on', review.title)
-        messages.success(request, "Comment saved.")
+        create_action(request.user, 'commented on', review)
+        messages.success(request, "Comment posted.")
         return HttpResponseRedirect(review.get_absolute_url())
     else:
         context = {
@@ -89,7 +90,8 @@ def review_update(request, id=None):
         if form.is_valid():
             review = form.save(commit=False)
             review.save()
-            messages.success(request, "<a href=''>Item</a> Saved", extra_tags="html_safe")
+            create_action(request.user, 'updated', review)
+            messages.success(request, "Updated")
             return HttpResponseRedirect( '/reviews/')
         else:
             messages.error(request, "Update failed.")
@@ -139,13 +141,13 @@ def strain_review(request, id=None):
     strain = get_object_or_404(Strain, id=id)
     form = ReviewForm(request.POST or None, request.FILES or None)
     if form.is_valid():
-        # title = form.cleaned_data['title']
-        # content = form.cleaned_data['content']
-        # method = form.cleaned_data['method']
-        # photo = form.cleaned_data['photo']
-        # rating = form.cleaned_data['rating']
+        title = form.cleaned_data['title']
+        content = form.cleaned_data['content']
+        method = form.cleaned_data['method']
+        photo = form.cleaned_data['photo']
+        rating = form.cleaned_data['rating']
+        review = Review()
         user = request.user
-        # review = Review()
         review.strain = strain
         review.user = user
         review.title = title
@@ -154,7 +156,7 @@ def strain_review(request, id=None):
         review.photo = photo
         review.rating = rating
         review.save()
-        create_action(request.user, 'wrote review', review.title)
+        create_action(request.user, 'wrote', review)
         messages.success(request, "Review saved.")
         return HttpResponseRedirect(review.get_absolute_url())
     else:
