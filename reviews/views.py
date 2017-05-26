@@ -45,22 +45,22 @@ def reviews(request):
 def review_detail(request, id=None):
     review = get_object_or_404(Review, id=id)
     comments = review.comments.filter(active=True)
-    if request.method == 'POST':
-        comment_form = CommentForm(request.POST or None)
-        if comment_form.is_valid():
-            new_comment = comment_form.save(commit=False)
-            new_comment.review = review
-            new_comment.name = request.user.username
-            new_comment.email = request.user.email
-            new_comment.save()
+    comment_form = CommentForm(request.POST or None)
+    if comment_form.is_valid():
+        new_comment = comment_form.save(commit=False)
+        new_comment.review = review
+        new_comment.name = request.user.username
+        new_comment.email = request.user.email
+        new_comment.save()
+        # create_action(request.user, 'commented on', review.title)
+        messages.success(request, "Comment saved.")
+        return HttpResponseRedirect(review.get_absolute_url())
     else:
-        comment_form = CommentForm()
-
-    context = {
-        "review": review,
-        "comments": comments,
-        "comment_form": comment_form,
-    }
+        context = {
+            "review": review,
+            "comments": comments,
+            "comment_form": comment_form,
+            }
     return render(request, "reviews/review_detail.html", context)
 
 @login_required
@@ -139,13 +139,13 @@ def strain_review(request, id=None):
     strain = get_object_or_404(Strain, id=id)
     form = ReviewForm(request.POST or None, request.FILES or None)
     if form.is_valid():
-        title = form.cleaned_data['title']
-        content = form.cleaned_data['content']
-        method = form.cleaned_data['method']
-        photo = form.cleaned_data['photo']
-        rating = form.cleaned_data['rating']
+        # title = form.cleaned_data['title']
+        # content = form.cleaned_data['content']
+        # method = form.cleaned_data['method']
+        # photo = form.cleaned_data['photo']
+        # rating = form.cleaned_data['rating']
         user = request.user
-        review = Review()
+        # review = Review()
         review.strain = strain
         review.user = user
         review.title = title
