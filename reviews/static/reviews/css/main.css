@@ -39,7 +39,7 @@ a {
 }
 /*set maxium size of review images in thumbnail of reviews template*/
 .thumbnail.image-left > img {
-  margin: 10px;
+  margin: auto;
   height: 175px;
   width: 175px;
 }
@@ -75,7 +75,7 @@ a {
   max-width: 5em;
 }
 .user-list-element.img-responsive.img-circle {
-  margin: auto; 
+  margin: auto;
 }
 /*profile user photo*/
 .img-responsive.img-circle.avatar {

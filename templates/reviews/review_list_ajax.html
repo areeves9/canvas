@@ -10,8 +10,8 @@
         <a href="{{ review.strain.get_absolute_url }}">
           {{ review.strain }}
         </a>
+        <span>{{ review.rating|rating_icon }}</span>
       </span>
-      <p>{{ review.rating|rating_icon }}</p>
       {% if review.photo %}
       <img class="img-responsive img-circle review" src="{{ review.photo.url }}">
       {% else %}

@@ -1,0 +1,44 @@
+{% load bootstrap3 %}
+
+  <div class="col-xs-12">
+    {% with comments.count as total_comments %}
+    <h2>
+      {{ total_comments }} comment{{ total_comments|pluralize }}
+    </h2>
+
+    {% for comment in comments %}
+    <div class="media">
+      <div class="media-left">
+        <a href="#">
+          {% load static %}
+          {% if review.photo %}
+          <img class="media-object" style="height:100px;width:100px;" src="{{ review.photo.url }}" alt="...">
+          {% endif %}
+        </a>
+      </div>
+      <div class="media-body">
+        <h4 class="media-heading"></h4>
+      </div>
+    </div>
+
+    <p> Comment {{ forloop.counter }} by @{{comment.name}} {{comment.created}}</p>
+    <p>{{ comment.body|linebreaks }}</p>
+    {% empty %}
+    <p>There are no comments yet.</p>
+    {% endfor %}
+    {% if new_comment %}
+    <h2>Your comment has been added.</h2>
+    {% else %}
+    <h2>Add a new comment</h2>
+    <form action="." method="post">
+      {% csrf_token %}
+      {% bootstrap_form comment_form layout='inline' %}
+      {% buttons %}
+      <button type=submit class="btn btn-default">
+        {% bootstrap_icon "star" %} Comment
+      </button>
+      {% endbuttons %}
+    </form>
+  </div>
+{% endif %}
+{% endwith %}
