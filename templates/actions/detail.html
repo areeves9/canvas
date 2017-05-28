@@ -31,7 +31,7 @@
       <span>{{ action.created|timesince }} ago</span>
       <br />
       <a href="{% url 'accounts:user' user.username %}">
-        {{ user.username }}
+        {{ action.user }}
       </a>
       {{ action.verb }}
       {% if action.target %}

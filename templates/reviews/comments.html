@@ -10,10 +10,6 @@
     <div class="media">
       <div class="media-left">
         <a href="#">
-          {% load static %}
-          {% if review.photo %}
-          <img class="media-object" style="height:100px;width:100px;" src="{{ review.photo.url }}" alt="...">
-          {% endif %}
         </a>
       </div>
       <div class="media-body">
@@ -21,7 +17,7 @@
       </div>
     </div>
 
-    <p> Comment {{ forloop.counter }} by @{{comment.name}} {{comment.created}}</p>
+    <p> Comment {{ forloop.counter }} by <a href="/accounts/profile/{{ comment.name }}/">@{{comment.name}}</a> {{comment.created}}</p>
     <p>{{ comment.body|linebreaks }}</p>
     {% empty %}
     <p>There are no comments yet.</p>
