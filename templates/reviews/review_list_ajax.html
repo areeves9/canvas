@@ -13,9 +13,9 @@
         <span>{{ review.rating|rating_icon }}</span>
       </span>
       {% if review.photo %}
-      <img class="img-responsive img-circle review" src="{{ review.photo.url }}">
+      <img class="img-responsive img-rounded" src="{{ review.photo.url }}">
       {% else %}
-      <img class="img-responsive img-circle review" src="https://www.placehold.it/175px175">
+      <img class="img-responsive img-rounded review" src="https://www.placehold.it/300px250">
       {% endif %}
       <div class="caption">
         <h4>

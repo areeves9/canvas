@@ -37,12 +37,6 @@ a {
 .row.my-reviews {
   margin-top: 100px;
 }
-/*set maxium size of review images in thumbnail of reviews template*/
-.thumbnail.image-left > img {
-  margin: auto;
-  height: 175px;
-  width: 175px;
-}
 /*strain thumnail on strain detail template*/
 .img-responsive.strain-photo {
   height: 100%;
@@ -59,6 +53,7 @@ a {
 /*small thumbnail images of user and review */
 .img-responsive.img-circle.profile {
   float: left;
+  margin-bottom: 1em;
   height: 55px;
   width: 55px;
 }
