@@ -5,19 +5,8 @@
     <h2>
       {{ total_comments }} comment{{ total_comments|pluralize }}
     </h2>
-
     {% for comment in comments %}
-    <div class="media">
-      <div class="media-left">
-        <a href="#">
-        </a>
-      </div>
-      <div class="media-body">
-        <h4 class="media-heading"></h4>
-      </div>
-    </div>
-
-    <p> Comment {{ forloop.counter }} by <a href="/accounts/profile/{{ comment.name }}/">@{{comment.name}}</a> {{comment.created}}</p>
+    <p><a href="/accounts/profile/{{ comment.name }}/">@{{comment.name}}</a> {{comment.created}}</p>
     <p>{{ comment.body|linebreaks }}</p>
     {% empty %}
     <p>There are no comments yet.</p>
