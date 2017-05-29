@@ -54,6 +54,7 @@ a {
 .img-responsive.img-circle.profile {
   float: left;
   margin-bottom: 1em;
+  margin-right: 1em;
   height: 55px;
   width: 55px;
 }
@@ -69,6 +70,7 @@ a {
   max-height: 5em;
   max-width: 5em;
 }
+/*profile photos in user list html template*/
 .user-list-element.img-responsive.img-circle {
   margin: auto;
 }

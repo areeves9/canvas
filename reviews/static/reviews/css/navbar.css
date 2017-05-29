@@ -32,6 +32,7 @@
 
 .navbar-default .navbar-text {
     color: #FCF8E3;
+    margin-left: 1em;
 }
 .navbar-default .navbar-toggle {
     border-color: #78E3FD;
