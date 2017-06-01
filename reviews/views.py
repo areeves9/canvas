@@ -49,8 +49,7 @@ def review_detail(request, id=None):
     if comment_form.is_valid():
         new_comment = comment_form.save(commit=False)
         new_comment.review = review
-        new_comment.name = request.user.username
-        new_comment.email = request.user.email
+        new_comment.user = request.user
         new_comment.save()
         # create_action(request.user, 'commented on', review.title)
         create_action(request.user, 'commented on', review)

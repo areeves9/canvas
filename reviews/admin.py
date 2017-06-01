@@ -20,9 +20,9 @@ class StrainModelAdmin(admin.ModelAdmin):
         model = Strain
 
 class CommentModelAdmin(admin.ModelAdmin):
-    list_display = ["name", "email", "review", "created", "active"]
+    list_display = ["user", "review", "created", "active"]
     list_filter = ["active", "created", "updated"]
-    search_fields = ["name", "email", "body"]
+    search_fields = ["user", "body"]
 
     class Meta:
         model = Comment

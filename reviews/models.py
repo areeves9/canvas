@@ -99,7 +99,7 @@ class Review(models.Model):
     title = models.CharField(max_length=35)
     content = models.TextField(max_length=500)
     strain = models.ForeignKey(Strain, related_name="user_review")
-    user = models.ForeignKey(settings.AUTH_USER_MODEL,  related_name="user" ,default=1)
+    user = models.ForeignKey(settings.AUTH_USER_MODEL, related_name="user", default=1)
     photo = models.ImageField(
         upload_to=upload_location,
         blank=True,
@@ -146,8 +146,7 @@ class Review(models.Model):
 
 class Comment(models.Model):
     review = models.ForeignKey(Review, related_name='comments')
-    name = models.CharField(max_length=62)
-    email = models.EmailField()
+    user = models.ForeignKey(settings.AUTH_USER_MODEL, related_name="user_comments", default=10)
     body = models.TextField()
     created = models.DateTimeField(auto_now_add=True)
     updated = models.DateTimeField(auto_now=True)
