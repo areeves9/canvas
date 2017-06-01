@@ -146,7 +146,7 @@ class Review(models.Model):
 
 class Comment(models.Model):
     review = models.ForeignKey(Review, related_name='comments')
-    user = models.ForeignKey(settings.AUTH_USER_MODEL, related_name="user_comments", default=10)
+    user = models.ForeignKey(settings.AUTH_USER_MODEL, related_name="user_comments", default=1)
     body = models.TextField()
     created = models.DateTimeField(auto_now_add=True)
     updated = models.DateTimeField(auto_now=True)
