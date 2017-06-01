@@ -6,9 +6,11 @@
     {% for comment in comments %}
       <div class="col-xs-12">
       {% if comment.user.profile.photo %}
-        <img class="img-responsive img-circle profile" src="{{ comment.user.profile.photo.url }}">
+        <a href="{% url 'accounts:user' comment.user.username %}">
+          <img class="img-responsive img-circle profile" src="{{ comment.user.profile.photo.url }}">
+        </a>
       {% endif %}
-        <p><a href="/accounts/profile/{{ comment.user.username }}/">@{{ user.username }}</a> {{ comment.created }}</p>
+        <p><a href="{% url 'accounts:user' comment.user.username %}">@{{ user.username }}</a> {{ comment.created }}</p>
         <p>{{ comment.body|linebreaks }}</p>
         <hr>
       </div>
