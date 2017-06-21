@@ -23,6 +23,7 @@ a {
 .jumbotron {
   background-image: url("/static/reviews/images/washington1.jpg");
   background-size: cover;
+  background-position: center;
   height: 375px;
 }
 .jumbotron.jumbotron-fluid {
@@ -75,7 +76,7 @@ a {
   margin: auto;
 }
 /*profile user photo*/
-.img-responsive.img-circle.avatar {
+.avatar {
   max-height: 250px;
   max-width: 250px;
   height: 100%;

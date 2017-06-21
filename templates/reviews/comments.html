@@ -1,5 +1,5 @@
 {% load bootstrap3 %}
-    {% with comments.count as total_comments %}
+    {% with total_comments=comments.count %}
     <h2>
       {{ total_comments }} comment{{ total_comments|pluralize }}
     </h2>
@@ -10,7 +10,7 @@
           <img class="img-responsive img-circle profile" src="{{ comment.user.profile.photo.url }}">
         </a>
       {% endif %}
-        <p><a href="{% url 'accounts:user' comment.user.username %}">@{{ user.username }}</a> {{ comment.created }}</p>
+        <p><a href="{% url 'accounts:user' comment.user.username %}">@{{ comment.user.username }}</a> {{ comment.created }}</p>
         <p>{{ comment.body|linebreaks }}</p>
         <hr>
       </div>
@@ -28,7 +28,7 @@
       {% bootstrap_form comment_form layout='inline' %}
       {% buttons %}
       <button type=submit class="btn btn-default">
-        {% bootstrap_icon "star" %} Comment
+        {% bootstrap_icon "pencil" %} Comment
       </button>
       {% endbuttons %}
     </form>

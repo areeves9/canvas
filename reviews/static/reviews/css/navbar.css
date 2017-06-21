@@ -1,7 +1,7 @@
 .navbar-default {
-  background: #56CCF2;  /* fallback for old browsers */
-  background: -webkit-linear-gradient(to left, #2F80ED, #56CCF2);  /* Chrome 10-25, Safari 5.1-6 */
-  background: linear-gradient(to left, #2F80ED, #56CCF2); /* W3C, IE 10+/ Edge, Firefox 16+, Chrome 26+, Opera 12+, Safari 7+ */
+  background: #4B79A1;  /* fallback for old browsers */
+  background: -webkit-linear-gradient(to right, #283E51, #4B79A1);  /* Chrome 10-25, Safari 5.1-6 */
+  background: linear-gradient(to right, #283E51, #4B79A1); /* W3C, IE 10+/ Edge, Firefox 16+, Chrome 26+, Opera 12+, Safari 7+ */
 
   border-color: #56CCF2;
   border-radius: 0;
@@ -35,7 +35,7 @@
     margin-left: 1em;
 }
 .navbar-default .navbar-toggle {
-    border-color: #78E3FD;
+    border-color: #4B79A1;
     color: #56CCF2;
 }
 

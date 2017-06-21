@@ -12,7 +12,7 @@
   <p>
     <span>{{ action.created|timesince }} ago</span>
     <br />
-    <a href="{% url 'accounts:user' user.username %}">
+    <a href="{% url 'accounts:user' action.user.username %}">
       {{ action.user }}
     </a>
     {{ action.verb }}
