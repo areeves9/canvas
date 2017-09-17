@@ -9,7 +9,45 @@
   </div> <!--/.row-->
   <div class="row reviews">
     <div id="review-list" class="well col-sm-12 col-lg-12">
-      {% include "reviews/review_list_ajax.html" %}
+      {% load bootstrap3 %}
+      {% load rating_icon %}
+      {% for review in reviews %}
+          <div class="thumbnail image-left">
+            <img class="img-responsive img-circle profile" src="{{ review.user.profile.photo.url }}">
+            <span>
+              <a href="{% url 'accounts:user' review.user.username %}">
+                {{ review.user.username }}
+              </a> reviewed
+              <a href="{{ review.strain.get_absolute_url }}">
+                {{ review.strain }}
+              </a>
+              <br/>
+              <span>{{ review.rating|rating_icon }}</span>
+            </span>
+            {% if review.photo %}
+            <img class="img-responsive img-rounded" src="{{ review.photo.url }}">
+            {% else %}
+            <img class="img-rounded" src="http://placehold.it/300x200" srcset="http://placehold.it/300x200 300w" sizes="100vw" alt="Placeholder"/>
+            {% endif %}
+            <div class="caption">
+              <h4>
+                <a href="{{ review.get_absolute_url }}">{{ review.title }} </a>
+                {% if review.method == 'FLOWER'%}
+                <span class="glyphicon glyphicon-leaf"></span>
+                {% elif review.method == 'EXTRACT' %}
+                <span class="glyphicon glyphicon-tint"></span>
+                {% else %}
+                <span class="glyphicon glyphicon-ice-lolly-tasted"></span>
+                {% endif %}
+              </h4>
+              <p>{{ review.updated }}</p>
+              <hr/>
+              <p>{{ review.content|linebreaks|truncatechars:65}}</p>
+              <span>{% bootstrap_icon "heart" %} {{ review.users_like.count }}</span>
+              <span>{% bootstrap_icon "comment" %} {{ review.comments.count }}</span>
+            </div> <!--/.caption-->
+          </div> <!--/.thumbnail image-left-->
+          {% endfor %}
     </div>  <!--/.well col-sm-12 col-lg-12-->
   </div> <!--/.row reviews-->
 </div> <!--/.container-->

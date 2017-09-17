@@ -5,7 +5,7 @@ from .settings import BASE_DIR
 
 DEBUG = True
 
-ALLOWED_HOSTS = []
+ALLOWED_HOSTS = ['0.0.0.0']
 
 DATABASES = {
     'default': {
