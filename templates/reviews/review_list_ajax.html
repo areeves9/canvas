@@ -2,7 +2,7 @@
 {% load rating_icon %}
 {% for review in reviews %}
     <div class="thumbnail image-left">
-      {% review.user.profile.photo %}
+      {% if review.user.profile.photo %}
       <img class="img-responsive img-circle profile" src="{{ review.user.profile.photo.url }}">
       {% else %}
       <img class="img-responsive img-circle profile" src="http://placehold.it/60x60">
