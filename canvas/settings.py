@@ -39,6 +39,8 @@ INSTALLED_APPS = [
     'storages',
     'gunicorn',
     'actions',
+    'pysolr',
+    'haystack',
 ]
 
 MIDDLEWARE = [
@@ -71,7 +73,13 @@ TEMPLATES = [
 
 WSGI_APPLICATION = 'canvas.wsgi.application'
 
-
+HAYSTACK_CONNECTIONS = {
+       'default': {
+           'ENGINE': 'haystack.backends.elasticsearch_backend.ElasticsearchSearchEngine',
+           'URL': 'http://127.0.0.1:9200/',
+           'INDEX_NAME': 'reviews',
+       },
+}
 # Database
 # https://docs.djangoproject.com/en/1.10/ref/settings/#databases
 DATABASES = {
@@ -123,6 +131,7 @@ USE_TZ = True
 LOGIN_URL = reverse_lazy('auth:login')
 LOGIN_REDIRECT_URL = reverse_lazy('accounts:profile')
 
+
 # Static files (CSS, JavaScript, Images)
 # https://docs.djangoproject.com/en/1.10/howto/static-files/
 
@@ -130,10 +139,10 @@ LOGIN_REDIRECT_URL = reverse_lazy('accounts:profile')
 # debug check, need to refactor so the block under if DEBUG check
 # runs to update MEDIA_URL and STATIC_URL
 
-# try:
-#     from .local_settings import *
-# except ImportError:
-#     pass
+try:
+    from .local_settings import *
+except ImportError:
+    pass
 
 if DEBUG==False:
     STATICFILES_LOCATION = 'static'
