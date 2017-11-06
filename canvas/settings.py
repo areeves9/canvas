@@ -39,7 +39,6 @@ INSTALLED_APPS = [
     'storages',
     'gunicorn',
     'actions',
-    'pysolr',
     'haystack',
 ]
 
