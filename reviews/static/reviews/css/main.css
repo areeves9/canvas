@@ -13,7 +13,7 @@ body, html {
 body {
   overflow-x: hidden;
 }
-a { 
+a {
   text-decoration: none !important;
   color: grey;
 }
@@ -163,4 +163,7 @@ a {
 #home  button {
   margin-bottom: 1em;
   margin-top: 1em;
+}
+#search-bar {
+  padding-top: 20px;
 }

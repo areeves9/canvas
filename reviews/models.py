@@ -24,6 +24,7 @@ def upload_location(instance, filename):
 def upload_location1(instance, filename):
     return "%s/%s" % (instance, filename)
 
+
 class Strain(models.Model):
     name = models.CharField(max_length=60)
     summary = models.TextField(blank=True, null=True)
