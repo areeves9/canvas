@@ -33,13 +33,13 @@ INSTALLED_APPS = [
     'django.contrib.sessions',
     'django.contrib.messages',
     'django.contrib.staticfiles',
-    'accounts',
-    'reviews',
     'bootstrap3',
     'storages',
     'gunicorn',
-    'actions',
     'haystack',
+    'accounts',
+    'reviews',
+    'actions',
 ]
 
 MIDDLEWARE = [
@@ -76,9 +76,12 @@ HAYSTACK_CONNECTIONS = {
        'default': {
            'ENGINE': 'haystack.backends.elasticsearch_backend.ElasticsearchSearchEngine',
            'URL': 'http://127.0.0.1:9200/',
-           'INDEX_NAME': 'strains',
+           'INDEX_NAME': 'haystack_reviews',
        },
 }
+
+HAYSTACK_SIGNAL_PROCESSOR = 'haystack.signals.RealtimeSignalProcessor'
+
 # Database
 # https://docs.djangoproject.com/en/1.10/ref/settings/#databases
 DATABASES = {

@@ -94,12 +94,15 @@ class Strain(models.Model):
         ordering = ["name"]
 
 
-
 class Review(models.Model):
     title = models.CharField(max_length=35)
     content = models.TextField(max_length=500)
     strain = models.ForeignKey(Strain, related_name="user_review")
-    user = models.ForeignKey(settings.AUTH_USER_MODEL, related_name="user", default=1)
+    user = models.ForeignKey(
+        settings.AUTH_USER_MODEL,
+        related_name="user",
+        default=1
+    )
     photo = models.ImageField(
         upload_to=upload_location,
         blank=True,
@@ -133,7 +136,11 @@ class Review(models.Model):
     rating = models.IntegerField(choices=RATING_CHOICES, default=5)
     timestamp = models.DateTimeField(auto_now=False, auto_now_add=True)
     updated = models.DateTimeField(auto_now=True, auto_now_add=False)
-    users_like = models.ManyToManyField(settings.AUTH_USER_MODEL, related_name="reviews_liked", blank=True)
+    users_like = models.ManyToManyField(
+        settings.AUTH_USER_MODEL,
+        related_name="reviews_liked",
+        blank=True
+    )
 
     class Meta:
         ordering = ["-timestamp", "-updated"]
@@ -144,9 +151,14 @@ class Review(models.Model):
     def __str__(self):
         return self.title
 
+
 class Comment(models.Model):
     review = models.ForeignKey(Review, related_name='comments')
-    user = models.ForeignKey(settings.AUTH_USER_MODEL, related_name="user_comments", default=1)
+    user = models.ForeignKey(
+        settings.AUTH_USER_MODEL,
+        related_name="user_comments",
+        default=1
+    )
     body = models.TextField()
     created = models.DateTimeField(auto_now_add=True)
     updated = models.DateTimeField(auto_now=True)

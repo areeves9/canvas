@@ -1,39 +1,63 @@
 {% extends 'base.html' %}
 
+{% load bootstrap3 %}
+
+{% bootstrap_css %}
+{% bootstrap_javascript %}
+
+{% load static %}
+
 {% block content %}
-    <h2>Search</h2>
 
-    <form method="get" action=".">
-        <table>
-            {{ form.as_table }}
-            <tr>
-                <td>&nbsp;</td>
-                <td>
-                    <input type="submit" value="Search">
-                </td>
-            </tr>
-        </table>
+<div class="container">
+  <form>
+    <div class="row">
+      <div class="col-md-6">
+        <div class="input-group">
+          <input type="text" name="q" placeholder="Search here..." class="form-control">
+          <span class="input-group-btn">
+            <button type="submit" class="btn btn-default">
+              <i class="glyphicon glyphicon-search"></i>
+            </button>
+          </span>
+        </div>
+      </div>
+    </div>
+  </form>
 
-        {% if query %}
-            <h3>Results</h3>
 
-            {% for result in page.object_list %}
-                <p>
-                    <a href="{{ result.object.get_absolute_url }}">{{ result.object.title }}</a>
-                </p>
-            {% empty %}
-                <p>No results found.</p>
-            {% endfor %}
 
-            {% if page.has_previous or page.has_next %}
-                <div>
-                    {% if page.has_previous %}<a href="?q={{ query }}&amp;page={{ page.previous_page_number }}">{% endif %}&laquo; Previous{% if page.has_previous %}</a>{% endif %}
-                    |
-                    {% if page.has_next %}<a href="?q={{ query }}&amp;page={{ page.next_page_number }}">{% endif %}Next &raquo;{% if page.has_next %}</a>{% endif %}
-                </div>
-            {% endif %}
-        {% else %}
-            {# Show some example queries to run, maybe query syntax, something else? #}
-        {% endif %}
-    </form>
+    {% if query %}
+    <div class="row">
+    <h3>Results</h3>
+    {% for result in page.object_list %}
+    <div class="col-xs-12">
+    <p>
+      <a href="{{ result.object.get_absolute_url }}">{{ result.object.title }}</a>
+    </p>
+    <p>
+      {{ result.object.content }}
+    </p>
+  </div> <!--/.col-xs-6-->
+  <div class="col-xs-6">
+
+  </div>
+  {% empty %}
+    <p>No results found.</p>
+  {% endfor %}
+
+  {% if page.has_previous or page.has_next %}
+  <div>
+    {% if page.has_previous %}<a href="?q={{ query }}&amp;page={{ page.previous_page_number }}">{% endif %}&laquo; Previous{% if page.has_previous %}</a>{% endif %}
+    |
+    {% if page.has_next %}<a href="?q={{ query }}&amp;page={{ page.next_page_number }}">{% endif %}Next &raquo;{% if page.has_next %}</a>{% endif %}
+  </div>
+  {% endif %}
+  {% else %}
+    {# Show some example queries to run, maybe query syntax, something else? #}
+  {% endif %}
+  </div> <!--/.row-->
+</div> <!--/.container-->
+
+
 {% endblock %}
