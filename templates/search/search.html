@@ -32,12 +32,17 @@
     {% for result in page.object_list %}
       <div class="media">
         <div class="media-left">
-          <img src="{{ result.object.photo_url }}" class="media-object" style="width:60px">
+          {% if result.object.photo %}
+          <img src="{{ result.object.photo.url }}" class="media-object" style="width:60px">
+          {% else %}
+          <img src="http://via.placeholder.com/60x60" class="media-object">
+          {% endif %}
         </div>
         <div class="media-body">
           <h4 class="media-heading">
-            <a href="{{ result.object.get_absolute_url }}">{{ result.object.title }}
-            {{ result.object.name }}
+            <a href="{{ result.object.get_absolute_url }}">
+              {{ result.object.title }}
+              {{ result.object.name }}
             </a>
           </h4>
           <p>{{ result.object.content }}{{ result.object.summary }}</p>

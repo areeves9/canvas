@@ -14,12 +14,13 @@ from django.utils import timezone
 headers = {
     'X-API-Key': os.environ.get('CANNABIS_REPORTS_API'),
 }
-
 cannabis_reports_url = "https://www.cannabisreports.com/api/v1.0/strains/search/"
 flag_api_url = "https://restcountries.eu/rest/v2/name/"
 
+
 def upload_location(instance, filename):
     return "%s/%s" % (instance.user, filename)
+
 
 def upload_location1(instance, filename):
     return "%s/%s" % (instance, filename)
@@ -50,7 +51,7 @@ class Strain(models.Model):
         for x in strain_ratings:
             l1.append(x.rating)
             average = sum(l1)/len(l1)
-            if average == False:
+            if not average:
                 return "N/A"
             else:
                 return int(average)
