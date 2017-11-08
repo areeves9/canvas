@@ -14,7 +14,7 @@
     <div class="row">
       <div class="col-md-6  col-md-offset-3">
         <div class="input-group">
-          <input type="text" name="q" id="q" autocomplete="off" placeholder="SEARCH" class="form-control">
+          <input type="text" name="q" id="q" autocomplete="on" placeholder="SEARCH" class="form-control">
           <span class="input-group-btn">
             <button type="submit" class="btn btn-default">
               <i class="glyphicon glyphicon-search"></i>
@@ -25,37 +25,26 @@
     </div>
   </form>
 
-    <!-- <form id="search-bar" action="." method="get">
-      <div class="row">
-        <div class="col-md-6  col-md-offset-3">
-    {% for field in form %}
-        {% bootstrap_field field addon_after='<span class="glyphicon glyphicon-search"></span>' addon_after_class='input-group-btn' show_label=False placeholder="SEARCH" %}
-
-    {% endfor %}
-
-    </div>
-  </div>
-</form> -->
 
     {% if query %}
     <div class="row">
     <h3>Results</h3>
     {% for result in page.object_list %}
-    <div class="well col-xs-12">
-    <p>
-      <a href="{{ result.object.get_absolute_url }}">{{ result.object.title }}
-        {{ result.object.name }}</a>
-    </p>
-    <p>
-      {{ result.object.content }}
-    </p>
-    <p>
-      {{ result.object.user }}
-    </p>
-  </div> <!--/.col-xs-6-->
-  <div class="col-xs-6">
+      <div class="media">
+        <div class="media-left">
+          <img src="{{ result.object.photo_url }}" class="media-object" style="width:60px">
+        </div>
+        <div class="media-body">
+          <h4 class="media-heading">
+            <a href="{{ result.object.get_absolute_url }}">{{ result.object.title }}
+            {{ result.object.name }}
+            </a>
+          </h4>
+          <p>{{ result.object.content }}{{ result.object.summary }}</p>
+          <p>{{ result.object.user }}</p>
+        </div>
+      </div> <!--/.media-->
 
-  </div>
   {% empty %}
     <p>No results found.</p>
   {% endfor %}
