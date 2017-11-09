@@ -32,6 +32,18 @@
            <li><a href="{% url 'reviews:reviews' %}">Reviews</a></li>
            <li><a href="{% url 'accounts:users' %}">Users</a></li>
          </ul> <!--/.nav navbar-nav navbar-left-->
+         <!-- <form class="navbar-form navbar-left">
+           <div class="row">
+               <div class="input-group">
+                 <input type="text" name="q" id="q" autocomplete="on" placeholder="SEARCH" class="form-control">
+                 <span class="input-group-btn">
+                   <button type="submit" class="btn btn-default">
+                     <i class="glyphicon glyphicon-search"></i>
+                   </button>
+                 </span>
+               </div>
+           </div>
+         </form> -->
          <ul class="nav navbar-nav navbar-right">
            {% if request.user.is_authenticated %}
             <li><p class="navbar-text">Welcome, <a href="{% url 'accounts:profile' %}" class="navbar-link">{{ request.user.username }}</a></p></li>

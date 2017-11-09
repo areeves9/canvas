@@ -61,8 +61,8 @@ class Strain(models.Model):
             strain_query_url = cannabis_reports_url + "%s" % (self.name)
             r = requests.get(strain_query_url, headers)
             if r.status_code == 200:
-                data = r.json() # json strain object
-                image_url = data['data'][0]['image'] # url property of object
+                data = r.json()  # json strain object
+                image_url = data['data'][0]['image']  # url property of object
                 self.photo_url = image_url
                 self.save()
                 return self.photo_url
@@ -74,8 +74,8 @@ class Strain(models.Model):
             strain_query_url = cannabis_reports_url + "%s" % (self.name)
             r = requests.get(strain_query_url, headers)
             if r.status_code == 200:
-                data = r.json() # json strain object
-                lineage_json = data['data'][0]['lineage'] # lineage property of object
+                data = r.json()  # json strain object
+                lineage_json = data['data'][0]['lineage']  # lineage property of object
                 genetics_json = data['data'][0]['genetics']['names']
                 if len(lineage_json) == 0:
                     self.lineage = False
