@@ -32,11 +32,14 @@
     {% for result in page.object_list %}
       <div class="media">
         <div class="media-left">
-          {% if result.object.photo %}
+          {% if result.object.photo_url %}
+          <img src="{{ result.object.photo_url }}" class="media-object" style="width:60px">
+          {% elif result.object.photo %}
           <img src="{{ result.object.photo.url }}" class="media-object" style="width:60px">
           {% else %}
           <img src="http://via.placeholder.com/60x60" class="media-object">
           {% endif %}
+
         </div>
         <div class="media-body">
           <h4 class="media-heading">
@@ -45,7 +48,21 @@
               {{ result.object.name }}
             </a>
           </h4>
-          <p>{{ result.object.content }}{{ result.object.summary }}</p>
+          <p class="text-left">
+            {% load get_class %}
+            {% if result.object|get_class == 'Strain' %}
+            (Strain)
+            {% elif result.object|get_class == 'Review' %}
+            (Review)
+            {% endif %}
+          </p>
+          <p>
+            {% if result.object.content %}
+            {{ result.object.content }}
+            {% elif result.object.summary %}
+            {{ result.object.summary }}
+            {% endif %}
+          </p>
           <p>{{ result.object.user }}</p>
         </div>
       </div> <!--/.media-->
