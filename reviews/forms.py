@@ -1,5 +1,5 @@
 from django import forms
-
+from django.utils.text import slugify
 from django.contrib.auth.models import User
 from reviews.models import Review, Comment
 
