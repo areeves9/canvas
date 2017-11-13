@@ -3,13 +3,15 @@ from django.contrib import admin
 from reviews.models import Review, Strain, Comment
 # Register your models here.
 
+
 class ReviewModelAdmin(admin.ModelAdmin):
-    list_display = ["title", "user", "strain", "rating", "timestamp"]
+    list_display = ["title", "user", "strain", "rating", "timestamp", "photo"]
     list_display_links = ["title"]
     list_filter = ["strain", "user", "rating"]
 
     class Meta:
         model = Review
+
 
 class StrainModelAdmin(admin.ModelAdmin):
     list_display = ["name", "genetics", "lineage"]
@@ -18,6 +20,7 @@ class StrainModelAdmin(admin.ModelAdmin):
 
     class Meta:
         model = Strain
+
 
 class CommentModelAdmin(admin.ModelAdmin):
     list_display = ["user", "review", "created", "active"]

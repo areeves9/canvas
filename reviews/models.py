@@ -170,4 +170,4 @@ class Comment(models.Model):
         ordering = ["created"]
 
     def __str__(self):
-        return '{} commented on {}'.format(self.name, self.review)
+        return '{} commented on {}'.format(self.user, self.review)
