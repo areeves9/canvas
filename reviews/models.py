@@ -98,6 +98,7 @@ class Strain(models.Model):
 
 class Review(models.Model):
     title = models.CharField(max_length=35)
+    # slug = models.SlugField(unique=True)
     content = models.TextField(max_length=500)
     strain = models.ForeignKey(Strain, related_name="user_review")
     user = models.ForeignKey(

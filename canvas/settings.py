@@ -146,7 +146,7 @@ try:
 except ImportError:
     pass
 
-if DEBUG==False:
+if DEBUG == False:
     STATICFILES_LOCATION = 'static'
     STATICFILES_DIRS = [
         os.path.join("reviews", "static"),
