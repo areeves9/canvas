@@ -4,6 +4,8 @@ from django.contrib.auth.forms import UserCreationForm
 
 from . import views
 from django.views.generic.edit import CreateView
+from django.contrib.auth import views as auth_views
+
 
 urlpatterns = [
     url(r'^register/$', CreateView.as_view(
@@ -11,6 +13,8 @@ urlpatterns = [
         form_class=UserCreationForm,
         success_url='/accounts/login/',
     ), name='register'),
+    url(r'^password_change/$', auth_views.password_change, {'template_name': 'registration/password_change.html','post_change_redirect': 'accounts:password_change_done'}, name="password_change"),
+    url(r'^password_change/done/$', auth_views.password_change_done, {'template_name': 'registration/password_change_done.html'}, name='password_change_done'),
     url(r'^users/follow/$', views.user_follow, name='user_follow'),
     url(r'^users/$', views.users, name='users'),
     url(r'^profile/$', views.profile, name='profile'),
