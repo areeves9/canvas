@@ -1,20 +1,23 @@
+import os
+from email.mime.image import MIMEImage
+from django.http import HttpResponse, HttpResponseRedirect, JsonResponse
+from django.shortcuts import render, get_object_or_404
 from django.contrib.auth.decorators import login_required
 from django.contrib.auth.models import User
 from django.contrib import messages
+from django.views.decorators.http import require_POST
+from django.template.loader import render_to_string
 
 from django.core.urlresolvers import reverse
-from django.shortcuts import render, get_object_or_404
-
 from django.core.paginator import Paginator, EmptyPage, PageNotAnInteger
-from django.http import HttpResponse, HttpResponseRedirect, JsonResponse
+from django.core.mail import send_mail, EmailMultiAlternatives
 
+from common.decorators import ajax_required
 from reviews.forms import ReviewForm, CommentForm, ShareReviewForm
 from reviews.models import Strain, Review, Comment
-
 from actions.models import Action, create_action
 
-from django.views.decorators.http import require_POST
-from common.decorators import ajax_required
+
 
 
 import json
@@ -91,7 +94,7 @@ def review_update(request, id=None):
             review.save()
             create_action(request.user, 'updated', review)
             messages.success(request, "Updated")
-            return HttpResponseRedirect( '/reviews/')
+            return HttpResponseRedirect('/reviews/')
         else:
             messages.error(request, "Update failed.")
         context = {
@@ -104,21 +107,45 @@ def review_update(request, id=None):
 @login_required
 def review_share(request, id=None):
     review = get_object_or_404(Review, id=id)
-    if review.user == request.user:
+    sent = False
+    if request.method == 'POST':
         form = ShareReviewForm(request.POST or None, request.FILES or None)
         if form.is_valid():
-            review = form.save(commit=False)
-            review.save()
-            # create_action(request.user, 'updated', review)
+            cd = form.cleaned_data
+            review_url = request.build_absolute_uri(review.get_absolute_url())
+            subject = '{} ({}) recommends you reading {}'.format(
+                request.user, request.user.email, review.title
+                )
+            text_content = 'Read "{}" at {}.'.format(review.title, review_url)
+            html_content = render_to_string(
+                            'reviews/share_review_email.html',
+                            context={
+                                'cd': cd,
+                                'review': review,
+                                'user': request.user,
+                                'review_url': review_url,
+                                }
+                        )
+            msg = EmailMultiAlternatives(
+                subject, text_content, request.user.email, [cd['send_to']]
+                )
+            msg.attach_alternative(html_content, "text/html")
+            msg.mixed_subtype = 'related'
+            msg_img = MIMEImage(review.photo.read())
+            msg_img.add_header('Content-ID', '<{}>'.format(review.photo))
+            msg.attach(msg_img)
+            msg.send()
             messages.success(request, "Sent")
-            return HttpResponseRedirect('/reviews/')
-        else:
-            messages.error(request, "Email failed.")
-        context = {
-            "form": form,
-            "review": review,
-        }
-        return render(request, "reviews/share_review_form.html", context)
+            return HttpResponseRedirect(review_url)
+    else:
+        form = ShareReviewForm()
+        messages.error(request, "Email failed.")
+    context = {
+        "form": form,
+        "review": review,
+        "sent": sent,
+    }
+    return render(request, "reviews/share_review_form.html", context)
 
 
 

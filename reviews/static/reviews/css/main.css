@@ -62,6 +62,13 @@ a {
   height: 55px;
   width: 55px;
 }
+/* circle background to glyphicon */
+/* .glyphicon {
+  border-radius:50%;
+  border:3px solid #fff;
+} */
+
+
 #discover-list {
   list-style: none;
 }

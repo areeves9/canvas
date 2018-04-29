@@ -1,0 +1,75 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="utf-8"/>
+  <meta content="width=device-width, user-scalable=no, initial-scale=1.0" name="viewport"/>
+  <title></title>
+  <script src="https://code.jquery.com/jquery-2.2.4.min.js" integrity="sha256-BbhdlvQf/xTY9gja0Dq3HiwQF8LaCRTXxZKRutelT44=" crossorigin="anonymous"></script>
+  <script src="https://use.fontawesome.com/54e1e15d73.js"></script>
+  {% load bootstrap3 %}
+
+  {% bootstrap_css %}
+  {% bootstrap_javascript %}
+
+  {% load static %}
+  <link rel="stylesheet" href="{% static 'reviews/css/main.css' %}"/>
+  <link href="https://fonts.googleapis.com/css?family=Raleway" rel="stylesheet">
+  <!-- Latest compiled and minified CSS -->
+<link rel="stylesheet"
+  href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css"
+  integrity="sha384-BVYiiSIFeK1dGmJRAkycuHAHRg32OmUcww7on3RYdg4Va+PmSTsz/K68vbdEjh4u"
+  crossorigin="anonymous">
+</head>
+  <body>
+    {% with total_likes=review.users_like.count users_like=review.users_like.all %}
+    <div id="email-review" class="container">
+      <div class="row">
+        <div class="col-xs-12">
+          <h1 class="text-center">
+            {{ user.username }} ({{ user.email }}) shared this review
+            from {{ review_url }}
+          </h1>
+          <h2 class="text-center">
+            <a href="{{ review_url }}">{{ review.title }},</a>
+             {{ review.strain }} {{ review.method|lower }}
+          </h2>
+          <h3 class="text-center">
+            {{ user.username }} said: <i>"{{ cd.subject }}"</i>
+          </h3>
+        </div> <!--/.col-xs-12-->
+      </div> <!--/.row-->
+      <div class="row reviews">
+        <div class="well col-xs-12 col-md-4 col-md-offset-4 well-margin">
+          <div class="thumbnail">
+            <img class="img-responsive img-rounded strain-photo" src="cid:{{ review.photo }}"/>
+            <div class="caption">
+              {% load rating_icon %}
+              <h1>{{review.rating|rating_icon}}</h1>
+              <h1>{{ review.title }}</h1>
+              <h3><a href="{{ review.strain.get_absolute_url }}">{{ review.strain }}</a>
+                {{ review.method|lower }}
+                {% if review.method == 'FLOWER'%}
+                <span class="glyphicon glyphicon-leaf text-right"></span>
+                {% elif review.method == 'EXTRACT' %}
+                <span class="glyphicon glyphicon-tint text-right"></span>
+                {% else %}
+                <span class="glyphicon glyphicon-ice-lolly-tasted text-right"></span>
+                {% endif %}
+              </h3>
+              <p>{{ review.content }}</p>
+              <!-- <p>Reviewd by <a href="{% url 'accounts:user' review.user.username %}">{{ review.user }}</a></p> -->
+              <p>Reviewd by {{ review.user }}</p>
+              <p>Last Update: {{ review.updated }}</p>
+            </div> <!--/.caption-->
+            <span class="count">
+              <span class="total">{{ total_likes }}</span>
+              Like{{ total_likes|pluralize }}
+            </span>
+            {% endwith %}
+          </div> <!--/.thumbnail-->
+        </div>  <!--/.well col-sm-12 col-lg-12-->
+      </div> <!--/.row reviews-->
+      <h3 class="text-right"><a href="http://canvasreviews.herokuapp.com">Canvas Reviews</a></h3>
+    </div> <!--/.container-->
+  </body>
+</html>
