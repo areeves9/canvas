@@ -24,10 +24,10 @@ DEBUG = False
 ALLOWED_HOSTS = ['canvasreviews.herokuapp.com', '.herokuapp.com']
 
 # Email settings
-EMAIL_HOST = 'smtp.gmail.com'
-EMAIL_HOST_USER = 'bedouinalchemist@gmail.com'
-EMAIL_HOST_PASSWORD = 'C1rcumN2v1g2t3!'
-EMAIL_PORT = 587
+EMAIL_HOST = os.environ.get('MY_EMAIL_HOST')
+EMAIL_HOST_USER = os.environ.get('MY_EMAIL')
+EMAIL_HOST_PASSWORD = os.environ.get('MY_EMAIL_PASSWORD')
+EMAIL_PORT = os.environ.get('MY_EMAIL_PORT')
 EMAIL_USE_TLS = True
 
 
