@@ -5,7 +5,7 @@
 {% block content %}
 <div class="container">
 <div class="row">
-  <div id="profile-well" class="well col-xs-12 col-md-4 col-md-offset-4">
+  <div id="profile-well" class="well col-xs-12 col-md-4 col-md-offset-4 well-margin">
     <h3 class="text-center">
       @{{ user.username }}
       {% if request.user.profile.id == user.profile.id %}
@@ -43,7 +43,7 @@
   </div> <!--/.col-xs-12 col-md-8-->
 </div> <!--/.row-->
 <div class="row my-reviews">
-    <div class="well col-xs-12 col-md-12 profile">
+    <div class="well col-xs-12 col-md-4 col-md-offset-4 profile">
         {% if review_list %}
         <h4>My Reviews ({{ review_numbers }})</h4>
           {% for review in review_list %}
@@ -60,7 +60,7 @@
     </div> <!--/.col-xs-12 col-md-12 profile-->
 </div> <!--/.row-->
 <div class="row my-followers">
-  <div class="col-xs-12 col-md-12 profile">
+  <div class="col-xs-12 col-md-4 col-md-offset-4 profile">
     {% if followers %}
     <h4>My Followers ({{ total_followers }})</h4>
       {% for follower in followers %}
