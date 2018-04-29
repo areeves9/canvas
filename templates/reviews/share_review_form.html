@@ -1,5 +1,5 @@
 {% extends "base.html" %}
-{% block head_title %}{{ review.title }} | {{ block.super }}{% endblock head_title %}
+{% block head_title %} Share {{ review.title }} | {{ block.super }}{% endblock head_title %}
 {% load bootstrap3 %}
 
 {% block content %}
@@ -13,6 +13,7 @@
     FORM: {{ review.method }}
     <br>
     CONTENT: {{ review.content }}
+
   </div>
   <div class="well col-xs-12 col-md-4 col-md-offset-4 well-margin">
     <form method="POST" action='' enctype="multipart/form-data" class="form">
