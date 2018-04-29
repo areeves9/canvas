@@ -17,7 +17,7 @@ a {
   text-decoration: none !important;
   color: grey;
 }
-#profile-well {
+.well-margin {
   margin-top: 1em;
 }
 .navbar {

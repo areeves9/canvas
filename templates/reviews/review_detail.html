@@ -7,7 +7,7 @@
 {% with total_likes=review.users_like.count users_like=review.users_like.all %}
 <div class="container">
   <div class="row">
-    <div class="well col-xs-12 col-md-4 col-md-offset-4">
+    <div id="review-well" class="well col-xs-12 col-md-4 col-md-offset-4 well-margin">
       <div class="thumbnail">
         {% if review.photo %}
         <img class="img-responsive img-rounded strain-photo" src="{{ review.photo.url }}"/>
