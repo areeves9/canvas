@@ -16,7 +16,11 @@
         {% endif %}
         <div class="caption">
           {% load rating_icon %}
-          <h1>{{review.rating|rating_icon}}</h1>
+          <h1>{{review.rating|rating_icon}}
+            <a href="{% url 'reviews:share' review.id %}">
+              <span style="float:right" class="glyphicon glyphicon-envelope" aria-hidden="true"></span>
+            </a>
+          </h1>
           <h1>{{ review.title }}</h1>
           <h3><a href="{{ review.strain.get_absolute_url }}">{{ review.strain }}</a> {{ review.method|lower }}</h3>
           <p>{{ review.content }}</p>

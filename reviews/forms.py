@@ -3,6 +3,15 @@ from django.utils.text import slugify
 from reviews.models import Review, Comment
 
 
+class ShareReviewForm(forms.Form):
+    send_to = forms.EmailField()
+    subject = forms.CharField(max_length=90)
+
+    class Meta:
+        fields = ["send_to", "subject"]
+    pass
+
+
 class ReviewForm(forms.ModelForm):
     class Meta:
         model = Review

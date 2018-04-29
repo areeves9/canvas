@@ -1,5 +1,5 @@
 {% with user=action.user profile=action.user.profile %}
-  <div class="col-xs-4 col-md-4">
+  <div class="col-xs-4 col-md-1 col-md-offset-4">
     {% if profile.photo %}
       <a class="thumbnail" href="{% url 'accounts:user' user.username %}">
         <img class="img-responsive" src="{{ profile.photo.url }}">
@@ -8,7 +8,7 @@
     {% endif %}
 {% endwith %}
 
-<div class="col-xs-4 col-md-4">
+<div class="col-xs-4 col-md-2">
   <p>
     <span>{{ action.created|timesince }} ago</span>
     <br />
@@ -35,7 +35,7 @@
     {% if action.target %}
       {% with target=action.target %}
       {% if target.profile.photo %}
-      <div class="col-xs-4 col-md-4">
+      <div class="col-xs-4 col-md-1">
         <a class="thumbnail" href="{% url 'accounts:user' target.username %}">
           <img class="img-responsive" src="{{ target.profile.photo.url }}">
         </a>

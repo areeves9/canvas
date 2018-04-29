@@ -1,0 +1,30 @@
+{% extends "base.html" %}
+{% block head_title %}{{ review.title }} | {{ block.super }}{% endblock head_title %}
+{% load bootstrap3 %}
+
+{% block content %}
+<div class="container">
+<div class="row">
+  <div class="col-xs-12 col-md-4 col-md-offset-4 well-margin">
+    REVIEW: {{ review.title }} ({{ review.rating }} of 5)
+    <br>
+    STRAIN: {{ review.strain }}
+    <br>
+    FORM: {{ review.method }}
+    <br>
+    CONTENT: {{ review.content }}
+  </div>
+  <div class="well col-xs-12 col-md-4 col-md-offset-4 well-margin">
+    <form method="POST" action='' enctype="multipart/form-data" class="form">
+      {% csrf_token %}
+      {% bootstrap_form form layout='inline' %}
+      {% buttons %}
+      <button type=submit class="btn btn-default">
+        {% bootstrap_icon "envelope" %} Send
+      </button>
+      {% endbuttons %}
+    </form>
+  </div> <!--/.well col-sm-12 col-lg-6-->
+</div> <!--/.row-->
+</div>
+{% endblock %}

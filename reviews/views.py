@@ -8,7 +8,7 @@ from django.shortcuts import render, get_object_or_404
 from django.core.paginator import Paginator, EmptyPage, PageNotAnInteger
 from django.http import HttpResponse, HttpResponseRedirect, JsonResponse
 
-from reviews.forms import ReviewForm, CommentForm
+from reviews.forms import ReviewForm, CommentForm, ShareReviewForm
 from reviews.models import Strain, Review, Comment
 
 from actions.models import Action, create_action
@@ -99,6 +99,28 @@ def review_update(request, id=None):
             "review": review,
         }
         return render(request, "reviews/review_form.html", context)
+
+
+@login_required
+def review_share(request, id=None):
+    review = get_object_or_404(Review, id=id)
+    if review.user == request.user:
+        form = ShareReviewForm(request.POST or None, request.FILES or None)
+        if form.is_valid():
+            review = form.save(commit=False)
+            review.save()
+            # create_action(request.user, 'updated', review)
+            messages.success(request, "Sent")
+            return HttpResponseRedirect('/reviews/')
+        else:
+            messages.error(request, "Email failed.")
+        context = {
+            "form": form,
+            "review": review,
+        }
+        return render(request, "reviews/share_review_form.html", context)
+
+
 
 def strains(request):
     strain_list = Strain.objects.all().order_by("name")
