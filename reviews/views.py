@@ -90,11 +90,11 @@ def review_update(request, id=None):
     if review.user == request.user:
         form = ReviewForm(request.POST or None, request.FILES or None, instance=review)
         if form.is_valid():
-            review = form.save(commit=False)
+            review = form.save()
             review.save()
             create_action(request.user, 'updated', review)
             messages.success(request, "Updated")
-            return HttpResponseRedirect('/reviews/')
+            return HttpResponseRedirect(reverse('reviews:reviews'))
         else:
             messages.error(request, "Update failed.")
         context = {
