@@ -131,10 +131,13 @@ def review_share(request, id=None):
                 )
             msg.attach_alternative(html_content, "text/html")
             msg.mixed_subtype = 'related'
-            msg_img = MIMEImage(review.photo.read())
-            msg_img.add_header('Content-ID', '<{}>'.format(review.photo))
-            msg.attach(msg_img)
-            msg.send()
+            if review.photo:
+                msg_img = MIMEImage(review.photo.read())
+                msg_img.add_header('Content-ID', '<{}>'.format(review.photo))
+                msg.attach(msg_img)
+                msg.send()
+            else:
+                msg.send()
             messages.success(request, "Sent")
             return HttpResponseRedirect(review_url)
     else:

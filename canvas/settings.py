@@ -81,24 +81,24 @@ TEMPLATES = [
 
 WSGI_APPLICATION = 'canvas.wsgi.application'
 
-ES_URL = urlparse(os.environ.get('BONSAI_URL') or 'http://127.0.0.1:9200/')
-HAYSTACK_CONNECTIONS = {
-    'default': {
-        'ENGINE': 'haystack.backends.elasticsearch_backend.ElasticsearchSearchEngine',
-        'URL': ES_URL.scheme + '://' + ES_URL.hostname + ':443',
-        'INDEX_NAME': 'haystack_reviews',
-    },
-}
-if ES_URL.username:
-    HAYSTACK_CONNECTIONS['default']['KWARGS'] = {"http_auth": ES_URL.username + ':' + ES_URL.password}
-
+# ES_URL = urlparse(os.environ.get('BONSAI_URL') or 'http://127.0.0.1:9200/')
 # HAYSTACK_CONNECTIONS = {
-#        'default': {
-#            'ENGINE': 'haystack.backends.elasticsearch_backend.ElasticsearchSearchEngine',
-#            'URL': 'http://127.0.0.1:9200/',
-#            'INDEX_NAME': 'haystack_reviews',
-#        },
+#     'default': {
+#         'ENGINE': 'haystack.backends.elasticsearch_backend.ElasticsearchSearchEngine',
+#         'URL': ES_URL.scheme + '://' + ES_URL.hostname + ':443',
+#         'INDEX_NAME': 'haystack_reviews',
+#     },
 # }
+# if ES_URL.username:
+#     HAYSTACK_CONNECTIONS['default']['KWARGS'] = {"http_auth": ES_URL.username + ':' + ES_URL.password}
+
+HAYSTACK_CONNECTIONS = {
+       'default': {
+           'ENGINE': 'haystack.backends.elasticsearch_backend.ElasticsearchSearchEngine',
+           'URL': 'http://127.0.0.1:9200/',
+           'INDEX_NAME': 'haystack_reviews',
+       },
+}
 
 HAYSTACK_SIGNAL_PROCESSOR = 'haystack.signals.RealtimeSignalProcessor'
 
@@ -161,10 +161,10 @@ LOGIN_REDIRECT_URL = reverse_lazy('accounts:profile')
 # debug check, need to refactor so the block under if DEBUG check
 # runs to update MEDIA_URL and STATIC_URL
 
-# try:
-#     from .local_settings import *
-# except ImportError:
-#     pass
+try:
+    from .local_settings import *
+except ImportError:
+    pass
 
 if DEBUG == False:
     STATICFILES_LOCATION = 'static'

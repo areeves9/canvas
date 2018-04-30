@@ -53,6 +53,16 @@
             <li><a href="{% url 'auth:login' %}">{% bootstrap_icon "log-in" %} Login</a></li>
             {% endif %}
          </ul> <!--/.nav navbar-nav navbar-right-->
+         <form id="search-input" method="get" action="/search/" class="navbar-form navbar-right" role="form">
+             <div class="input-group col-md-12">
+               <input type="text" name="q" id="q" autocomplete="on" class="form-control" placeholder="Search..." aria-describedby="basic-addon1">
+               <span class="input-group-btn">
+                <button class="btn btn-default" type="submit">
+                  <span class="glyphicon glyphicon-search"></span>
+                </button>
+              </span>
+            </div>
+        </form>
        </div> <!---/.collapse navbar-collapse-->
       </div> <!--/.container-fluid-->
     </nav> <!--/.navbar navbar-default navbar-static-top-->
