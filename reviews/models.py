@@ -27,7 +27,7 @@ def upload_location1(instance, filename):
 
 
 class Strain(models.Model):
-    name = models.CharField(max_length=60)
+    name = models.CharField(max_length=60, unique=True, blank=False)
     summary = models.TextField(blank=True, null=True)
     lineage = JSONField(blank=True, null=True)
     genetics = JSONField(blank=True, null=True)
