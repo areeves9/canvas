@@ -5,15 +5,8 @@
 {% block content %}
 <div class="container">
 <div class="row">
+  <h3>Share Review <a href="{{ review.get_absolute_url }}">"{{ review.title }}"</a></h3>
   <div class="col-xs-12 col-md-4 col-md-offset-4 well-margin">
-    REVIEW: {{ review.title }} ({{ review.rating }} of 5)
-    <br>
-    STRAIN: {{ review.strain }}
-    <br>
-    FORM: {{ review.method }}
-    <br>
-    CONTENT: {{ review.content }}
-
   </div>
   <div class="well col-xs-12 col-md-4 col-md-offset-4 well-margin">
     <form method="POST" action='' enctype="multipart/form-data" class="form">
