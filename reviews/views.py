@@ -142,7 +142,6 @@ def review_share(request, id=None):
             return HttpResponseRedirect(review_url)
     else:
         form = ShareReviewForm()
-        messages.error(request, "Email failed.")
     context = {
         "form": form,
         "review": review,
@@ -190,28 +189,31 @@ def strain_detail(request, id=None):
 @login_required
 def strain_review(request, id=None):
     strain = get_object_or_404(Strain, id=id)
-    form = ReviewForm(request.POST or None, request.FILES or None)
-    if form.is_valid():
-        title = form.cleaned_data['title']
-        content = form.cleaned_data['content']
-        method = form.cleaned_data['method']
-        photo = form.cleaned_data['photo']
-        rating = form.cleaned_data['rating']
-        review = Review()
-        user = request.user
-        review.strain = strain
-        review.user = user
-        review.title = title
-        review.content = content
-        review.method = method
-        review.photo = photo
-        review.rating = rating
-        review.save()
-        create_action(request.user, 'wrote', review)
-        messages.success(request, "Review saved.")
-        return HttpResponseRedirect(review.get_absolute_url())
+    if request.method == 'POST':
+        form = ReviewForm(request.POST or None, request.FILES or None)
+        if form.is_valid():
+            review = Review()
+            title = form.cleaned_data['title']
+            content = form.cleaned_data['content']
+            method = form.cleaned_data['method']
+            photo = form.cleaned_data['photo']
+            rating = form.cleaned_data['rating']
+            user = request.user
+            review.strain = strain
+            review.user = user
+            review.title = title
+            review.content = content
+            review.method = method
+            review.photo = photo
+            review.rating = rating
+            review.save()
+            create_action(request.user, 'wrote', review)
+            messages.success(request, "Review saved.")
+            return HttpResponseRedirect(review.get_absolute_url())
+        else:
+            messages.error(request, "Review failed to save.")
     else:
-        messages.error(request, "Review failed to save.")
+        form = ReviewForm()
     context = {
         "form": form,
         "strain": strain,
