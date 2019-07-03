@@ -13,15 +13,12 @@ https://docs.djangoproject.com/en/1.10/ref/settings/
 import os
 from urllib.parse import urlparse
 
-from django.core.urlresolvers import reverse_lazy
-
 import sentry_sdk
 from sentry_sdk.integrations.django import DjangoIntegration
 
-sentry_sdk.init(
-    dsn=os.environ.get('SENTRY_DSN'),
-    integrations=[DjangoIntegration()]
-)
+from django.core.urlresolvers import reverse_lazy
+
+
 
 
 # Build paths inside the project like this: os.path.join(BASE_DIR, ...)
@@ -182,3 +179,8 @@ if DEBUG == False:
     MEDIA_URL = "https://%s/media/" % (AWS_S3_CUSTOM_DOMAIN)
     DEFAULT_FILE_STORAGE = 'canvas.custom_storages.MediaRootS3BotoStorage'
     STATICFILES_STORAGE = 'canvas.custom_storages.StaticRootS3BotoStorage'
+
+    sentry_sdk.init(
+        dsn=os.environ.get('SENTRY_DSN'),
+        integrations=[DjangoIntegration()]
+    )
