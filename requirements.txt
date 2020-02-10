@@ -1,8 +1,12 @@
+# This file may be used to create an environment using:
+# $ conda create --name <env> --file <this file>
+# platform: osx-64
 boto3==1.4.4
 botocore==1.5.43
+ca-certificates==2020.1.1
 certifi==2018.8.24
 dj-database-url==0.5.0
-Django==1.10.5
+django==1.10.5
 django-bootstrap3==12.0.3
 django-haystack==2.5.1
 django-storages==1.5.2
@@ -10,14 +14,29 @@ docutils==0.13.1
 elasticsearch==7.5.1
 gunicorn==19.7.1
 jmespath==0.9.2
+libcxx==4.0.1
+libcxxabi==4.0.1
+libedit==3.1.20181209
+libffi==3.2.1
+ncurses==6.1
 olefile==0.46
-Pillow==4.0.0
+openssl==1.0.2u
+pillow==4.0.0
+pip==10.0.1
 psycopg2==2.7.5
+python==3.5.6
 python-dateutil==2.6.0
 pytz==2019.3
+readline==7.0
 requests==2.13.0
 s3transfer==0.1.10
 sentry-sdk==0.14.1
+setuptools==40.2.0
 six==1.10.0
+sqlite==3.31.1
 sqlparse==0.3.0
+tk==8.6.8
 urllib3==1.25.8
+wheel==0.31.1
+xz==5.2.4
+zlib==1.2.11
