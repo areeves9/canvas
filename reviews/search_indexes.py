@@ -8,9 +8,9 @@ class ReviewIndex(indexes.SearchIndex, indexes.Indexable):
         use_template=True,
         template_name="search/indexes/reviews/review_text.txt"
     )
-    title = indexes.CharField(model_attr='title')
-    content = indexes.CharField(model_attr='content')
-    user = indexes.CharField(model_attr='user')
+    title = indexes.CharField(model_attr='title', null=True)
+    content = indexes.CharField(model_attr='content', null=True)
+    user = indexes.CharField(model_attr='user', null=True)
 
     def get_model(self):
         return Review
@@ -25,8 +25,8 @@ class StrainIndex(indexes.SearchIndex, indexes.Indexable):
         use_template=True,
         template_name="search/indexes/reviews/strain_text.txt"
     )
-    name = indexes.CharField(model_attr='name')
-    summary = indexes.CharField(model_attr='summary')
+    name = indexes.CharField(model_attr='name', null=True)
+    summary = indexes.CharField(model_attr='summary', null=True)
 
     def get_model(self):
         return Strain
