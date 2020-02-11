@@ -127,7 +127,7 @@ def review_share(request, id=None):
                                 }
                         )
             msg = EmailMultiAlternatives(
-                subject, text_content, request.user.email, [cd['send_to']]
+                subject, text_content, os.environ.get('DEFAULT_FROM_EMAIL'), [cd['send_to']]
                 )
             msg.attach_alternative(html_content, "text/html")
             msg.mixed_subtype = 'related'
