@@ -21,6 +21,7 @@ class ReviewIndex(indexes.SearchIndex, indexes.Indexable):
 
 class StrainIndex(indexes.SearchIndex, indexes.Indexable):
     text = indexes.CharField(
+        document=True,
         use_template=True,
         template_name="search/indexes/reviews/strain_text.txt"
     )
