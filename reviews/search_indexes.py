@@ -8,7 +8,7 @@ class ReviewIndex(indexes.SearchIndex, indexes.Indexable):
         use_template=True,
         template_name="search/indexes/reviews/review_text.txt"
     )
-    title = indexes.CharField(model_attr='title', defaul='', null=True)
+    title = indexes.CharField(model_attr='title', default='', null=True)
     content = indexes.CharField(model_attr='content', default='', null=True)
     user = indexes.CharField(model_attr='user', default='', null=True)
 
