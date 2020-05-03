@@ -163,12 +163,12 @@ LOGIN_REDIRECT_URL = reverse_lazy('accounts:profile')
 # debug check, need to refactor so the block under if DEBUG check
 # runs to update MEDIA_URL and STATIC_URL
 
-try:
-    from .local_settings import *
-except ImportError:
-    pass
+# try:
+#     from .local_settings import *
+# except ImportError:
+#     pass
 
-if DEBUG == True:
+if DEBUG == False:
     STATICFILES_LOCATION = 'static'
     STATICFILES_DIRS = [
         os.path.join("reviews", "static"),
