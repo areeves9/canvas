@@ -1,26 +1,27 @@
 import os
 from email.mime.image import MIMEImage
-from django.http import HttpResponse, HttpResponseRedirect, JsonResponse
+from django.http import (
+    HttpResponse,
+    Http404,
+    HttpResponseRedirect,
+    JsonResponse
+)
 from django.shortcuts import render, get_object_or_404
+
 from django.contrib.auth.decorators import login_required
-from django.contrib.auth.models import User
 from django.contrib import messages
 from django.views.decorators.http import require_POST
 from django.template.loader import render_to_string
 
 from django.core.urlresolvers import reverse
 from django.core.paginator import Paginator, EmptyPage, PageNotAnInteger
-from django.core.mail import send_mail, EmailMultiAlternatives
+from django.core.mail import EmailMultiAlternatives
 
-from common.decorators import ajax_required
 from reviews.forms import ReviewForm, CommentForm, ShareReviewForm
-from reviews.models import Strain, Review, Comment
-from actions.models import Action, create_action
+from reviews.models import Strain, Review
+from actions.models import create_action
 
 
-
-
-import json
 # Create your views here.
 def reviews(request):
     review_list = Review.objects.all().order_by("-timestamp")
@@ -44,6 +45,7 @@ def reviews(request):
     }
     return render(request, "reviews/reviews.html", context)
 
+
 @login_required
 def review_detail(request, id=None):
     review = get_object_or_404(Review, id=id)
@@ -54,7 +56,6 @@ def review_detail(request, id=None):
         new_comment.review = review
         new_comment.user = request.user
         new_comment.save()
-        # create_action(request.user, 'commented on', review.title)
         create_action(request.user, 'commented on', review)
         messages.success(request, "Comment posted.")
         return HttpResponseRedirect(review.get_absolute_url())
@@ -65,6 +66,7 @@ def review_detail(request, id=None):
             "comment_form": comment_form,
             }
     return render(request, "reviews/review_detail.html", context)
+
 
 @login_required
 @require_POST
@@ -84,11 +86,16 @@ def review_like(request):
             pass
     return JsonResponse({'status': 'ko'})
 
+
 @login_required
 def review_update(request, id=None):
     review = get_object_or_404(Review, id=id)
     if review.user == request.user:
-        form = ReviewForm(request.POST or None, request.FILES or None, instance=review)
+        form = ReviewForm(
+            request.POST or None,
+            request.FILES or None,
+            instance=review
+        )
         if form.is_valid():
             review = form.save()
             review.save()
@@ -102,6 +109,8 @@ def review_update(request, id=None):
             "review": review,
         }
         return render(request, "reviews/review_form.html", context)
+    else:
+        raise Http404("No permissions for this page.")
 
 
 @login_required
@@ -127,8 +136,11 @@ def review_share(request, id=None):
                                 }
                         )
             msg = EmailMultiAlternatives(
-                subject, text_content, os.environ.get('DEFAULT_FROM_EMAIL'), [cd['send_to']]
-                )
+                subject,
+                text_content,
+                os.environ['CANVAS_DEFAULT_FROM_EMAIL'],
+                [cd['send_to']]
+            )
             msg.attach_alternative(html_content, "text/html")
             msg.mixed_subtype = 'related'
             if review.photo:
@@ -148,7 +160,6 @@ def review_share(request, id=None):
         "sent": sent,
     }
     return render(request, "reviews/share_review_form.html", context)
-
 
 
 def strains(request):
@@ -173,6 +184,7 @@ def strains(request):
     }
     return render(request, "reviews/strains.html", context)
 
+
 def strain_detail(request, id=None):
     strain = get_object_or_404(Strain, id=id)
     reviews = strain.user_review.all()
@@ -185,6 +197,7 @@ def strain_detail(request, id=None):
         "genetics": genetics,
     }
     return render(request, "reviews/strain_detail.html", context)
+
 
 @login_required
 def strain_review(request, id=None):

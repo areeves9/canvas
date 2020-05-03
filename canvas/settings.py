@@ -31,12 +31,11 @@ DEBUG = False
 ALLOWED_HOSTS = ['canvasreviews.herokuapp.com', '.herokuapp.com']
 
 # Email settings
-EMAIL_HOST = os.environ.get('MY_EMAIL_HOST')
-EMAIL_HOST_USER = os.environ.get('MY_EMAIL')
-EMAIL_HOST_PASSWORD = os.environ.get('MY_EMAIL_PASSWORD')
-EMAIL_PORT = os.environ.get('MY_EMAIL_PORT')
+EMAIL_HOST = 'smtp.sendgrid.net'
+EMAIL_PORT = 587
+EMAIL_HOST_USER = os.environ['CANVAS_EMAIL_HOST_USER']
+EMAIL_HOST_PASSWORD = os.environ['CANVAS_EMAIL_PW']
 EMAIL_USE_TLS = True
-DEFAULT_FROM_EMAIL = os.environ.get('DEFAULT_FROM_EMAIL')
 
 
 
@@ -112,12 +111,9 @@ DATABASES = {
     }
 }
 
+
 import dj_database_url
 DATABASES['default'] = dj_database_url.config()
-
-# db_from_env = dj_database_url.config(conn_max_age=500)
-# DATABASES['default'].update(db_from_env)
-
 
 
 # Password validation
@@ -163,12 +159,12 @@ LOGIN_REDIRECT_URL = reverse_lazy('accounts:profile')
 # debug check, need to refactor so the block under if DEBUG check
 # runs to update MEDIA_URL and STATIC_URL
 
-# try:
-#     from .local_settings import *
-# except ImportError:
-#     pass
+try:
+    from .local_settings import *
+except ImportError:
+    pass
 
-if DEBUG == False:
+if DEBUG == True:
     STATICFILES_LOCATION = 'static'
     STATICFILES_DIRS = [
         os.path.join("reviews", "static"),
