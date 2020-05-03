@@ -49,10 +49,11 @@ INSTALLED_APPS = [
     'django.contrib.sessions',
     'django.contrib.messages',
     'django.contrib.staticfiles',
+    'haystack',
     'bootstrap3',
     'storages',
+    'elasticsearch',
     'gunicorn',
-    'haystack',
     'accounts',
     'reviews',
     'actions',
@@ -91,7 +92,7 @@ WSGI_APPLICATION = 'canvas.wsgi.application'
 ES_URL = urlparse(os.environ.get('BONSAI_URL') or 'http://127.0.0.1:9200/')
 HAYSTACK_CONNECTIONS = {
     'default': {
-        'ENGINE': 'haystack.backends.elasticsearch_backend.ElasticsearchSearchEngine',
+        'ENGINE': 'haystack_elasticsearch5.Elasticsearch5SearchEngine',
         'URL': ES_URL.scheme + '://' + ES_URL.hostname + ':443',
         'INDEX_NAME': 'haystack_reviews',
     },
@@ -162,12 +163,12 @@ LOGIN_REDIRECT_URL = reverse_lazy('accounts:profile')
 # debug check, need to refactor so the block under if DEBUG check
 # runs to update MEDIA_URL and STATIC_URL
 
-# try:
-#     from .local_settings import *
-# except ImportError:
-#     pass
+try:
+    from .local_settings import *
+except ImportError:
+    pass
 
-if DEBUG == False:
+if DEBUG == True:
     STATICFILES_LOCATION = 'static'
     STATICFILES_DIRS = [
         os.path.join("reviews", "static"),

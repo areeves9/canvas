@@ -9,7 +9,7 @@ ALLOWED_HOSTS = []
 
 HAYSTACK_CONNECTIONS = {
        'default': {
-           'ENGINE': 'haystack.backends.elasticsearch_backend.ElasticsearchSearchEngine',
+           'ENGINE': 'haystack_elasticsearch5.Elasticsearch5SearchEngine',
            'URL': 'http://127.0.0.1:9200/',
            'INDEX_NAME': 'haystack_reviews',
        },
@@ -18,8 +18,8 @@ HAYSTACK_CONNECTIONS = {
 DATABASES = {
     'default': {
         'ENGINE': 'django.db.backends.postgresql_psycopg2',
-        'NAME': 'canvas',
-        'USER': 'toker',
+        'NAME': os.environ['DB_CANVAS_NAME'],
+        'USER': os.environ['DB_CANVAS_USER'],
         'PASSWORD': os.environ['DB_CANVAS_PW'],
         'HOST': 'localhost',
         'PORT': '5432',
