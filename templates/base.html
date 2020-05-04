@@ -1,74 +1,22 @@
 <!DOCTYPE html>
 <html>
-  <head>
-    <meta charset="utf-8"/>
-    <meta content="width=device-width, user-scalable=no, initial-scale=1.0" name="viewport"/>
-    <title>{% block head_title %}Canvas Reviews{% endblock head_title %}</title>
-    <script src="https://code.jquery.com/jquery-2.2.4.min.js" integrity="sha256-BbhdlvQf/xTY9gja0Dq3HiwQF8LaCRTXxZKRutelT44=" crossorigin="anonymous"></script>
-    <script src="https://use.fontawesome.com/54e1e15d73.js"></script>
-    {% load bootstrap3 %}
-
-    {% bootstrap_css %}
-    {% bootstrap_javascript %}
-
-    {% load static %}
-    <link rel="stylesheet" href="{% static 'reviews/css/main.css' %}"/>
-    <!-- <link rel="stylesheet" href="{% static 'reviews/css/navbar.css' %}"> -->
-    <link href="https://fonts.googleapis.com/css?family=Raleway" rel="stylesheet">
-  </head>
+  {% include "partials/head.html" %}
   <body>
     {% include "messages_display.html" %}
-    <nav class="navbar navbar-default navbar-static-top">
-      <div class="container-fluid">
-        <div class="navbar-header">
-          <button type="button" class="navbar-toggle" data-toggle="collapse" data-target="#myNavbar">
-           <span class="glyphicon glyphicon-menu-hamburger"></span>
-         </button>
-         <a class="navbar-brand" href="{% url 'home' %}">Canvas</a>
-       </div> <!--/.navbar header-->
-       <div class="collapse navbar-collapse" id="myNavbar">
-         <ul class="nav navbar-nav navbar-left">
-           <li><a href="{% url 'reviews:strains' %}">Strains</a></li>
-           <li><a href="{% url 'reviews:reviews' %}">Reviews</a></li>
-           <li><a href="{% url 'accounts:users' %}">Users</a></li>
-         </ul> <!--/.nav navbar-nav navbar-left-->
-         <!-- <form class="navbar-form navbar-left">
-           <div class="row">
-               <div class="input-group">
-                 <input type="text" name="q" id="q" autocomplete="on" placeholder="SEARCH" class="form-control">
-                 <span class="input-group-btn">
-                   <button type="submit" class="btn btn-default">
-                     <i class="glyphicon glyphicon-search"></i>
-                   </button>
-                 </span>
-               </div>
-           </div>
-         </form> -->
-         <ul class="nav navbar-nav navbar-right">
-           {% if request.user.is_authenticated %}
-            <li><p class="navbar-text">Welcome, <a href="{% url 'accounts:profile' %}" class="navbar-link">{{ request.user.username }}</a></p></li>
-            <li><a href="{% url 'accounts:logout' %}">{% bootstrap_icon "log-out" %} Logout</a></li>
-            {% else %}
-            <li><a href="{% url 'accounts:register' %}">{% bootstrap_icon "user" %} Register</a></li>
-            <li><a href="{% url 'accounts:login' %}">{% bootstrap_icon "log-in" %} Login</a></li>
-            {% endif %}
-         </ul> <!--/.nav navbar-nav navbar-right-->
-         <form id="search-input" method="get" action="/search/" class="navbar-form navbar-right" role="form">
-             <div class="input-group col-md-12">
-               <input type="text" name="q" id="q" autocomplete="on" class="form-control" placeholder="Search..." aria-describedby="basic-addon1">
-               <span class="input-group-btn">
-                <button class="btn btn-default" type="submit">
-                  <span class="glyphicon glyphicon-search"></span>
-                </button>
-              </span>
-            </div>
-        </form>
-       </div> <!---/.collapse navbar-collapse-->
-      </div> <!--/.container-fluid-->
-    </nav> <!--/.navbar navbar-default navbar-static-top-->
-      {% block content %}
-      {% include "index.html" %}
-      {% endblock %}
+    {% include "partials/nav.html" %}
+    {% block content %}
+    {% include "index.html" %}
+    {% endblock %}
+    <script src="https://code.jquery.com/jquery-3.4.1.slim.min.js" 
+      integrity="sha384-J6qa4849blE2+poT4WnyKhv5vZF5SrPo0iEjwBvKU7imGFAV0wwj1yYfoRSJoZ+n" 
+      crossorigin="anonymous"></script>
+    <script src="https://cdn.jsdelivr.net/npm/popper.js@1.16.0/dist/umd/popper.min.js" 
+      integrity="sha384-Q6E9RHvbIyZFJoft+2mJbHaEWldlvI9IOYy5n3zV9zzTtmI3UksdQRVvoxMfooAo" 
+      crossorigin="anonymous"></script>
+    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/js/bootstrap.min.js" 
+      integrity="sha384-wfSDF2E50Y2D1uUdj0O3uMBJnjuUD4Ih7YwaYd1iqfktj0Uod8GCExl3Og8ifwB6" 
+      crossorigin="anonymous"></script>
+
     <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery-cookie/1.4.1/jquery.cookie.js"></script>
     <script>
       var csrftoken = $.cookie('csrftoken');

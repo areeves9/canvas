@@ -1,0 +1,61 @@
+<nav class="navbar navbar-expand-lg navbar-light bg-light">
+    <a class="navbar-brand" href="{% url 'home' %}">Canvas</a>
+    
+    <button 
+        class="navbar-toggler" 
+        data-toggle="collapse" 
+        data-target="#navbarSupportedContent" 
+        aria-controls="navbarSupportedContent" 
+        type="button" 
+        aria-expanded="false" 
+        aria-label="Toggle navigation">
+        <span class="navbar-toggler-icon"></span>
+    </button>
+
+    <div class="collapse navbar-collapse" id="navbarSupportedContent">
+        <ul class="navbar-nav mr-auto">
+            <li class="nav-item">
+                <a class="nav-link" href="{% url 'reviews:strains' %}">Strains</a>
+            </li>
+            <li class="nav-item">
+                <a class="nav-link" href="{% url 'reviews:reviews' %}">Reviews</a>
+            </li>
+            <li class="nav-item">
+                <a class="nav-link" href="{% url 'accounts:users' %}">Users</a>
+            </li>
+        </ul>
+        {% include "partials/search_input.html" %}
+        <ul class="navbar-nav ml-auto">
+            {% if request.user.is_authenticated %}
+            <span class="navbar-text">
+                Welcome, 
+            </span>
+            <li class="nav-item">
+                <a href="{% url 'accounts:profile' %}" class="nav-link">
+                    {{ request.user.username }}
+                </a>
+            </li>
+            <li class="nav-item">
+                <a class="nav-link" href="{% url 'accounts:logout' %}">
+                    <i class="fas fa-sign-out-alt"></i> Logout
+                </a>
+            </li>
+            {% else %}
+            <li class="nav-item">
+                <a class="nav-link" href="{% url 'accounts:register' %}">Register</a>
+            </li>
+            <li class="nav-item">
+                <a class="nav-link" href="{% url 'accounts:login' %}">
+                    <i class="fas fa-sign-in-alt"></i> Login
+                </a>
+            </li>
+            {% endif %}  
+        </ul>
+    </div>
+</nav>
+
+<style>
+    .navbar {
+        margin-bottom: 0px !important;
+    }
+</style>
