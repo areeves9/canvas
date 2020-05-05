@@ -17,9 +17,15 @@ a {
   text-decoration: none !important;
   color: grey;
 }
-.well-margin {
-  margin-top: 1em;
+#review-button {
+  padding: 1rem 1rem; 
+  display: inline; 
+  position: absolute;
+  bottom: 0%;
+  right: 0%;
+  transform: translate(-50%, -50%);
 }
+
 .navbar {
   margin-bottom: 0em;
 }
@@ -41,11 +47,7 @@ a {
 .row.my-reviews {
   margin-top: 100px;
 }
-/*strain thumnail on strain detail template*/
-.img-responsive.strain-photo {
-  height: 100%;
-  width: 100%;
-}
+
 /*user name for strain review thumbnail*/
 .thumbnail.image-left span >  a {
   color: green;
@@ -62,11 +64,6 @@ a {
   height: 55px;
   width: 55px;
 }
-/* circle background to glyphicon */
-/* .glyphicon {
-  border-radius:50%;
-  border:3px solid #fff;
-} */
 
 
 #discover-list {
@@ -130,17 +127,7 @@ a {
   height: 200px;
   width: 200px;
 }
-/*thumbnail strain image for strain list*/
-.strain.thumbnail > img {
-  max-height: 55px;
-  max-width: 55px;
-  float:left;
-}
 
-.flag {
-  margin-left: 10px;
-  margin-top: 20px;
-}
 .footer {
   background: #56CCF2;  /* fallback for old browsers */
   background: -webkit-linear-gradient(to left, #2F80ED, #56CCF2);  /* Chrome 10-25, Safari 5.1-6 */
@@ -173,7 +160,4 @@ a {
 #home  button {
   margin-bottom: 1em;
   margin-top: 1em;
-}
-#search-bar {
-  padding-top: 20px;
 }

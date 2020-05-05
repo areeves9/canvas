@@ -1,0 +1,11 @@
+{% if reviews %}
+<div class="card mt-4">
+    <div class="card-body">
+        <h5 class="card-title">Latest Reviews</h5>
+        {% for review in reviews|slice:":10" %}
+        <a href="{{ review.get_absolute_url }}">
+            <p><u>{{ review.title }}</a></u> by {{ review.user }}</p>
+        {% endfor %}
+    </div>
+</div>
+{% endif %}

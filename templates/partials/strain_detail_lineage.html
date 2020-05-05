@@ -1,0 +1,20 @@
+{% if countries %}
+<div class="col-sm-4">
+  <div class="card">
+    <div class="card-body">
+      <div class="card-title">
+        <h4>Lineage</h4>
+      </div>
+      {% for country, value in countries.items %}
+      <img class="d-block mx-auto" src="http://www.geognos.com/api/en/countries/flag/{{ value }}.png">
+      <p class="text-center">{{ country }}</p>
+      {% endfor %}
+      {% elif not genetics %}
+
+      {% else %} <!--if lineage field is set to empty list-->
+        {{ strain.get_strain_lineage }}
+      {% endif %}
+    </div>
+  </div>
+</div>
+  

@@ -4,59 +4,47 @@
 
 {% block content %}
 <div class="container">
-<div class="row">
-  <div class="well col-xs-12 col-md-4 col-md-offset-4 well-margin">
-    <div class="thumbnail">
-      {% if strain.photo_url %}
-      <img class="img-responsive strain-photo" src="{{ strain.photo_url }}">
-      {% else %}
-      <image class="img-responsive strain-photo" src="{{ strain.get_strain_image }}">
-      {% endif %}
+  <div class="row mt-4">
+    <div class="col-sm-6">
+      <div class="card" style="position: relative !important;">
+        {% if strain.photo_url %}
+        <img class="card-img-top shadow" src="{{ strain.photo_url }}" alt="Card image cap">
+        {% else %}
+        <image class="card-img-top shadow" src="{{ strain.get_strain_image }}">
+        {% endif %}
+      </div> <!--/.card-->
+      <a id="review-button" 
+        href="{% url 'reviews:review' strain.id %}"
+        role="button"
+        class="shadow-lg rounded-circle btn btn-light">
+          <i class="fas fa-pencil-alt fa-2x"></i>
+      </a>
+    </div> <!--/.col-sm-6-->
+    <div class="col-sm-6">
+      <div class="card">
+        <div class="card-body">
+          {% if strain.get_average_rating %}
+          <span class="float-right"> {{ strain.get_average_rating }} <i class="fas fa-star"></i> • 
+            <span class="badge badge-pill badge-info">
+              {{ strain.user_review.all.count }}
+            </span> review{{ strain.user_review.all|pluralize:"s" }}</span>
+          {% else %}
+          <span class="float-right badge badge-success">No ratings yet</span>
+          {% endif %}
+          <h4 class="card-title">{{ strain.name }}</h4>
+          <hr/>
+          {% include "partials/strain_detail_genetics.html" %}
+        </div>
+      </div>
+      {% include "partials/strain_detail_reviews.html" %}
+    </div> <!--/.col-sm-6-->
+  </div> <!--/.row-->
 
-    <div class="caption">
-    <h1>{{ strain.name }}</h1><span>Rating: {{ strain.get_average_rating }} of 5 </span>
-    <h4>Summary</h4>
-    <p>From <a href="https://www.leafly.com">Leafly.com</a>--{{ strain.summary }}</p>
-    {% if countries %}
-    <h4>Lineage</h4>
-      {% for country, value in countries.items %}
-    <img class="flag" src="http://www.geognos.com/api/en/countries/flag/{{ value }}.png">
-        {{ country }}
-      {% endfor %}
-    {% elif countries == False %} <!--if lineage field is set to empty list-->
-    <h4>Lineage</h4>
-    <p>No Lineage Data for {{ strain.name }}</p>
-    {% elif countries != False %} <!--if lineage field is set to empty list-->
-      {{ strain.get_strain_lineage }}
-    {% endif %}
+  {% include "partials/strain_detail_social.html" %}
 
-    {% if genetics %}
-    <h4>Genetics</h4>
-    <p>{{ genetics }}</p>
-    {% elif genetics == False %}
-    <h4>Genetics</h4>
-    <p>No data availabe for {{ strain.name }}</p>
-    {% else %}
-      {{ strain.get_strain_lineage }}
-    {% endif %}
-
-    {% if reviews %}
-    <h4>Reviews</h4>
-      {% for review in reviews %}
-    <a href="{{ review.get_absolute_url }}"><p>{{ review.title }}</p></a>
-      {% endfor %}
-    {% endif %}
-    <hr/>
-    {% buttons %}
-    <a href="{% url 'reviews:review' strain.id %}">
-      <button class="btn btn-default">
-        {% bootstrap_icon "pencil" %} Review
-      </button>
-    </a>
-    {% endbuttons %}
-  </div> <!--/.caption-->
-</div> <!--/.thumbnail-->
-  </div> <!--/.well col-sm-12 col-lg-6-->
-</div> <!--/.row-->
+  <div class="row mt-4">
+    {% include "partials/strain_detail_lineage.html" %}
+  </div>
 </div>
+
 {% endblock %}
