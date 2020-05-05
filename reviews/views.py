@@ -164,21 +164,14 @@ def review_share(request, id=None):
 
 def strains(request):
     strain_list = Strain.objects.all().order_by("name")
-    paginator = Paginator(strain_list, 8)
+    paginator = Paginator(strain_list, 20)
     page = request.GET.get('page')
     try:
         strains = paginator.page(page)
     except PageNotAnInteger:
         strains = paginator.page(1)
     except EmptyPage:
-        if request.is_ajax():
-            return HttpResponse('')
         strains = paginator.page(paginator.num_pages)
-    if request.is_ajax():
-        context = {
-            "strains": strains,
-        }
-        return render(request, "reviews/strain_list_ajax.html", context)
     context = {
         "strains": strains,
     }
