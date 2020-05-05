@@ -88,6 +88,25 @@ def review_like(request):
 
 
 @login_required
+@require_POST
+def strain_like(request):
+    strain_id = request.POST.get('id')
+    action = request.POST.get('action')
+    if strain_id and action:
+        try:
+            strain = Strain.objects.get(id=strain_id)
+            if action == 'like':
+                strain.users_like.add(request.user)
+                create_action(request.user, 'likes', strain)
+            else:
+                strain.users_like.remove(request.user)
+            return JsonResponse({'status': 'ok'})
+        except:
+            pass
+    return JsonResponse({'status': 'ko'})
+
+
+@login_required
 def review_update(request, id=None):
     review = get_object_or_404(Review, id=id)
     if review.user == request.user:

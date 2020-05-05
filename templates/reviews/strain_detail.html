@@ -1,6 +1,6 @@
 {% extends "base.html" %}
 {% block head_title %}{{ strain.name }} | {{ block.super }}{% endblock head_title %}
-{% load bootstrap3 %}
+{% with total_likes=strain.users_like.count users_like=strain.users_like.all %}
 
 {% block content %}
 <div class="container">
@@ -32,6 +32,11 @@
           <span class="float-right badge badge-success">No ratings yet</span>
           {% endif %}
           <h4 class="card-title">{{ strain.name }}</h4>
+          {% if total_likes %}
+          <p class="text-secondary total">{{ total_likes }} 
+            Like{{ total_likes|pluralize }}
+          </p>
+          {% endif %}
           <hr/>
           {% include "partials/strain_detail_genetics.html" %}
         </div>
@@ -48,3 +53,34 @@
 </div>
 
 {% endblock %}
+{% endwith %}
+
+{% block domready %}
+  $('a.strain-like').click(function(e){
+    e.preventDefault();
+    console.log('hello');
+    $.post('{% url "reviews:strain_like" %}',
+  {
+    id: $(this).data('id'),
+    action: $(this).data('action')
+  },
+    function(data){
+    if (data['status'] == 'ok')
+  {
+    var previous_action = $('a.strain-like').data('action');
+    console.log(previous_action);
+    // toggle data-action
+    $('a.strain-like').data('action', previous_action == 'like' ? 'unlike' : 'like');
+
+    // toggle heart class
+    $('a.strain-like').html(previous_action == 'like' ? `<i class="far fa-heart"></i> Unlike` : `<i class="fas fa-heart"></i> Like`);
+
+    // update total likes
+    var previous_likes = parseInt($('span.count .total').text());
+    $('span.count .total').text(previous_action == 'like' ? previous_likes + 1 : previous_likes - 1);
+  }
+    
+
+  });
+  });
+  {% endblock %}

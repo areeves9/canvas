@@ -1,3 +1,4 @@
+{% with total_likes=strain.users_like.count users_like=strain.users_like.all %}
 <nav style="list-style-type: none;" class="navbar navbar-light bg-white border-top border-bottom mt-4">
     <ul class="mx-auto list-group list-group-horizontal">
       <li class="list-group-item border-top-0 border-bottom-0 border-left-0">
@@ -7,7 +8,15 @@
         <span class="ml-3 mr-3"><a href="{% url 'reviews:review' strain.id %}"><i class="fas fa-pencil-alt"></i> Review</a></span>
       </li>
       <li class="list-group-item border-top-0 border-bottom-0 border-right-0">
-        <span class="ml-3"><i class="far fa-heart"></i> Love </span>
+        <span class="ml-3">
+          <a href="" data-id="{{ strain.id }}" data-action="{% if request.user in users_like %}un{% endif %}like" class="strain-like">
+            <i class="strain-like {% if request.user in users_like %}far fa-heart{% else %}fas fa-heart{% endif %}"></i> {% if request.user not in users_like %} Like {% else %} Unlike {% endif %}
+            </a>
+        </span>
       </li>
     </ul>
   </nav>
+{% endwith %}
+
+
+

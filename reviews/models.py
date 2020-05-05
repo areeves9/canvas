@@ -41,6 +41,11 @@ class Strain(models.Model):
     photo_url = models.URLField(null=True, blank=True)
     height_field = models.IntegerField(default=0, null=True)
     width_field = models.IntegerField(default=0, null=True)
+    users_like = models.ManyToManyField(
+        settings.AUTH_USER_MODEL,
+        related_name="strains_liked",
+        blank=True
+    )
 
     def get_absolute_url(self):
         return reverse("reviews:strain", kwargs={"id": self.id})
