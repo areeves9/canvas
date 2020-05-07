@@ -1,0 +1,27 @@
+{% if user.strains_liked %}  
+<hr />
+<h5 class="text-left">Favorites</h5>
+{% endif %}
+<div class="row">
+    {% for strain in user.strains_liked.all %}
+    <div id="pills-home" role="tabpanel" aria-labelledby="pills-home-tab" 
+    class="col-6 col-sm-4 tab-pane fade show active">
+        <div class="card mb-4">
+        <a href="{% url 'reviews:strain' strain.id %}">
+        {% if strain.photo_url %}
+        <img class="card-img-top" src="{{ strain.photo_url }}" alt="Card image cap">
+        {% else %}
+        <img class="card-img-top" src="https://via.placeholder.com/250" alt="Card image cap">
+        {% endif %}
+        </a>
+            <div class="card-body">
+                <h5 class="card-text text-center">
+                <a href="{% url 'reviews:strain' strain.id %}">{{ strain }}</a>
+                {% if strain.rating %} • {{ strain.get_average_rating }} <i class="text-warning fas fa-star"></i>
+                {% else %} <span class="badge badge-pill badge-secondary">No reviews yet.</span>{% endif %}
+                </h5>
+            </div> <!--/.card-body-->
+        </div>
+    </div> <!--/.col-6.col-sm-4-->
+    {% endfor %}
+</div> <!--/.row-->
