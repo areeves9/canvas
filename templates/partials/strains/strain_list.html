@@ -1,7 +1,6 @@
 {% for strain in strains %}
 {% with total_reviews=strain.user_review.count %}
 
-<div class="col-6 col-sm-4">
   <div class="card mb-4">
     {% if strain.photo_url %}
     <img class="card-img-top" src="{{ strain.photo_url }}" alt="Card image cap">
@@ -19,7 +18,6 @@
       {% endif %}
     </div>
   </div>
-</div>
 {% endwith %}
 
 {% endfor %}

@@ -1,4 +1,5 @@
 {% load rating_icon %}
+
 {% for review in reviews %}
   <div class="card mb-4">
     {% include "partials/review_card_header.html" %}
@@ -10,7 +11,7 @@
     </a>
     {% endif %}
     <div class="card-body">
-      <span class="float-right">{% include "partials/strain_review_method_icon.html" %}</span>
+      <span class="float-right">{% include "partials/strains/strain_review_method_icon.html" %}</span>
       <a class="float-right mr-1" href="{{ review.strain.get_absolute_url }}">{{ review.strain }} • </a>
       <a class="card-text" href="{{ review.get_absolute_url }}">{{ review.title }}</a>
       <p class="card-text">{{ review.content|linebreaks|truncatechars:99 }}</p>

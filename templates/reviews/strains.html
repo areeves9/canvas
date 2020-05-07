@@ -5,9 +5,12 @@
 <div class="container">
   <h5 class="mt-5">Strains</h5>
   <div class="row">
-    {% include "partials/strain_list.html" %}  
+    <div class="card-columns">
+      {% include "partials/strains/strain_list.html" %}
+
+    </div>
   </div>
-  {% include "partials/strains_pagination.html" %}
+  {% include "partials/strains/strains_pagination.html" %}
 </div> <!--/.container-->  
 {% endblock %}
 

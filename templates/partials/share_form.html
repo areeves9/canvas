@@ -1,0 +1,47 @@
+{% extends "base.html" %}
+{% block head_title %} Share {{ review.title }} | {{ block.super }}{% endblock head_title %}
+{% load crispy_forms_tags %} 
+
+{% block content %}
+{% if review %}
+<nav aria-label="breadcrumb" class="bg-light">
+  <ol class="breadcrumb">
+    <li class="breadcrumb-item"><a href="{% url 'reviews:reviews'%}">Reviews</a></li>
+    <li class="breadcrumb-item"><a href="{% url 'reviews:review_detail' review.id %}">{{ review }}</a></li>
+    <li class="breadcrumb-item active"><a href="{% url 'reviews:share_review' review.id %}">Share {{ review }}</a></li>
+  </ol>
+</nav>
+{% else %}
+<nav aria-label="breadcrumb" class="bg-light">
+  <ol class="breadcrumb" class="bg-light">
+    <li class="breadcrumb-item"><a href="{% url 'reviews:strains'%}">Strains</a></li>
+    <li class="breadcrumb-item"><a href="{% url 'reviews:strain_detail' strain.id %}">{{ strain }}</a></li>
+    <li class="breadcrumb-item active"><a href="{% url 'reviews:share_strain' strain.id %}">Share {{ strain }}</a></li>
+  </ol>
+</nav>
+{% endif %}
+
+<div class="container">
+  <div class="h-100 mt-4 row justify-content-center align-items-center">
+    <div class="col-sm-6">
+      {% if review %}
+      <h3>
+        Share Review <a href="{{ review.get_absolute_url }}">{{ review.title }}</a>
+      </h3>
+      {% else %}
+      <h3>
+        Share Strain <a href="{{ strain.get_absolute_url }}">{{ strain }}</a>
+      </h3>
+      {% endif %}
+      <form method="POST" action="" enctype="multipart/form-data" class="form">
+        {% csrf_token %}
+        {{ form|crispy }}
+        <button type=submit class="btn btn-secondary btn-block">
+           Send
+        </button>
+      </form>
+    </div>      
+  </div>
+</div>
+
+{% endblock %}

@@ -10,7 +10,7 @@
     class="tab-pane fade show active">
         <div class="col-sm-8 mt-4">
             <div class="media">
-                <a href="{% url 'reviews:detail' review.id %}">
+                <a href="{% url 'reviews:review_detail' review.id %}">
                     {% if review.photo.url %}
                     <img style="height: 53px; width: 53px;" class="mr-3" src="{{ review.photo.url }}" alt="Card image cap">
                     {% else %}
@@ -19,11 +19,11 @@
                 </a>
                 <div class="media-body">
                     <h5 class="d-inline ml-1">
-                        <a href="{% url 'reviews:detail' review.id%}">
+                        <a href="{% url 'reviews:review_detail' review.id%}">
                             {{ review.strain }}
                         </a>
                     </h5>
-                    <span class="float-left">{% include "partials/strain_review_method_icon.html" %}</span>
+                    <span class="float-left">{% include "partials/strains/strain_review_method_icon.html" %}</span>
 
                     <p>{{ review.content }}</p>
                 </div> <!--/.media-body-->

@@ -1,6 +1,13 @@
 {% extends "base.html" %}
 {% block head_title %}{{ strain.name }} | {{ block.super }}{% endblock head_title %}
 {% block content %}
+<nav aria-label="breadcrumb">
+  <ol class="breadcrumb">
+    <li class="breadcrumb-item"><a href="{% url 'reviews:strains'%}">Strains</a></li>
+    <li class="breadcrumb-item active"><a href="{% url 'reviews:strain_detail' strain.id %}">{{ strain }}</a></li>
+  </ol>
+</nav>
+
 <div class="container">
   <div class="row mt-4">
     <div class="col-sm-6">
@@ -12,22 +19,22 @@
         {% endif %}
       </div> <!--/.card-->
       <a id="review-button" 
-        href="{% url 'reviews:review' strain.id %}"
+        href="{% url 'reviews:strain_review' strain.id %}"
         role="button"
         class="shadow-lg rounded-circle btn btn-light">
           <i class="fas fa-pencil-alt fa-2x"></i>
       </a>
     </div> <!--/.col-sm-6-->
     <div class="col-sm-6">
-      {% include "partials/strain_card.html" %}
-      {% include "partials/strain_detail_reviews.html" %}
+      {% include "partials/strains/strain_card.html" %}
+      {% include "partials/strains/strain_detail_reviews.html" %}
     </div> <!--/.col-sm-6-->
   </div> <!--/.row-->
 
-  {% include "partials/strain_detail_social.html" %}
+  {% include "partials/strains/strain_detail_social.html" %}
 
   <div class="row mt-4">
-    {% include "partials/strain_detail_lineage.html" %}
+    {% include "partials/strains/strain_detail_lineage.html" %}
   </div>
 </div>
 

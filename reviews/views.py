@@ -39,7 +39,7 @@ def reviews(request):
         context = {
             "reviews": reviews,
         }
-        return render(request, "reviews/review_list_ajax.html", context)
+        return render(request, "partials/review_card.html", context)
     context = {
         "reviews": reviews,
     }
@@ -48,7 +48,7 @@ def reviews(request):
 
 # returns a query set of reviews filtered by strain id
 @login_required
-def reviews_strain(request, id=None):
+def strain_reviews(request, id=None):
     review_list = Review.objects.filter(strain__id=id).all().order_by("-timestamp")
     strain = review_list.first().strain
     paginator = Paginator(review_list, 8)
@@ -65,7 +65,7 @@ def reviews_strain(request, id=None):
         context = {
             "reviews": reviews,
         }
-        return render(request, "reviews/review_list_ajax.html", context)
+        return render(request, "partials/review_card.html", context)
     context = {
         "reviews": reviews,
         "strain": strain,
@@ -213,7 +213,7 @@ def review_share(request, id=None):
         "review": review,
         "sent": sent,
     }
-    return render(request, "reviews/share_review_form.html", context)
+    return render(request, "partials/share_form.html", context)
 
 
 @login_required
@@ -262,7 +262,7 @@ def strain_share(request, id=None):
         "strain": strain,
         "sent": sent,
     }
-    return render(request, "reviews/share_review_form.html", context)
+    return render(request, "partials/share_form.html", context)
 
 
 # get all the strains (paginated) from the db

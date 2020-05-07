@@ -49,7 +49,7 @@ class Strain(models.Model):
     )
 
     def get_absolute_url(self):
-        return reverse("reviews:strain", kwargs={"id": self.id})
+        return reverse("reviews:strain_detail", kwargs={"id": self.id})
 
     def get_average_rating(self):
         strain_ratings = self.user_review.all()
@@ -154,7 +154,7 @@ class Review(models.Model):
         ordering = ["-timestamp", "-updated"]
 
     def get_absolute_url(self):
-        return reverse("reviews:detail", kwargs={"id": self.id})
+        return reverse("reviews:review_detail", kwargs={"id": self.id})
 
     # def time_posted(self):
     #     dt_now = datetime.now()
