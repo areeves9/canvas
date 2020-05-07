@@ -49,6 +49,7 @@ def reviews(request):
 @login_required
 def reviews_strain(request, id=None):
     review_list = Review.objects.filter(strain__id=id).all().order_by("-timestamp")
+    strain = review_list.first().strain
     paginator = Paginator(review_list, 8)
     page = request.GET.get('page')
     try:
@@ -66,6 +67,7 @@ def reviews_strain(request, id=None):
         return render(request, "reviews/review_list_ajax.html", context)
     context = {
         "reviews": reviews,
+        "strain": strain,
     }
     return render(request, "reviews/reviews.html", context)
 

@@ -7,7 +7,9 @@
         <span class="badge badge-pill badge-secondary">
           {{ strain.user_review.all.count }}
         </span> 
-        review{{ strain.user_review.all|pluralize:"s" }}
+        <a href="{% url 'reviews:reviews_strain' strain.id %}">
+          review{{ strain.user_review.all|pluralize:"s" }}
+        </a>
         {% if total_likes %}
         • <span><i class="far fa-heart"></i> {{ total_likes }} Like{{ total_likes|pluralize }}</span>
         {% endif %}
