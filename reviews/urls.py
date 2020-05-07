@@ -12,6 +12,8 @@ urlpatterns = [
     url(r'^like/$', views.review_like, name="like"),
     url(r'^strain-like/$', views.strain_like, name="strain_like"),
     url(r'^strains/$', views.strains, name="strains"),
+    url(r'^strains/$', views.strains, name="strains"),
+    url(r'^(?P<id>\d+)/share/strain/$', views.strain_share, name="share_strain"),
     url(r'^strains/(?P<id>\d+)/$', views.strain_detail, name="strain"),
     url(r'^strains/(?P<id>\d+)/review/$', views.strain_review, name="review"),
 ]

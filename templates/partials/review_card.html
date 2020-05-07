@@ -3,17 +3,16 @@
   <div class="card mb-4">
     {% include "partials/review_card_header.html" %}
     {% if review.photo.url %}
-    <img class="card-img-top" src="{{ review.photo.url }}" alt="Card image cap">
-    {% else %}
-    <img class="card-img-top" src="https://via.placeholder.com/250" alt="Card image cap">
+    <a class="" href="{{ review.get_absolute_url }}">
+      <img class="card-img-top" src="{{ review.photo.url }}" alt="Card image cap">
+      {% else %}
+      <img class="card-img-top" src="https://via.placeholder.com/250" alt="Card image cap">
+    </a>
     {% endif %}
     <div class="card-body">
-      <span class="float-right">
-      {% include "partials/strain_review_method_icon.html" %}
-      </span>
-      <h5 class="card-title text-left">
-        <a href="{{ strain.get_absolute_url }}">{{ review.title }}</a>
-      </h5>
+      <span class="float-right">{% include "partials/strain_review_method_icon.html" %}</span>
+      <a class="float-right mr-1" href="{{ review.strain.get_absolute_url }}">{{ review.strain }} • </a>
+      <a class="card-text" href="{{ review.get_absolute_url }}">{{ review.title }}</a>
       <p class="card-text">{{ review.content|linebreaks|truncatechars:99 }}</p>
       <p class="text-secondary"> {{ review.time_posted }} </p>
     </div>

@@ -1,31 +1,97 @@
 {% extends "base.html" %}
 {% block head_title %}{{ review.title }} | {{ block.super }}{% endblock head_title %}
-{% load bootstrap3 %}
+{% load rating_icon %}
 {% block content %}
 
 
 {% with total_likes=review.users_like.count users_like=review.users_like.all %}
 <div class="container">
-  <div class="row">
-    <div class="col-sm">
+  <h3 class="mt-5">
+    <a href="{{ review.strain.get_absolute_url }}">
+      {{ review.strain }} 
+    </a> Review
+  </h3>
+  {% include "partials/review_detail_social.html" %}
+  <div class="row justify-content-center mt-5">
+    <div class="col-sm-6">
       <div class="card">
         {% if review.photo.url %}
-        <img class="card-img-top" src="{{ review.photo.url }}" alt="Card image cap">
+        <img class="card-img-top shadow" src="{{ review.photo.url }}" alt="Card image cap">
         {% else %}
-        <img class="card-img-top" src="https://via.placeholder.com/250" alt="Card image cap">
+        <img class="card-img-top shadow" src="https://via.placeholder.com/250" alt="Card image cap">
         {% endif %}
-        <div class="card-body">
-        </div>
-      </div>
+      </div> <!--/.card-->
+    </div> <!--/.col-sm-6-->
+  </div> <!--/.row-->
+
+  <div class="row mt-5">
+    <div class="col-sm-3">
+      <a href="{% url 'accounts:user' review.user %}">
+      <img style="height: 53px; width: 53px;" class="mr-1 float-left rounded-circle thumbnail" src="{{ review.user.profile.photo.url }}"/>
+      <h5 class="ml-1">
+          {{ review.user }}
+        </a>
+      </h5>
+      {% if request.user != review.user %}
+      <a href="#" data-id="{{ review.user.id }}" data-action="{% if request.user in review.user.followers.all %}un{% endif %}follow" class="follow mt-n5 float-right btn btn-info">
+        {% if request.user not in review.user.followers.all %}
+          Follow
+        {% else %}
+          Unfollow
+        {% endif %}
+      </a>
+      {% endif %}
+      <!-- <a href="" class="btn btn-info float-right mt-n5">Follow</a> -->
+    </div>
+  </div> <!--/.row-->
+
+  <div class="row">
+    <div class="col-sm">
+      <hr/>
+      <span class="float-right">
+        {% include "partials/strain_review_method_icon.html" %} • {{ review.rating|rating_icon }}
+      </span>
+      <h5>{{ review }}</h5>
+      <p class="mt-3">{{ review.content }}</p>
     </div>
   </div>
-</div>
+  <div class="row">
+    <div class="col-sm-6">
+      <h5 class="mt-5">Method</h5>
+      <hr/>
+        {{ review.method|title }} • {% include "partials/strain_review_method_icon.html" %}
+      </h5>
+    </div>
+  </div>
+
+</div> <!--/.container-->
 {% endwith %}
 {% endblock %}
 
 
  {% block domready %}
-      $('a.like').click(function(e){
+ $('a.follow').click(function(e){
+  e.preventDefault();
+  $.post('{% url "accounts:user_follow" %}',
+  {
+    id: $(this).data('id'),
+    action: $(this).data('action')
+  },
+  function(data){
+    if (data['status'] == 'ok') {
+      var previous_action = $('a.follow').data('action');
+
+      $('a.follow').data('action', previous_action == 'follow' ? 'unfollow' : 'follow');
+      $('a.follow').text(previous_action == 'follow' ? 'Unfollow' : 'Follow');
+
+      var previous_followers = parseInt(
+        $('span.count .total').text());
+      $('span.count .total').text(previous_action == 'follow' ? previous_followers + 1 : previous_followers -1);
+    }
+  }
+  );
+});
+      $('a.review-like').click(function(e){
        e.preventDefault();
        $.post('{% url "reviews:like" %}',
          {
@@ -35,12 +101,12 @@
          function(data){
            if (data['status'] == 'ok')
            {
-             var previous_action = $('a.like').data('action');
+             var previous_action = $('a.review-like').data('action');
              // toggle data-action
-             $('a.like').data('action', previous_action == 'like' ? 'unlike' : 'like');
+             $('a.review-like').data('action', previous_action == 'like' ? 'unlike' : 'like');
 
-// toggle link text
-$('a.like').text(previous_action == 'like' ? 'Unlike' : 'Like');
+// toggle heart icon
+$('a.review-like').html(previous_action == 'like' ? `<i class="fas fa-heart"></i> Unlike` : `<i class="far fa-heart"></i> Like`);
 
 
 

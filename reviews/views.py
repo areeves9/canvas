@@ -46,6 +46,7 @@ def reviews(request):
     return render(request, "reviews/reviews.html", context)
 
 
+# returns a query set of reviews filtered by strain id
 @login_required
 def reviews_strain(request, id=None):
     review_list = Review.objects.filter(strain__id=id).all().order_by("-timestamp")
@@ -71,6 +72,8 @@ def reviews_strain(request, id=None):
     }
     return render(request, "reviews/reviews.html", context)
 
+
+# returns a Review instance
 @login_required
 def review_detail(request, id=None):
     review = get_object_or_404(Review, id=id)
@@ -213,6 +216,56 @@ def review_share(request, id=None):
     return render(request, "reviews/share_review_form.html", context)
 
 
+@login_required
+def strain_share(request, id=None):
+    strain = get_object_or_404(Strain, id=id)
+    sent = False
+    if request.method == 'POST':
+        form = ShareReviewForm(request.POST or None, request.FILES or None)
+        if form.is_valid():
+            cd = form.cleaned_data
+            strain_url = request.build_absolute_uri(strain.get_absolute_url())
+            subject = '{} ({}) recommends you try {}'.format(
+                request.user, request.user.email, strain.name
+                )
+            text_content = 'Read "{}" at {}.'.format(strain.name, strain_url)
+            html_content = render_to_string(
+                            'reviews/share_strain_email.html',
+                            context={
+                                'cd': cd,
+                                'strain': strain,
+                                'user': request.user,
+                                'strain_url': strain_url,
+                                }
+                        )
+            msg = EmailMultiAlternatives(
+                subject,
+                text_content,
+                os.environ['CANVAS_DEFAULT_FROM_EMAIL'],
+                [cd['send_to']]
+            )
+            msg.attach_alternative(html_content, "text/html")
+            msg.mixed_subtype = 'related'
+            if strain.photo:
+                msg_img = MIMEImage(strain.photo_url.read())
+                msg_img.add_header('Content-ID', '<{}>'.format(strain.photo_url))
+                msg.attach(msg_img)
+                msg.send()
+            else:
+                msg.send()
+            messages.success(request, "Sent")
+            return HttpResponseRedirect(strain_url)
+    else:
+        form = ShareReviewForm()
+    context = {
+        "form": form,
+        "strain": strain,
+        "sent": sent,
+    }
+    return render(request, "reviews/share_review_form.html", context)
+
+
+# get all the strains (paginated) from the db
 def strains(request):
     strain_list = Strain.objects.all().order_by("name")
     paginator = Paginator(strain_list, 20)

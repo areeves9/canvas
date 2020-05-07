@@ -5,7 +5,17 @@
 {% block content %}
 <div class="container">
 <div class="row">
-  <h3>Share Review <a href="{{ review.get_absolute_url }}">"{{ review.title }}"</a></h3>
+  {% if review %}
+  <h3>
+    Share Review <a href="{{ review.get_absolute_url }}">{{ review.title }}</a>
+  </h3>
+  
+  {% else %}
+  <h3>
+    Share Strain <a href="{{ strain.get_absolute_url }}">{{ strain }}</a>
+  </h3>
+
+  {% endif %}
   <div class="col-xs-12 col-md-4 col-md-offset-4 well-margin">
   </div>
   <div class="well col-xs-12 col-md-4 col-md-offset-4 well-margin">
