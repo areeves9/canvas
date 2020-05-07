@@ -1,5 +1,6 @@
 import os
 import requests
+from datetime import timedelta, datetime
 from PIL import Image
 from django.db import models
 from django.core.files import File
@@ -154,6 +155,12 @@ class Review(models.Model):
 
     def get_absolute_url(self):
         return reverse("reviews:detail", kwargs={"id": self.id})
+
+    # def time_posted(self):
+    #     dt_now = datetime.now()
+    #     dt_review = self.timestamp
+    #     delta_m = timedelta(seconds=datetime.now().second) - timedelta(seconds=self.timestamp.second)
+    #     return delta_m.total_seconds()
 
     def __str__(self):
         return self.title
