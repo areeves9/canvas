@@ -63,6 +63,7 @@ def profile(request):
     }
     return render(request, "accounts/profile.html", context)
 
+
 @login_required
 def profile_user(request, username=""):
     if username:
@@ -80,6 +81,10 @@ def profile_user(request, username=""):
             "followers": followers,
         }
         return render(request, "accounts/profile.html", context)
+
+
+
+
 
 
 @login_required

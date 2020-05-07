@@ -1,90 +1,98 @@
 {% extends "base.html" %}
 {% block head_title %}{{ user.username }} | {{ block.super }}{% endblock head_title %}
-{% load bootstrap3 %}
 
 {% block content %}
 <div class="container">
-<div class="row">
-  <div id="profile-well" class="well col-xs-12 col-md-4 col-md-offset-4 well-margin">
-    <h3 class="text-center">
-      @{{ user.username }}
-      {% if request.user.profile.id == user.profile.id %}
-        <a href="{% url 'accounts:update' %}">{% bootstrap_icon "edit" %}</a>
-      {% endif %}
-    </h3>
-    {% if request.user.profile.id == user.profile.id %}
-      <p class="text-center"><a href="{% url 'accounts:password_change' %}">Change Password</a></p>
-    {% endif %}
-    {% if user.profile.photo %}
-      <img class="img-responsive img-circle avatar" src="{{ user.profile.photo.url }}"/>
-    {% else %}
-      <img class="img-responsive img-circle avatar" src="http://placehold.it/250x250"/>
-    {% endif %}
-    <h4> {% bootstrap_icon "user" %} {{ user.first_name }} {{ user.last_name }}</h4>
-    <h4> {% bootstrap_icon "envelope" %} {{ user.email }}</h4>
-    <h4> {% bootstrap_icon "globe" %} {{ user.profile.location }}</h4>
-    <h4> {% bootstrap_icon "calendar" %} {{ user.profile.birthdate }}</h4>
-    {% with total_followers=user.followers.count %}
-    <span class="count">
-      <span class="total">{{ total_followers }}</span> Follower{{ total_followers|pluralize }}
-    </span>
-    {% if request.user.profile.id != user.profile.id %}
-     <a href="#" data-id="{{ user.id }}" data-action="{% if request.user in user.followers.all %}un{% endif %}follow" class="follow button">
-      {% if request.user not in user.followers.all %}
-        Follow
+  <div class="row mt-5">
+    <div class="col-sm-4">
+      <h5 class="text-center">
+        {{ user.username }} 
+        {% if request.user.profile.id == user.profile.id %}
+        <a href="{% url 'accounts:update' %}" class="shadow badge badge-light badge-pill rounded-circle border border-dark p-2">
+          <i class="fas fa-cog"></i>
+        </a>
+        {% endif %}
+      </h5>
+      {% if user.profile.photo %}
+     
+      <img class="rounded-circle thumbnail img-fluid mx-auto d-block" alt="Responsive image" src="{{ user.profile.photo.url }}" style="height: 160px; width: 160px;"/>
       {% else %}
-        Unfollow
+      <img class="rounded-circle thumbnail img-fluid mx-auto d-block" src="http://placehold.it/250x250" style="height: 160px; width: 160px;"/>
       {% endif %}
-    </a>
-    {% endif %}
-  </div> <!--/.well col-xs-12 col-md-4-->
-  <div class="col-xs-12 col-md-6 col-md-offset-3">
-    <p class="text-center"> {{ user.profile.bio }}</p>
-  </div> <!--/.col-xs-12 col-md-8-->
-</div> <!--/.row-->
-<div class="row my-reviews">
-    <div class="well col-xs-12 col-md-4 col-md-offset-4 profile">
-        {% if review_list %}
-        <h4>My Reviews ({{ review_numbers }})</h4>
-          {% for review in review_list %}
-      <div class="thumbnail">
-      {% if review.photo %}
-        <img class="img-responsive img-circle profile" src="{{ review.photo.url }}">
+      <h4 class="mt-3 text-left">
+        {{ user.first_name }} {{ user.last_name }}
+      </h4>
+      <p class="text-left">{{ user.profile.bio }}</p>
+      
+
+      {% with total_followers=user.followers.count %}
+      {% with total_following=user.following.count %}
+
+      {% if request.user.profile.id != user.profile.id %}
+      <a href="#" data-id="{{ user.id }}" data-action="{% if request.user in user.followers.all %}un{% endif %}follow" class="follow w-80 mb-4 mt-3 mx-auto btn btn-block btn-info">
+        {% if request.user not in user.followers.all %}
+          Follow
+        {% else %}
+          Unfollow
+        {% endif %}
+      </a>
       {% endif %}
-        <div class="caption">
-          <h3 class="text-center"><a href="{{ review.get_absolute_url }}">{{ review.title }}</a></h3>
-        </div> <!--/.caption-->
-      </div> <!--/.thumbnail-->
-      {% endfor %}
-      {% endif %}
-    </div> <!--/.col-xs-12 col-md-12 profile-->
-</div> <!--/.row-->
-<div class="row my-followers">
-  <div class="col-xs-12 col-md-4 col-md-offset-4 profile">
-    {% if followers %}
-    <h4>My Followers ({{ total_followers }})</h4>
-      {% for follower in followers %}
-    <div class="thumbnail">
-      {% if follower.profile.photo %}
-        <img class="img-responsive img-circle profile" src="{{ follower.profile.photo.url }}">
-      {% endif %}
-      <div class="caption">
-        <h4 class="text-center"><a href="{% url 'accounts:user' follower.username %}">@{{ follower.username }}</a></h4>
-      </div> <!--/.caption-->
-    </div> <!--/.thumbnail-image-left-->
-    {% endfor %}
+    </div>
+
+    <div class="col-sm-5 mb-4">
+      <ul class="list-group list-group-horizontal">
+        <li class="list-group-item"><h6><a class="text-decoration-none" href="">Reviews {{ review_numbers }}</a></h6></li>
+        <li class="list-group-item"><h6><a class="text-decoration-none" href="">Followers {{ total_followers }}</a></h6></li>
+        <li class="list-group-item"><h6><a class="text-decoration-none" href="">Following {{ total_following }}</a></h6></li>
+      </ul>
+    </div>
+  </div> <!--/.row-->
+
+  {% if review_list %}  
+  <hr />
+  <h5 class="text-left">Reviews</h5>
   {% endif %}
-  </div> <!--/.col-xs-12 col-md-12 profile-->
-</div> <!--/.row my-followers-->
-</row> <!--/.row my-followers-->
-{% if followers %}
-  {% for action in actions %}
-  <div class="row">
-    {% include "actions/detail.html" %}
+  <div class="row mt-4">
+
+      {% for review in review_list %}
+      <div class="col-6 col-sm-4">
+        <div class="card mb-4">
+           <a href="{% url 'reviews:detail' review.id %}">
+            {% if review.photo_url %}
+            <img class="card-img-top" src="{{ review.photo_url }}" alt="Card image cap">
+            {% else %}
+            <img class="card-img-top" src="https://via.placeholder.com/250" alt="Card image cap">
+            {% endif %}
+          </a>
+          <div class="card-body">
+            <h5 class="card-text text-center">
+              <a href="{% url 'reviews:strain' review.strain.id %}">{{ review.strain }}</a> {% if review.method == 'FLOWER'%}  <i class="text-success fas fa-cannabis"></i> {% elif review.method == 'EXTRACT'%} <i class="text-warning fas fa-tint"></i> {% else %} <i class="text-info fas fa-cookie-bite"></i>{% endif %}
+            • {{ review.rating }} <i class="text-warning fas fa-star"></i>
+            </h5> 
+<!-- 
+            <h5 class="card-title text-left">
+              <a href="{{ review.get_absolute_url }}">{{ review }}</a>
+            </h5> -->
+            <!-- {% if total_reviews %}
+            <p class="card-text text-center"><span class="badge badge-dark">{{ total_reviews }} review{{ total_reviews|pluralize }}</span></p>
+      
+            {% else %}
+            <p class="card-text text-center"><span class="badge badge-success">No Reviews</span></p> -->
+      
+            {% endif %}
+          </div>
+        </div>
+      </div>
+      {% endfor %}
+
   </div>
-    {% endfor %}
-{% endif %}
+
+
+</div> <!--/.container-->
+
 {% endwith %}
+{% endwith %}
+
 {% endblock %}
 
 {% block domready %}

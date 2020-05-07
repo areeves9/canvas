@@ -11,14 +11,10 @@ https://docs.djangoproject.com/en/1.10/ref/settings/
 """
 
 import os
-from urllib.parse import urlparse
-
 import sentry_sdk
+from urllib.parse import urlparse
 from sentry_sdk.integrations.django import DjangoIntegration
-
 from django.core.urlresolvers import reverse_lazy
-
-
 
 
 # Build paths inside the project like this: os.path.join(BASE_DIR, ...)
@@ -53,6 +49,7 @@ INSTALLED_APPS = [
     'storages',
     'elasticsearch',
     'gunicorn',
+    'crispy_forms',
     'accounts',
     'reviews',
     'actions',
@@ -133,6 +130,9 @@ AUTH_PASSWORD_VALIDATORS = [
         'NAME': 'django.contrib.auth.password_validation.NumericPasswordValidator',
     },
 ]
+
+
+CRISPY_TEMPLATE_PACK = 'bootstrap4'
 
 
 # Internationalization
