@@ -1,10 +1,16 @@
+{% load rating_icon %}
+
 {% if reviews %}
 <div class="card mt-4">
     <div class="card-body">
         <h5 class="card-title">Latest Reviews</h5>
         {% for review in reviews|slice:":10" %}
-        <a href="{{ review.get_absolute_url }}">
-            <p><u>{{ review.title }}</a></u> by {{ review.user }}</p>
+        <p>
+            <i class="fas fa-{% if review.method == 'FLOWER' %}cannabis text-success{% elif review.method == 'EXTRACT' %}tint text-warning{% else %}cookie text-info{% endif %}"></i>
+            <a href="{{ review.get_absolute_url }}"><u>{{ review.title }}</u></a> by 
+            <a class="btn btn-outline-secondary btn-sm" href="{% url 'accounts:user' review.user %}">{{ review.user }}</a> 
+            {{ review.rating|rating_icon }}
+        </p>
         {% endfor %}
     </div>
 </div>

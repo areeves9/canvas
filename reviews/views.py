@@ -133,6 +133,13 @@ def review_update(request, id=None):
 
 
 @login_required
+def review_delete(request, id=None):
+    review = get_object_or_404(Review, id=id)
+    review.delete()
+    return HttpResponseRedirect(reverse('accounts:profile'))
+
+
+@login_required
 def review_share(request, id=None):
     review = get_object_or_404(Review, id=id)
     sent = False

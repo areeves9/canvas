@@ -6,6 +6,7 @@ urlpatterns = [
     url(r'^reviews/$', views.reviews, name="reviews"),
     url(r'^(?P<id>\d+)/$', views.review_detail, name="detail"),
     url(r'^(?P<id>\d+)/update/$', views.review_update, name="update"),
+     url(r'^(?P<id>\d+)/delete/$', views.review_delete, name="delete"),
     url(r'^(?P<id>\d+)/share/$', views.review_share, name="share"),
     url(r'^like/$', views.review_like, name="like"),
     url(r'^strain-like/$', views.strain_like, name="strain_like"),

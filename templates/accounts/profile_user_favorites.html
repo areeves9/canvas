@@ -1,4 +1,6 @@
-{% if user.strains_liked %}  
+{% load rating_icon%}
+{% if user.strains_liked %}
+
 <hr />
 <h5 class="text-left">Favorites</h5>
 {% endif %}
@@ -17,7 +19,7 @@
             <div class="card-body">
                 <h5 class="card-text text-center">
                 <a href="{% url 'reviews:strain' strain.id %}">{{ strain }}</a>
-                {% if strain.rating %} • {{ strain.get_average_rating }} <i class="text-warning fas fa-star"></i>
+                {% if strain.get_average_rating %} • {{ strain.get_average_rating|rating_icon }}
                 {% else %} <span class="badge badge-pill badge-secondary">No reviews yet.</span>{% endif %}
                 </h5>
             </div> <!--/.card-body-->

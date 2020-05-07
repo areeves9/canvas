@@ -1,0 +1,23 @@
+{% with total_likes=strain.users_like.count users_like=strain.users_like.all %}
+
+<div class="card">
+    <div class="card-body">
+      {% if strain.get_average_rating %}
+      <span class="float-right"> {{ strain.get_average_rating }} <i class="text-warning fas fa-star"></i> • 
+        <span class="badge badge-pill badge-secondary">
+          {{ strain.user_review.all.count }}
+        </span> 
+        review{{ strain.user_review.all|pluralize:"s" }}
+        {% if total_likes %}
+        • <span><i class="far fa-heart"></i> {{ total_likes }} Like{{ total_likes|pluralize }}</span>
+        {% endif %}
+      </span>
+      {% else %}
+      <span class="float-right badge badge-success">No ratings yet</span>
+      {% endif %}
+      <h4 class="card-title">{{ strain.name }}</h4>
+      {% include "partials/strain_detail_genetics.html" %}
+    </div>
+  </div>
+
+  {% endwith %}

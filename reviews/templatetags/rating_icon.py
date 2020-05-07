@@ -6,4 +6,4 @@ register = template.Library()
 
 @register.filter
 def rating_icon(rating):
-    return mark_safe('<span class="glyphicon glyphicon-star"></span>' * rating)
+    return mark_safe('<i class="text-secondary far fa-star"></i>' * rating)

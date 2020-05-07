@@ -1,3 +1,5 @@
+{% load rating_icon %}
+
 {% if review_list %}  
 <hr />
 <h5 class="text-left">Reviews</h5>
@@ -6,21 +8,30 @@
     {% for review in review_list %}
     <div id="pills-home" role="tabpanel" aria-labelledby="pills-home-tab" 
     class="col-6 col-sm-4 tab-pane fade show active">
-        <div class="card mb-4">
-        <a href="{% url 'reviews:detail' review.id %}">
-        {% if review.photo_url %}
-        <img class="card-img-top" src="{{ review.photo_url }}" alt="Card image cap">
-        {% else %}
-        <img class="card-img-top" src="https://via.placeholder.com/250" alt="Card image cap">
-        {% endif %}
-        </a>
+        <div class="card mb-4" style="position: relative !important;">
+            <a href="{% url 'reviews:detail' review.id %}">
+                {% if review.photo.url %}
+                <img class="card-img-top" src="{{ review.photo.url }}" alt="Card image cap">
+                {% else %}
+                <img class="card-img-top" src="https://via.placeholder.com/250" alt="Card image cap">
+                {% endif %}
+            </a>
+            
             <div class="card-body">
-            <h5 class="card-text text-center">
-            <a href="{% url 'reviews:strain' review.strain.id %}">{{ review.strain }}</a> {% if review.method == 'FLOWER'%}  <i class="text-success fas fa-cannabis"></i> {% elif review.method == 'EXTRACT'%} <i class="text-warning fas fa-tint"></i> {% else %} <i class="text-info fas fa-cookie-bite"></i>{% endif %}
-            • {{ review.rating }} <i class="text-warning fas fa-star"></i>
-            </h5>
+                <h5 class="card-text text-center">
+                    {% if review.method == 'FLOWER'%}  <i class="text-success fas fa-cannabis"></i> {% elif review.method == 'EXTRACT'%} <i class="text-warning fas fa-tint"></i> {% else %} <i class="text-info fas fa-cookie-bite"></i>{% endif %}
+                    <a href="{% url 'reviews:strain' review.strain.id %}">{{ review.strain }}</a>
+                • {{ review.rating|rating_icon }}
+                </h5>
+                <p class="card-text">{{ review.content }}</p>
+                <a href="{% url 'reviews:delete' review.id %}" role="button" class="float-right shadow-lg rounded-circle btn btn-danger">
+                    <i class="fas fa-trash-alt fa-1x"></i>
+                </a>
+                <a href="{% url 'reviews:update' review.id %}" role="button" class="float-right shadow-lg rounded-circle btn btn-secondary mr-1">
+                    <i class="fas fa-pencil-alt fa-1x"></i>
+                </a>
             </div>
         </div>
     </div> <!--/.col-6.col-sm-4-->
-    {% endfor %}
+{% endfor %}
 </div> <!--/.row-->

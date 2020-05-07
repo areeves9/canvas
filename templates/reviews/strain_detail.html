@@ -1,7 +1,5 @@
 {% extends "base.html" %}
 {% block head_title %}{{ strain.name }} | {{ block.super }}{% endblock head_title %}
-{% with total_likes=strain.users_like.count users_like=strain.users_like.all %}
-
 {% block content %}
 <div class="container">
   <div class="row mt-4">
@@ -21,26 +19,7 @@
       </a>
     </div> <!--/.col-sm-6-->
     <div class="col-sm-6">
-      <div class="card">
-        <div class="card-body">
-          {% if strain.get_average_rating %}
-          <span class="float-right"> {{ strain.get_average_rating }} <i class="fas fa-star"></i> • 
-            <span class="badge badge-pill badge-info">
-              {{ strain.user_review.all.count }}
-            </span> review{{ strain.user_review.all|pluralize:"s" }}</span>
-          {% else %}
-          <span class="float-right badge badge-success">No ratings yet</span>
-          {% endif %}
-          <h4 class="card-title">{{ strain.name }}</h4>
-          {% if total_likes %}
-          <p class="text-secondary total">{{ total_likes }} 
-            Like{{ total_likes|pluralize }}
-          </p>
-          {% endif %}
-          <hr/>
-          {% include "partials/strain_detail_genetics.html" %}
-        </div>
-      </div>
+      {% include "partials/strain_card.html" %}
       {% include "partials/strain_detail_reviews.html" %}
     </div> <!--/.col-sm-6-->
   </div> <!--/.row-->
@@ -53,7 +32,6 @@
 </div>
 
 {% endblock %}
-{% endwith %}
 
 {% block domready %}
   $('a.strain-like').click(function(e){
