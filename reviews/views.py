@@ -47,6 +47,29 @@ def reviews(request):
 
 
 @login_required
+def reviews_strain(request, id=None):
+    review_list = Review.objects.filter(strain__id=id).all().order_by("-timestamp")
+    paginator = Paginator(review_list, 8)
+    page = request.GET.get('page')
+    try:
+        reviews = paginator.page(page)
+    except PageNotAnInteger:
+        reviews = paginator.page(1)
+    except EmptyPage:
+        if request.is_ajax():
+            return HttpResponse('')
+        reviews = paginator.page(paginator.num_pages)
+    if request.is_ajax():
+        context = {
+            "reviews": reviews,
+        }
+        return render(request, "reviews/review_list_ajax.html", context)
+    context = {
+        "reviews": reviews,
+    }
+    return render(request, "reviews/reviews.html", context)
+
+@login_required
 def review_detail(request, id=None):
     review = get_object_or_404(Review, id=id)
     comments = review.comments.filter(active=True)

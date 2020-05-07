@@ -2,16 +2,12 @@
 {% block head_title %} Latest Reviews | {{ block.super }}{% endblock head_title %}
 {% block content %}
 <div class="container">
-  <div class="row">
-    <div class="col-xs-12">
-      <h3>Latest Reviews</h3>
-    </div> <!--/.col-xs-12-->
+  <h5 class="mt-5">Latest Reviews</h5>
+  <div class="row justify-content-center align-items-center">
+    <div class="col-sm-4">
+      {% include "reviews/review_card.html" %}
+    </div>
   </div> <!--/.row-->
-  <div class="row reviews">
-    <div id="review-list" class="well col-xs-12 col-md-4 col-md-offset-4 well-margin">
-      {% include "reviews/review_list_ajax.html" %}
-    </div>  <!--/.well col-sm-12 col-lg-12-->
-  </div> <!--/.row reviews-->
 </div> <!--/.container-->
 {% endblock %}
 

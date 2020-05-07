@@ -1,0 +1,25 @@
+{% load rating_icon %}
+{% for review in reviews %}
+  <div class="card mb-4">
+    <div class="card-header">
+      <img style="height: 3rem; width: 3rem;" class="rounded-circle" src="{{ review.user.profile.photo.url }}"/>
+      <h6 class="d-inline ml-1">{{ review.user }}</h6>
+    </div>
+    {% if review.photo.url %}
+    <img class="card-img-top" src="{{ review.photo.url }}" alt="Card image cap">
+    {% else %}
+    <img class="card-img-top" src="https://via.placeholder.com/250" alt="Card image cap">
+    {% endif %}
+    <div class="card-body">
+      <h5 class="card-title text-center"><a href="{{ strain.get_absolute_url }}">{{ review.title|upper }}</a></h5>
+      <p class="card-text">{{ review.content|linebreaks|truncatechars:65 }}</p>
+      <!-- {% if total_reviews %}
+      <p class="card-text text-center"><span class="badge badge-dark">{{ total_reviews }} review{{ total_reviews|pluralize }}</span></p>
+
+      {% else %}
+      <p class="card-text text-center"><span class="badge badge-success">No Reviews</span></p>
+
+      {% endif %} -->
+    </div>
+  </div>
+{% endfor %}
