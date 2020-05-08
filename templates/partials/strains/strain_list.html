@@ -1,21 +1,22 @@
 {% for strain in strains %}
 {% with total_reviews=strain.user_review.count %}
 
-  <div class="card mb-4">
+  <div class="card mb-4" style="position: relative;">
     {% if strain.photo_url %}
-    <img class="card-img-top" src="{{ strain.photo_url }}" alt="Card image cap">
-    {% else %}
-    <img class="card-img-top" src="https://via.placeholder.com/250" alt="Card image cap">
-    {% endif %}
-    <div class="card-body">
-      <h5 class="card-title text-center"><a href="{{ strain.get_absolute_url }}">{{ strain.name|upper }}</a></h5>
-      {% if total_reviews %}
-      <p class="card-text text-center"><span class="badge badge-dark">{{ total_reviews }} review{{ total_reviews|pluralize }}</span></p>
-
+    <a href="{{ strain.get_absolute_url }}">
+      <img class="card-img-top" src="{{ strain.photo_url }}" alt="Card image cap">
       {% else %}
-      <p class="card-text text-center"><span class="badge badge-success">No Reviews</span></p>
-
+      <img class="card-img-top" src="https://via.placeholder.com/250" alt="Card image cap">
       {% endif %}
+    </a>
+    <div class="card-body">
+        <a class="w-50 mx-auto card-title text-center btn btn-sm btn-block btn-outline-info" href="{{ strain.get_absolute_url }}">
+            {{ strain.name|title }}
+        </a>
+        {% if strain.user_review.count > 0 %}
+        <span class="w-25 d-block mx-auto badge badge-secondary badge-pill">{{ total_reviews }} reviews</span>
+        {% endif %}
+     
     </div>
   </div>
 {% endwith %}

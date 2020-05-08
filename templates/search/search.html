@@ -1,54 +1,35 @@
 {% extends 'base.html' %}
 
-{% load bootstrap3 %}
-
-{% bootstrap_css %}
-{% bootstrap_javascript %}
-
 {% load static %}
 
 {% block content %}
 
 <div class="container">
-  <form id="search-bar">
-    <div class="row">
-      <div class="col-md-6  col-md-offset-3">
-        <div class="input-group">
-          <input type="text" name="q" id="q" autocomplete="on" placeholder="SEARCH" class="form-control">
-          <span class="input-group-btn">
-            <button type="submit" class="btn btn-default">
-              <i class="glyphicon glyphicon-search"></i>
-            </button>
-          </span>
-        </div>
-      </div>
-    </div>
-  </form>
-
-
-    {% if query %}
-    <div class="row">
-    <h3>Results</h3>
+  {% if query %}
+  <div class="row mt-5">
     {% for result in page.object_list %}
+    <div class="col-sm-8">
       <div class="media">
-        <div class="media-left">
-          {% if result.object.photo_url %}
-          <img src="{{ result.object.photo_url }}" class="media-object" style="width:60px">
-          {% elif result.object.photo %}
-          <img src="{{ result.object.photo.url }}" class="media-object" style="width:60px">
-          {% else %}
-          <img src="http://via.placeholder.com/60x60" class="media-object">
-          {% endif %}
-
-        </div>
+        {% if result.object.photo_url %}
+        <img style="height: 53px; width: 53px;" class="mr-3" src="{{ result.object.photo_url }}" alt="Generic placeholder image">
+        {% elif result.object.photo %}
+        <img style="height: 53px; width: 53px;" class="mr-3" src="{{ result.object.photo.url }}" alt="Generic placeholder image">
+        {% else %}
+        <img src="http://via.placeholder.com/53x53" class="mr-3">
+        {% endif %}
         <div class="media-body">
-          <h4 class="media-heading">
+          <h5 class="mt-0">
             <a href="{{ result.object.get_absolute_url }}">
               {{ result.object.title }}
               {{ result.object.name }}
             </a>
-          </h4>
-          <p class="text-left">
+          </h5>
+          <p>
+            {% if result.object.content %}
+            {{ result.object.content }}
+            {% elif result.object.summary %}
+            {{ result.object.summary }}
+            {% endif %}
             {% load get_class %}
             {% if result.object|get_class == 'Strain' %}
             (Strain)
@@ -56,20 +37,20 @@
             (Review)
             {% endif %}
           </p>
-          <p>
-            {% if result.object.content %}
-            {{ result.object.content }}
-            {% elif result.object.summary %}
-            {{ result.object.summary }}
-            {% endif %}
-          </p>
           <p>{{ result.object.user }}</p>
-        </div>
+        </div> <!--/.media-body-->
       </div> <!--/.media-->
+      {% empty %}
+      <h5 class="text-left">No results found.</h5>
+    </div>
+    {% endfor %}
 
-  {% empty %}
-    <p>No results found.</p>
-  {% endfor %}
+
+
+
+     
+
+
 
   {% if page.has_previous or page.has_next %}
   <div>

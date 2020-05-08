@@ -29,11 +29,11 @@ a {
 .navbar {
   margin-bottom: 0em;
 }
-.jumbotron {
-  background-image: url("/static/reviews/images/washington1.jpg");
+.landing-page {
+  background-image: url("/static/reviews/images/la_dusk.jpg");
   background-size: cover;
   background-position: center;
-  height: 375px;
+  height: 100%;
 }
 .jumbotron.jumbotron-fluid {
   margin-bottom: 0px;

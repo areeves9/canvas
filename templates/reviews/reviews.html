@@ -2,6 +2,12 @@
 {% block head_title %} Latest Reviews | {{ block.super }}{% endblock head_title %}
 {% block content %}
 
+<nav aria-label="breadcrumb">
+  <ol class="breadcrumb">
+    <li class="breadcrumb-item"><a href="{% url 'reviews:reviews' %}">Reviews</a></li>
+  </ol>
+</nav>
+
 
 <div class="container">
   {% if request.get.id != 0 %}
