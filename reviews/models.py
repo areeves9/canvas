@@ -60,7 +60,7 @@ class Strain(models.Model):
             if not average:
                 return "N/A"
             else:
-                return int(average)
+                return average
 
     def get_strain_image(self):
         if not self.photo_url:

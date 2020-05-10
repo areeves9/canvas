@@ -60,6 +60,7 @@ def profile(request):
         "followers": followers,
         "following": following,
         "actions": actions,
+        "nav": 'profile',
     }
     return render(request, "accounts/profile.html", context)
 
@@ -79,6 +80,7 @@ def profile_user(request, username=""):
             "review_list": review_list,
             "review_numbers": review_numbers,
             "followers": followers,
+            "nav": 'profile',
         }
         return render(request, "accounts/profile.html", context)
 

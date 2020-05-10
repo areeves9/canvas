@@ -3,7 +3,7 @@
 <div class="card">
     <div class="card-body">
       {% if strain.get_average_rating %}
-      <span class="float-right"> {{ strain.get_average_rating }} <i class="text-warning fas fa-star"></i> • 
+      <span class="float-right"> {{ strain.get_average_rating }} <i class="text-success fas fa-star"></i> • 
         <span class="badge badge-pill badge-secondary">
           {{ strain.user_review.all.count }}
         </span> 

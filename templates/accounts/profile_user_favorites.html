@@ -18,16 +18,13 @@
                 {% endif %}
                 </a>
                 <div class="card-body">
-                    <h5 class="card-text text-center">
-                        <a href="{% url 'reviews:strain_detail' strain.id %}">{{ strain }}</a>
-                    </h5>
+                    <a class="w-50 mx-auto card-title text-center btn btn-sm btn-block btn-outline-info" href="{{ strain.get_absolute_url }}">
+                        {{ strain.name|title }}
+                    </a>
                     <p class="text-center"> 
                         {% if strain.get_average_rating %} 
-                        {{ strain.get_average_rating|rating_icon }}
+                        {{ strain.get_average_rating|get_digit:1|rating_icon }}
                         {% else %} 
-                        <span class="badge badge-pill badge-secondary">
-                            No reviews yet.
-                        </span>
                         {% endif %}
                     </p>
                 </div> <!--/.card-body-->

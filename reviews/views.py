@@ -23,6 +23,7 @@ from actions.models import create_action
 
 
 # Create your views here.
+@login_required
 def reviews(request):
     review_list = Review.objects.all().order_by("-timestamp")
     paginator = Paginator(review_list, 8)
@@ -42,6 +43,7 @@ def reviews(request):
         return render(request, "partials/review_card.html", context)
     context = {
         "reviews": reviews,
+        "nav": 'home',
     }
     return render(request, "reviews/reviews.html", context)
 
@@ -149,8 +151,6 @@ def review_update(request, id=None):
             create_action(request.user, 'updated', review)
             messages.success(request, "Updated")
             return HttpResponseRedirect(reverse('reviews:reviews'))
-        else:
-            messages.error(request, "Update failed.")
         context = {
             "form": form,
             "review": review,
@@ -266,6 +266,7 @@ def strain_share(request, id=None):
 
 
 # get all the strains (paginated) from the db
+@login_required
 def strains(request):
     strain_list = Strain.objects.all().order_by("name")
     paginator = Paginator(strain_list, 20)
@@ -278,10 +279,12 @@ def strains(request):
         strains = paginator.page(paginator.num_pages)
     context = {
         "strains": strains,
+        "nav": 'strains',
     }
     return render(request, "reviews/strains.html", context)
 
 
+@login_required
 def strain_detail(request, id=None):
     strain = get_object_or_404(Strain, id=id)
     reviews = strain.user_review.all()

@@ -2,7 +2,7 @@
 {% block head_title %}{{ strain.name }} | {{ block.super }}{% endblock head_title %}
 {% block content %}
 <nav aria-label="breadcrumb">
-  <ol class="breadcrumb">
+  <ol class="breadcrumb bg-white">
     <li class="breadcrumb-item"><a href="{% url 'reviews:strains'%}">Strains</a></li>
     <li class="breadcrumb-item active"><a href="{% url 'reviews:strain_detail' strain.id %}">{{ strain }}</a></li>
   </ol>
@@ -18,12 +18,6 @@
         <image class="card-img-top shadow" src="{{ strain.get_strain_image }}">
         {% endif %}
       </div> <!--/.card-->
-      <a id="review-button" 
-        href="{% url 'reviews:strain_review' strain.id %}"
-        role="button"
-        class="shadow-lg rounded-circle btn btn-light">
-          <i class="fas fa-pencil-alt fa-2x"></i>
-      </a>
     </div> <!--/.col-sm-6-->
     <div class="col-sm-6">
       {% include "partials/strains/strain_card.html" %}

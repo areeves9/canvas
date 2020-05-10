@@ -5,11 +5,17 @@
     <div class="card-body">
         <h5 class="card-title">Latest Reviews</h5>
         {% for review in reviews|slice:":10" %}
-        <p>
-            <i class="fas fa-{% if review.method == 'FLOWER' %}cannabis text-success{% elif review.method == 'EXTRACT' %}tint text-warning{% else %}cookie text-info{% endif %}"></i>
-            <a href="{{ review.get_absolute_url }}"><u>{{ review.title }}</u></a> by 
-            <a class="btn btn-outline-secondary btn-sm" href="{% url 'accounts:user' review.user %}">{{ review.user }}</a> 
-            {{ review.rating|rating_icon }}
+        <p class="text-center">
+            {{ review.rating }}<i class="text-success fas fa-star"></i> •
+
+            <a href="{{ review.get_absolute_url }}"><u>{{ review.title }}</u></a>
+            {% include "partials/strains/strain_review_method_icon.html" %}
+            by
+            <a class="" href="{% url 'accounts:user' review.user %}">
+                <u>
+                {{ review.user }}
+                </u>
+            </a> 
         </p>
         {% endfor %}
     </div>

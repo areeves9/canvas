@@ -1,0 +1,11 @@
+<div class="card-body">
+    <a class="text-dark card-text" href="{{ review.get_absolute_url }}"><b>{{ review.title }}</b></a>
+    <span class="float-right">{{ review.rating }}<i class="text-success fas fa-star"></i></span>
+    <p><a href="{{ review.strain.get_absolute_url }}">{{ review.strain }}</a> • {% include "partials/strains/strain_review_method_icon.html" %}</p>
+    <p class="mt-1 card-text">
+        <span class="mr-1">
+            <b><a class="text-dark" href="{% url 'accounts:user' review.user %}">{{ review.user }}</b></a>
+        </span>
+        {{ review.content|truncatechars:115 }}
+    </p>
+</div>

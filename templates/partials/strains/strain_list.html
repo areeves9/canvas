@@ -1,5 +1,6 @@
 {% for strain in strains %}
 {% with total_reviews=strain.user_review.count %}
+{% with total_likes=strain.user_like.count %}
 
   <div class="card mb-4" style="position: relative;">
     {% if strain.photo_url %}
@@ -10,16 +11,18 @@
       {% endif %}
     </a>
     <div class="card-body">
+        {% if total_likes > 0 and total_reviews > 0 %}
+        <span>{{ total_likes }} like{{ total_likes|pluralize:"s"}} • {{ total_reviews }} review{{ total_reviews|pluralize:"s"}}</span>
+        {% endif %}
         <a class="w-50 mx-auto card-title text-center btn btn-sm btn-block btn-outline-info" href="{{ strain.get_absolute_url }}">
             {{ strain.name|title }}
         </a>
-        {% if strain.user_review.count > 0 %}
-        <span class="w-25 d-block mx-auto badge badge-secondary badge-pill">{{ total_reviews }} reviews</span>
-        {% endif %}
-     
     </div>
   </div>
 {% endwith %}
+{% endwith %}
+
+
 
 {% endfor %}
 

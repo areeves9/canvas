@@ -6,9 +6,11 @@
 
 <div class="container">
   {% if query %}
-  <div class="row mt-5">
-    {% for result in page.object_list %}
+    <div class="row mt-5">
+
     <div class="col-sm-8">
+      {% for result in page.object_list %}
+
       <div class="media">
         {% if result.object.photo_url %}
         <img style="height: 53px; width: 53px;" class="mr-3" src="{{ result.object.photo_url }}" alt="Generic placeholder image">
@@ -41,9 +43,11 @@
         </div> <!--/.media-body-->
       </div> <!--/.media-->
       {% empty %}
+
       <h5 class="text-left">No results found.</h5>
+      {% endfor %}
+
     </div>
-    {% endfor %}
 
 
 
