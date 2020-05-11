@@ -149,7 +149,7 @@ USE_L10N = True
 USE_TZ = True
 
 LOGIN_URL = reverse_lazy('accounts:login')
-LOGIN_REDIRECT_URL = reverse_lazy('accounts:profile')
+LOGIN_REDIRECT_URL = reverse_lazy('reviews:reviews')
 
 
 # Static files (CSS, JavaScript, Images)

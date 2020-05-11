@@ -9,9 +9,13 @@ urlpatterns = [
     url(r'^$', views.reviews, name="reviews"),
     # review instance
     url(r'^(?P<id>\d+)/$', views.review_detail, name="review_detail"),
+    # all reviews for a specific strain
     url(r'^strain/(?P<id>\d+)/$', views.strain_reviews, name="strain_reviews"),
+    # update review instance
     url(r'^(?P<id>\d+)/update/$', views.review_update, name="review_update"),
+    # delete review instance
     url(r'^(?P<id>\d+)/delete/$', views.review_delete, name="review_delete"),
+    # email review instance
     url(r'^(?P<id>\d+)/share/$', views.review_share, name="share_review"),
     url(r'^review-like/$', views.review_like, name="review_like"),
     url(r'^strains/$', views.strains, name="strains"),

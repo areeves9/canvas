@@ -163,8 +163,13 @@ def review_update(request, id=None):
 @login_required
 def review_delete(request, id=None):
     review = get_object_or_404(Review, id=id)
-    review.delete()
-    return HttpResponseRedirect(reverse('accounts:profile'))
+    if review.user == request.user:
+        review.delete()
+        create_action(request.user, 'deleted', review)
+        # messages.success(request, (f"Deleted review {review.title}"))
+        return HttpResponseRedirect(reverse('accounts:profile'))
+    else:
+        raise Http404("No permissions for this page.")
 
 
 @login_required

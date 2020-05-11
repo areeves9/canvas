@@ -4,6 +4,7 @@
             box-sizing: border-box;
             font-family: 'Raleway', sans-serif;
   }
+  
 body, html {
     height: 100%;
     width: 100%;
@@ -29,12 +30,7 @@ a {
 .navbar {
   margin-bottom: 0em;
 }
-.landing-page {
-  background-image: url("/static/reviews/images/la_dusk.jpg");
-  background-size: cover;
-  background-position: center;
-  height: 100%;
-}
+
 .jumbotron.jumbotron-fluid {
   margin-bottom: 0px;
 }

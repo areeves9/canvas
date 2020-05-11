@@ -1,7 +1,9 @@
+import os
 from django.db import models
 
 from django.conf import settings
 from django.contrib.auth.models import User
+from PIL import Image, ExifTags
 
 from django.db.models.signals import post_save
 from django.dispatch import receiver
@@ -12,12 +14,54 @@ def create_user_profile(sender, instance, created, **kwargs):
     if created:
         Profile.objects.create(user=instance)
 
+
 @receiver(post_save, sender=User)
 def save_user_profile(sender, instance, **kwargs):
     instance.profile.save()
 
+
+@receiver(post_save, sender=User)
+# Ensure photo captured with mobile device has correct orientation.
+def update_image(sender, instance, **kwargs):
+    # does the image exist?
+    if instance.profile.photo:
+        # filepath to the image in media_production folder
+        filepath = os.path.join(settings.MEDIA_ROOT, instance.profile.photo.name)
+        # open image at path with Pillow
+        image = Image.open(filepath)
+
+        if hasattr(image, '_getexif'):
+            try:
+                # iterate through the EXIF tags
+                for orientation in ExifTags.TAGS.keys(): 
+                    if ExifTags.TAGS[orientation] == 'Orientation': 
+                        break
+                # get image exif metadata        
+                e = image._getexif()
+                # check if e exists
+                if e is not None:
+                    # get dictionary of exif key-value pairs
+                    try:
+                        exif = dict(e.items())
+                        if (exif[orientation]) == 3:
+                            image = image.rotate(180)
+                        elif (exif[orientation]) == 6:
+                            image = image.rotate(270)
+                        elif (exif[orientation]) == 8:
+                            image = image.rotate(90)
+                    except:
+                        pass
+                size = 1024, 1024
+                image.thumbnail(size)
+                image.save(filepath)
+                image.close()
+            except IOError as err:
+                print("I/O error: {0}".format(err))
+
+
 def upload_location(instance, filename):
     return "%s/%s" % (instance.user, filename)
+
 
 class Profile(models.Model):
     user = models.OneToOneField(settings.AUTH_USER_MODEL, on_delete=models.CASCADE)
@@ -34,6 +78,7 @@ class Profile(models.Model):
     height_field = models.IntegerField(default=0)
     width_field = models.IntegerField(default=0)
 
+
 class Follow(models.Model):
     follow_from = models.ForeignKey(User, related_name='follow_from')
     follow_to = models.ForeignKey(User, related_name='follow_to')
@@ -41,5 +86,6 @@ class Follow(models.Model):
 
     def __str__(self):
         return '%s follows %s' % (self.following, self.followed)
+
 
 User.add_to_class('following', models.ManyToManyField('self', through=Follow, related_name='followers', symmetrical=False))

@@ -1,12 +1,13 @@
 <!DOCTYPE html>
 <html>
   {% include "partials/head.html" %}
-  <body>
+  <body class="bg-light">
     {% include "messages_display.html" %}
+    {% if request.user.is_authenticated %}
     {% include "partials/nav.html" %}
-   
+    {% endif %}
+
     {% block content %}
-    {% include "index.html" %}
     {% endblock %}
 
     

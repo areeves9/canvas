@@ -14,20 +14,23 @@ Including another URLconf
     2. Add a URL to urlpatterns:  url(r'^blog/', include('blog.urls'))
 """
 
+from django.contrib.auth.decorators import login_required
 from django.conf import settings
 from django.conf.urls import include, url
 from django.conf.urls.static import static
 from django.contrib import admin
+from . import views
 from django.views.generic import TemplateView
 
 
 urlpatterns = [
-    url(r'^$', TemplateView.as_view(template_name='base.html'), name='home'),
-    url(r'^admin/', admin.site.urls),
+    url(r'^$', views.index, name='home'),
+    url(r'^$', TemplateView.as_view(template_name='index.html'), name='home'),
+    url(r'^lightshow/', admin.site.urls),
     url(r'^account/', include('django.contrib.auth.urls')),
     url(r'^accounts/', include('accounts.urls', namespace='accounts')),
     url(r'^reviews/', include('reviews.urls', namespace='reviews')),
-    url(r'^search/', include('haystack.urls')),
+    url(r'^search/', login_required(include('haystack.urls'))),
 ]
 
 if settings.DEBUG==True:

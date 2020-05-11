@@ -85,10 +85,6 @@ def profile_user(request, username=""):
         return render(request, "accounts/profile.html", context)
 
 
-
-
-
-
 @login_required
 def profile_update(request):
     if request.method == "POST":
@@ -111,3 +107,13 @@ def profile_update(request):
         "profile_form": profile_form,
     }
     return render(request, "accounts/profile_update.html", context)
+
+
+@login_required
+def actions(request):
+    actions = Action.objects.filter(user=request.user)
+    context = {
+        'actions': actions,
+        'nav': 'actions',
+    }
+    return render(request, "actions/actions.html", context)

@@ -1,0 +1,58 @@
+{% extends "base.html" %}
+{% load rating_icon %}
+
+{% block content %}
+<div class="container">
+    <h5 class="text-left mt-4">Activity</h5>
+    <div class="row">
+        {% for action in actions %}
+        <div class="col-sm-8 mt-4">
+            <div class="media">
+                <a href="{% url 'accounts:user' action.user %}">
+                    {% if action.user.profile.photo %}
+                    <img style="height: 53px; width: 53px;" class="mr-3 rounded-circle" src="{{ action.user.profile.photo.url }}" alt="Card image cap">
+                    {% else %}
+                    <img style="height: 53px; width: 53px;" class="mr-3 rounded-circle" src="https://via.placeholder.com/250" alt="Card image cap">
+                    {% endif %}
+                </a>
+                <div class="media-body">
+                    <a href="{% url 'accounts:user' action.user %}">
+                        {{ action.user }}
+                    </a>
+                    {{ action.verb }}
+            
+                    {% if action.target %}
+                    {% with target=action.target %}
+                    {% if target.profile %}
+                    <a href="{% url 'accounts:user' target.username %}">
+                        {{ target }}
+                        <img style="height: 53px; width: 53px;" class="mr-3 rounded-circle" src="{{ target.profile.photo.url }}" alt="Card image cap">
+                    </a>
+                    {% elif target.title %}
+                    <a href="{% url 'reviews:strain_review' target.id %}">
+                        {{ target.title }}
+                        <img style="height: 53px; width: 53px;" class="mr-3 rounded-circle" src="{{ target.photo.url }}" alt="Card image cap">
+                    </a>
+             
+                    {% else %}
+                    <a href="{{ target.get_absolute_url }}">
+                        {{ target }}
+                        <img style="height: 53px; width: 53px;" class="mr-3 rounded-circle" src="{{ target.photo_url }}" alt="Card image cap">
+                    </a>
+
+                    {% endif %}
+                    {% endwith %}
+                    {% endif %}
+
+                </div> <!--/.media-body-->
+            </div> <!--/.media-->
+        </div> <!--/.col-sm-8-->
+        {% endfor %}
+    </div> <!--/.row-->
+</div>
+
+ {% endblock %}
+
+
+
+

@@ -7,16 +7,38 @@
   <div class="row mt-5">
     <div class="col-sm-4">
       {% if user.profile.photo %}
-      <img class="mb-4 border border-dark shadow rounded-circle thumbnail img-fluid mx-auto d-block" alt="Responsive image" src="{{ user.profile.photo.url }}" style="height: 160px; width: 160px;"/>
+      <img class="d-block mx-auto mb-4 border border-dark shadow rounded-circle thumbnail img-fluid" alt="Responsive image" src="{{ user.profile.photo.url }}" style="height: 8rem; width: 8rem; "/>
       {% else %}
-      <img class="mb-4 border border-dark shadow rounded-circle thumbnail img-fluid mx-auto d-block" src="http://placehold.it/250x250" style="height: 160px; width: 160px;"/>
+      <img class="d-block mx-auto mb-4 border border-dark shadow rounded-circle thumbnail img-fluid" src="http://placehold.it/250x250" style="height: 8rem; width: 8rem;"/>
       {% endif %}
-      
       {% with total_followers=user.followers.count %}
       {% with total_following=user.following.count %}
-
+      <h5 class="text-left mt-1">{{ user.first_name }}</h5>
+      <p class="text-left">{{ user.profile.bio }}</p>
+    </div>
+    <div class="col-sm-5 mb-4">
+      {% if request.user.profile.id == user.profile.id %}
+      <span class="">
+        <p class="float-right">
+          <a class="btn btn-sm btn-outline-secondary" href="{% url 'accounts:update' %}">
+            Edit Profile
+          </a>
+          <a class="ml-1 btn btn-light rounded-circle border border-1 shadow" href="{% url 'accounts:logout' %}">
+            <i class="fas fa-sign-out-alt"></i>
+          </a>
+        </p>
+        <h3 class="d-inline text-left">
+          {{ user.username }}         
+        </h3>
+        {% endif %}
+      </span>
+      <ul class="mt-4 mb-4 list-group list-group-horizontal">
+        <li class="list-group-item"><h6><b>{{ review_numbers }}</b> Reviews</h6></li>
+        <li class="list-group-item"><h6><a class="text-dark text-decoration-none" data-toggle="modal" href="#followersModal"><b>{{ total_followers }}</b> Followers</a></h6></li>
+        <li class="list-group-item"><h6><a class="text-dark text-decoration-none" data-toggle="modal" href="#followingModal"><b>{{ total_following }}</b> Following</a></h6></li>
+      </ul>
       {% if request.user.profile.id != user.profile.id %}
-      <a href="#" data-id="{{ user.id }}" data-action="{% if request.user in user.followers.all %}un{% endif %}follow" class="follow w-80 mb-4 mt-3 mx-auto btn btn-block btn-info">
+      <a href="#" data-id="{{ user.id }}" data-action="{% if request.user in user.followers.all %}un{% endif %}follow" class="follow mb-4 mt-3 mx-auto btn btn-block btn-info">
         {% if request.user not in user.followers.all %}
           Follow
         {% else %}
@@ -24,30 +46,7 @@
         {% endif %}
       </a>
       {% endif %}
-    </div>
-
-    <div class="col-sm-5 mb-4">
-      {% if request.user.profile.id == user.profile.id %}
-      <span class="float-right">
-        <a href="{% url 'accounts:update' %}" class="btn btn-block btn-sm btn-outline-secondary">
-          Edit Profile
-        </a>
-      </span>
       
-      {% endif %}
-      <h3 class="text-left">
-        {{ user.username }}         
-      </h3>
-      
-      
-
-      <ul class="mt-4 mb-4 list-group list-group-horizontal">
-        <li class="list-group-item"><h6><b>{{ review_numbers }}</b> Reviews</h6></li>
-        <li class="list-group-item"><h6><a class="text-dark text-decoration-none" href=""><b>{{ total_followers }}</b> Followers</a></h6></li>
-        <li class="list-group-item"><h6><a class="text-dark text-decoration-none" href=""><b>{{ total_following }}</b> Following</a></h6></li>
-      </ul>
-      <h5 class="mt-1">{{ user.first_name }}</h5>
-      <p>{{ user.profile.bio }}</p>
     </div>
   </div> <!--/.row-->
 
@@ -69,6 +68,10 @@
     </div>
   </div> <!--/.tab-content-->
 </div> <!--/.container-->
+
+{% include "partials/followers.html" %}
+{% include "partials/following.html" %}
+
 
 {% endwith %}
 {% endwith %}

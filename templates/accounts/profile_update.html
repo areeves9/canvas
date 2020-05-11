@@ -9,9 +9,11 @@
     <div class="col-sm-6">
       <h5>Update Profile</h5>
       {% if request.user.profile.id == user.profile.id %}
-      <a href="{% url 'accounts:password_change' %}">
-        Change Password <i class="fas fa-lock"></i>
-      </a>
+      <b>
+        <a href="{% url 'accounts:password_change' %}">
+          Change Password <i class="fas fa-lock"></i>
+        </a>
+      </b>
       {% endif %}
       <form method="POST" action="" enctype="multipart/form-data" class="form">
         {% csrf_token %}

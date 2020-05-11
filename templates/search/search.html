@@ -7,7 +7,6 @@
 <div class="container">
   {% if query %}
     <div class="row mt-5">
-
     <div class="col-sm-8">
       {% for result in page.object_list %}
 
@@ -43,18 +42,9 @@
         </div> <!--/.media-body-->
       </div> <!--/.media-->
       {% empty %}
-
       <h5 class="text-left">No results found.</h5>
       {% endfor %}
-
     </div>
-
-
-
-
-     
-
-
 
   {% if page.has_previous or page.has_next %}
   <div>

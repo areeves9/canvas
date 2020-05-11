@@ -1,0 +1,27 @@
+
+  <!-- Modal -->
+  <div class="modal" id="followingModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLongTitle" aria-hidden="true">
+    <div class="modal-dialog modal-dialog-centered" role="document">
+      <div class="modal-content">
+        <div class="modal-header">
+          <h5 class="modal-title text-center" id="exampleModalLongTitle">Following</h5>
+          <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+            <span aria-hidden="true">&times;</span>
+          </button>
+        </div>
+    <div class="modal-body">
+        {% for following in user.following.all %}
+        <div class="media">
+            <img style="height: 53px; width: 53px;" class="rounded-circle p-1 mr-3" src="{{ following.profile.photo.url }}" alt="Generic placeholder image">
+            <div class="media-body">
+                <a href="#" data-id="{{ following.id }}" data-action="{% if request.user in follower.followers.all %}un{% endif %}follow" class="follow float-right btn btn-primary">
+                    {% if request.user in following.followers.all %}Un{% endif %}follow</a>
+                <h5 class="mt-0">{{ following }}</h5>
+                <p>{{ following.first_name }}</p>
+            </div> <!--/.media-body-->
+        </div> <!--/.media-->
+          {% endfor %}
+        </div>
+      </div>
+    </div>
+  </div>
