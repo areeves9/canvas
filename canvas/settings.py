@@ -22,7 +22,7 @@ BASE_DIR = os.path.dirname(os.path.dirname(__file__))
 
 SECRET_KEY = os.environ.get('CANVAS_KEY', '')
 
-DEBUG = False
+DEBUG = True
 
 ALLOWED_HOSTS = ['canvasreviews.herokuapp.com', '.herokuapp.com']
 
@@ -148,7 +148,7 @@ USE_L10N = True
 
 USE_TZ = True
 
-LOGIN_URL = reverse_lazy('accounts:login')
+LOGIN_URL = reverse_lazy('index')
 LOGIN_REDIRECT_URL = reverse_lazy('reviews:reviews')
 
 

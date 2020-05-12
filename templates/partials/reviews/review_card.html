@@ -1,0 +1,11 @@
+{% load rating_icon %}
+
+{% for review in reviews %}
+  <div class="card mb-4">
+    {% include "partials/reviews/review_card_header.html" %}
+    {% include "partials/reviews/review_card_photo.html" %}
+    {% include "partials/reviews/review_card_body.html" %}
+  </div>
+</a>
+ 
+{% endfor %}

@@ -13,7 +13,6 @@ urlpatterns = [
         form_class=UserRegisterForm,
         success_url='/account/login/',
     ), name='register'),
-    url(r'^login/$', auth_views.login, {'template_name': 'registration/login.html'}, name="login"),
     url(r'^logout/$', auth_views.logout, {'template_name': 'registration/logged_out.html', 'next_page': '/'}, name="logout"),
     url(r'^password_change/$', auth_views.password_change, {'template_name': 'registration/password_change.html','post_change_redirect': 'accounts:password_change_done'}, name="password_change"),
     url(r'^password_change/done/$', auth_views.password_change_done, {'template_name': 'registration/password_change_done.html'}, name='password_change_done'),

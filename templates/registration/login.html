@@ -1,6 +1,8 @@
 {% extends "base.html" %}
 {% block head_title %}Login | {{ block.super }}{% endblock head_title %}
+{% load static %}
 {% load  crispy_forms_tags %}
+
 
 {% block content %}
 
@@ -23,26 +25,41 @@
 {% endif %}
 
 <div class="container">
-  <div class="h-100 mt-4 row justify-content-center align-items-center">
-    <div class="col-sm-6 bg-white border">
-      <h5 class="mt-4 text-center">Canvas</h5>
-      <form method="POST" action="" enctype="multipart/form-data" class="form">
-        {% csrf_token %}
-        {{ form|crispy }}
-        <button type=submit class="btn btn-block btn-info">
-           Submit
-        </button>
-      </form>
-      <a class="mt-3 btn btn-block btn-outline-secondary" 
-      href="{% url 'accounts:password_reset' %}">
-        Forgot Password?
-      </a>
+  <div class="row mt-4 justify-content-center align-items-center">
+    <div class="col-sm-5">
+        <img class="img-fluid d-none d-sm-block" src="{% static 'reviews/images/purple_cannabis.jpg' %}" />
+    </div>
+    <div class="mt-4 col-sm-5 bg-white border">
+        <h1 class="text-center mt-4 mb-4">Canvas</h1>
+        <form method="POST" action="" enctype="multipart/form-data" class="form">
+          {% csrf_token %}
+          {{ form|crispy }}
+          <button type=submit class="btn btn-block btn-primary">
+             Submit
+          </button>
+        </form>
+        <a class="mt-3 mb-4 btn btn-block btn-outline-secondary" 
+          href="{% url 'accounts:password_reset' %}">
+          Forgot Password?
+        </a>
+    </div> <!--col-sm-6-->
+    <div class="w-100"></div>   
+    <div class="mt-4 bg-white border col-sm-5 offset-sm-5">
       <p class="text-center mt-3">Need an <a
-        class="text-dark" href="{% url 'accounts:register' %}"><b>account?</b></a>
+        class="text-info" href="{% url 'accounts:register' %}"><b>account?</b></a>
       </p>
-      
-    </div> <!--col-sm-6-->      
-  </div> 
+    </div>
+    
+  </div> <!--/.row-->
 </div>
+
+<style>
+  #id_username {
+    background-color: #f8f9fa !important;
+  }
+  #id_password {
+    background-color: #f8f9fa !important;
+  }
+</style>
 
 {% endblock %}

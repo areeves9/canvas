@@ -28,8 +28,9 @@ def update_image(sender, instance, **kwargs):
         # filepath to the image in media_production folder
         filepath = os.path.join(settings.MEDIA_ROOT, instance.profile.photo.name)
         # open image at path with Pillow
-        image = Image.open(filepath)
-
+        box = (50, 50, 100, 100)
+        image = Image.open(filepath).crop(box)
+        
         if hasattr(image, '_getexif'):
             try:
                 # iterate through the EXIF tags
@@ -51,7 +52,7 @@ def update_image(sender, instance, **kwargs):
                             image = image.rotate(90)
                     except:
                         pass
-                size = 1024, 1024
+                size = 512, 512
                 image.thumbnail(size)
                 image.save(filepath)
                 image.close()
