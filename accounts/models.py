@@ -92,7 +92,7 @@ class Follow(models.Model):
     created = models.DateTimeField(auto_now_add=True, db_index=True)
 
     def __str__(self):
-        return '%s follows %s' % (self.following, self.followed)
+        return '%s follows %s' % (self.follow_from, self.follow_to)
 
 
 User.add_to_class('following', models.ManyToManyField('self', through=Follow, related_name='followers', symmetrical=False))
