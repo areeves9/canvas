@@ -25,7 +25,7 @@ def update_image(sender, instance, **kwargs):
     # does the image exist?
     if instance.profile.photo:
         # filepath to the image in media_production folder
-        filepath = os.path.join(settings.MEDIA_ROOT, instance.profile.photo.name)
+        filepath = os.path.join(settings.MEDIA_URL, instance.profile.photo.name)
         # open image at path with Pillow
         box = (100, 125, 100, 125)
         image = Image.open(filepath).crop(box)
