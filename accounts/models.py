@@ -1,13 +1,10 @@
 import os
-from django.db import models
 
+from PIL import Image, ExifTags
+from django.db import models
 from django.conf import settings
 from django.contrib.auth.models import User
-from PIL import Image, ExifTags
-
-from django.core.files.storage import default_storage
-
-from django.db.models.signals import post_save
+from django.db.models.signals import pre_save, post_save
 from django.dispatch import receiver
 
 # Create your models here.
@@ -22,15 +19,34 @@ def save_user_profile(sender, instance, **kwargs):
     instance.profile.save()
 
 
-@receiver(post_save, sender=User)
+def upload_location(instance, filename):
+    return "%s/%s" % (instance.user, filename)
+
+
+class Profile(models.Model):
+    user = models.OneToOneField(settings.AUTH_USER_MODEL, on_delete=models.CASCADE)
+    bio = models.TextField(max_length=1000, blank=True)
+    location = models.CharField(max_length=30, blank=True)
+    birthdate = models.DateField(null=True, blank=True)
+    photo = models.ImageField(
+        upload_to=upload_location,
+        blank=True,
+        null=True,
+        height_field="height_field",
+        width_field="width_field",
+    )
+    height_field = models.IntegerField(default=0)
+    
+
+@receiver(pre_save, sender=Profile)
 def update_image(sender, instance, **kwargs):
     # does the image exist?
-    if instance.profile.photo:
+    if instance.photo:
         # filepath to the image in media_production folder
-        filepath = os.path.join(settings.MEDIA_URL, instance.profile.photo.name)
+        filepath = os.path.join(settings.MEDIA_URL, instance.photo.name)
         # open image at path with Pillow
-        box = (100, 125, 100, 125)
-        image = Image.open(filepath).crop(box)
+        image = Image.open(filepath)
+
         if hasattr(image, '_getexif'):
             try:
                 # iterate through the EXIF tags
@@ -52,30 +68,15 @@ def update_image(sender, instance, **kwargs):
                             image = image.rotate(90)
                     except:
                         pass
-                image.save(default_storage)
+                box = (50, 50, 100, 100)
+                size = 512, 512
+                image.crop(box)
+                image.thumbnail(size)
+
+                image.save()
                 image.close()
             except IOError as err:
                 print("I/O error: {0}".format(err))
-
-
-def upload_location(instance, filename):
-    return "%s/%s" % (instance.user, filename)
-
-
-class Profile(models.Model):
-    user = models.OneToOneField(settings.AUTH_USER_MODEL, on_delete=models.CASCADE)
-    bio = models.TextField(max_length=1000, blank=True)
-    location = models.CharField(max_length=30, blank=True)
-    birthdate = models.DateField(null=True, blank=True)
-    photo = models.ImageField(
-        upload_to=upload_location,
-        blank=True,
-        null=True,
-        height_field="height_field",
-        width_field="width_field",
-    )
-    height_field = models.IntegerField(default=0)
-    width_field = models.IntegerField(default=0)
 
 
 class Follow(models.Model):
