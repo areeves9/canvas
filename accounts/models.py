@@ -5,6 +5,8 @@ from django.conf import settings
 from django.contrib.auth.models import User
 from PIL import Image, ExifTags
 
+from django.core.files.storage import default_storage
+
 from django.db.models.signals import post_save
 from django.dispatch import receiver
 
@@ -50,7 +52,7 @@ def update_image(sender, instance, **kwargs):
                             image = image.rotate(90)
                     except:
                         pass
-                image.save(filepath)
+                image.save(default_storage)
                 image.close()
             except IOError as err:
                 print("I/O error: {0}".format(err))
