@@ -1,6 +1,7 @@
 import os
 from io import BytesIO
 from django.core.files.storage import default_storage
+from io import BytesIO
 
 from PIL import Image, ExifTags
 from django.db import models
@@ -37,50 +38,52 @@ class Profile(models.Model):
         height_field="height_field",
         width_field="width_field",
     )
-    width_field = models.IntegerField(default=0)
-    height_field = models.IntegerField(default=0)
+    width_field = models.IntegerField(default=0, null=True)
+    height_field = models.IntegerField(default=0, null=True)
 
 
-@receiver(pre_save, sender=Profile)
-def update_image(sender, instance, **kwargs):
-    memfile = BytesIO()
-    # does the image exist?
-    if instance.photo:
-        # filepath to the image in media_production folder
-        filepath = os.path.join(settings.MEDIA_URL, instance.user.username + '/' + instance.photo.name)
-        # open image at path with Pillow
-        image = Image.open(filepath)
+# @receiver(post_save, sender=Profile)
+# def update_image(sender, instance, **kwargs):
+#     memfile = BytesIO()
 
-        if hasattr(image, '_getexif'):
-            try:
-                # iterate through the EXIF tags
-                for orientation in ExifTags.TAGS.keys(): 
-                    if ExifTags.TAGS[orientation] == 'Orientation': 
-                        break
-                # get image exif metadata        
-                e = image._getexif()
-                # check if e exists
-                if e is not None:
-                    # get dictionary of exif key-value pairs
-                    try:
-                        exif = dict(e.items())
-                        if (exif[orientation]) == 3:
-                            image = image.rotate(180)
-                        elif (exif[orientation]) == 6:
-                            image = image.rotate(270)
-                        elif (exif[orientation]) == 8:
-                            image = image.rotate(90)
-                    except:
-                        pass
-                box = (50, 50, 100, 100)
-                size = 512, 512
-                image.crop(box)
-                image.thumbnail(size)
-                image.save(memfile, 'JPEG')
-                default_storage.save(image.name, memfile)
-                image.close()
-            except IOError as err:
-                print("I/O error: {0}".format(err))
+#     # does the image exist?
+#     if instance.photo:
+#         # filepath to the image in media_production folder
+#         # filepath = os.path.join(settings.MEDIA_URL, instance.photo.name)
+#         # open image at path with Pillow
+#         image = Image.open(instance.photo)
+
+#         if hasattr(image, '_getexif'):
+#             try:
+#                 # iterate through the EXIF tags
+#                 for orientation in ExifTags.TAGS.keys(): 
+#                     if ExifTags.TAGS[orientation] == 'Orientation': 
+#                         break
+#                 # get image exif metadata        
+#                 e = image._getexif()
+#                 # check if e exists
+#                 if e is not None:
+#                     # get dictionary of exif key-value pairs
+#                     try:
+#                         exif = dict(e.items())
+#                         if (exif[orientation]) == 3:
+#                             image = image.rotate(180)
+#                         elif (exif[orientation]) == 6:
+#                             image = image.rotate(270)
+#                         elif (exif[orientation]) == 8:
+#                             image = image.rotate(90)
+#                     except:
+#                         pass
+#                 box = (50, 50, 100, 100)
+#                 size = 512, 512
+#                 image.crop(box)
+#                 image.thumbnail(size)
+#                 image.save(memfile)
+#                 default_storage.save(image.name, memfile)
+#                 memfile.close()
+#                 image.close()
+#             except IOError as err:
+#                 print("I/O error: {0}".format(err))
 
 
 class Follow(models.Model):
