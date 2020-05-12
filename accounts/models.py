@@ -1,4 +1,6 @@
 import os
+from io import BytesIO
+from django.core.files.storage import default_storage
 
 from PIL import Image, ExifTags
 from django.db import models
@@ -41,6 +43,7 @@ class Profile(models.Model):
 
 @receiver(pre_save, sender=Profile)
 def update_image(sender, instance, **kwargs):
+    memfile = BytesIO()
     # does the image exist?
     if instance.photo:
         # filepath to the image in media_production folder
@@ -73,8 +76,8 @@ def update_image(sender, instance, **kwargs):
                 size = 512, 512
                 image.crop(box)
                 image.thumbnail(size)
-
-                image.save()
+                image.save(memfile, 'JPEG')
+                default_storage.save(image.name, memfile)
                 image.close()
             except IOError as err:
                 print("I/O error: {0}".format(err))
