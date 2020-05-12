@@ -50,7 +50,6 @@ def update_image(sender, instance, **kwargs):
                             image = image.rotate(90)
                     except:
                         pass
-    
                 image.save(filepath)
                 image.close()
             except IOError as err:
