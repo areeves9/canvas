@@ -2,7 +2,7 @@
 {% block head_title %}{{ strain.name }} | {{ block.super }}{% endblock head_title %}
 {% block content %}
 <nav aria-label="breadcrumb">
-  <ol class="breadcrumb bg-white">
+  <ol class="breadcrumb bg-light">
     <li class="breadcrumb-item"><a href="{% url 'reviews:strains'%}">Strains</a></li>
     <li class="breadcrumb-item active"><a href="{% url 'reviews:strain_detail' strain.id %}">{{ strain }}</a></li>
   </ol>

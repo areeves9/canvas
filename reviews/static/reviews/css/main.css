@@ -18,10 +18,7 @@ body, html {
 body {
   overflow-x: hidden;
 }
-a {
-  text-decoration: none !important;
-  color: grey;
-}
+
 #review-button {
   padding: 1rem 1rem; 
   display: inline; 
@@ -33,13 +30,4 @@ a {
 
 .navbar {
   margin-bottom: 0em;
-}
-
-.jumbotron.jumbotron-fluid {
-  margin-bottom: 0px;
-}
-.jumbotron.jumbotron-fluid > div {
-  color: white;
-  position: relative;
-  bottom: -10em;
 }
