@@ -22,7 +22,7 @@ BASE_DIR = os.path.dirname(os.path.dirname(__file__))
 
 SECRET_KEY = os.environ.get('CANVAS_KEY', '')
 
-DEBUG = True
+DEBUG = False
 
 ALLOWED_HOSTS = ['canvasreviews.herokuapp.com', '.herokuapp.com']
 
@@ -159,27 +159,27 @@ LOGIN_REDIRECT_URL = reverse_lazy('reviews:reviews')
 # debug check, need to refactor so the block under if DEBUG check
 # runs to update MEDIA_URL and STATIC_URL
 
-try:
-    from .local_settings import *
-except ImportError:
-    pass
+# try:
+#     from .local_settings import *
+# except ImportError:
+#     pass
 
-# if DEBUG == False:
-#     STATICFILES_LOCATION = 'static'
-#     STATICFILES_DIRS = [
-#         os.path.join("reviews", "static"),
-#     ]
-#     AWS_ACCESS_KEY_ID = os.environ.get('AWS_ACCESS_KEY_ID')
-#     AWS_SECRET_ACCESS_KEY = os.environ.get('AWS_SECRET_ACCESS_KEY')
-#     AWS_STORAGE_BUCKET_NAME = os.environ.get('AWS_STORAGE_BUCKET_NAME')
-#     AWS_S3_CUSTOM_DOMAIN = "%s.s3.amazonaws.com" % AWS_STORAGE_BUCKET_NAME
+if DEBUG == False:
+    STATICFILES_LOCATION = 'static'
+    STATICFILES_DIRS = [
+        os.path.join("reviews", "static"),
+    ]
+    AWS_ACCESS_KEY_ID = os.environ.get('AWS_ACCESS_KEY_ID')
+    AWS_SECRET_ACCESS_KEY = os.environ.get('AWS_SECRET_ACCESS_KEY')
+    AWS_STORAGE_BUCKET_NAME = os.environ.get('AWS_STORAGE_BUCKET_NAME')
+    AWS_S3_CUSTOM_DOMAIN = "%s.s3.amazonaws.com" % AWS_STORAGE_BUCKET_NAME
 
-#     STATIC_URL = "https://%s/static/" % (AWS_S3_CUSTOM_DOMAIN)
-#     MEDIA_URL = "https://%s/media/" % (AWS_S3_CUSTOM_DOMAIN)
-#     DEFAULT_FILE_STORAGE = 'canvas.custom_storages.MediaRootS3BotoStorage'
-#     STATICFILES_STORAGE = 'canvas.custom_storages.StaticRootS3BotoStorage'
+    STATIC_URL = "https://%s/static/" % (AWS_S3_CUSTOM_DOMAIN)
+    MEDIA_URL = "https://%s/media/" % (AWS_S3_CUSTOM_DOMAIN)
+    DEFAULT_FILE_STORAGE = 'canvas.custom_storages.MediaRootS3BotoStorage'
+    STATICFILES_STORAGE = 'canvas.custom_storages.StaticRootS3BotoStorage'
 
-#     sentry_sdk.init(
-#         dsn=os.environ.get('SENTRY_DSN'),
-#         integrations=[DjangoIntegration()]
-#     )
+    sentry_sdk.init(
+        dsn=os.environ.get('SENTRY_DSN'),
+        integrations=[DjangoIntegration()]
+    )
