@@ -24,5 +24,5 @@ urlpatterns = [
     url(r'^strains/(?P<id>\d+)/review/$', views.strain_review, name="strain_review"),
     url(r'^strain-like/$', views.strain_like, name="strain_like"),
     url(r'^strains/(?P<id>\d+)/share/$', views.strain_share, name="share_strain"),
-    url(r'^search/$', TemplateView.as_view(template_name='reviews/reviews_search.html'), name='reviews_search'),
+    url(r'^reviews-search/$', TemplateView.as_view(template_name='reviews/reviews_search.html'), name='reviews_search'),
 ]

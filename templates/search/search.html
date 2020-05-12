@@ -7,40 +7,40 @@
 <div class="container">
   {% if query %}
     <div class="row mt-5">
-    <div class="col-sm-8">
-      {% for result in page.object_list %}
-
-      <div class="media">
-        {% if result.object.photo_url %}
-        <img style="height: 53px; width: 53px;" class="mr-3" src="{{ result.object.photo_url }}" alt="Generic placeholder image">
-        {% elif result.object.photo %}
-        <img style="height: 53px; width: 53px;" class="mr-3" src="{{ result.object.photo.url }}" alt="Generic placeholder image">
-        {% else %}
-        <img src="http://via.placeholder.com/53x53" class="mr-3">
-        {% endif %}
-        <div class="media-body">
-          <h5 class="mt-0">
-            <a href="{{ result.object.get_absolute_url }}">
-              {{ result.object.title }}
-              {{ result.object.name }}
-            </a>
-          </h5>
-          <p>
-            {% if result.object.content %}
-            {{ result.object.content }}
-            {% elif result.object.summary %}
-            {{ result.object.summary }}
-            {% endif %}
-            {% load get_class %}
-            {% if result.object|get_class == 'Strain' %}
-            (Strain)
-            {% elif result.object|get_class == 'Review' %}
-            (Review)
-            {% endif %}
-          </p>
-          <p>{{ result.object.user }}</p>
-        </div> <!--/.media-body-->
-      </div> <!--/.media-->
+      <div class="col-sm">
+        {% for result in page.object_list %}
+        <div class="media">
+          {% if result.object.photo_url %}
+          <img style="height: 53px; width: 53px;" class="mr-3" src="{{ result.object.photo_url }}" alt="Generic placeholder image">
+          {% elif result.object.photo %}
+          <img style="height: 53px; width: 53px;" class="mr-3" src="{{ result.object.photo.url }}" alt="Generic placeholder image">
+          {% else %}
+          <img src="http://via.placeholder.com/53x53" class="mr-3">
+          {% endif %}
+          <div class="media-body">
+            <h5 class="mt-0">
+              <a href="{{ result.object.get_absolute_url }}">
+                {{ result.object.title }}
+                {{ result.object.name }}
+              </a>
+            </h5>
+            <p>
+              {% if result.object.content %}
+              {{ result.object.content }}
+              {% elif result.object.summary %}
+              {{ result.object.summary }}
+              {% endif %}
+              {% load get_class %}
+              {% if result.object|get_class == 'Strain' %}
+              (Strain)
+              {% elif result.object|get_class == 'Review' %}
+              (Review)
+              {% endif %}
+            </p>
+            <p>{{ result.object.user }}</p>
+          </div> <!--/.media-body-->
+        </div> <!--/.media-->
+      <hr/>
       {% empty %}
       <h5 class="text-left">No results found.</h5>
       {% endfor %}

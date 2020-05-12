@@ -13,12 +13,7 @@ from accounts.forms import ProfileForm, UserForm
 from reviews.models import Review
 from actions.models import Action, create_action
 # Create your views here.
-def users(request):
-    users = User.objects.filter(is_active=True).order_by("username")
-    context = {
-        "users": users,
-    }
-    return render(request, "accounts/users.html", context)
+
 
 @ajax_required
 @require_POST

@@ -21,16 +21,13 @@ def save_user_profile(sender, instance, **kwargs):
 
 
 @receiver(post_save, sender=User)
-# Ensure photo captured with mobile device has correct orientation.
 def update_image(sender, instance, **kwargs):
     # does the image exist?
     if instance.profile.photo:
         # filepath to the image in media_production folder
         filepath = os.path.join(settings.MEDIA_ROOT, instance.profile.photo.name)
         # open image at path with Pillow
-        box = (50, 50, 100, 100)
-        image = Image.open(filepath).crop(box)
-        
+        image = Image.open(filepath)
         if hasattr(image, '_getexif'):
             try:
                 # iterate through the EXIF tags

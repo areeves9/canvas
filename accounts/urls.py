@@ -22,7 +22,6 @@ urlpatterns = [
         auth_views.password_reset_confirm, name='password_reset_confirm'),
     url(r'^reset/done/$', auth_views.password_reset_complete, name='password_reset_complete'),
     url(r'^users/follow/$', views.user_follow, name='user_follow'),
-    url(r'^users/$', views.users, name='users'),
     url(r'^profile/$', views.profile, name='profile'),
     url(r'^profile/update/$', views.profile_update, name='update'),
     url(r'^profile/(?P<username>\w+)/$', views.profile_user, name='user'),
