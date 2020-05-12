@@ -6,7 +6,7 @@
     <h5 class="text-left mt-4">Activity</h5>
     <div class="row">
         {% for action in actions %}
-        <div class="col-sm-8 mt-4">
+        <div class="col-sm-12 mt-4">
             <div class="media">
                 <a href="{% url 'accounts:user' action.user %}">
                     {% if action.user.profile.photo %}
@@ -23,11 +23,13 @@
             
                     {% if action.target %}
                     {% with target=action.target %}
+                </br>
                     {% if target.profile %}
-                    <a href="{% url 'accounts:user' target.username %}">
+                    <a class="" href="{% url 'accounts:user' target.username %}">
                         {{ target }}
-                        <img style="height: 53px; width: 53px;" class="mr-3 rounded-circle" src="{{ target.profile.photo.url }}" alt="Card image cap">
                     </a>
+                    <img style="height: 53px; width: 53px;" class="mr-3 rounded-circle" src="{{ target.profile.photo.url }}" alt="Card image cap">
+
                     {% elif target.title %}
                     <a href="{% url 'reviews:strain_review' target.id %}">
                         {{ target.title }}

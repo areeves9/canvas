@@ -25,7 +25,7 @@ from django.views.generic import TemplateView
 
 
 urlpatterns = [
-    url(r'^index/$', views.index, name="home"),
+    url(r'^$', views.index, name="home"),
     url(r'^lightshow/', admin.site.urls),
     url(r'^account/', include('django.contrib.auth.urls')),
     url(r'^accounts/', include('accounts.urls', namespace='accounts')),

@@ -68,6 +68,7 @@ def profile_user(request, username=""):
             review_list = Review.objects.filter(user=user)
             review_numbers = Review.objects.filter(user=user).count()
             followers = user.followers.all()
+            following = user.following.all()
         except User.DoesNotExist:
             raise Http404
         context = {
@@ -75,6 +76,7 @@ def profile_user(request, username=""):
             "review_list": review_list,
             "review_numbers": review_numbers,
             "followers": followers,
+            "following": following,
             "nav": 'profile',
         }
         return render(request, "accounts/profile.html", context)

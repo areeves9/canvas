@@ -7,9 +7,9 @@
   <div class="row mt-5">
     <div class="col-sm-4">
       {% if user.profile.photo %}
-      <img class="d-block mx-auto mb-4 border border-dark shadow rounded-circle thumbnail img-fluid" alt="Responsive image" src="{{ user.profile.photo.url }}" style="height: 8rem; width: 8rem; "/>
+      <img class="d-block mx-auto mb-4 border border-dark shadow rounded-circle img-fluid" alt="Responsive image" src="{{ user.profile.photo.url }}" style="height: 9rem; width: 9rem; "/>
       {% else %}
-      <img class="d-block mx-auto mb-4 border border-dark shadow rounded-circle thumbnail img-fluid" src="http://placehold.it/250x250" style="height: 8rem; width: 8rem;"/>
+      <img class="d-block mx-auto mb-4 border border-dark shadow rounded-circle img-fluid" src="http://placehold.it/250x250" style="height: 9rem; width: 9rem;"/>
       {% endif %}
       {% with total_followers=user.followers.count %}
       {% with total_following=user.following.count %}
@@ -50,7 +50,7 @@
       <i class="fas fa-th nav-link active" id="pills-reviews-tab" data-toggle="pill" href="#pills-reviews" role="tab" aria-controls="pills-reviews" aria-selected="true"></i>
     </li>
     <li class="nav-item">
-      <i class="nav-link far fa-heart" id="pills-favs-tab" data-toggle="pill" href="#pills-favs" role="tab" aria-controls="pills-favs" aria-selected="false"></i>
+      <i class="nav-link fas fa-heart" id="pills-favs-tab" data-toggle="pill" href="#pills-favs" role="tab" aria-controls="pills-favs" aria-selected="false"></i>
     </li>
   </ul>
 
@@ -94,9 +94,8 @@ i.nav-link.active {
         $('a.follow').data('action', previous_action == 'follow' ? 'unfollow' : 'follow');
         $('a.follow').text(previous_action == 'follow' ? 'Unfollow' : 'Follow');
 
-        var previous_followers = parseInt(
-          $('span.count .total').text());
-        $('span.count .total').text(previous_action == 'follow' ? previous_followers + 1 : previous_followers -1);
+        var previous_followers = parseInt($('total-followers').text());
+        $('total-followers').text(previous_action == 'follow' ? previous_followers + 1 : previous_followers -1);
       }
     }
     );

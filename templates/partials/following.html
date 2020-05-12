@@ -12,10 +12,17 @@
     <div class="modal-body">
         {% for following in user.following.all %}
         <div class="media">
+          {% if following.profile.photo %}
             <img style="height: 53px; width: 53px;" class="rounded-circle p-1 mr-3" src="{{ following.profile.photo.url }}" alt="Generic placeholder image">
+            {% else %}
+            <img style="height: 53px; width: 53px;" class="rounded-circle p-1 mr-3" src="http://placehold.it/250x250"/>
+            {% endif %}
             <div class="media-body">
-                <a href="#" data-id="{{ following.id }}" data-action="{% if request.user in follower.followers.all %}un{% endif %}follow" class="follow float-right btn btn-primary">
-                    {% if request.user in following.followers.all %}Un{% endif %}follow</a>
+              {% if request.user.id != follower.id %}
+              <a href="#" data-id="{{ following.id }}" data-action="{% if request.user in following.followers.all %}un{% endif %}follow" class="follow float-right btn btn-primary">
+                {% if request.user in following.followers.all %}Un{% endif %}follow
+              </a>
+              {% endif %}
                 <h5 class="mt-0">{{ following }}</h5>
                 <p>{{ following.first_name }}</p>
             </div> <!--/.media-body-->

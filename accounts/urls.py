@@ -11,7 +11,7 @@ urlpatterns = [
     url(r'^register/$', CreateView.as_view(
         template_name='registration/registration_form.html',
         form_class=UserRegisterForm,
-        success_url='/account/login/',
+        success_url='/reviews/',
     ), name='register'),
     url(r'^logout/$', auth_views.logout, {'template_name': 'registration/logged_out.html', 'next_page': '/'}, name="logout"),
     url(r'^password_change/$', auth_views.password_change, {'template_name': 'registration/password_change.html','post_change_redirect': 'accounts:password_change_done'}, name="password_change"),
