@@ -1,4 +1,4 @@
-<ul class="mt-4 mb-4 list-group list-group-horizontal bg-light">
+<ul class="mt-4 mb-4 list-group list-group-horizontal bg-light d-block d-sm-none">
     <li class="text-center list-group-item border border-left-0 border-right-0 bg-light">
         <h6><b>{{ review_numbers }}</b> Reviews</h6>
     </li>
@@ -8,6 +8,23 @@
         </h6>
     </li>
     <li class="text-center list-group-item border border-left-0 border-right-0 bg-light">
+        <h6>
+            <a class="text-dark text-decoration-none" data-toggle="modal" href="#followingModal"><b>{{ total_following }}</b> Following</a>
+        </h6>
+    </li>
+</ul>
+
+
+<ul class="mt-4 mb-4 list-group list-group-horizontal d-none d-sm-block bg-light">
+    <li class="text-center list-group-item border border-0 bg-light">
+        <h6><b>{{ review_numbers }}</b> Reviews</h6>
+    </li>
+    <li class="text-center list-group-item border border-0 bg-light">
+        <h6>
+            <a class="text-dark text-decoration-none" data-toggle="modal" href="#followersModal"><b id="total-followers">{{ total_followers }}</b> Followers</a>
+        </h6>
+    </li>
+    <li class="text-center list-group-item border border-0 bg-light">
         <h6>
             <a class="text-dark text-decoration-none" data-toggle="modal" href="#followingModal"><b>{{ total_following }}</b> Following</a>
         </h6>

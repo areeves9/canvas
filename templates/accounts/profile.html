@@ -3,7 +3,7 @@
 
 {% block content %}
 
-<nav class="navbar navbar-expand-lg navbar-light bg-white border border-bottom-1">
+<nav class="navbar navbar-expand-lg navbar-light bg-white fixed-top border border-bottom-1">
   <ul class="nav navbar-nav navbar-logo mx-auto">
     <li class="nav-item">
       <a class="text-dark nav-link" href="#"><b>{{ user }}</b></a>
@@ -46,7 +46,7 @@
         {% endif %}
       </a>
       {% endif %}
-      <h1 class="d-none d-sm-block text-center">{{ user.username }}</h1>
+      <h1 class="d-none d-sm-block text-left">{{ user.username }}</h1>
       {% if request.user.profile.id == user.profile.id %}
       <a class="w-40 my-auto btn btn-sm btn-block btn-outline-secondary d-none d-sm-block" href="{% url 'accounts:update' %}">
         <b>Edit Profile</b>
