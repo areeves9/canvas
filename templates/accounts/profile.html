@@ -5,11 +5,6 @@
 
 <div class="container header-container">
   <nav class="navbar navbar-expand-lg navbar-light bg-white border border-bottom-1 fixed-top">
-    <!-- <ul class="navbar-nav mr-auto">
-      <li class="nav-item active">
-        <a class="nav-link">Left Link 1</a>
-      </li>
-    </ul> -->
     {% if request.user != user %}
     <a href="{{ request.META.HTTP_REFERER }}">
       <i class="fas fa-chevron-left"></i>
@@ -118,15 +113,15 @@
 </div> <!--/.container-->
 
 <style>
-.sticky {
-  position: -webkit-sticky;
-}
-i.nav-link.active {
-  background-color: black !important;
-}
-.header-container {
-  padding-bottom: 50px;
-}
+  .sticky {
+    position: -webkit-sticky;
+  }
+  i.nav-link.active {
+    background-color: black !important;
+  }
+  .header-container {
+    padding-bottom: 50px;
+  }
 </style>
 
 {% include "partials/accounts/followers.html" %}

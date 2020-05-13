@@ -4,10 +4,25 @@
 
 
 {% block content %}
+<div class="container header-container">
+  <nav class="navbar navbar-expand-lg navbar-light bg-white border border-bottom-1 fixed-top">
+    <a href="{% url 'accounts:user' request.user %}">
+      <i class="fas fa-chevron-left"></i>
+    </a>
+    
+    <ul class="nav navbar-nav navbar-logo mx-auto">
+      <li class="nav-item text-center">
+        <a class="text-dark nav-link font-weight-bold" href="#">Edit Profile</a>
+      </li>
+    </ul>
+  </nav>
+</div>
+
+
 <div class="container">
   <div class="h-100 mt-4 row justify-content-center align-items-center">
     <div class="col-sm-6">
-      <h5>Update Profile</h5>
+      <img style="height: 8rem; width: 7rem;" class="d-block mx-auto rounded-circle img-fluid" src="{{ user.profile.photo.url }}" />
       {% if request.user.profile.id == user.profile.id %}
       <b>
         <a href="{% url 'accounts:password_change' %}">
@@ -19,12 +34,24 @@
         {% csrf_token %}
         {{ user_form|crispy }}
         {{ profile_form|crispy }}
-        <button type=submit class="btn btn-block btn-info">
+        <button type=submit class="btn btn-block btn-info mb-5">
            Update
         </button>
       </form>
     </div>      
   </div>
 </div>
+
+<style>
+  .sticky {
+    position: -webkit-sticky;
+  }
+  i.nav-link.active {
+    background-color: black !important;
+  }
+  .header-container {
+    padding-bottom: 50px;
+  }
+</style>
 
 {% endblock %}
