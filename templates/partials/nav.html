@@ -23,7 +23,7 @@
         <li class="nav-item">
             <a class="nav-link {% if nav == 'profile' %}active{% endif %}" href="{% url 'accounts:user' request.user %}">
                 {% if request.user.profile.photo %}
-                <img style="height: 2rem; width: 2rem;" class="rounded-circle {% if nav == 'profile' %}p-1 border border-dark{% endif %}" src="{{ request.user.profile.photo.url }}" />
+                <img style="height: 2rem; width: 2rem;" class="rounded-circle {% if nav == 'profile' %}img-thumbnail border border-dark{% endif %}" src="{{ request.user.profile.photo.url }}" />
                 {% else %}
                 <i class="far fa-user-circle fa-2x"></i>
                 {% endif %}

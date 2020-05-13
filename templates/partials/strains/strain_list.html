@@ -14,8 +14,8 @@
         {% if total_likes > 0 and total_reviews > 0 %}
         <span>{{ total_likes }} like{{ total_likes|pluralize:"s"}} • {{ total_reviews }} review{{ total_reviews|pluralize:"s"}}</span>
         {% endif %}
-        <a class="w-50 mx-auto card-title text-center btn btn-sm btn-block btn-outline-info" href="{{ strain.get_absolute_url }}">
-            {{ strain.name|title }}
+        <a class="w-50 mx-auto card-title text-center btn btn-sm btn-block btn-outline-info font-weight-bold" href="{{ strain.get_absolute_url }}">
+          {{ strain.name|title }}
         </a>
     </div>
   </div>

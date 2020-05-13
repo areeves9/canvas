@@ -5,11 +5,27 @@
 
 <div class="container header-container">
   <nav class="navbar navbar-expand-lg navbar-light bg-white border border-bottom-1 fixed-top">
+    <!-- <ul class="navbar-nav mr-auto">
+      <li class="nav-item active">
+        <a class="nav-link">Left Link 1</a>
+      </li>
+    </ul> -->
+    {% if request.user != user %}
+    <a href="{{ request.META.HTTP_REFERER }}">
+      <i class="fas fa-chevron-left"></i>
+    </a>
+    {% endif %}
+    
     <ul class="nav navbar-nav navbar-logo mx-auto">
-      <li class="nav-item">
-        <a class="text-dark nav-link" href="#"><b>{{ user }}</b></a>
+      <li class="nav-item text-center">
+        <a class="text-dark nav-link font-weight-bold" href="#">{{ user }}</a>
       </li>
     </ul>
+     {% if request.user == user %}
+    <a class="font-weight-bold text-dark" href="{% url 'accounts:logout' %}">
+      <i style="font-size: 1.1rem;" class="fas fa-sign-out-alt"></i>
+    </a>
+     {% endif %}
   </nav>
 </div>
 
@@ -55,9 +71,6 @@
       </a>
       {% endif %}
       <h1 class="d-none d-sm-block">{{ user.username }}</h1>
-      
-      
-    
       <span class="d-none d-sm-block">
         {% include "partials/accounts/profile_horizontal_list.html" %}
       </span>
@@ -73,14 +86,14 @@
     </div>
   </div>
   {% if request.user.profile.id != user.profile.id %}
-      <a href="#" data-id="{{ user.id }}" data-action="{% if request.user in user.followers.all %}un{% endif %}follow" class="follow mb-4 mt-3 mx-auto btn btn-block btn-info d-block d-sm-none">
-        {% if request.user not in user.followers.all %}
-          Follow
-        {% else %}
-          Unfollow
-        {% endif %}
-      </a>
-      {% endif %}
+  <a href="#" data-id="{{ user.id }}" data-action="{% if request.user in user.followers.all %}un{% endif %}follow" class="follow mb-4 mt-3 mx-auto btn btn-block btn-info d-block d-sm-none">
+    {% if request.user not in user.followers.all %}
+      Follow
+    {% else %}
+      Unfollow
+    {% endif %}
+  </a>
+  {% endif %}
   <span class="d-block d-sm-none">
     {% include "partials/accounts/profile_horizontal_list.html" %}
   </span>
@@ -96,10 +109,10 @@
 
   <div class="tab-content mb-4" id="pills-tabContent">
     <div class="tab-pane show fade active" id="pills-reviews" role="tabpanel" aria-labelledby="pills-reviews-tab">
-      {% include "accounts/profile_user_reviews.html" %}
+      {% include "partials/accounts/profile_user_reviews.html" %}
     </div>
     <div class="tab-pane fade" id="pills-favs" role="tabpanel" aria-labelledby="pills-favs-tab">
-      {% include "accounts/profile_user_favorites.html" %}
+      {% include "partials/accounts/profile_user_favorites.html" %}
     </div>
   </div> <!--/.tab-content-->
 </div> <!--/.container-->
@@ -112,12 +125,12 @@ i.nav-link.active {
   background-color: black !important;
 }
 .header-container {
-  padding-bottom: 100px;
+  padding-bottom: 50px;
 }
 </style>
 
-{% include "partials/followers.html" %}
-{% include "partials/following.html" %}
+{% include "partials/accounts/followers.html" %}
+{% include "partials/accounts/following.html" %}
 
 
 {% endwith %}

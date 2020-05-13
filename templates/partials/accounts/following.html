@@ -23,7 +23,9 @@
                 {% if request.user in following.followers.all %}Un{% endif %}follow
               </a>
               {% endif %}
-                <h5 class="mt-0">{{ following }}</h5>
+                <h5 class="mt-0">
+                  <a href="{% url 'accounts:user' following.username %}">{{ following }}</a>
+                </h5>
                 <p>{{ following.first_name }}</p>
             </div> <!--/.media-body-->
         </div> <!--/.media-->
