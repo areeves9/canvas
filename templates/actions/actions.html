@@ -12,10 +12,11 @@
     </nav>
   </div>
 
-<div class="container">
-    <div class="row h-100 mt-4 row justify-content-center align-items-center">
+<div class="container-fluid">
     {% for action in actions %}
-        <div class="col-2">
+    <div class="mt-4 mb-4 row">
+
+        <div class="col-3">
             <a href="{% url 'accounts:user' action.user %}">
                 {% if action.user.profile.photo %}
                 <img style="height: 53px; width: 53px;" class="mx-auto d-block rounded-circle" src="{{ action.user.profile.photo.url }}" alt="Card image cap">
@@ -24,7 +25,7 @@
                 {% endif %}
             </a>
         </div>
-        <div class="col-6 text-center">
+        <div class="col-6">
             <a href="{% url 'accounts:user' action.user %}">
                 {{ action.user }}
             </a>
@@ -36,31 +37,32 @@
             {% if target.profile %}
             <a class="" href="{% url 'accounts:user' target.username %}">
                 {{ target }}
-            </a>
-        </div>
-        <div class="col-2">
-            <a class="" href="{% url 'accounts:user' target.username %}">
-                <img style="height: 53px; width: 53px;" class="mx-auto d-block rounded-circle" src="{{ target.profile.photo.url }}" alt="Card image cap">
-            </a>
-
-            {% elif target.title %}
-            <a href="{% url 'reviews:strain_review' target.id %}">
-                {{ target.title }}
-                <img style="height: 53px; width: 53px;" class="mx-auto d-block rounded-circle" src="{{ target.photo.url }}" alt="Card image cap">
-            </a>
-        
+            </a>        
             {% else %}
             <a href="{{ target.get_absolute_url }}">
                 {{ target }}
-                <img style="height: 53px; width: 53px;" class="mr-3 rounded-circle" src="{{ target.photo_url }}" alt="Card image cap">
             </a>
+        
+        </div>
+        <div class="col-3">
+          {% if target.cname == Strain %}
+          <img style="height: 53px; width: 53px;" class="mr-3 rounded-circle" src="{{ target.photo_url }}" alt="Card image cap">
+          {% elif target.cname == Review %}
+          <a href="{% url 'reviews:review_detail' target.id %}">
+              <img style="height: 53px; width: 53px;" class="mx-auto d-block rounded-circle" src="{{ target.photo.url }}" alt="Card image cap">
+          </a>
+          {% elif target.cname == User %}
+          <img style="height: 53px; width: 53px;" class="mr-3 rounded-circle" src="{{ target.profile.photo.url }}" alt="Card image cap">
 
+          {% endif %}
             {% endif %}
             {% endwith %}
             {% endif %}
-        </div>
-    {% endfor %}
+          </div>
     </div> <!--/.row-->
+  
+    {% endfor %}
+
     <hr/>
 </div>
 

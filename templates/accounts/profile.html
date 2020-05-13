@@ -10,17 +10,16 @@
       <i class="fas fa-chevron-left"></i>
     </a>
     {% endif %}
-    
     <ul class="nav navbar-nav navbar-logo mx-auto">
       <li class="nav-item text-center">
         <a class="text-dark nav-link font-weight-bold" href="#">{{ user }}</a>
       </li>
+
     </ul>
-     {% if request.user == user %}
-    <a class="font-weight-bold text-dark" href="{% url 'accounts:logout' %}">
-      <i style="font-size: 1.1rem;" class="fas fa-sign-out-alt"></i>
-    </a>
-     {% endif %}
+    
+      <a class="font-weight-bold text-dark" href="{% url 'accounts:logout' %}">
+        <i style="font-size: 1.1rem;" class="fas fa-bars"></i>
+      </a>
   </nav>
 </div>
 
