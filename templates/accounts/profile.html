@@ -4,35 +4,36 @@
 {% block content %}
 
 <div class="container">
-  <div class="row mt-5">
-    <div class="col-sm-4">
+  <div class="row mt-3">
+    <div class="col-3">
       {% if user.profile.photo %}
-      <img class="d-block mx-auto mb-4 border border-dark shadow rounded-circle img-fluid" alt="Responsive image" src="{{ user.profile.photo.url }}" style="height: 9rem; width: 9rem; "/>
+      <img class="d-block mr-auto mb-4 rounded-circle img-fluid" alt="Responsive image" src="{{ user.profile.photo.url }}" style="width: 80px; height: 80px;"/>
       {% else %}
-      <img class="d-block mx-auto mb-4 border border-dark shadow rounded-circle img-fluid" src="http://placehold.it/250x250" style="height: 9rem; width: 9rem;"/>
+      <img class="d-block mx-auto mb-4 border border-dark shadow rounded-circle img-fluid" src="http://placehold.it/250x250" style="width: 80px; height: 80px;"/>
       {% endif %}
       {% with total_followers=user.followers.count %}
       {% with total_following=user.following.count %}
-      <h5 class="text-left mt-1">{{ user.first_name }}</h5>
-      <p class="text-left">{{ user.profile.bio }}</p>
     </div>
-    <div class="col-sm-5 mb-4">
+    <div class="col-8 mb-4">
+      <h3 class="text-left">{{ user.username }}</h3>
+      <a class="btn btn-block btn-sm btn-outline-dark" href="{% url 'accounts:update' %}">
+        <b>Edit Profile</b>
+      </a>
+
+
       {% if request.user.profile.id == user.profile.id %}
       <span class="">
-        <p class="float-right">
+        <!-- <p class="float-right">
           <a class="btn btn-sm btn-outline-secondary" href="{% url 'accounts:update' %}">
             Edit Profile
           </a>
           <a class="ml-1 btn btn-light rounded-circle border border-1 shadow" href="{% url 'accounts:logout' %}">
             <i class="fas fa-sign-out-alt"></i>
           </a>
-        </p>
-        <h3 class="d-inline text-left">
-          {{ user.username }}         
-        </h3>
+        </p> -->
+        
         {% endif %}
       </span>
-      {% include "partials/accounts/profile_horizontal_list.html" %}
       {% if request.user.profile.id != user.profile.id %}
       <a href="#" data-id="{{ user.id }}" data-action="{% if request.user in user.followers.all %}un{% endif %}follow" class="follow mb-4 mt-3 mx-auto btn btn-block btn-info">
         {% if request.user not in user.followers.all %}
@@ -44,6 +45,15 @@
       {% endif %}
     </div>
   </div> <!--/.row-->
+  <div class="row">
+    <div class="col">
+      <p class="text-left"><b>{{ user.first_name }}</b></p>
+      <p class="text-left mt-n3">{{ user.profile.bio }}</p>
+      {% include "partials/accounts/profile_horizontal_list.html" %}
+
+    </div>
+  </div>
+
 
   <ul class="nav nav-fill nav-pills mb-3" id="pills-tab" role="tablist">
     <li class="nav-item">
