@@ -8,10 +8,15 @@
     {% endblock %}
 
     {% if request.user.is_authenticated %}
-    <div class="container pt-5">
+    <div class="container footer-container">
       {% include "partials/nav.html" %}
-
     </div>
+
+    <style>
+      .footer-container {
+        padding-top: 65px;
+      }
+    </style>
     {% endif %}
 
     
