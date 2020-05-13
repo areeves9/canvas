@@ -1,20 +1,20 @@
 {% for strain in strains %}
 {% with total_reviews=strain.user_review.count %}
 {% with total_likes=strain.user_like.count %}
-
-  <div class="card mb-4" style="position: relative;">
+ 
+   <div class="card m-1">
     {% if strain.photo_url %}
     <a href="{{ strain.get_absolute_url }}">
-      <img class="card-img-top" src="{{ strain.photo_url }}" alt="Card image cap">
+      <img class="card-img-top" src="{{ strain.photo_url }}" style="object-fit: cover; height: 325px; width: 300px;" alt="Card image cap">
       {% else %}
-      <img class="card-img-top" src="https://via.placeholder.com/250" alt="Card image cap">
+      <img class="card-img-top" src="https://via.placeholder.com/250" style="object-fit: cover; height: 325px; width: 300px;" alt="Card image cap">
       {% endif %}
     </a>
     <div class="card-body">
         {% if total_likes > 0 and total_reviews > 0 %}
         <span>{{ total_likes }} like{{ total_likes|pluralize:"s"}} • {{ total_reviews }} review{{ total_reviews|pluralize:"s"}}</span>
         {% endif %}
-        <a class="w-50 mx-auto card-title text-center btn btn-sm btn-block btn-outline-info font-weight-bold" href="{{ strain.get_absolute_url }}">
+        <a class="w-75 mx-auto card-title text-center btn btn-sm btn-block btn-outline-info font-weight-bold" href="{{ strain.get_absolute_url }}">
           {{ strain.name|title }}
         </a>
     </div>

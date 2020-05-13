@@ -1,4 +1,4 @@
- <form class="form-inline" id="search-input" method="get" action="/search/" role="form">
+ <!-- <form class="form-inline" id="search-input" method="get" action="/search/" role="form">
     <div class="form-row align-items-center">
         <label class="sr-only" for="q">Search</label>
             <div class="input-group">
@@ -17,5 +17,26 @@
                 </div>
         </div>
         
+    </div>
+</form> -->
+
+<form id="search-input" method="get" action="/search/" role="form">
+    <div class="form-row align-items-center">
+        <div class="col-12">
+            <div class="input-group mb-2">
+                <input 
+                    name="q" 
+                    id="q" 
+                    autocomplete="on"
+                    class="form-control" 
+                    type="search" 
+                    placeholder="Search" 
+                    aria-label="Search">
+                <div class="input-group-append">
+                    <button class="btn btn-light border border-secondary" type="submit">
+                        <i class="fas fa-search"></i></button>
+                </div>
+            </div>
+        </div>
     </div>
 </form>

@@ -2,19 +2,30 @@
 {% block head_title %} Latest Reviews | {{ block.super }}{% endblock head_title %}
 {% block content %}
 
+<div class="container header-container">
+  <nav class="navbar navbar-expand-lg navbar-light bg-white border border-bottom-1 fixed-top">
+    <ul class="nav navbar-nav navbar-logo mx-auto">
+      <li class="nav-item text-center">
+        <a class="text-dark nav-link font-weight-bold" href="#">Canvas</a>
+      </li>
+    </ul> 
+  </nav>
+</div>
+
 <div class="container">
-  {% if request.get.id != 0 %}
-  <h5 class="mt-5">
-    <a href="{{ strain.get_absolute_url }}">{{ strain }}</a> Reviews</h5>
-  {% else %}
-  <h5 class="mt-5">Latest Reviews</h5>
-  {% endif %}
+
   <div class="row justify-content-center align-items-center">
     <div id="review-list" class="col-sm-6">
         {% include "partials/reviews/review_card.html" %}
     </div>
   </div> <!--/.row-->
 </div> <!--/.container-->
+
+<style>
+  .header-container {
+    padding-bottom: 100px;
+  }
+</style>
 {% endblock %}
 
 {% block domready %}

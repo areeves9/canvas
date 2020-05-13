@@ -274,7 +274,7 @@ def strain_share(request, id=None):
 @login_required
 def strains(request):
     strain_list = Strain.objects.all().order_by("name")
-    paginator = Paginator(strain_list, 20)
+    paginator = Paginator(strain_list, 18)
     page = request.GET.get('page')
     try:
         strains = paginator.page(page)
