@@ -3,7 +3,7 @@
 
 {% block content %}
 
-<nav class="navbar navbar-expand-lg navbar-light bg-white fixed-top border border-bottom-1 mb-5">
+<nav class="navbar navbar-expand-lg navbar-light bg-white border border-bottom-1">
   <ul class="nav navbar-nav navbar-logo mx-auto">
     <li class="nav-item">
       <a class="text-dark nav-link" href="#"><b>{{ user }}</b></a>
@@ -28,17 +28,17 @@
       {% with total_followers=user.followers.count %}
       {% with total_following=user.following.count %}
     </div>
-    <div class="col-6 col-md-4 mb-4">
+    <div class="col-6 col-md-7 mb-4">
       <!--mobile-responsive-->
-      <h3 class="d-block d-sm-none text-center">{{ user.username }}</h3>
+      <h3 class="d-block d-sm-none text-left">{{ user.username }}</h3>
       {% if request.user.profile.id == user.profile.id %}
-      <a class="d-block d-sm-none btn btn-block btn-sm btn-outline-dark mx-auto" href="{% url 'accounts:update' %}">
+      <a class="d-block d-sm-none btn btn-block btn-sm btn-outline-dark" href="{% url 'accounts:update' %}">
         <b>Edit Profile</b>
       </a>
       {% endif %}
       <!--desktop-responsive-->
       {% if request.user.profile.id != user.profile.id %}
-      <a href="#" data-id="{{ user.id }}" data-action="{% if request.user in user.followers.all %}un{% endif %}follow" class="w-25 float-right follow my-auto btn btn-sm btn-block btn-info d-none d-sm-block">
+        <a href="#" data-id="{{ user.id }}" data-action="{% if request.user in user.followers.all %}un{% endif %}follow" class="w-25 float-right follow btn btn-sm btn-info d-none d-sm-block">
         {% if request.user not in user.followers.all %}
           Follow
         {% else %}
@@ -46,12 +46,13 @@
         {% endif %}
       </a>
       {% endif %}
-      <h1 class="d-none d-sm-block text-left">{{ user.username }}</h1>
       {% if request.user.profile.id == user.profile.id %}
-      <a class="w-40 my-auto btn btn-sm btn-block btn-outline-secondary d-none d-sm-block" href="{% url 'accounts:update' %}">
+      <a class="w-25 float-right btn btn-sm btn-block btn-outline-secondary d-none d-sm-block" href="{% url 'accounts:update' %}">
         <b>Edit Profile</b>
       </a>
       {% endif %}
+      <h1 class="d-none d-sm-block">{{ user.username }}</h1>
+      
       
     
       <span class="d-none d-sm-block">
@@ -90,7 +91,7 @@
     </li>
   </ul>
 
-  <div class="tab-content" id="pills-tabContent">
+  <div class="tab-content mb-4" id="pills-tabContent">
     <div class="tab-pane show fade active" id="pills-reviews" role="tabpanel" aria-labelledby="pills-reviews-tab">
       {% include "accounts/profile_user_reviews.html" %}
     </div>
@@ -101,6 +102,9 @@
 </div> <!--/.container-->
 
 <style>
+.sticky {
+  position: -webkit-sticky;
+}
 i.nav-link.active {
   background-color: black !important;
 }
