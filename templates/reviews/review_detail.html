@@ -4,7 +4,7 @@
 {% block content %}
 
 <nav aria-label="breadcrumb">
-  <ol class="breadcrumb bg-white">
+  <ol class="breadcrumb bg-light">
     <li class="breadcrumb-item"><a href="{% url 'reviews:reviews'%}">Reviews</a></li>
     <li class="breadcrumb-item active"><a href="{% url 'reviews:review_detail' review.id %}">{{ review }}</a></li>
   </ol>

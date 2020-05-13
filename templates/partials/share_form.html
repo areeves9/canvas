@@ -7,8 +7,8 @@
 <nav aria-label="breadcrumb">
   <ol class="breadcrumb bg-light">
     <li class="breadcrumb-item"><a href="{% url 'reviews:reviews'%}">Reviews</a></li>
-    <li class="breadcrumb-item"><a href="{% url 'reviews:review_detail' review.id %}">{{ review }}</a></li>
-    <li class="breadcrumb-item active"><a href="{% url 'reviews:share_review' review.id %}">Share {{ review }}</a></li>
+    <li class="breadcrumb-item"><a href="{% url 'reviews:review_detail' review.id %}">{{ review.strain }} Review</a></li>
+    <li class="breadcrumb-item active"><a href="{% url 'reviews:share_review' review.id %}">Share</a></li>
   </ol>
 </nav>
 {% else %}
@@ -16,7 +16,7 @@
   <ol class="breadcrumb bg-light">
     <li class="breadcrumb-item"><a href="{% url 'reviews:strains'%}">Strains</a></li>
     <li class="breadcrumb-item"><a href="{% url 'reviews:strain_detail' strain.id %}">{{ strain }}</a></li>
-    <li class="breadcrumb-item active"><a href="{% url 'reviews:share_strain' strain.id %}">Share {{ strain }}</a></li>
+    <li class="breadcrumb-item active"><a href="{% url 'reviews:share_strain' strain.id %}">Share</a></li>
   </ol>
 </nav>
 {% endif %}
