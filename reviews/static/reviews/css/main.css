@@ -16,7 +16,14 @@ body, html {
     margin: 0 auto;
   }
 body {
+  margin-bottom: 100px !important;
+}
+body {
   overflow-x: hidden;
+}
+a {
+  text-decoration: none !important;
+  color: #6c757d;
 }
 
 #review-button {
