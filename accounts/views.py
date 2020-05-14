@@ -109,6 +109,7 @@ def profile_update(request):
 @login_required
 def actions(request):
     actions = Action.objects.filter(user=request.user)
+    actions = actions[:10]
     context = {
         'actions': actions,
         'nav': 'actions',

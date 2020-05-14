@@ -1,0 +1,5 @@
+{% if strain.photo_url %}
+<img class="card-img-top shadow" src="{{ strain.photo_url }}" alt="Card image cap">
+{% else %}
+<image class="card-img-top shadow" src="{{ strain.get_strain_image }}">
+{% endif %}

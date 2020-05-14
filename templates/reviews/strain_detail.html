@@ -1,6 +1,17 @@
 {% extends "base.html" %}
 {% block head_title %}{{ strain.name }} | {{ block.super }}{% endblock head_title %}
 {% block content %}
+
+<div class="container header-container">
+  <nav class="navbar navbar-expand-lg navbar-light bg-white border border-bottom-1 fixed-top">
+    <ul class="nav navbar-nav navbar-logo mx-auto">
+      <li class="nav-item text-center">
+        <a class="text-dark nav-link font-weight-bold" href="#">{{ strain }}</a>
+      </li>
+    </ul> 
+  </nav>
+</div>
+
 <nav aria-label="breadcrumb">
   <ol class="breadcrumb bg-light">
     <li class="breadcrumb-item"><a href="{% url 'reviews:strains'%}">Strains</a></li>
@@ -12,11 +23,7 @@
   <div class="row mt-4">
     <div class="col-sm-6">
       <div class="card" style="position: relative !important;">
-        {% if strain.photo_url %}
-        <img class="card-img-top shadow" src="{{ strain.photo_url }}" alt="Card image cap">
-        {% else %}
-        <image class="card-img-top shadow" src="{{ strain.get_strain_image }}">
-        {% endif %}
+         {% include "partials/strains/strain_detail_photo.html" %}
       </div> <!--/.card-->
     </div> <!--/.col-sm-6-->
     <div class="col-sm-6">
@@ -31,6 +38,12 @@
     {% include "partials/strains/strain_detail_lineage.html" %}
   </div>
 </div>
+
+<style>
+  .header-container {
+    padding-bottom: 65px;
+  }
+</style>
 
 {% endblock %}
 

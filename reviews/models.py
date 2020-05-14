@@ -156,11 +156,11 @@ class Review(models.Model):
     def get_absolute_url(self):
         return reverse("reviews:review_detail", kwargs={"id": self.id})
 
-    # def time_posted(self):
-    #     dt_now = datetime.now()
-    #     dt_review = self.timestamp
-    #     delta_m = timedelta(seconds=datetime.now().second) - timedelta(seconds=self.timestamp.second)
-    #     return delta_m.total_seconds()
+    def get_post_date_days(self):
+        post_date = self.timestamp.date()
+        current_date = datetime.now().date()
+        delta = current_date - post_date
+        return delta.days
 
     def __str__(self):
         return self.title

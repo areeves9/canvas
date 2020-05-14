@@ -149,7 +149,7 @@ def review_update(request, id=None):
             review = form.save()
             review.save()
             create_action(request.user, 'updated', review)
-            messages.success(request, "Updated")
+            messages.success(request, "Updated review {}".format(review))
             return HttpResponseRedirect(reverse('reviews:reviews'))
         context = {
             "form": form,
@@ -166,7 +166,7 @@ def review_delete(request, id=None):
     if review.user == request.user:
         review.delete()
         create_action(request.user, 'deleted', review)
-        # messages.success(request, (f"Deleted review {review.title}"))
+        messages.success(request, "Deleted review.")
         return HttpResponseRedirect(reverse('accounts:profile'))
     else:
         raise Http404("No permissions for this page.")
@@ -209,7 +209,7 @@ def review_share(request, id=None):
                 msg.send()
             else:
                 msg.send()
-            messages.success(request, "Sent")
+            messages.success(request, "Message sent")
             return HttpResponseRedirect(review_url)
     else:
         form = ShareReviewForm()
@@ -258,7 +258,7 @@ def strain_share(request, id=None):
                 msg.send()
             else:
                 msg.send()
-            messages.success(request, "Sent")
+            messages.success(request, "Strain shared.")
             return HttpResponseRedirect(strain_url)
     else:
         form = ShareReviewForm()
@@ -330,6 +330,7 @@ def strain_review(request, id=None):
             return HttpResponseRedirect(review.get_absolute_url())
         else:
             messages.error(request, "Review failed to save.")
+
     else:
         form = ReviewForm()
     context = {
