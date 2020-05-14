@@ -179,6 +179,8 @@ if DEBUG == False:
     DEFAULT_FILE_STORAGE = 'canvas.custom_storages.MediaRootS3BotoStorage'
     STATICFILES_STORAGE = 'canvas.custom_storages.StaticRootS3BotoStorage'
 
+    DEFAULT_FROM_EMAIL = os.environ['CANVAS_FROM_EMAIL']
+
     sentry_sdk.init(
         dsn=os.environ.get('SENTRY_DSN'),
         integrations=[DjangoIntegration()]
