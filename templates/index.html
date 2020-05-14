@@ -7,6 +7,23 @@
 {% include "messages_display.html" %}
 
 {% block content %}
+
+{% if next %}
+  {% if user.is_authenticated %}
+  <p>Your account does not have access to this page. 
+    Please login with an account with access to proceed.
+  </p>
+  {% else %}
+  <div class="alert alert-danger messages alert-dismissible fade show mb-0" role="alert">
+    <p>Please login to access this page.</p>
+    <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+      <span aria-hidden="true">&times;</span>
+    </button>
+  </div>
+  
+  {% endif %}
+{% endif %}
+
 <div class="container mb-5">
   <div class="row mt-4 justify-content-center align-items-center">
     <div class="col-sm-5">
