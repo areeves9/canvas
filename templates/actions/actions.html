@@ -1,5 +1,6 @@
 {% extends "base.html" %}
 {% load rating_icon %}
+{% load get_class %}
 
 {% block content %}
 <div class="container header-container">
@@ -15,56 +16,56 @@
 <div class="container-fluid">
     {% for action in actions %}
     <div class="mt-4 mb-4 row">
-
-        <div class="col-3">
-            <a href="{% url 'accounts:user' action.user %}">
-                {% if action.user.profile.photo %}
-                <img style="height: 53px; width: 53px;" class="mx-auto d-block rounded-circle" src="{{ action.user.profile.photo.url }}" alt="Card image cap">
-                {% else %}
-                <img style="height: 53px; width: 53px;" class="mx-auto d-block rounded-circle" src="https://via.placeholder.com/250" alt="Card image cap">
-                {% endif %}
-            </a>
-        </div>
-        <div class="col-6">
-            <a href="{% url 'accounts:user' action.user %}">
-                {{ action.user }}
-            </a>
-            {{ action.verb }}
-    
-            {% if action.target %}
-            {% with target=action.target %}
-        </br>
-            {% if target.profile %}
-            <a class="" href="{% url 'accounts:user' target.username %}">
-                {{ target }}
-            </a>        
-            {% else %}
-            <a href="{{ target.get_absolute_url }}">
-                {{ target }}
-            </a>
-        
-        </div>
-        <div class="col-3">
-          {% if target.cname == Strain %}
-          <img style="height: 53px; width: 53px;" class="mr-3 rounded-circle" src="{{ target.photo_url }}" alt="Card image cap">
-          {% elif target.cname == Review %}
-          <a href="{% url 'reviews:review_detail' target.id %}">
-              <img style="height: 53px; width: 53px;" class="mx-auto d-block rounded-circle" src="{{ target.photo.url }}" alt="Card image cap">
+      <div class="col-3">
+          <a href="{% url 'accounts:user' action.user %}">
+              {% if action.user.profile.photo %}
+              <img style="height: 53px; width: 53px;" class="mx-auto d-block rounded-circle" src="{{ action.user.profile.photo.url }}" alt="Card image cap">
+              {% else %}
+              <img style="height: 53px; width: 53px;" class="mx-auto d-block rounded-circle" src="https://via.placeholder.com/250" alt="Card image cap">
+              {% endif %}
           </a>
-          {% elif target.cname == User %}
-          <img style="height: 53px; width: 53px;" class="mr-3 rounded-circle" src="{{ target.profile.photo.url }}" alt="Card image cap">
-
-          {% endif %}
-            {% endif %}
-            {% endwith %}
-            {% endif %}
-          </div>
-    </div> <!--/.row-->
+      </div>
+      <div class="col-6">
+          <a href="{% url 'accounts:user' action.user %}">
+              {{ action.user }}
+          </a>
+          {{ action.verb }}
   
-    {% endfor %}
+          {% if action.target %}
 
-    <hr/>
-</div>
+          {% with target=action.target %}
+            {% if target.profile %}
+          <a class="" href="{% url 'accounts:user' target.username %}">
+              {{ target }}
+          </a>        
+            {% else %}
+          <a href="{{ target.get_absolute_url }}">
+              {{ target }}
+          </a>
+            {% endif %}
+
+      </div>
+      <div class="col-3">
+          {% if target|get_class == 'Strain' %}
+          <a href="{{ target.get_absolute_url }}">
+            <img style="height: 53px; width: 53px;" class="mx-auto d-block rounded" src="{{ target.photo_url }}"/>
+          </a>
+          {% elif target|get_class == 'User' %}
+          <a href="{% url 'accounts:user' target.username %}">
+            <img style="height: 53px; width: 53px;" class="mx-auto d-block rounded-circle" src="{{ target.profile.photo.url }}"/>
+          </a>
+          {% elif target|get_class == 'Review' %}
+          <a href="{{ target.get_absolute_url }}">
+            <img style="height: 53px; width: 53px;" class="mx-auto d-block rounded" src="{{ target.photo.url }}"/>
+          </a>
+          {% endif %}
+          
+          {% endwith %}
+          {% endif %}
+        </div>
+      </div> <!--/.row-->
+      {% endfor %}
+    </div>
 
 <style>
     .sticky {
