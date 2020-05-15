@@ -6,8 +6,8 @@
 <nav aria-label="breadcrumb">
   <ol class="breadcrumb bg-light">
     <li class="breadcrumb-item"><a href="{% url 'reviews:strains'%}">Strains</a></li>
-    <li class="breadcrumb-item"><a href="{% url 'reviews:strain_detail' strain.id %}">{{ strain }}</a></li>
-    <li class="breadcrumb-item active"><a href="{% url 'reviews:strain_review' strain.id %}">Review {{ strain }}</a></li>
+    <li class="breadcrumb-item"><a href="{% url 'reviews:strain_detail' review.strain.id %}">{{ strain }}</a></li>
+    <li class="breadcrumb-item active"><a href="{% url 'reviews:strain_review' review.strain.id %}">Review {{ strain }}</a></li>
   </ol>
 </nav>
 
