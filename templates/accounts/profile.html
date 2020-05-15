@@ -17,10 +17,37 @@
 
     </ul>
     
-      <a class="font-weight-bold text-dark" href="{% url 'accounts:logout' %}">
+      <a data-toggle="modal" data-target="#profileSettingsModal" class="font-weight-bold text-dark" href="{% url 'accounts:logout' %}">
         <i style="font-size: 1.1rem;" class="fas fa-bars"></i>
       </a>
   </nav>
+</div>
+
+<!-- Modal -->
+<div class="modal fade" id="profileSettingsModal" tabindex="-1" role="dialog" aria-labelledby="profileSettingsModalTitle" aria-hidden="true">
+  <div class="modal-dialog modal-dialog-centered" role="document">
+    <div class="modal-content">
+      <div class="modal-header border-bottom-0">
+        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+          <i class="fas fa-times"></i>
+        </button>
+      </div>
+      
+      <div class="modal-body">
+        <ul class="list-group">
+          <li class="list-group-item border-left-0 border-right-0 border-top-0">
+            <a class="text-dark" href="{% url 'accounts:password_change' %}">
+              <i class="fas fa-lock"></i> Change Password</li>
+            </a>
+          <li class="list-group-item border-left-0 border-right-0">
+            <a class="text-dark" href="{% url 'accounts:logout' %}">
+              <i class="fas fa-sign-out-alt"></i> Logout</li>
+            </a>
+          <li class="list-group-item border-left-0 border-right-0">About</li>
+        </ul>
+      </div>
+    </div>
+  </div>
 </div>
 
 <div class="container">
