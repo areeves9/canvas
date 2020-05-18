@@ -4,6 +4,9 @@
 
 <div class="container header-container">
   <nav class="navbar navbar-expand-lg navbar-light bg-white border border-bottom-1 fixed-top">
+    <a href="{{ request.META.HTTP_REFERER }}">
+      <i class="fas fa-chevron-left"></i>
+    </a>
     <ul class="nav navbar-nav navbar-logo mx-auto">
       <li class="nav-item text-center">
         <a class="text-dark nav-link font-weight-bold" href="#">{{ strain }}</a>
@@ -11,13 +14,6 @@
     </ul> 
   </nav>
 </div>
-
-<nav aria-label="breadcrumb">
-  <ol class="breadcrumb bg-light">
-    <li class="breadcrumb-item"><a href="{% url 'reviews:strains'%}">Strains</a></li>
-    <li class="breadcrumb-item active"><a href="{% url 'reviews:strain_detail' strain.id %}">{{ strain }}</a></li>
-  </ol>
-</nav>
 
 <div class="container">
   <div class="row mt-4">

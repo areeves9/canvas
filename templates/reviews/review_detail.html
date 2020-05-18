@@ -3,22 +3,23 @@
 {% load rating_icon %}
 {% block content %}
 
-<nav aria-label="breadcrumb">
-  <ol class="breadcrumb bg-light">
-    <li class="breadcrumb-item"><a href="{% url 'reviews:reviews'%}">Reviews</a></li>
-    <li class="breadcrumb-item active"><a href="{% url 'reviews:review_detail' review.id %}">{{ review }}</a></li>
-  </ol>
-</nav>
-
+<div class="container header-container">
+  <nav class="navbar navbar-expand-lg navbar-light bg-white border border-bottom-1 fixed-top">
+    <a href="{{ request.META.HTTP_REFERER }}">
+      <i class="fas fa-chevron-left"></i>
+    </a>
+    <ul class="nav navbar-nav navbar-logo mx-auto">
+      <li class="nav-item text-center">
+        <a class="text-dark nav-link font-weight-bold" href="#">
+          {{ review.strain }} {{ review.method|title }} Review
+        </a>
+      </li>
+    </ul> 
+  </nav>
+</div>
 
 {% with total_likes=review.users_like.count users_like=review.users_like.all %}
 <div class="container">
-  <h3 class="mt-5">
-    <a href="{{ review.strain.get_absolute_url }}">
-      {{ review.strain }} 
-    </a> Review
-  </h3>
-  {% include "partials/reviews/review_detail_social.html" %}
   <div class="row justify-content-center mt-5">
     <div class="col-sm-6">
       <div class="card">
@@ -28,6 +29,12 @@
         <img class="card-img-top shadow" src="https://via.placeholder.com/250" alt="Card image cap">
         {% endif %}
       </div> <!--/.card-->
+      <h5 class="mt-5 text-center font-weight-bold">
+        <a class="text-dark" href="{{ review.strain.get_absolute_url }}">
+          {{ review.strain }} 
+        </a> 
+      </h5>
+      {% include "partials/reviews/review_detail_social.html" %}
     </div> <!--/.col-sm-6-->
   </div> <!--/.row-->
 
@@ -48,7 +55,6 @@
         {% endif %}
       </a>
       {% endif %}
-      <!-- <a href="" class="btn btn-info float-right mt-n5">Follow</a> -->
     </div>
   </div> <!--/.row-->
 
@@ -74,6 +80,12 @@
   </div>
 
 </div> <!--/.container-->
+
+<style>
+  .header-container {
+    padding-bottom: 100px;
+  }
+</style>
 {% endwith %}
 {% endblock %}
 

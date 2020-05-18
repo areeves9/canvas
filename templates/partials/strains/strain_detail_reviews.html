@@ -7,7 +7,6 @@
         {% for review in reviews|slice:":10" %}
         <p class="text-center">
             {{ review.rating }}<i class="text-success fas fa-star"></i> •
-
             <a href="{{ review.get_absolute_url }}"><u>{{ review.title }}</u></a>
             {% include "partials/strains/strain_review_method_icon.html" %}
             by
