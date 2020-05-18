@@ -20,7 +20,7 @@ from django.core.urlresolvers import reverse_lazy
 # Build paths inside the project like this: os.path.join(BASE_DIR, ...)
 BASE_DIR = os.path.dirname(os.path.dirname(__file__))
 
-SECRET_KEY = os.environ.get('CANVAS_KEY', '')
+SECRET_KEY = os.environ['CANVAS_KEY']
 
 DEBUG = os.environ['CANVAS_ENV']
 
@@ -151,20 +151,12 @@ USE_TZ = True
 LOGIN_URL = '/'
 LOGIN_REDIRECT_URL = reverse_lazy('reviews:reviews')
 
-
-# Static files (CSS, JavaScript, Images)
-# https://docs.djangoproject.com/en/1.10/howto/static-files/
-
-# Have to move this try statement before and after the following
-# debug check, need to refactor so the block under if DEBUG check
-# runs to update MEDIA_URL and STATIC_URL
-
 # try:
 #     from .local_settings import *
 # except ImportError:
 #     pass
 
-if DEBUG == False:
+if not DEBUG:
     STATICFILES_LOCATION = 'static'
     STATICFILES_DIRS = [
         os.path.join("reviews", "static"),
