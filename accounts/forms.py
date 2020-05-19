@@ -27,6 +27,9 @@ class ProfileForm(forms.ModelForm):
 
 
 class UserRegisterForm(UserCreationForm):
+    email = forms.EmailField(
+        required=True,
+    )
 
     class Meta:
         model = User
