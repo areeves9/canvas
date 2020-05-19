@@ -1,12 +1,11 @@
- {% load rating_icon %}
-
+{% load rating_icon %}
 <div class="card-body">
     <h5 class="card-title">
-        {{ review.rating }}<i class="fas fa-star text-success"></i> •
+        <a class="text-dark card-text font-weight-bold" href="{{ review.strain.get_absolute_url }}">{{ review.strain }}</a>
+        {{ review.rating }}<i class="fas fa-star text-success"></i>
         <span style="font-size: 1.4rem;" class="float-right">
             {% include "partials/strains/strain_review_method_icon.html" %}
         </span>
-        <a class="text-dark card-text font-weight-bold" href="{{ review.strain.get_absolute_url }}">{{ review.strain }}</a>
     </h5>
 
     <p class="mt-1 card-text">
@@ -15,5 +14,5 @@
         </span>
         {{ review.content|truncatechars:115 }}
     </p>
-    <p class="text-muted">Posted {{ review.get_post_date_days }} day{{ review.get_post_date_days|pluralize:'s' }} ago.</p>
+    <p class="text-muted">Posted {{ review.timestamp|timesince }} ago.</p>
 </div>
