@@ -151,10 +151,10 @@ USE_TZ = True
 LOGIN_URL = '/'
 LOGIN_REDIRECT_URL = reverse_lazy('reviews:reviews')
 
-try:
-    from .local_settings import *
-except ImportError:
-    pass
+# try:
+#     from .local_settings import *
+# except ImportError:
+#     pass
 
 STATICFILES_LOCATION = 'static'
 STATICFILES_DIRS = [
