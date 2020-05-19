@@ -1,13 +1,10 @@
 import os
 import requests
-from datetime import timedelta, datetime
-from PIL import Image
+from datetime import datetime
 from django.db import models
-from django.core.files import File
 from django.core.urlresolvers import reverse
 from django.contrib.postgres.fields import JSONField
 from django.conf import settings
-from django.utils import timezone
 
 # Create your models here.
 
