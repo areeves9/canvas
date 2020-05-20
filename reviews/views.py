@@ -157,6 +157,7 @@ def review_update(request, id=None):
         }
         return render(request, "reviews/review_form.html", context)
     else:
+        messages.success(request, "Review failed to update.")
         raise Http404("No permissions for this page.")
 
 

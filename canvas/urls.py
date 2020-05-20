@@ -23,7 +23,7 @@ from django.contrib.auth.views import LoginView
 
 urlpatterns = [
     url(r'^$', LoginView.as_view(
-            template_name='index.html',
+            template_name='registration/login.html',
             redirect_authenticated_user=True
         ), name='home'),
     url(r'^lightshow/', admin.site.urls),
