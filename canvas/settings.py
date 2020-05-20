@@ -150,6 +150,7 @@ USE_TZ = True
 
 LOGIN_URL = '/'
 LOGIN_REDIRECT_URL = reverse_lazy('reviews:reviews')
+LOGOUT_REDIRECT_URL = 'home'
 
 # try:
 #     from .local_settings import *

@@ -70,6 +70,7 @@ class Strain(models.Model):
                 self.save()
                 return self.photo_url
             else:
+                self.photo_url = 'http://www.cannabisreports.com/images/strains/no_image.png'
                 return self.photo_url
 
     def get_strain_lineage(self):
@@ -117,13 +118,13 @@ class Review(models.Model):
     )
     height_field = models.IntegerField(default=0, null=True)
     width_field = models.IntegerField(default=0, null=True)
-    FLOWER = 'FLOWER'
-    EXTRACT = 'EXTRACT'
-    EDIBLE = 'EDIBLE'
+    FLOWER = 'Flower'
+    EXTRACT = 'Extract'
+    EDIBLE = 'Edible'
     METHOD_CHOICES = (
-        (FLOWER, 'FLOWER'),
-        (EXTRACT, 'EXTRACT'),
-        (EDIBLE, 'EDIBLE'),
+        (FLOWER, 'Flower'),
+        (EXTRACT, 'Extract'),
+        (EDIBLE, 'Edible'),
     )
     method = models.CharField(
         max_length=20,
