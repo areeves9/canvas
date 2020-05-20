@@ -29,7 +29,10 @@ def upload_location(instance, filename):
 
 
 class Profile(models.Model):
-    user = models.OneToOneField(settings.AUTH_USER_MODEL, on_delete=models.CASCADE)
+    user = models.OneToOneField(
+        settings.AUTH_USER_MODEL,
+        on_delete=models.CASCADE
+    )
     bio = models.TextField(max_length=1000, blank=True)
     location = models.CharField(max_length=30, blank=True)
     birthdate = models.DateField(null=True, blank=True)
@@ -81,15 +84,19 @@ def update_image(sender, instance, **kwargs):
             default_storage.save(instance.photo.name, memfile)
             memfile.close()
             image.close()
-               
-
-
-        
 
 
 class Follow(models.Model):
-    follow_from = models.ForeignKey(User, related_name='follow_from')
-    follow_to = models.ForeignKey(User, related_name='follow_to')
+    follow_from = models.ForeignKey(
+        User, 
+        on_delete=models.CASCADE,
+        related_name='follow_from'
+    )
+    follow_to = models.ForeignKey(
+        User,
+        on_delete=models.CASCADE,
+        related_name='follow_to'
+    )
     created = models.DateTimeField(auto_now_add=True, db_index=True)
 
     def __str__(self):

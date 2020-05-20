@@ -25,10 +25,22 @@ def create_action(user, verb, target=None):
         return True
     return False
 
+
 class Action(models.Model):
-    user = models.ForeignKey(User, related_name='actions', db_index=True)
+    user = models.ForeignKey(
+        User,
+        on_delete=models.PROTECT,
+        related_name='actions',
+        db_index=True
+    )
     verb = models.CharField(max_length=225)
-    target_content = models.ForeignKey(ContentType, blank=True, null=True, related_name='target_object')
+    target_content = models.ForeignKey(
+        ContentType,
+        blank=True,
+        null=True,
+        on_delete=models.PROTECT,
+        related_name='target_object'
+    )
     target_id = models.PositiveIntegerField(null=True, blank=True, db_index=True)
     target = GenericForeignKey('target_content', 'target_id')
     created = models.DateTimeField(auto_now_add=True, db_index=True)

@@ -13,7 +13,7 @@ from django.contrib import messages
 from django.views.decorators.http import require_POST
 from django.template.loader import render_to_string
 
-from django.core.urlresolvers import reverse
+from django.urls import reverse
 from django.core.paginator import Paginator, EmptyPage, PageNotAnInteger
 from django.core.mail import EmailMultiAlternatives
 

@@ -2,7 +2,7 @@ import os
 import requests
 from datetime import datetime
 from django.db import models
-from django.core.urlresolvers import reverse
+from django.urls import reverse
 from django.contrib.postgres.fields import JSONField
 from django.conf import settings
 
@@ -103,9 +103,14 @@ class Strain(models.Model):
 class Review(models.Model):
     title = models.CharField(max_length=35)
     content = models.TextField(max_length=500)
-    strain = models.ForeignKey(Strain, related_name="user_review")
+    strain = models.ForeignKey(
+        Strain,
+        on_delete=models.CASCADE,
+        related_name="user_review"
+    )
     user = models.ForeignKey(
         settings.AUTH_USER_MODEL,
+        on_delete=models.PROTECT,
         related_name="user",
         default=1
     )
@@ -165,9 +170,14 @@ class Review(models.Model):
 
 
 class Comment(models.Model):
-    review = models.ForeignKey(Review, related_name='comments')
+    review = models.ForeignKey(
+        Review,
+        on_delete=models.CASCADE,
+        related_name='comments'
+    )
     user = models.ForeignKey(
         settings.AUTH_USER_MODEL,
+        on_delete=models.PROTECT,
         related_name="user_comments",
         default=1
     )

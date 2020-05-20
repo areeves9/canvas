@@ -14,7 +14,7 @@ import os
 import sentry_sdk
 from urllib.parse import urlparse
 from sentry_sdk.integrations.django import DjangoIntegration
-from django.core.urlresolvers import reverse_lazy
+from django.urls import reverse_lazy
 
 
 # Build paths inside the project like this: os.path.join(BASE_DIR, ...)
@@ -152,10 +152,10 @@ LOGIN_URL = '/'
 LOGIN_REDIRECT_URL = reverse_lazy('reviews:reviews')
 LOGOUT_REDIRECT_URL = 'home'
 
-# try:
-#     from .local_settings import *
-# except ImportError:
-#     pass
+try:
+    from .local_settings import *
+except ImportError:
+    pass
 
 STATICFILES_LOCATION = 'static'
 STATICFILES_DIRS = [
