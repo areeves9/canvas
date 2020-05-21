@@ -152,10 +152,6 @@ LOGIN_URL = 'home'
 LOGIN_REDIRECT_URL = reverse_lazy('reviews:reviews')
 LOGOUT_REDIRECT_URL = 'home'
 
-# try:
-#     from .local_settings import *
-# except ImportError:
-#     pass
 
 STATICFILES_LOCATION = 'static'
 STATICFILES_DIRS = [
@@ -177,3 +173,8 @@ sentry_sdk.init(
     dsn=os.environ.get('SENTRY_DSN'),
     integrations=[DjangoIntegration()]
 )
+if DEBUG:
+    try:
+        from .local_settings import *
+    except ImportError:
+        pass
