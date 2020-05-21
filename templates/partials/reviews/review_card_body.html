@@ -2,8 +2,8 @@
 <div class="card-body">
     <h5 class="card-title">
         <a class="text-dark card-text font-weight-bold" href="{{ review.strain.get_absolute_url }}">{{ review.strain }}</a>
-        {{ review.rating }}<i class="fas fa-star text-success"></i>
-        <span style="font-size: 1.4rem;" class="float-right">
+        <span class="float-right">
+            {{ review.rating }}<i class="fas fa-star text-success"></i> •
             {% include "partials/strains/strain_review_method_icon.html" %}
         </span>
     </h5>
