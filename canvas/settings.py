@@ -173,8 +173,7 @@ sentry_sdk.init(
     dsn=os.environ.get('SENTRY_DSN'),
     integrations=[DjangoIntegration()]
 )
-if DEBUG:
-    try:
-        from .local_settings import *
-    except ImportError:
-        pass
+# try:
+#     from .local_settings import *
+# except ImportError:
+#     pass
