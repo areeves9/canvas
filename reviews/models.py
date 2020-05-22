@@ -1,7 +1,8 @@
 import os
 import requests
-from datetime import datetime
 from django.db import models
+from django.dispatch import receiver
+from django.db.models.signals import post_save
 from django.urls import reverse
 from django.contrib.postgres.fields import JSONField
 from django.conf import settings
@@ -45,59 +46,58 @@ class Strain(models.Model):
         blank=True
     )
 
+    class Meta:
+        ordering = ["name"]
+
+    def __str__(self):
+        return self.name
+
     def get_absolute_url(self):
         return reverse("reviews:strain_detail", kwargs={"id": self.id})
 
     def get_average_rating(self):
         strain_ratings = self.user_review.all()
-        l1 = []
-        for x in strain_ratings:
-            l1.append(x.rating)
-            average = sum(l1)/len(l1)
-            if not average:
-                return "N/A"
-            else:
-                return average
+        if len(strain_ratings) > 0:
+            ratings = [strain.rating for strain in strain_ratings]
+            average = sum(ratings)/len(ratings)
+            return average
+        else:
+            return "No ratings"
 
     def get_strain_image(self):
+        strain_query_url = cannabis_reports_url + "%s" % (self.name)
         if not self.photo_url:
-            strain_query_url = cannabis_reports_url + "%s" % (self.name)
-            r = requests.get(strain_query_url, headers)
-            if r.status_code == 200:
-                data = r.json()  # json strain object
-                image_url = data['data'][0]['image']  # url property of object
-                self.photo_url = image_url
-                self.save()
-                return self.photo_url
-            else:
-                self.photo_url = 'http://www.cannabisreports.com/images/strains/no_image.png'
-                return self.photo_url
-
-    def get_strain_lineage(self):
-        if not self.lineage or not self.genetics:
-            strain_query_url = cannabis_reports_url + "%s" % (self.name)
-            r = requests.get(strain_query_url, headers)
-            if r.status_code == 200:
-                data = r.json()  # json strain object
-                lineage_json = data['data'][0]['lineage']  # lineage property of object
-                genetics_json = data['data'][0]['genetics']['names']
-                if len(lineage_json) == 0:
+            try:
+                r = requests.get(strain_query_url, headers)
+                r.raise_for_status()
+                if r.status_code == 200:
+                    response = r.json()  # json strain object
+                    # if there is a 200 code, there will be a strain
+                    # however it may not have an 'image'
+                    image_url = response['data'][0]['image']  # url property of object
+                    genetics = response['data'][0]['genetics']['names']
+                    lineage = response['data'][0]['lineage']
+                    self.photo_url = image_url
+                    self.genetics = genetics
+                    self.lineage = lineage
+                    self.save()
+                    return
+                elif r.status_code != 200:
+                    self.photo_url = 'http://www.cannabisreports.com/images/strains/no_image.png'
+                    self.genetics = False
                     self.lineage = False
-                else:
-                    self.lineage = lineage_json
-                self.genetics = genetics_json
-                self.save()
-                return self.lineage, self.genetics
-            elif r.status_code != 200:
-                return "No Data Present"
-        else:
-            return self.lineage, self.genetics
+                    self.save()
+            except requests.exceptions.HTTPError as err:
+                print(err)
+                raise SystemExit(err)
+            except requests.exceptions.ConnectionError as err:
+                print(err)
+                raise SystemExit(err)
 
-    def __str__(self):
-        return self.name
 
-    class Meta:
-        ordering = ["name"]
+@receiver(post_save, sender=Strain)
+def save_strain_image(sender, instance, created, **kwargs):
+    instance.get_strain_image()
 
 
 class Review(models.Model):
@@ -134,7 +134,7 @@ class Review(models.Model):
     method = models.CharField(
         max_length=20,
         choices=METHOD_CHOICES,
-        default='FLOWER',
+        default='Flower',
         blank=False
     )
     RATING_CHOICES = (
@@ -158,12 +158,6 @@ class Review(models.Model):
 
     def get_absolute_url(self):
         return reverse("reviews:review_detail", kwargs={"id": self.id})
-
-    def get_post_date_days(self):
-        post_date = self.timestamp.date()
-        current_date = datetime.now().date()
-        delta = current_date - post_date
-        return delta.days
 
     def __str__(self):
         return self.title

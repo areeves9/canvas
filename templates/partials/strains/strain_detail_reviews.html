@@ -6,9 +6,9 @@
         <h5 class="card-title">Latest Reviews</h5>
         {% for review in reviews|slice:":10" %}
         <p class="text-center">
-            {{ review.rating }}<i class="text-success fas fa-star"></i> •
-            <a href="{{ review.get_absolute_url }}"><u>{{ review.title }}</u></a>
             {% include "partials/strains/strain_review_method_icon.html" %}
+            <a href="{{ review.get_absolute_url }}"><u>{{ review.title }}</u></a>
+            {{ review.rating|rating_icon }}
             by
             <a class="" href="{% url 'accounts:user' review.user %}">
                 <u>

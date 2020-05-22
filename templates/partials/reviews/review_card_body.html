@@ -1,10 +1,10 @@
 {% load rating_icon %}
 <div class="card-body">
     <h5 class="card-title">
+        {% include "partials/strains/strain_review_method_icon.html" %}
         <a class="text-dark card-text font-weight-bold" href="{{ review.strain.get_absolute_url }}">{{ review.strain }}</a>
-        <span class="float-right">
-            {{ review.rating }}<i class="fas fa-star text-success"></i> •
-            {% include "partials/strains/strain_review_method_icon.html" %}
+        <span style="font-size: 1.1rem;" class="float-right">
+            {{ review.rating|floatformat:1 }} • <i class="fas fa-star text-success"></i>
         </span>
     </h5>
 
