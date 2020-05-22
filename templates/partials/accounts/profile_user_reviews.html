@@ -1,11 +1,12 @@
 {% load rating_icon %}
 
 <h5 class="text-left">Reviews</h5>
-<div class="row">
     {% for review in review_list %}
+    <div class="row">
+
     <div id="pills-home" role="tabpanel" aria-labelledby="pills-home-tab" 
     class="tab-pane fade show active">
-        <div class="col-sm-8 mt-4">
+        <div class="col-12 mt-4">
             <div class="media">
                 <a href="{% url 'reviews:review_detail' review.id %}">
                     {% if review.photo.url %}
@@ -20,13 +21,14 @@
                             {{ review.strain }}
                         </a>
                     </h5>
-                    <span class="float-left">{% include "partials/strains/strain_review_method_icon.html" %}</span>
-
+                    <span class="float-left">
+                        {% include "partials/strains/strain_review_method_icon.html" %}
+                    </span>
                     <p>{{ review.content }}</p>
                 </div> <!--/.media-body-->
             </div> <!--/.media-->
-        </div> <!--/.col-sm-8-->
+        </div> <!--/.col-12-->
     </div>
-    {% endfor %}
 </div> <!--/.row-->
+{% endfor %}
 

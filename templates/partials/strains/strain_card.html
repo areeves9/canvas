@@ -10,7 +10,7 @@
       <h5 class="card-title font-weight-bold d-inline">{{ strain }}</h5>
       <p class="card-text">
         {% if strain.get_average_rating %}
-        {{ strain.get_average_rating }} <i class="text-success fas fa-star"></i> • 
+        {{ strain.get_average_rating }} {% if strain.get_average_rating > 0 %}<i class="text-success fas fa-star"></i> • 
         <span class="text-muted">
           <u>
             {{ strain.user_review.all.count }}
@@ -19,6 +19,7 @@
             </a> 
           </u>
         </span>
+        {% endif %}
       </p>
       {% endif %}
       {% include "partials/strains/strain_detail_genetics.html" %}
