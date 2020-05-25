@@ -2,27 +2,34 @@
 
 <div class="card">
     <div class="card-body">
-      {% if total_likes %}
-      <span style="font-size: 1.1rem;" class="float-right">
-        <i class="text-success fas fa-heart"></i> {{ total_likes }} Like{{ total_likes|pluralize }}</span>
-      {% endif %}
-    </span>
-      <h5 class="card-title font-weight-bold d-inline">{{ strain }}</h5>
-      <p class="card-text">
+      <p class="card-text text-center">
         {% if strain.get_average_rating %}
         {{ strain.get_average_rating }} {% if strain.get_average_rating > 0 %}<i class="text-success fas fa-star"></i> • 
         <span class="text-muted">
           <u>
             {{ strain.user_review.all.count }}
-            <a href="{% url 'reviews:strain_reviews' strain.id %}">
-              review{{ strain.user_review.all|pluralize:"s" }}
+            <a class="mr-1" href="{% url 'reviews:strain_reviews' strain.id %}">
+              review{{ strain.user_review.all|pluralize:"s" }} 
             </a> 
           </u>
         </span>
         {% endif %}
+        {% if total_likes %}
+        <span style="font-size: 1.1rem;" class="">
+          • <i class="text-success fas fa-heart"></i> {{ total_likes }} Like{{ total_likes|pluralize }}</span>
+        </span>
+        {% endif %}
+        {% endif %}
       </p>
+      {% if strain.lineage %}
+      <hr>
+      <h3 class="font-weight-bold mt-2 text-center">{{ strain }}</h3>
+      <hr>
+      {% include "partials/strains/strain_detail_lineage.html" %}
+      {% else %}
+      <h3 class="font-weight-bold  mt-2 text-center">{{ strain }}</h3>
+
       {% endif %}
-      {% include "partials/strains/strain_detail_genetics.html" %}
     </div>
   </div>
 

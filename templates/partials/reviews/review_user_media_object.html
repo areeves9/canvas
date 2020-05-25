@@ -1,0 +1,20 @@
+<div class="media">
+    <a href="{% url 'accounts:user' review.user %}">
+      <img style="height: 5rem; width: 5rem;" class="rounded-circle mr-3" src="{{ review.user.profile.photo.url }}" alt="Generic placeholder image">
+    </a>
+    <div class="media-body">
+      <a class="text-dark" href="{% url 'accounts:user' review.user %}">
+        <h5 class="d-inline mt-0 font-weight-bold">{{ review.user }}</h5>
+      </a>
+      {% if request.user != review.user %}
+      <a href="#" data-id="{{ review.user.id }}" data-action="{% if request.user in review.user.followers.all %}un{% endif %}follow" class="d-inline follow btn btn-info">
+        {% if request.user not in review.user.followers.all %}
+          Follow
+        {% else %}
+          Unfollow
+        {% endif %}
+      </a>
+      {% endif %}
+      <p class="text-secondary mt-3">{{ review.timestamp|timesince }} ago</p>
+    </div>
+  </div>

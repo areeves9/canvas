@@ -1,22 +1,26 @@
 {% load rating_icon %}
 
 {% if reviews %}
-<div class="card mt-4">
-    <div class="card-body">
-        <h5 class="card-title">Latest Reviews</h5>
-        {% for review in reviews|slice:":10" %}
-        <p class="text-center">
-            {% include "partials/strains/strain_review_method_icon.html" %}
-            <a href="{{ review.get_absolute_url }}"><u>{{ review.title }}</u></a>
-            {{ review.rating|rating_icon }}
-            by
-            <a class="" href="{% url 'accounts:user' review.user %}">
-                <u>
-                {{ review.user }}
-                </u>
-            </a> 
-        </p>
-        {% endfor %}
+<div class="row mt-4">
+    <div class="col-12">
+       <a class="text-decoration-none text-dark" href="{% url 'reviews:strain_reviews' strain.id %}">
+        <h5 class="mt-5 d-inline">Reviews {{ reviews.count }}</h5>
+        <p class="float-right">Show all</p>
+      </a>
+      <hr/>
     </div>
+    {% for review in reviews|slice:":10" %}
+    <a class="text-decoration-none text-dark" href="{{ review.get_absolute_url }}">
+      <div class="media">
+          <img style="height: 5rem; width: 5rem;" class="rounded-circle mr-3" src="{{ review.user.profile.photo.url }}" alt="Generic placeholder image">
+        <div class="media-body">
+          <h5 class="font-weight-bold mt-0">{{ review.user }}</h5>
+          {{ review.content }}
+        </div>
+      </div>
+      <hr/>
+    </a>
+    {% endfor %}
+  </div>
 </div>
 {% endif %}

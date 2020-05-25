@@ -1,16 +1,17 @@
 {% load rating_icon %}
 <div class="card-body">
-    <h5 class="card-title">
-        {% include "partials/strains/strain_review_method_icon.html" %}
-        <a class="text-dark card-text font-weight-bold" href="{{ review.strain.get_absolute_url }}">{{ review.strain }}</a>
-        <span style="font-size: 1.1rem;" class="float-right">
-            {{ review.rating|floatformat:1 }} • <i class="fas fa-star text-success"></i>
-        </span>
+    <a class="btn btn-light btn-sm border-dark">
+        {{ review.method|title }} {% include "partials/strains/strain_review_method_icon.html" %}
+    </a>
+    <span style="font-size: 1.1rem;" class="float-right font-weight-bold">
+        {{ review.rating|floatformat:1 }}<i class="fas fa-star text-success"></i>
+    </span>
+    <h5 class="mt-3 card-title text-dark font-weight-bold">
+        {{ review.strain }}
     </h5>
-
     <p class="mt-1 card-text">
         <span class="mr-1 font-weight-bold">
-            <a class="text-dark" href="{% url 'accounts:user' review.user %}">{{ review.user }}</a>
+            {{ review.user }}
         </span>
         {{ review.content|truncatechars:115 }}
     </p>
