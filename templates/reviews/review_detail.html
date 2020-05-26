@@ -47,15 +47,12 @@
     <div class="col-sm-6">
       <h5 class="mt-5">Method</h5>
       <hr/>
-        <a class="btn btn-light border-dark">
-          {{ review.method|title }} {% include "partials/strains/strain_review_method_icon.html" %}
-        </a>
+        {% include "partials/review_method_badge.html" %}
       </h5>
     </div>
     <div class="col-sm-6">
       <h5 class="mt-5">Photo</h5>
       <hr/>
-      </h5>
       <div class="card">
         {% include "partials/reviews/review_card_photo.html" %}
       </div> <!--/.card-->

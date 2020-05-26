@@ -56,7 +56,11 @@
           </a>
           {% elif target|get_class == 'Review' %}
           <a href="{{ target.get_absolute_url }}">
+            {% if target.photo %}
             <img style="height: 53px; width: 53px;" class="mx-auto d-block rounded" src="{{ target.photo.url }}"/>
+            {% else %}
+            <img style="height: 53px; width: 53px;" class="mx-auto d-block rounded" src="https://via.placeholder.com/250/"/>
+            {% endif %}
           </a>
           {% endif %}
           

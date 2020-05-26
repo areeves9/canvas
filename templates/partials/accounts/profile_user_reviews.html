@@ -9,7 +9,7 @@
         <div class="col-12 mt-4">
             <div class="media">
                 <a href="{% url 'reviews:review_detail' review.id %}">
-                    {% if review.photo.url %}
+                    {% if review.photo %}
                     <img style="height: 53px; width: 53px;" class="mr-3" src="{{ review.photo.url }}" alt="Card image cap">
                     {% else %}
                     <img style="height: 53px; width: 53px;" class="mr-3" src="https://via.placeholder.com/250" alt="Card image cap">

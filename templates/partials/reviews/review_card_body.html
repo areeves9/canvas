@@ -1,11 +1,9 @@
 {% load rating_icon %}
 <div class="card-body">
-    <a class="btn btn-light btn-sm border-dark">
-        {{ review.method|title }} {% include "partials/strains/strain_review_method_icon.html" %}
-    </a>
     <span style="font-size: 1.1rem;" class="float-right font-weight-bold">
         {{ review.rating|floatformat:1 }}<i class="fas fa-star text-success"></i>
     </span>
+    {% include "partials/review_method_badge.html" %}
     <h5 class="mt-3 card-title text-dark font-weight-bold">
         {{ review.strain }}
     </h5>

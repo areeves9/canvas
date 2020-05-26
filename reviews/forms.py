@@ -13,6 +13,10 @@ class ShareReviewForm(forms.Form):
 
 
 class ReviewForm(forms.ModelForm):
+    photo = forms.ImageField(
+        required=True,
+    )
+
     class Meta:
         model = Review
         fields = [
