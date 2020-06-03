@@ -2,8 +2,6 @@ import os
 
 from .settings import BASE_DIR
 
-DEBUG = True
-
 ALLOWED_HOSTS = []
 
 HAYSTACK_CONNECTIONS = {
