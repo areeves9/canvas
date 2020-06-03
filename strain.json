@@ -1,0 +1,20 @@
+[
+{
+    "model": "reviews.strain",
+    "pk": 25,
+    "fields": {
+        "name": "AK-47",
+        "summary": "AK",
+        "lineage": null,
+        "genetics": null,
+        "photo": "",
+        "photo_url": "http://www.cannabisreports.com/images/strains/1/full_1e54eaa60d64f80c167bc392abaae7704a1ef057.jpg",
+        "height_field": 0,
+        "width_field": 0,
+        "users_like": [
+            2,
+            1
+        ]
+    }
+}
+]
