@@ -22,7 +22,7 @@ BASE_DIR = os.path.dirname(os.path.dirname(__file__))
 
 SECRET_KEY = os.environ['CANVAS_KEY']
 
-DEBUG = os.environ['CANVAS_ENV']
+DEBUG = False
 
 ALLOWED_HOSTS = ['canvasreviews.herokuapp.com', '.herokuapp.com']
 
