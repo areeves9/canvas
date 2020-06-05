@@ -2,35 +2,18 @@
 
 <div class="card">
     <div class="card-body">
-      <p class="card-text text-center">
-        {% if strain.get_average_rating %}
-        {{ strain.get_average_rating }} {% if strain.get_average_rating > 0 %}<i class="text-success fas fa-star"></i> • 
-        <span class="text-muted">
-          <u>
-            {{ strain.user_review.all.count }}
-            <a class="mr-1" href="{% url 'reviews:strain_reviews' strain.id %}">
-              review{{ strain.user_review.all|pluralize:"s" }} 
-            </a> 
-          </u>
-        </span>
-        {% endif %}
-        {% if total_likes %}
-        <span style="font-size: 1.1rem;" class="">
-          • <i class="text-success fas fa-heart"></i> {{ total_likes }} Like{{ total_likes|pluralize }}</span>
-        </span>
-        {% endif %}
-        {% endif %}
-      </p>
-      {% if strain.lineage %}
-      <hr>
-      <h3 class="font-weight-bold mt-2 text-center">{{ strain }}</h3>
-      <hr>
-      <h5 class="text-center">Ancestry</h5>
-      {% include "partials/strains/strain_detail_lineage.html" %}
-      {% else %}
-      <h3 class="font-weight-bold  mt-2 text-center">{{ strain }}</h3>
-
+      <h2 class="mt-2 text-left">{{ strain }}</h2>
+      {% if total_likes %}
+      <span style="font-size: 1.1rem;" class="float-right">
+           <i class="text-success fas fa-heart"></i> {{ total_likes }} Like{{ total_likes|pluralize }}</span>
+      </span>
       {% endif %}
+      {% include "partials/strains/strain_card_rating.html" %}
+       <!-- {% if strain.lineage %}
+       <hr/>
+       <h5 class="text-left">Parent Landraces</h5>
+       {% include "partials/strains/strain_detail_lineage.html" %}
+       {% endif %} -->
     </div>
   </div>
 

@@ -1,7 +1,6 @@
 from django.http import HttpResponseRedirect
 from django.urls import reverse
 from django.contrib.auth import login
-from django.contrib.auth.decorators import user_passes_test
 
 
 def index(request):

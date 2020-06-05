@@ -93,10 +93,9 @@ HAYSTACK_CONNECTIONS = {
         'INDEX_NAME': 'haystack_reviews',
     },
 }
+
 if ES_URL.username:
     HAYSTACK_CONNECTIONS['default']['KWARGS'] = {"http_auth": ES_URL.username + ':' + ES_URL.password}
-
-
 
 HAYSTACK_SIGNAL_PROCESSOR = 'haystack.signals.RealtimeSignalProcessor'
 
@@ -107,7 +106,6 @@ DATABASES = {
         'ENGINE': 'django.db.backends.postgresql_psycopg2',
     }
 }
-
 
 import dj_database_url
 DATABASES['default'] = dj_database_url.config()
@@ -173,7 +171,8 @@ sentry_sdk.init(
     dsn=os.environ.get('SENTRY_DSN'),
     integrations=[DjangoIntegration()]
 )
-# if DEBUG == True:
+
+# if DEBUG:
 #     try:
 #         from .local_settings import *
 #     except ImportError:
