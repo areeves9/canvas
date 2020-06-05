@@ -17,11 +17,7 @@ from django.contrib.auth.views import (
 app_name = 'accounts'
 
 urlpatterns = [
-    re_path(r'^register/$', CreateView.as_view(
-                template_name='registration/registration_form.html',
-                form_class=UserRegisterForm,
-                success_url='/reviews/'
-            ), name='register'),
+    re_path(r'^register/$', views.RegistrationView.as_view(), name='register'),
     re_path(r'^logout/$', LogoutView.as_view(
                 template_name='registration/logged_out.html',
                 next_page='/'

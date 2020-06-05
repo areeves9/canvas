@@ -1,18 +1,37 @@
+from common.decorators import ajax_required
+
+from django.http import Http404, JsonResponse
+from django.urls import reverse, reverse_lazy
 from django.shortcuts import render, redirect
 
 from django.contrib import messages
+from django.contrib.auth import login, authenticate
 from django.contrib.auth.models import User
-from django.views.decorators.http import require_POST
-from common.decorators import ajax_required
 from django.contrib.auth.decorators import login_required
-from django.http import Http404, JsonResponse
 
-from accounts.models import Profile, Follow
-from accounts.forms import ProfileForm, UserForm
+from django.views.generic.edit import CreateView
+from django.views.decorators.http import require_POST
+
+
+from accounts.models import Follow
+from accounts.forms import ProfileForm, UserForm, UserRegisterForm
 
 from reviews.models import Review
 from actions.models import Action, create_action
 # Create your views here.
+
+
+class RegistrationView(CreateView):
+    template_name = 'registration/registration_form.html'
+    form_class = UserRegisterForm
+    success_url = reverse_lazy('reviews:reviews')
+
+    def form_valid(self, form):
+        valid = super(RegistrationView, self).form_valid(form)
+        username, password = form.cleaned_data.get('username'), form.cleaned_data.get('password1')
+        new_user = authenticate(username=username, password=password)
+        login(self.request, new_user)
+        return valid
 
 
 @ajax_required
@@ -93,7 +112,7 @@ def profile_update(request):
             user.save()
             profile.save()
             messages.success(request, "Profile updated successfully.")
-            return redirect("accounts:profile")
+            return redirect(reverse("accounts:profile"))
         else:
             messages.error(request, "Please correct the fields below.")
     else:

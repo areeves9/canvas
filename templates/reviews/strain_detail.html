@@ -1,5 +1,7 @@
+
 {% extends "base.html" %}
 {% block head_title %}{{ strain.name }} | {{ block.super }}{% endblock head_title %}
+{% load split_lists %}
 {% block content %}
 
 <div class="container header-container">
@@ -15,8 +17,10 @@
   </nav>
 </div>
 
-<div class="container">
-  <div class="row mt-4">
+{% include "messages_display.html" %}
+
+<div style="padding-top: 100px;" class="container">
+  <div class="row">
     <div class="col-sm-6">
       <div class="card" style="position: relative !important;">
          {% include "partials/strains/strain_detail_photo.html" %}
@@ -27,12 +31,33 @@
     </div> <!--/.col-sm-6-->
   </div> <!--/.row-->
   {% include "partials/strains/strain_detail_social.html" %}
+
+  <div class="row mt-5">
+    <div class="col-6">
+      {% if strain.photo_url %}
+      <img style="height: 10rem; width: 10rem;" 
+      class="rounded-circle" src="{{ strain.photo_url }}"/>
+      {% endif %}
+      <h2 class="ml-5 d-inline">{{ strain }}</h2>
+    </div>
+    <hr/>
+  </div>
+  <div class="row">
+    <div class="col-12">
+      <hr>
+      <p class="mt-5">
+        {{ strain.summary }}
+      </p></div>
+
+  </div>
+  
+
   {% include "partials/strains/strain_detail_reviews.html" %}
 
 
 <style>
-  .header-container {
-    padding-bottom: 65px;
+  div.alert {
+    margin-top: 50px;
   }
 </style>
 

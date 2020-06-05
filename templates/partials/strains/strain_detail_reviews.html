@@ -4,22 +4,25 @@
 <div class="row mt-4">
     <div class="col-12">
        <a class="text-decoration-none text-dark" href="{% url 'reviews:strain_reviews' strain.id %}">
-        <h5 class="mt-5 d-inline">Reviews {{ reviews.count }}</h5>
-        <p class="float-right">Show all</p>
+        <h5 class="mt-5 d-inline btn btn-secondary">Reviews {{ reviews.count }}</h5>
+        <p class="font-weight-bold float-right">Show all</p>
       </a>
       <hr/>
     </div>
     {% for review in reviews|slice:":10" %}
-    <a class="text-decoration-none text-dark" href="{{ review.get_absolute_url }}">
-      <div class="media">
-          <img style="height: 5rem; width: 5rem;" class="rounded-circle mr-3" src="{{ review.user.profile.photo.url }}" alt="Generic placeholder image">
-        <div class="media-body">
-          <h5 class="font-weight-bold mt-0">{{ review.user }}</h5>
-          {{ review.content }}
+    <div class="col-12">
+      <a class="text-decoration-none text-dark" href="{{ review.get_absolute_url }}">
+        <div class="media">
+            <img style="height: 5rem; width: 5rem;" class="rounded-circle mr-3" src="{{ review.user.profile.photo.url }}" alt="Generic placeholder image">
+          <div class="media-body">
+            <h5 class="font-weight-bold mt-0">{{ review.user }}</h5>
+            {{ review.content }}
+          </div>
         </div>
-      </div>
-      <hr/>
-    </a>
+        <hr/>
+      </a>
+
+    </div>
     {% endfor %}
   </div>
 </div>

@@ -6,25 +6,24 @@
   <nav class="navbar navbar-expand-lg navbar-light bg-white border border-bottom-1 fixed-top">
     <ul class="nav navbar-nav navbar-logo mx-auto">
       <li class="nav-item text-center">
-        <a class="text-dark nav-link font-weight-bold" href="#">Canvas</a>
+         <a class="text-dark nav-link font-weight-bold" href="#">
+           {% if strain %}{{ strain }} Reviews{% else %}Canvas{% endif %}
+          </a>
       </li>
     </ul> 
   </nav>
 </div>
 
-<div class="container">
+{% include 'messages_display.html' %}
+
+<div style="padding-top: 100px;" class="container">
   <div class="row justify-content-center align-items-center">
     <div id="review-list" class="col-sm-6">
         {% include "partials/reviews/review_card.html" %}
-    </div>
+    </div> <!--/.col-sm-6-->
   </div> <!--/.row-->
 </div> <!--/.container-->
 
-<style>
-  .header-container {
-    padding-bottom: 100px;
-  }
-</style>
 {% endblock %}
 
 {% block domready %}

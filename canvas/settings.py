@@ -22,7 +22,7 @@ BASE_DIR = os.path.dirname(os.path.dirname(__file__))
 
 SECRET_KEY = os.environ['CANVAS_KEY']
 
-DEBUG = os.environ['CANVAS_ENV']
+DEBUG = True
 
 ALLOWED_HOSTS = ['canvasreviews.herokuapp.com', '.herokuapp.com']
 
@@ -93,10 +93,9 @@ HAYSTACK_CONNECTIONS = {
         'INDEX_NAME': 'haystack_reviews',
     },
 }
+
 if ES_URL.username:
     HAYSTACK_CONNECTIONS['default']['KWARGS'] = {"http_auth": ES_URL.username + ':' + ES_URL.password}
-
-
 
 HAYSTACK_SIGNAL_PROCESSOR = 'haystack.signals.RealtimeSignalProcessor'
 
@@ -107,7 +106,6 @@ DATABASES = {
         'ENGINE': 'django.db.backends.postgresql_psycopg2',
     }
 }
-
 
 import dj_database_url
 DATABASES['default'] = dj_database_url.config()
@@ -173,8 +171,9 @@ sentry_sdk.init(
     dsn=os.environ.get('SENTRY_DSN'),
     integrations=[DjangoIntegration()]
 )
-# if DEBUG:
-#     try:
-#         from .local_settings import *
-#     except ImportError:
-#         pass
+
+if DEBUG==True:
+    try:
+        from .local_settings import *
+    except ImportError:
+        pass
