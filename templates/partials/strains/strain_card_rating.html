@@ -1,6 +1,6 @@
 <p class="card-text text-left">
     {% if strain.get_average_rating %}
-    {{ strain.get_average_rating }} {% if strain.get_average_rating > 0 %}<i class="text-success fas fa-star"></i> • 
+    {{ strain.get_average_rating }} {% if strain.get_average_rating > 0 %}<i class="text-warning fas fa-star"></i> • 
     <span class="text-muted">
         <u>
         {{ strain.user_review.all.count }}

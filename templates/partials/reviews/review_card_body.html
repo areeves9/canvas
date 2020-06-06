@@ -1,7 +1,7 @@
 {% load rating_icon %}
 <div class="card-body">
     <span style="font-size: 1.1rem;" class="float-right font-weight-bold">
-        {{ review.rating|floatformat:1 }}<i class="fas fa-star text-success"></i>
+        {{ review.rating|floatformat:1 }}<i class="fas fa-star text-warning"></i>
     </span>
     {% include "partials/review_method_badge.html" %}
     <h5 class="mt-3 card-title text-dark font-weight-bold">
