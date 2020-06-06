@@ -21,24 +21,36 @@
 
 <div style="padding-top: 100px;" class="container">
   <div class="row">
-    <div class="col-sm-6">
-      <div class="card" style="position: relative !important;">
+    <div class="col-sm-6 mb-4">
+      <div class="card">
          {% include "partials/strains/strain_detail_photo.html" %}
       </div> <!--/.card-->
     </div> <!--/.col-sm-6-->
     <div class="col-sm-6">
       {% include "partials/strains/strain_card.html" %}
+
+      {% if strain.lineage %}
+      <div class="card mt-2">
+        <div class="card-body">
+          <h2 class="mt-2 text-left">Lineage</h2>
+          <hr/>
+          {% include "partials/strains/strain_detail_lineage.html" %}
+        </div> <!--/.card-body-->
+      </div> <!--/.card-->
+      {% endif %}
     </div> <!--/.col-sm-6-->
   </div> <!--/.row-->
   {% include "partials/strains/strain_detail_social.html" %}
 
   <div class="row mt-5">
-    <div class="col-sm-6">
+    <div class="col-3">
       {% if strain.photo_url %}
-      <img style="height: 10rem; width: 10rem;" 
+      <img style="height: 5rem; width: 5rem;" 
       class="rounded-circle" src="{{ strain.photo_url }}"/>
       {% endif %}
-      <h2 class="d-inline ml-5 mr-auto">{{ strain }}</h2>
+    </div>
+    <div class="col-9">
+      <h2 class="mt-3 mr-auto">{{ strain }}</h2>
     </div>
     <hr/>
   </div>
