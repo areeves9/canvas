@@ -157,7 +157,7 @@ def review_update(request, id=None):
         }
         return render(request, "reviews/review_form.html", context)
     else:
-        messages.success(request, "Review failed to update.")
+        messages.error(request, "No permissions for this page.")
         raise Http404("No permissions for this page.")
 
 
@@ -170,6 +170,7 @@ def review_delete(request, id=None):
         messages.success(request, "Deleted review.")
         return HttpResponseRedirect(reverse('accounts:profile'))
     else:
+        messages.error(request, "No permissions for this page.")
         raise Http404("No permissions for this page.")
 
 
