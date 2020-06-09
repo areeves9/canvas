@@ -1,0 +1,15 @@
+{% extends "exception.html" %}
+
+{% block content %}
+<div class="h-100 jumbotron jumbotron-fluid">
+    <div class="container">
+        <h1 class="display-4">404</h1>
+        <p class="lead">Not Found</p>
+        <hr class="my-4">
+        <p>Requested resource not found</p>
+        <p class="lead">
+            <a class="btn btn-primary btn-lg" href="{% url 'reviews:reviews' %}" role="button">Back</a>
+        </p>
+    </div>
+</div>
+{% endblock %}

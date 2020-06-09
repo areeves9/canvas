@@ -2,7 +2,7 @@
 {% block head_title %} Latest Reviews | {{ block.super }}{% endblock head_title %}
 {% block content %}
 
-<div class="container header-container">
+<div class="pb-5 container header-container">
   <nav class="navbar navbar-expand-lg navbar-light bg-white border border-bottom-1 fixed-top">
     <ul class="nav navbar-nav navbar-logo mx-auto">
       <li class="nav-item text-center">
@@ -16,7 +16,7 @@
 
 {% include 'messages_display.html' %}
 
-<div style="padding-top: 100px;" class="container">
+<div class="pt-5 container">
   <div class="row justify-content-center align-items-center">
     <div id="review-list" class="col-sm-6">
         {% include "partials/reviews/review_card.html" %}

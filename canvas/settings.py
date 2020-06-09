@@ -22,7 +22,7 @@ BASE_DIR = os.path.dirname(os.path.dirname(__file__))
 
 SECRET_KEY = os.environ['CANVAS_KEY']
 
-DEBUG = True
+DEBUG = False
 
 ALLOWED_HOSTS = ['canvasreviews.herokuapp.com', '.herokuapp.com']
 
@@ -172,8 +172,8 @@ sentry_sdk.init(
     integrations=[DjangoIntegration()]
 )
 
-if DEBUG==True:
-    try:
-        from .local_settings import *
-    except ImportError:
-        pass
+# if DEBUG:
+#     try:
+#         from .local_settings import *
+#     except ImportError:
+#         pass

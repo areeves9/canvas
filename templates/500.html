@@ -1,0 +1,15 @@
+{% extends "exception.html" %}
+
+{% block content %}
+<div class="h-100 jumbotron jumbotron-fluid">
+    <div class="container">
+        <h1 class="display-4">500</h1>
+        <p class="lead">Sever error</p>
+        <hr class="my-4">
+        <p>There was an error on the server</p>
+        <p class="lead">
+            <a class="btn btn-primary btn-lg" href="{% url 'reviews:reviews' %}" role="button">Back</a>
+        </p>
+    </div>
+</div>
+{% endblock %}

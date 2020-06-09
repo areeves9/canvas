@@ -1,9 +1,8 @@
-
 {% if countries %}
 <ul class="list-group list-group-horizontal">
   {% for country, value in countries.items %}
-  <li class="mx-auto list-group-item border-0">
-    <img style="height: 30px; width: 40px;" src="http://www.geognos.com/api/en/countries/flag/{{ value }}.png">
+  <li class="mx-auto list-group-item p-0">
+    <img style="height: 2rem; width: 3rem;" class="border border-dark" src="http://www.geognos.com/api/en/countries/flag/{{ value }}.png">
   </li>
   {% endfor %}
 </ul>

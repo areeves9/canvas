@@ -15,6 +15,7 @@ from django.template.loader import render_to_string
 
 from django.urls import reverse
 from django.core.paginator import Paginator, EmptyPage, PageNotAnInteger
+from django.core.exceptions import PermissionDenied
 from django.core.mail import EmailMultiAlternatives
 
 from reviews.forms import ReviewForm, CommentForm, ShareReviewForm
@@ -139,7 +140,9 @@ def strain_like(request):
 @login_required
 def review_update(request, id=None):
     review = get_object_or_404(Review, id=id)
-    if review.user == request.user:
+    if review.user != request.user:
+        raise PermissionDenied
+    elif review.user == request.user:
         form = ReviewForm(
             request.POST or None,
             request.FILES or None,
@@ -156,22 +159,18 @@ def review_update(request, id=None):
             "review": review,
         }
         return render(request, "reviews/review_form.html", context)
-    else:
-        messages.error(request, "No permissions for this page.")
-        raise Http404("No permissions for this page.")
-
+        
 
 @login_required
 def review_delete(request, id=None):
     review = get_object_or_404(Review, id=id)
-    if review.user == request.user:
+    if review.user != request.user:
+        raise PermissionDenied
+    elif review.user == request.user:
         review.delete()
         create_action(request.user, 'deleted', review)
         messages.success(request, "Deleted review.")
-        return HttpResponseRedirect(reverse('accounts:profile'))
-    else:
-        messages.error(request, "No permissions for this page.")
-        raise Http404("No permissions for this page.")
+        return HttpResponseRedirect(reverse('reviews:reviews'))
 
 
 @login_required
