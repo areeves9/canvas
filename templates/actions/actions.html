@@ -15,6 +15,9 @@
 
 <div class="container-fluid">
     {% for action in actions %}
+    {% if action.target %}
+
+
     <div class="mt-4 mb-4 row">
       <div class="col-3">
           <a href="{% url 'accounts:user' action.user %}">
@@ -25,24 +28,18 @@
               {% endif %}
           </a>
       </div>
-      <div class="col-6 text-center font-weight-bold text-dark">
+      <div class="col-6 text-center font-weight-bold text-dark my-auto">
           <a href="{% url 'accounts:user' action.user %}">
               {{ action.user }}
           </a>
-          {{ action.verb }}
-  
-          {% if action.target %}
+          {{ action.verb }} {% if action.target|get_class == 'Review' %}your review{% elif action.target|get_class == 'User' %}you{% endif %}
 
           {% with target=action.target %}
-            {% if target.profile %}
-          <a class="" href="{% url 'accounts:user' target.username %}">
-              {{ target }}
-          </a>        
-            {% else %}
-          <a href="{{ target.get_absolute_url }}">
-              {{ target }}
+          {% if not target.profile %}
+              <a href="{{ target.get_absolute_url }}">
+            {{ target }}
           </a>
-            {% endif %}
+          {% endif %}
 
       </div>
       <div class="col-3">
@@ -65,9 +62,10 @@
           {% endif %}
           
           {% endwith %}
-          {% endif %}
+
         </div>
       </div> <!--/.row-->
+       {% endif %}
       {% endfor %}
     </div>
 

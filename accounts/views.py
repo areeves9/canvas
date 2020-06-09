@@ -127,7 +127,7 @@ def profile_update(request):
 
 @login_required
 def actions(request):
-    actions = Action.objects.filter(user=request.user)
+    actions = Action.objects.filter(target_id__in=[review.pk for review in request.user.user_reviews.all()]).filter(target_content=10).exclude(user=request.user) | Action.objects.filter(verb='is following', target_id=request.user.pk).order_by('-created')
     actions = actions[:10]
     context = {
         'actions': actions,

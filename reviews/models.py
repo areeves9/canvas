@@ -111,7 +111,7 @@ class Review(models.Model):
     user = models.ForeignKey(
         settings.AUTH_USER_MODEL,
         on_delete=models.PROTECT,
-        related_name="user",
+        related_name="user_reviews",
         default=1
     )
     photo = models.ImageField(
