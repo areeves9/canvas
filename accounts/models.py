@@ -1,7 +1,4 @@
-import os
 from io import BytesIO
-from django.core.files import File
-from pathlib import Path  # python 3.6+ only!
 from django.core.files.storage import default_storage
 
 
@@ -9,10 +6,12 @@ from PIL import Image, ExifTags
 from django.db import models
 from django.conf import settings
 from django.contrib.auth.models import User
-from django.db.models.signals import pre_save, post_save
+from django.db.models.signals import post_save
 from django.dispatch import receiver
 
 # Create your models here.
+
+
 @receiver(post_save, sender=User)
 def create_user_profile(sender, instance, created, **kwargs):
     if created:
@@ -31,7 +30,8 @@ def upload_location(instance, filename):
 class Profile(models.Model):
     user = models.OneToOneField(
         settings.AUTH_USER_MODEL,
-        on_delete=models.CASCADE
+        on_delete=models.CASCADE,
+        related_name='profile',
     )
     bio = models.TextField(max_length=1000, blank=True)
     location = models.CharField(max_length=30, blank=True)
@@ -46,6 +46,9 @@ class Profile(models.Model):
     width_field = models.IntegerField(default=0, null=True)
     height_field = models.IntegerField(default=0, null=True)
 
+    def __str__(self):
+        return 'Profile: {}'.format(self.user)
+
 
 @receiver(post_save, sender=Profile)
 def update_image(sender, instance, **kwargs):
@@ -55,10 +58,10 @@ def update_image(sender, instance, **kwargs):
         if hasattr(image, '_getexif'):
             try:
                 # iterate through the EXIF tags
-                for orientation in ExifTags.TAGS.keys(): 
-                    if ExifTags.TAGS[orientation] == 'Orientation': 
+                for orientation in ExifTags.TAGS.keys():
+                    if ExifTags.TAGS[orientation] == 'Orientation':
                         break
-                # get image exif metadata        
+                # get image exif metadata
                 e = image._getexif()
                 # check if e exists
                 if e is not None:
@@ -79,7 +82,6 @@ def update_image(sender, instance, **kwargs):
         if image.width > 100:
             memfile = BytesIO()
             image.thumbnail(size, Image.ANTIALIAS)
-           
             image.save(memfile, "JPEG")
             default_storage.save(instance.photo.name, memfile)
             memfile.close()
@@ -88,7 +90,7 @@ def update_image(sender, instance, **kwargs):
 
 class Follow(models.Model):
     follow_from = models.ForeignKey(
-        User, 
+        User,
         on_delete=models.CASCADE,
         related_name='follow_from'
     )
@@ -103,4 +105,11 @@ class Follow(models.Model):
         return '%s follows %s' % (self.follow_from, self.follow_to)
 
 
-User.add_to_class('following', models.ManyToManyField('self', through=Follow, related_name='followers', symmetrical=False))
+User.add_to_class(
+    'following', models.ManyToManyField(
+        'self',
+        through=Follow,
+        related_name='followers',
+        symmetrical=False
+    )
+)

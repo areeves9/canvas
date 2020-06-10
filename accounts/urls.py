@@ -1,8 +1,5 @@
 from . import views
-from django.urls import re_path, reverse_lazy
-from accounts.forms import UserRegisterForm
-from django.views.generic.edit import CreateView
-from django.contrib.messages.views import SuccessMessageMixin
+from django.urls import re_path
 
 from django.contrib.auth.views import (
     LogoutView,

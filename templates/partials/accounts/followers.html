@@ -19,7 +19,7 @@
             {% endif %}
             <div class="media-body">
                 {% if request.user.id != follower.id %}
-                <a href="#" data-id="{{ follower.id }}" data-action="{% if request.user in follower.followers.all %}un{% endif %}follow" class="follow float-right btn btn-primary">
+                <a href="#" data-id="{{ follower.id }}" data-action="{% if request.user in follower.followers.all %}un{% endif %}follow" class="follow float-right font-weight-bold btn btn-sm btn-primary">
                     {% if request.user in follower.followers.all %}Un{% endif %}follow</a>
                 {% endif %}
                 <h5 class="mt-0"><a href="{% url 'accounts:user' follower.username %}">{{ follower }}</a></h5>

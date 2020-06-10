@@ -1,13 +1,18 @@
 import pytest
-from django.views.generic.edit import CreateView
-
 from django.contrib.auth import login, logout
 from django.contrib.auth.models import User, AnonymousUser
 
-from django.urls import reverse, reverse_lazy
+from django.urls import reverse
 from django.test import RequestFactory, Client
 
-from accounts.views import profile, RegistrationView
+from accounts.views import (
+    actions,
+    profile,
+    profile_user,
+    profile_update,
+    RegistrationView
+)
+
 from mixer.backend.django import mixer
 
 
@@ -60,3 +65,61 @@ class TestViews:
 
         response = profile(request=request)
         assert response.url == '/?next=/accounts/profile/'
+
+    def test_profile_user_authenticated(self):
+        user = mixer.blend(User)
+        username = user.username
+        path = reverse('accounts:user', kwargs={'username': username})
+        request = RequestFactory().get(path)
+        request.user = mixer.blend(User)
+
+        response = profile_user(request=request, username=username)
+        assert response.status_code == 200
+
+    def test_profile_user_non_authenticated(self):
+        user = mixer.blend(User)
+        username = user.username
+        path = reverse('accounts:user', kwargs={'username': username})
+        client = Client()
+        request = RequestFactory().get(path)
+        request.user = AnonymousUser()
+        request.session = client.session
+
+        response = profile_user(request=request, username=username)
+        assert response.url == '/?next=/accounts/profile/{}/'.format(username)
+
+    def test_profile_update_authenticated(self):
+        path = reverse('accounts:profile')
+        request = RequestFactory().get(path)
+        request.user = mixer.blend(User)
+
+        response = profile_update(request=request)
+        assert response.status_code == 200
+
+    def test_profile_update_non_authenticated(self):
+        path = reverse('accounts:profile')
+        client = Client()
+        request = RequestFactory().get(path)
+        request.user = AnonymousUser()
+        request.session = client.session
+
+        response = profile_update(request=request)
+        assert response.url == '/?next=/accounts/profile/'
+
+    def test_actions_authenticated(self):
+        path = reverse('accounts:actions')
+        request = RequestFactory().get(path)
+        request.user = mixer.blend(User)
+
+        response = actions(request=request)
+        assert response.status_code == 200
+
+    def test_actions_non_authenticated(self):
+        path = reverse('accounts:actions')
+        client = Client()
+        request = RequestFactory().get(path)
+        request.user = AnonymousUser()
+        request.session = client.session
+
+        response = actions(request=request)
+        assert response.url == '/?next=/accounts/actions/'
