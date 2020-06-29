@@ -26,6 +26,18 @@ class ReviewForm(forms.ModelForm):
             "photo",
             "rating",
         ]
+        labels = {
+            'title': '',
+            'content': '',
+            'method': '',
+        }
+        help_texts = {
+            'method': 'Choose method of consumption'
+        }
+        widgets = {
+            'title': forms.TextInput(attrs={'placeholder': 'Title'}),
+            'content': forms.Textarea(attrs={'placeholder': 'Description'}),
+        }
 
     def save(self):
         instance = super(ReviewForm, self).save(commit=False)

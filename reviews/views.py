@@ -1,8 +1,9 @@
 import os
+from common.decorators import ajax_required
+
 from email.mime.image import MIMEImage
 from django.http import (
     HttpResponse,
-    Http404,
     HttpResponseRedirect,
     JsonResponse
 )
@@ -14,6 +15,7 @@ from django.views.decorators.http import require_POST
 from django.template.loader import render_to_string
 
 from django.urls import reverse
+from django.core import serializers
 from django.core.paginator import Paginator, EmptyPage, PageNotAnInteger
 from django.core.exceptions import PermissionDenied
 from django.core.mail import EmailMultiAlternatives
@@ -288,6 +290,11 @@ def strains(request):
         "nav": 'strains',
     }
     return render(request, "reviews/strains.html", context)
+
+
+def autocomplete(request):
+    data = list(Strain.objects.all().values())
+    return JsonResponse(data, safe=False)
 
 
 @login_required

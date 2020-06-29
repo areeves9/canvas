@@ -1,7 +1,7 @@
 from django.test import RequestFactory
 from django.urls import reverse
 from django.contrib.auth.models import User, AnonymousUser
-from reviews.views import reviews, strains
+from reviews.views import reviews, strains, autocomplete
 from mixer.backend.django import mixer
 import pytest
 
@@ -39,3 +39,11 @@ class TestViews:
 
         response = strains(request)
         assert '/?next=/reviews/strains/' in response.url
+
+    def test_autocomplete(self):
+        path = reverse('reviews:autocomplete')
+        request = RequestFactory().get(path)
+        request.user = mixer.blend(User)
+
+        response = autocomplete(request)
+        assert response.status_code == 200

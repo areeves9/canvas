@@ -20,4 +20,5 @@ urlpatterns = [
     re_path(r'^strain-like/$', views.strain_like, name="strain_like"),
     re_path(r'^strains/(?P<id>\d+)/share/$', views.strain_share, name="share_strain"),
     re_path(r'^reviews-search/$', TemplateView.as_view(template_name='reviews/reviews_search.html'), name='reviews_search'),
+    re_path(r'^autocomplete/$', views.autocomplete, name='autocomplete'),
 ]

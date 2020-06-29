@@ -20,9 +20,12 @@ from django.conf.urls.static import static
 from django.contrib import admin
 from django.contrib.auth.views import LoginView
 
+from accounts.forms import LoginForm
+
 
 urlpatterns = [
     url(r'^$', LoginView.as_view(
+            form_class=LoginForm,
             template_name='registration/login.html',
             redirect_authenticated_user=True
         ), name='home'),

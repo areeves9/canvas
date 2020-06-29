@@ -1,15 +1,19 @@
+{% load static %}
+
 <form id="search-input" method="get" action="/search/" role="form">
     <div class="form-row align-items-center">
         <div class="col-12">
             <div class="input-group mb-2">
-                <input 
-                    name="q" 
-                    id="q" 
-                    autocomplete="on"
-                    class="form-control" 
-                    type="search" 
-                    placeholder="Search" 
-                    aria-label="Search">
+                <div id="remote">
+                    <input 
+                        name="q" 
+                        id="q" 
+                        autocomplete="off"
+                        class="form-control typeahead" 
+                        type="text" 
+                        placeholder="Search" 
+                        aria-label="Search">
+                </div>
                 <div class="input-group-append">
                     <button class="btn btn-light border border-secondary" type="submit">
                         <i class="fas fa-search"></i></button>
@@ -18,3 +22,26 @@
         </div>
     </div>
 </form>
+<script src="{% static 'reviews/js/typeahead.bundle.js' %}"></script>
+<script src="{% static 'reviews/js/jquery.typeahead.min.js' %}"></script>
+
+<script>
+
+
+
+console.log('hello');
+
+$('#remote .typeahead').typeahead(null, {
+    source: function (query, process) {
+        return $.getJSON(
+            '{% url "reviews:autocomplete" %}',
+            { query: query },
+            function (data) {
+                console.log('hello');
+                return process(data);
+            });
+    }
+   
+});
+
+</script>
