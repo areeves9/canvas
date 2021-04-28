@@ -2,10 +2,15 @@ import os
 import requests
 from django.db import models
 from django.dispatch import receiver
-from django.db.models.signals import post_save
+from django.db.models.signals import pre_save, post_save
 from django.urls import reverse
 from django.contrib.postgres.fields import JSONField
 from django.conf import settings
+
+from PIL import Image
+
+from common.utils import image_rotate, image_compress
+
 
 # Create your models here.
 
@@ -97,6 +102,9 @@ class Strain(models.Model):
 
 @receiver(post_save, sender=Strain)
 def save_strain_image(sender, instance, created, **kwargs):
+    '''
+    Called when the new strain object is saved.
+    '''
     instance.get_strain_image()
 
 
@@ -161,6 +169,13 @@ class Review(models.Model):
 
     def __str__(self):
         return self.title
+
+
+@receiver(post_save, sender=Review)
+def update_image(sender, instance, **kwargs):
+    if instance.photo:
+        image = Image.open(instance.photo)
+        return image_compress(image_rotate(image), instance)
 
 
 class Comment(models.Model):

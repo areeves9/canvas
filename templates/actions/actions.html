@@ -4,19 +4,18 @@
 
 {% block content %}
 <div class="container header-container">
-    <nav class="navbar navbar-expand-lg navbar-light bg-white border border-bottom-1 fixed-top">
-      <ul class="nav navbar-nav navbar-logo mx-auto">
-        <li class="nav-item text-center">
-          <a class="text-dark nav-link font-weight-bold" href="#">Activity</a>
-        </li>
-      </ul>
-    </nav>
-  </div>
+  <nav class="navbar navbar-expand-lg navbar-light bg-white border border-bottom-1 fixed-top">
+    <ul class="nav navbar-nav navbar-logo mx-auto">
+      <li class="nav-item text-center">
+        <a class="text-dark nav-link font-weight-bold" href="#">Activity</a>
+      </li>
+    </ul>
+  </nav>
+</div>
 
 <div class="container-fluid">
     {% for action in actions %}
     {% if action.target %}
-
 
     <div class="mt-4 mb-4 row">
       <div class="col-3">

@@ -18,10 +18,10 @@
                 </a>
                 <div class="card-body">
 
+                    <span class="float-right"><i class="fas fa-heart text-success"></i> {{ strain.users_like.all.count }}</span>
                     <h5 class="card-title">
                         <a href="{% url 'reviews:strain_detail' strain.id %}">{{ strain }}</a>
                     </h5>
-                    <span class="float-right"><i class="fas fa-heart text-success"></i> {{ strain.users_like.all.count }}</span>
 
                     {% if strain.user_review.count > 0 %}
                     <p class="card-text">{{ strain.get_average_rating|floatformat:1 }} <i class="text-success fas fa-star"></i>
