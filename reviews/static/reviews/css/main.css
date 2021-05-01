@@ -21,20 +21,8 @@ body {
 body {
   overflow-x: hidden;
 }
-a {
-  text-decoration: none !important;
-  color: #6c757d;
-}
-
-#review-button {
-  padding: 1rem 1rem; 
-  display: inline; 
-  position: absolute;
-  bottom: 0%;
-  right: 0%;
-  transform: translate(-50%, -50%);
-}
 
 .navbar {
   margin-bottom: 0em;
 }
+

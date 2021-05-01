@@ -14,10 +14,11 @@
     {% endif %}
   </a>
   <div class="card-body">
-    <span class="float-right"><i class="fas fa-heart text-success"></i> {{ strain.users_like.all.count }}</span>
-    <h5 class="card-title">
-      <a class="text-dark font-weight-bold text-decoration-none" href="{% url 'reviews:strain_detail' strain.id %}">{{ strain }}</a>
-    </h5>
+    <h4 class="card-title">
+      <a class="text-secondary font-weight-bold text-decoration-none" href="{% url 'reviews:strain_detail' strain.id %}">{{ strain }}</a>
+    </h4>
+    <!-- <span class="">{{ strain.users_like.all.count }} <i class="fas fa-heart text-success"></i></span> -->
+    {% include "partials/strains/strain_card_rating.html" %}
   </div>
 </div>
 {% endwith %}

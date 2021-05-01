@@ -3,8 +3,8 @@
 {% if reviews %}
 <div class="row mt-4">
     <div class="col-12">
-       <a class="text-decoration-none text-dark" href="{% url 'reviews:strain_reviews' strain.id %}">
-        <h5 class="mt-5 d-inline btn btn-secondary">Reviews {{ reviews.count }}</h5>
+      <a class="text-decoration-none text-dark" href="{% url 'reviews:strain_reviews' strain.id %}">
+        <h5 class="mt-5 d-inline">Reviews <span class="text-success">{{ reviews.count }}</span></h5>
         <p class="font-weight-bold float-right">Show all</p>
       </a>
       <hr/>

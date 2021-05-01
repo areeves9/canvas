@@ -4,64 +4,55 @@
 {% load split_lists %}
 {% block content %}
 
-<div class="container header-container">
-  <nav class="navbar navbar-expand-lg navbar-light bg-white border border-bottom-1 fixed-top">
-    <a href="{{ request.META.HTTP_REFERER }}">
-      <i class="fas fa-chevron-left"></i>
-    </a>
-    <ul class="nav navbar-nav navbar-logo mx-auto">
-      <li class="nav-item text-center">
-        <a class="text-dark nav-link font-weight-bold" href="#">{{ strain }}</a>
-      </li>
-    </ul> 
-  </nav>
-</div>
-
 {% include "messages_display.html" %}
 
 <div style="padding-top: 100px;" class="container">
   <div class="row">
     <div class="col-sm-6 mb-4">
+      <span style="height: 33px; width: 33px; box-shadow: 0 4px 8px rgba(0,0,0,.16);" class="float-right rounded-circle">
+        <a href="" data-id="{{ strain.id }}" 
+          style="height: 33px; width: 33px; box-shadow: 0 4px 8px rgba(0,0,0,.16);"
+          data-action="{% if request.user in users_like %}un{% endif %}like"
+          class="float-right rounded-circle strain-like text-success">
+            <i style="position: relative; left: 8px; top: 7px;" class="strain-like {% if request.user in users_like %}
+            fas fa-heart{% else %}far fa-heart{% endif %}">
+            </i> 
+        </a>
+      </span>
+      <h2 style="font-weight: 500;" class="text-left">{{ strain }}</h2>
+      <!-- <div class>
+        <span>
+          {{ strain.get_average_rating }}
+          <span class="my-rating"></p> 
+        </span>
+        <a class="mr-1" href="{% url 'reviews:strain_reviews' strain.id %}">
+          ({{ strain.user_review.all.count }})
+        </a> 
+      </div> -->
+      
       <div class="card">
-         {% include "partials/strains/strain_detail_photo.html" %}
+        {% include "partials/strains/strain_detail_photo.html" %}
       </div> <!--/.card-->
     </div> <!--/.col-sm-6-->
-    <div class="col-sm-6">
-      {% include "partials/strains/strain_card.html" %}
 
+
+ 
+    <div class="col-sm-6">
       {% if strain.lineage %}
-      <div class="card mt-2">
-        <div class="card-body">
-          <h2 class="mt-2 text-left">Lineage</h2>
-          {% include "partials/strains/strain_detail_lineage.html" %}
-        </div> <!--/.card-body-->
-      </div> <!--/.card-->
+      {% include "partials/strains/strain_detail_lineage.html" %}
       {% endif %}
     </div> <!--/.col-sm-6-->
   </div> <!--/.row-->
-  {% include "partials/strains/strain_detail_social.html" %}
 
-  <div class="row mt-5">
-    <div class="col-3">
-      {% if strain.photo_url %}
-      <img style="height: 5rem; width: 5rem;" 
-      class="rounded-circle" src="{{ strain.photo_url }}"/>
-      {% endif %}
-    </div>
-    <div class="col-9">
-      <h2 class="mt-3 mr-auto">{{ strain }}</h2>
-    </div>
-    <hr/>
+<div class="row">
+  <div class="col-12">
+    <hr>
+    <p class="mt-5">{{ strain.summary }}</p>
   </div>
-  <div class="row">
-    <div class="col-12">
-      <hr>
-      <p class="mt-5">{{ strain.summary }}</p>
-    </div>
-  </div>
+</div>
   
 
-  {% include "partials/strains/strain_detail_reviews.html" %}
+{% include "partials/strains/strain_detail_reviews.html" %}
 
 
 <style>
@@ -72,32 +63,41 @@
 
 {% endblock %}
 
+
 {% block domready %}
-  $('a.strain-like').click(function(e){
-    e.preventDefault();
-    console.log('hello');
-    $.post('{% url "reviews:strain_like" %}',
-  {
-    id: $(this).data('id'),
-    action: $(this).data('action')
-  },
-    function(data){
+
+
+const rating = {{ strain.get_average_rating }}
+
+$(".my-rating").starRating({
+  initialRating: rating,
+  readOnly: true,
+  starSize: 20,
+});
+
+
+$('a.strain-like').click(function(e){
+  e.preventDefault();
+  console.log('hello');
+  $.post('{% url "reviews:strain_like" %}',
+{
+  id: $(this).data('id'),
+  action: $(this).data('action')
+},
+  function(data){
     if (data['status'] == 'ok')
   {
     var previous_action = $('a.strain-like').data('action');
-    console.log(previous_action);
     // toggle data-action
     $('a.strain-like').data('action', previous_action == 'like' ? 'unlike' : 'like');
-
     // toggle heart icon
-    $('a.strain-like').html(previous_action == 'like' ? `<i class="fas fa-heart"></i> Unlike` : `<i class="far fa-heart"></i> Like`);
-
+    $('a.strain-like').html(previous_action == 'like' ? 
+    `<i style="position: relative; left: 8px; top: 7px;" class="fas fa-heart text-success"></i>` : 
+    `<i style="position: relative; left: 8px; top: 7px;" class="far fa-heart text-success"></i>`);
     // update total likes
     var previous_likes = parseInt($('span.count .total').text());
     $('span.count .total').text(previous_action == 'like' ? previous_likes + 1 : previous_likes - 1);
-  }
-    
+  }});
+});
 
-  });
-  });
-  {% endblock %}
+{% endblock %}
