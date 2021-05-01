@@ -20,15 +20,15 @@
         </a>
       </span>
       <h2 style="font-weight: 500;" class="text-left">{{ strain }}</h2>
-      <!-- <div class>
+      {{ strain.get_average_rating }}
+      <div class="col-6">
         <span>
-          {{ strain.get_average_rating }}
           <span class="my-rating"></p> 
         </span>
         <a class="mr-1" href="{% url 'reviews:strain_reviews' strain.id %}">
           ({{ strain.user_review.all.count }})
-        </a> 
-      </div> -->
+        </a>
+      </div>
       
       <div class="card">
         {% include "partials/strains/strain_detail_photo.html" %}
