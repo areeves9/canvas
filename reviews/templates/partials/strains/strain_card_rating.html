@@ -1,15 +1,12 @@
-<div class="my-rating"></div>
-
-<!-- <h5 style="font-size: 18px;"class="card-text text-left font-weight-bold">
-    {% if strain.get_average_rating %}
-    {{ strain.get_average_rating }} {% if strain.get_average_rating > 0 %}
-    <i style="color: #111D13; font-size: 12px;" class="fas fa-star"></i>
-    <u>
-        <a class="mr-1" href="{% url 'reviews:strain_reviews' strain.id %}">
+{% include 'partials/nav_header.html' %}
+<ul style="font-weight: 600;" class="list-group list-group-horizontal">
+    <li class="list-group-item border-0 bg-light m-1 mt-n1 p-0">
+        <span style="color: #058C42;">{{ strain.get_average_rating }}</span>
+    </li>
+    <li class="list-group-item border-0 bg-light m-1 my-rating mt-n2 p-0"></li>
+    <li class="list-group-item border-0 bg-light m-1 mt-n1 p-0"> 
+        <a style="color: #058C42;" href="{% url 'reviews:strain_reviews' strain.id %}">
         ({{ strain.user_review.all.count }})
-        </a> 
-    </u>
-    {% endif %}
-    
-    {% endif %}
-</h5> -->
+        </a>
+    </li>
+  </ul>

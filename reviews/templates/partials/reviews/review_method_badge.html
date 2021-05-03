@@ -1,4 +1,4 @@
-<h5 class="text-left">
+<h5 class="">
     <span class="badge badge-{% if review.method == 'Flower' %}success{% elif review.method == 'Extract'%}dark text-light{% else %}primary{% endif %}">
         {{ review.method|title }} <i class="fas fa-{% if review.method == 'Flower' %}cannabis{% elif review.method == 'Extract' %}tint text-warning{% else %}cookie-bite text-white{% endif %}"></i>
     </span>

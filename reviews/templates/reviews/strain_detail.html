@@ -20,24 +20,22 @@
         </a>
       </span>
       <h2 style="font-weight: 500;" class="text-left">{{ strain }}</h2>
-      {{ strain.get_average_rating }}
-      <div class="col-6">
-        <span>
-          <span class="my-rating"></p> 
-        </span>
-        <a class="mr-1" href="{% url 'reviews:strain_reviews' strain.id %}">
-          ({{ strain.user_review.all.count }})
-        </a>
-      </div>
+
       
       <div class="card">
         {% include "partials/strains/strain_detail_photo.html" %}
       </div> <!--/.card-->
     </div> <!--/.col-sm-6-->
-
-
- 
+    
+    
+    
     <div class="col-sm-6">
+      {% include "partials/strains/strain_card_rating.html" %}
+      <hr/>
+      <p style="font-weight: 600; color: #058C42">
+        <span class="text-dark">Rating based on</span> {{ strain.user_review.all.count }} reviews.
+      </p>
+      <hr/>
       {% if strain.lineage %}
       {% include "partials/strains/strain_detail_lineage.html" %}
       {% endif %}
@@ -67,12 +65,19 @@
 {% block domready %}
 
 
-const rating = {{ strain.get_average_rating }}
+const strainRating = {{ strain.get_average_rating }}
+
 
 $(".my-rating").starRating({
-  initialRating: rating,
+  initialRating: strainRating,
   readOnly: true,
+  totalStars: 5,
+  starShape: 'rounded',
   starSize: 20,
+  emptyColor: 'lightgray',
+  hoverColor: 'salmon',
+  activeColor: '#0D2818',
+  useGradient: false
 });
 
 

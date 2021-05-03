@@ -22,26 +22,5 @@
         </div>
     </div>
 </form>
-<script src="{% static 'reviews/js/typeahead.bundle.js' %}"></script>
-<script src="{% static 'reviews/js/jquery.typeahead.min.js' %}"></script>
-
-<script>
-
-
-
-console.log('hello');
-
-$('#remote .typeahead').typeahead(null, {
-    source: function (query, process) {
-        return $.getJSON(
-            '{% url "reviews:autocomplete" %}',
-            { query: query },
-            function (data) {
-                console.log('hello');
-                return process(data);
-            });
-    }
-   
-});
-
-</script>
+<!-- <script src="{% static 'reviews/js/typeahead.bundle.js' %}"></script>
+<script src="{% static 'reviews/js/jquery.typeahead.min.js' %}"></script> -->

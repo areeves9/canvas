@@ -1,22 +1,27 @@
 {% load rating_icon %}
 
-{% if reviews %}
 <div class="row mt-4">
     <div class="col-12">
       <a class="text-decoration-none text-dark" href="{% url 'reviews:strain_reviews' strain.id %}">
-        <h5 class="mt-5 d-inline">Reviews <span class="text-success">{{ reviews.count }}</span></h5>
-        <p class="font-weight-bold float-right">Show all</p>
+        <h5 class="mt-5 d-inline font-weight-bold">{{ strain }} reviews <span style="color: #058C42; font-size: 1rem;">{{ reviews.count }}</span></h5>
       </a>
-      <hr/>
+      <a style="background-color:#058C42; color: white; font-weight: 600;" class="mx-auto mt-3 mb-3 btn d-block" href="{% url 'reviews:strain_review' strain.id %}">write a review</a>
     </div>
+    {% if reviews %}
+
     {% for review in reviews|slice:":10" %}
     <div class="col-12">
       <a class="text-decoration-none text-dark" href="{{ review.get_absolute_url }}">
         <div class="media">
-            <img style="height: 5rem; width: 5rem;" class="rounded-circle mr-3" src="{{ review.user.profile.photo.url }}" alt="Generic placeholder image">
+            <img style="height: 53px; width: 53px;" class="rounded-circle mr-3" src="{{ review.user.profile.photo.url }}" alt="Generic placeholder image">
           <div class="media-body">
+            <p class="text-secondary float-right">{{ review.timestamp|date:"M d, Y" }}</p>
+            <span class="my-rating"></span>
             <h5 class="font-weight-bold mt-0">{{ review.user }}</h5>
-            {{ review.content }}
+            {% include 'partials/reviews/review_method_badge.html' %}
+            <hr/>
+
+            <p>{{ review.content|truncatechars:200 }} <a style="color: #058C42; font-weight: 600;" href="{% url 'reviews:review_detail' review.id %}">Read Full Review</a></p>
           </div>
         </div>
         <hr/>
@@ -27,3 +32,4 @@
   </div>
 </div>
 {% endif %}
+
