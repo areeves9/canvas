@@ -1,5 +1,17 @@
-<h5 class="">
+<!-- <h5 class="">
     <span class="badge badge-{% if review.method == 'Flower' %}success{% elif review.method == 'Extract'%}dark text-light{% else %}primary{% endif %}">
         {{ review.method|title }} <i class="fas fa-{% if review.method == 'Flower' %}cannabis{% elif review.method == 'Extract' %}tint text-warning{% else %}cookie-bite text-white{% endif %}"></i>
     </span>
-</h5>
+</h5> -->
+
+<span class="badge badge-success">
+    {{ review.method|title }} <i class="fas fa-{% if review.method == 'Flower' %}cannabis{% elif review.method == 'Extract' %}tint{% else %}cookie-bite{% endif %}"></i>
+</span>
+
+<style>
+    .badge-success {
+        background-color: white;
+        color: #23CE6B;
+        border: 2px solid #23CE6B;
+    }
+</style>

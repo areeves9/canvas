@@ -1,0 +1,29 @@
+{% load rating_icon %}
+
+<div class="row mt-4">
+    <div class="col-12">
+      <a class="text-decoration-none text-dark" href="{% url 'reviews:strain_reviews' strain.id %}">
+        <h5 class="mt-5 d-inline font-weight-bold">
+          {{ strain }} reviews <span style="color: #23CE6B; font-size: 1rem; text-decoration: underline;">({{ reviews.count }})</span>
+        </h5>
+      </a>
+      <!-- create review button -->
+      {% include 'partials/reviews/review_button.html' %}
+    </div>  <!-- .col-12 -->
+    {% if reviews %}
+    <!-- iteratre through related reviews -->
+    {% for review in reviews|slice:":10" %}
+    <div class="col-12 mt-4">
+      <div class="card">
+        <div class="card-body">
+          <a class="text-decoration-none text-dark" href="{{ review.get_absolute_url }}">
+            <!-- review media markup -->
+            {% include 'partials/reviews/review_media.html' %}
+          </a>
+        </div>
+      </div>
+    </div> <!-- .col-12.mt-4 -->
+    {% endfor %}
+</div> <!-- .row.mt-4 -->
+    {% endif %}
+

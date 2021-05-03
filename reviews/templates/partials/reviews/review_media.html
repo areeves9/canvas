@@ -1,0 +1,10 @@
+<div class="media">
+    <img style="height: 53px; width: 53px;" class="rounded-circle mr-3" src="{{ review.user.profile.photo.url }}" alt="Generic placeholder image">
+    <div class="media-body">
+      <p class="text-secondary float-right">{{ review.timestamp|date:"M d, Y" }}</p>
+      <span class="my-rating"></span>
+      <h6 style="color: #212529; font-weight: 600;" class="mt-0">{{ review.user }}</h6>
+      <p>{{ review.content|truncatechars:200 }}... <a style="color: #23CE6B; font-weight: 600;" href="{% url 'reviews:review_detail' review.id %}">Full Review</a></p>
+      {% include 'partials/reviews/review_method_badge.html' %}
+    </div> <!-- .media-body -->
+</div> <!-- .media -->

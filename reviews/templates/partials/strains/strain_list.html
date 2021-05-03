@@ -18,7 +18,7 @@
       <a class="text-secondary font-weight-bold text-decoration-none" href="{% url 'reviews:strain_detail' strain.id %}">{{ strain }}</a>
     </h4>
     <!-- <span class="">{{ strain.users_like.all.count }} <i class="fas fa-heart text-success"></i></span> -->
-    {% include "partials/strains/strain_card_rating.html" %}
+    {% include "partials/strains/strain_detail_rating.html" %}
   </div>
 </div>
 {% endwith %}

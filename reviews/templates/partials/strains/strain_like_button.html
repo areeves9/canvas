@@ -1,0 +1,10 @@
+<span style="height: 33px; width: 33px; box-shadow: 0 4px 8px rgba(0,0,0,.16);" class="float-right rounded-circle">
+    <a href="" data-id="{{ strain.id }}" 
+      style="height: 33px; width: 33px; box-shadow: 0 4px 8px rgba(0,0,0,.16); color: #23CE6B;"
+      data-action="{% if request.user in users_like %}un{% endif %}like"
+      class="float-right rounded-circle strain-like">
+        <i style="position: relative; left: 8px; top: 7px;" class="strain-like {% if request.user in users_like %}
+        fas fa-heart{% else %}far fa-heart{% endif %}">
+        </i> 
+    </a>
+</span>
