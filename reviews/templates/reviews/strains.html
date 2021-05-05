@@ -3,20 +3,15 @@
 
 {% block content %}
 
-<div class="container header-container">
-  <nav class="navbar navbar-expand-lg navbar-light bg-white border border-bottom-1 fixed-top">
-    <ul class="nav navbar-nav navbar-logo mx-auto">
-      <li class="nav-item text-center">
-        <a class="text-dark nav-link font-weight-bold" href="#">Strains</a>
-      </li>
-    </ul> 
-  </nav>
-</div>
+{% include 'partials/nav_header.html' %}
 
-<div class="container">
+<div style="padding-top: 100px;" class="container">
   <div class="row justify-content-center align-items-center">
+    <div class="col-md-6">
+      <h2 style="font-weight: 600;" class="text-left">Strains</h2>
+      <hr/>
       {% include "partials/strains/strain_list.html" %}
-
+    </div>
   </div>
 </div> <!--/.container-->
 
@@ -24,10 +19,11 @@
   {% include "partials/strains/strains_pagination.html" %}
 </div>
 
-
 <style>
   .header-container {
     padding-bottom: 100px;
   }
 </style>
 {% endblock %}
+
+

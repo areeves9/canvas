@@ -13,7 +13,7 @@
     <!-- strain photo -->
     <div class="col-sm-6 mb-4">
       {% include 'partials/strains/strain_like_button.html' %}
-      <h2 style="font-weight: 500;" class="text-left">{{ strain }}</h2>
+      <h2 style="font-weight: 600;" class="text-left">{{ strain }}</h2>
       {% include "partials/strains/strain_detail_photo.html" %}
     </div> <!--/.col-sm-6-->
     <!-- strain details -->
@@ -46,26 +46,13 @@
   }
 </style>
 
+
 {% endblock %}
 
 
+
+
 {% block domready %}
-
-
-const strainRating = {{ strain.get_average_rating }}
-
-
-$(".my-rating").starRating({
-  initialRating: strainRating,
-  readOnly: true,
-  totalStars: 5,
-  starShape: 'rounded',
-  starSize: 20,
-  emptyColor: 'lightgray',
-  hoverColor: 'salmon',
-  activeColor: '#0D2818',
-  useGradient: false
-});
 
 
 $('a.strain-like').click(function(e){

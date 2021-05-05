@@ -1,29 +1,6 @@
-{% for strain in strains %}
-{% with total_reviews=strain.user_review.count %}
-{% with total_likes=strain.user_like.count %}
- 
-<div class="card m-1">
-  {% if strain.photo_url %}
-  <a href="{{ strain.get_absolute_url }}">
-    <img class="card-img-top" 
-      src="{{ strain.photo_url }}" 
-      style="object-fit: cover; height: 325px; width: 325px;" 
-      alt="Card image cap">
-    {% else %}
-    <img class="card-img-top" src="https://via.placeholder.com/250" style="object-fit: cover; height: 325px; width: 300px;" alt="Card image cap">
-    {% endif %}
-  </a>
-  <div class="card-body">
-    <h4 class="card-title">
-      <a class="text-secondary font-weight-bold text-decoration-none" href="{% url 'reviews:strain_detail' strain.id %}">{{ strain }}</a>
-    </h4>
-    <!-- <span class="">{{ strain.users_like.all.count }} <i class="fas fa-heart text-success"></i></span> -->
-    {% include "partials/strains/strain_detail_rating.html" %}
-  </div>
-</div>
-{% endwith %}
-{% endwith %}
 
+{% for strain in strains %}
+{% include 'partials/strains/strain_card.html' %}
 {% endfor %}
 
 
