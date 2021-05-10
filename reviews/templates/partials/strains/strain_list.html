@@ -1,6 +1,8 @@
 
 {% for strain in strains %}
+{% with rating=strain.get_average_rating %}
 {% include 'partials/strains/strain_card.html' %}
+{% endwith %}
 {% endfor %}
 
 

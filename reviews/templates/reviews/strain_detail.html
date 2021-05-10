@@ -1,13 +1,11 @@
-
 {% extends "base.html" %}
 {% block head_title %}{{ strain.name }} | {{ block.super }}{% endblock head_title %}
 {% load split_lists %}
 {% block content %}
 
 {% include 'partials/nav_header.html' %}
-
 {% include "messages_display.html" %}
-
+{% load rating_icon %}
 <div style="padding-top: 100px;" class="container">
   <div class="row">
     <!-- strain photo -->
@@ -18,7 +16,27 @@
     </div> <!--/.col-sm-6-->
     <!-- strain details -->
     <div class="col-sm-6">
-      {% include "partials/strains/strain_detail_rating.html" %}
+      <ul style="font-weight: 600;" class="list-group list-group-horizontal">
+        {% with rating=strain.get_average_rating %}
+        <li class="list-group-item border-0 m-1 mt-n1 p-0">
+            <span style="color: #23CE6B;">{% if rating %}{{ rating }}{% endif %}</span>
+        </li>
+        <li class="list-group-item border-0 m-1 mt-n2 p-0">
+          {% if rating %}
+          {{ rating|rating_icon }}
+          {% else %}
+          <p style="font-weight: 600;">Be the first to  <a style="color: #23CE6B; text-decoration: underline;" href="{% url 'reviews:strain_review' strain.id %}">review</a> {{ strain }}.</p>
+          {% endif %}
+        </li>
+
+        {% endwith %}
+        <li class="list-group-item border-0 m-1 mt-n1 p-0"> 
+            <a style="color: #23CE6B; text-decoration: underline;" href="{% url 'reviews:strain_reviews' strain.id %}">
+              {% if rating %}({{ strain.user_review.all.count }}){% endif %}
+            </a>
+        </li>
+      </ul>
+      
       {% with count=strain.user_review.all.count %}
       {% if count > 0 %}
       {% include 'partials/reviews/review_count.html' %}
@@ -39,21 +57,15 @@
   {% include "partials/reviews/review_user_submissions.html" %}
 </div>
 
-
 <style>
   div.alert {
     margin-top: 50px;
   }
 </style>
 
-
 {% endblock %}
 
-
-
-
 {% block domready %}
-
 
 $('a.strain-like').click(function(e){
   e.preventDefault();

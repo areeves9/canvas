@@ -18,14 +18,16 @@
         <div class="card-body">
           <a class="text-decoration-none text-dark" href="{{ review.get_absolute_url }}">
             <!-- review media markup -->
+            {% with rating=review.rating %}
             {% include 'partials/reviews/review_media.html' %}
+            {% endwith %}
           </a>
         </div>
       </div>
     </div> <!-- .col-12.mt-4 -->
     {% endfor %}
 </div> <!-- .row.mt-4 -->
-    {% endif %}
+{% endif %}
 
   
 

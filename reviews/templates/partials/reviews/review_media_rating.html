@@ -1,0 +1,17 @@
+{% load rating_icon %}
+{% if strain.get_average_rating > 0 %}
+<ul style="font-weight: 600;" class="list-group list-group-horizontal">
+    <li class="list-group-item border-0 m-1 mt-n1 p-0">
+        <span style="color: #23CE6B;">{{ rating }}</span>
+    </li>
+    <li class="list-group-item border-0 m-1 mt-n2 p-0">{{ rating|rating_icon }}</li>
+    <li class="list-group-item border-0 m-1 mt-n1 p-0"> 
+        <a style="color: #23CE6B; text-decoration: underline;" href="{% url 'reviews:strain_reviews' strain.id %}">
+        ({{ strain.user_review.all.count }})
+        </a>
+    </li>
+</ul>
+{% else %}
+<p style="font-weight: 600;">Be the first to  <a style="color: #23CE6B; text-decoration: underline;" href="{% url 'reviews:strain_review' strain.id %}">review</a> {{ strain }}.</p>
+{% endif %}
+  
