@@ -6,7 +6,7 @@
 {% include 'partials/nav_header.html' %}
 {% include "messages_display.html" %}
 {% load rating_icon %}
-<div style="padding-top: 100px;" class="container">
+<div style="padding-top: 100px;" id="taco" class="container">
   <div class="row">
     <!-- strain photo -->
     <div class="col-sm-6 mb-4">
@@ -18,10 +18,10 @@
     <div class="col-sm-6">
       <ul style="font-weight: 600;" class="list-group list-group-horizontal">
         {% with rating=strain.get_average_rating %}
-        <li class="list-group-item border-0 m-1 mt-n1 p-0">
+        <li class="list-group-item border-0 m-1 mt-n1 p-0 bg-light">
             <span style="color: #23CE6B;">{% if rating %}{{ rating }}{% endif %}</span>
         </li>
-        <li class="list-group-item border-0 m-1 mt-n2 p-0">
+        <li class="list-group-item border-0 m-1 mt-n2 p-0 bg-light">
           {% if rating %}
           {{ rating|rating_icon }}
           {% else %}
@@ -53,6 +53,9 @@
     <div class="col-12">
       {% include 'partials/strains/strain_detail_summary.html' %}
     </div>
+    <div class="col-12">
+      {% include 'partials/strains/strain_detail_genetics.html' %}
+    </div>
   </div>
   {% include "partials/reviews/review_user_submissions.html" %}
 </div>
@@ -66,6 +69,30 @@
 {% endblock %}
 
 {% block domready %}
+
+
+document.getElementById('mcontainer').addEventListener('click', function(event){
+  const anchor = event.target;
+  if (anchor.className === 'show-link') {
+    event.preventDefault();
+    const less = event.target.parentNode.firstElementChild;
+    const dots = less.firstElementChild;
+    const more = less.nextElementSibling;
+    if (dots.style.display === 'inline') {
+      anchor.innerHTML = 'Show Less';
+      less.style.dislay = 'none';
+      dots.style.display = 'none';
+      more.style.display = 'inline';
+      console.log(more)
+
+    } else {
+
+      less.style.display = 'inline';
+      dots.style.display = 'inline';
+      more.style.display = 'none';
+    };
+  };
+});
 
 $('a.strain-like').click(function(e){
   e.preventDefault();

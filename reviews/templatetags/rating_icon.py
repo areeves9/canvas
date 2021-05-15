@@ -10,10 +10,9 @@ def rating_icon(rating):
     if rating == '':
         return ''
     else:
-        print(type(rating))
         new_rating = math.modf(float(rating))
-        print(new_rating)
+        rem = 5 - new_rating[1]
         if new_rating[0] >= 0.5 and new_rating[0] <= 0.9:
             return mark_safe('<i class="text-secondary fas fa-star"></i>' * int(rating)) + mark_safe('<i class="text-secondary fas fa-star-half-alt"></i>')
         else:
-            return mark_safe('<i class="text-secondary fas fa-star"></i>' * int(rating)) 
+            return mark_safe('<i class="text-secondary fas fa-star"></i>' * int(rating)) + mark_safe('<i class="far fa-star"></i>' * int(rem))

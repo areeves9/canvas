@@ -75,6 +75,7 @@ class Strain(models.Model):
                 r.raise_for_status()
                 if r.status_code == 200:
                     response = r.json()  # json strain object
+                    print(response)
                     # if there is a 200 code, there will be a strain
                     # however it may not have an 'image'
                     image_url = response['data'][0]['image']  # url property of object

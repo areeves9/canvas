@@ -2,7 +2,7 @@
 {% block head_title %} Latest Reviews | {{ block.super }}{% endblock head_title %}
 {% block content %}
 
-<div class="pb-5 container header-container">
+<div class="mcontainer pb-5 container header-container">
   <nav class="navbar navbar-expand-lg navbar-light bg-white border border-bottom-1 fixed-top">
     <ul class="nav navbar-nav navbar-logo mx-auto">
       <li class="nav-item text-center">
@@ -27,6 +27,7 @@
 {% endblock %}
 
 {% block domready %}
+
 var page = 1;
 var empty_page = false;
 var block_request = false;
