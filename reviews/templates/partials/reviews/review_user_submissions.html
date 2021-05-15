@@ -1,6 +1,6 @@
 {% load rating_icon %}
 
-<div class="row mt-4">
+<div id="mcontainer" class="row mt-4">
     <div class="col-12">
       <a class="text-decoration-none text-dark" href="{% url 'reviews:strain_reviews' strain.id %}">
         <h5 class="mt-5 d-inline font-weight-bold">
@@ -16,12 +16,10 @@
     <div class="col-12 mt-4">
       <div class="card">
         <div class="card-body">
-          <a class="text-decoration-none text-dark" href="{{ review.get_absolute_url }}">
-            <!-- review media markup -->
-            {% with rating=review.rating %}
-            {% include 'partials/reviews/review_media.html' %}
-            {% endwith %}
-          </a>
+          <!-- review media markup -->
+          {% with rating=review.rating %}
+          {% include 'partials/reviews/review_media.html' %}
+          {% endwith %}
         </div>
       </div>
     </div> <!-- .col-12.mt-4 -->

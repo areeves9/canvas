@@ -8,12 +8,13 @@
       <h6 style="color: #212529; font-weight: 600;" class="mt-1">{{ review.user }}</h6>
       <hr/>
       <p>
-        <span class="less">
-          {{ review.content|truncatechars:200 }}<span style="display: inline;" class="dots">... </span>
+        <span class="less" data-id="{{ review.id }}">
+          {{ review.content|truncatechars:200 }}<span style="display: inline;" class="dots" data-id="{{ review.id }}">... </span>
         </span>
-        <span style="display: none;" class="more">{{ review.content }}</span>
-        <a class="show" 
-        style="color: #23CE6B; font-weight: 600;" 
+        <span style="display: none;" class="more" data-id="{{ review.id }}">{{ review.content }}</span>
+        <a class="show-link" 
+        style="color: #23CE6B; font-weight: 600;"
+        data-id="{{ review.id }}" 
         href="#">Read More</a>
       </p>
         {% include 'partials/reviews/review_method_badge.html' %}
