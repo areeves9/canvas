@@ -50,14 +50,11 @@
   </div> <!--/.row-->
 <!-- strain summary from leafly.com -->
   <div class="row">
-    <div class="col-12">
-      {% include 'partials/strains/strain_detail_summary.html' %}
-    </div>
-    <div class="col-12">
-      {% include 'partials/strains/strain_detail_genetics.html' %}
-    </div>
+    {% include 'partials/strains/strain_detail_summary.html' %}
+    {% include 'partials/strains/strain_detail_genetics.html' %}
+    {% include 'partials/reviews/review_strain_photos.html' %}
   </div>
-  {% include "partials/reviews/review_user_submissions.html" %}
+  {% include "partials/reviews/review_user_reviews_container.html" %}
 </div>
 
 <style>
@@ -83,10 +80,8 @@ document.getElementById('mcontainer').addEventListener('click', function(event){
       less.style.dislay = 'none';
       dots.style.display = 'none';
       more.style.display = 'inline';
-      console.log(more)
-
     } else {
-
+      anchor.innerHTML = 'Read More';
       less.style.display = 'inline';
       dots.style.display = 'inline';
       more.style.display = 'none';

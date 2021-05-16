@@ -1,0 +1,12 @@
+<h5 class="mt-5 d-inline font-weight-bold">Photos of {{ strain }}</h5>
+<div style="overflow-x: auto; overflow-y: hidden;" class="d-flex flex-row flex-nowrap">
+    {% for review in reviews %}
+    {% if review.photo %}
+    <div class="col-3">
+        <div class="card mb-4" style="width: auto;">
+            <img class="card-img-top" style="object-fit: cover; height: 325px; width: 325px;" src="{{ review.photo.url }}" alt="Card image cap">
+        </div>
+    </div>
+    {% endif %}
+    {% endfor %}
+</div>

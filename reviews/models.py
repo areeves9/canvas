@@ -65,7 +65,8 @@ class Strain(models.Model):
         if len(strain_ratings) > 0:
             ratings = [strain.rating for strain in strain_ratings]
             average = sum(ratings)/len(ratings)
-            return average
+            rounded_average = round(average, 1)
+            return rounded_average
 
     def get_strain_image(self):
         strain_query_url = cannabis_reports_url + "%s" % (self.name)

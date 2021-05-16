@@ -1,7 +1,6 @@
 {% load rating_icon %}
 
 <div class="media">
-    <!-- <img style="height: 53px; width: 53px;" class="rounded-circle mr-3" src="{{ review.user.profile.photo.url }}" alt="Generic placeholder image"> -->
     <div class="media-body">
       <p class="text-secondary float-right">{{ review.timestamp|date:"M d, Y" }}</p>
       <span>{{ review.rating|rating_icon }}</span>
@@ -13,7 +12,7 @@
         </span>
         <span style="display: none;" class="more" data-id="{{ review.id }}">{{ review.content }}</span>
         <a class="show-link" 
-        style="color: #23CE6B; font-weight: 600;"
+        style="color: #23CE6B; font-weight: 600; text-decoration: underline;"
         data-id="{{ review.id }}" 
         href="#">Read More</a>
       </p>
