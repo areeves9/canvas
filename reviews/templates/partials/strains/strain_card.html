@@ -1,21 +1,20 @@
-<div class="card mb-4">
-  {% if strain.photo_url %}
-  <a href="{{ strain.get_absolute_url }}">
-    <img class="card-img-top" 
-      src="{{ strain.photo_url }}" 
-      style="object-fit: cover;" 
-      alt="Card image cap">
-    {% else %}
-    <img class="card-img-top" src="https://via.placeholder.com/250" style="object-fit: cover; height: 325px; width: 300px;" alt="Card image cap">
-    {% endif %}
-  </a>
-  <div class="card-body">
-    <h4 class="card-title">
-      <a style="color: #212529;" class="font-weight-bold text-decoration-none" href="{% url 'reviews:strain_detail' strain.id %}">{{ strain }}</a>
-    </h4>
-    {% include 'partials/reviews/review_media_rating.html' %}
+{% load rating_icon %}
+<a style="text-decoration: none;" class="text-dark" href="{{ strain.get_absolute_url }}">
+  {% include 'partials/strains/strain_detail_photo.html' %}
+  <div class="card mb-4 shadow-sm" style="border: 0;">
+    <div class="card-body bg-light">
+      <h4 class="card-title text-center">{{ strain }}</h4>
+      {% load rating_icon %}
+      {% if rating > 0 %}
+      <span class="d-block text-center mt-n2">{{ rating|rating_icon }}</span>
+      {% else %}
+      <a class="btn d-block shadow-sm" 
+      style="background-color: #6EB257; color: #FFF; font-weight: 600; letter-spacing: 1px;" 
+      href="{% url 'reviews:strain_review' strain.id %}">Review</a>
+      {% endif %}
+    </div>
   </div>
-</div>
+</a>
 
 
 

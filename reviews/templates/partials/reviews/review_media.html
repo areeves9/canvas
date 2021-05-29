@@ -7,12 +7,13 @@
       <h6 style="color: #212529; font-weight: 600;" class="mt-1">{{ review.user }}</h6>
       <hr/>
       <p>
-        <span class="less" data-id="{{ review.id }}">
-          {{ review.content|truncatechars:200 }}<span style="display: inline;" class="dots" data-id="{{ review.id }}">... </span>
+        <span class="less" style="display: inline;" data-id="{{ review.id }}">
+          {{ review.content|slice:"200" }}
+          <span style="display: inline;" class="dots" data-id="{{ review.id }}">...</span>
         </span>
         <span style="display: none;" class="more" data-id="{{ review.id }}">{{ review.content }}</span>
         <a class="show-link" 
-        style="color: #23CE6B; font-weight: 600; text-decoration: underline;"
+        style="color: #6eb257; font-weight: 600; text-decoration: underline;"
         data-id="{{ review.id }}" 
         href="#">Read More</a>
       </p>

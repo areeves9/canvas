@@ -1,16 +1,17 @@
 {% load rating_icon %}
 <div class="card-body">
-    <h5 class="mt-3 card-title text-dark font-weight-bold">
-        {{ review.strain }}
-    </h5>
-    <p style="font-size: 1.1rem;" class="font-weight-bold">
-        {{ review.rating|floatformat:1 }}<i class="fas fa-star text-warning"></i>
-    </p>
+    <h5 class="card-title text-dark font-weight-bold">{{ review.strain }}</h5>
+    <span class="d-block text-left mt-n2">{{ review.rating|rating_icon }}</span>
     <p class="mt-1 card-text">
         <span class="mr-1 font-weight-bold">
             {{ review.user }}
         </span>
-        {{ review.content|truncatechars:115 }}
+        <span class="less">
+            {{ review.content|slice:"60" }}<span style="display: inline;" class="dots" data-id="{{ review.id }}">...</span>
+        </span>
+        <span class="more" style="display: none;">{{ review.content }}</span>
+        <a href="#" style="color: #6c757d;" class="show-link">more</a>
     </p>
-    <p class="text-muted">Posted {{ review.timestamp|timesince }} ago.</p>
+    {% include 'partials/reviews/review_method_badge.html' %}
+    <p class="text-muted mt-2">Posted {{ review.timestamp|timesince }} ago.</p>
 </div>

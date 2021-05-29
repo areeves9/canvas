@@ -16,7 +16,7 @@
 
 {% include 'messages_display.html' %}
 
-<div class="pt-5 container">
+<div id="reviewCardContainer" class="pt-5 container">
   <div class="row justify-content-center align-items-center">
     <div id="review-list" class="col-sm-6">
         {% include "partials/reviews/review_card.html" %}
@@ -27,6 +27,23 @@
 {% endblock %}
 
 {% block domready %}
+
+document.getElementById('reviewCardContainer').addEventListener('click', function(event){
+  const anchor = event.target;
+  if (anchor.className === 'show-link') {
+    event.preventDefault();
+    console.log(event.target.parentNode)
+    const less = event.target.parentNode.firstElementChild.nextElementSibling;
+    const dots = less.firstElementChild;
+    const more = less.nextElementSibling;
+    if (dots.style.display === 'inline') {
+      less.style.display = 'none';
+      dots.style.display = 'none';
+      more.style.display = 'inline';
+      anchor.style.display = 'none';
+    };
+  };
+  });
 
 var page = 1;
 var empty_page = false;

@@ -3,11 +3,8 @@
 {% for review in reviews %}
   <div class="card mb-4">
     {% include "partials/reviews/review_card_header.html" %}
-    <a href="{{ review.get_absolute_url }}" class="text-dark">
-      {% include "partials/reviews/review_card_photo.html" %}
-      {% include "partials/reviews/review_card_body.html" %}
-    </a>
+    {% include "partials/reviews/review_card_photo.html" %}
+    {% include "partials/reviews/review_card_body.html" %}
   </div>
 </a>
- 
 {% endfor %}
