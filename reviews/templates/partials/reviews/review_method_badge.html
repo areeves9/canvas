@@ -1,11 +1,3 @@
-<span style="font-size: 14px;" class="badge badge-success">
+<span style="font-size: 14px;" class="badge bg-light text-dark border border-secondary p-2">
     {{ review.method|title }} <i class="fas fa-{% if review.method == 'Flower' %}cannabis{% elif review.method == 'Extract' %}tint{% else %}cookie-bite{% endif %}"></i>
 </span>
-
-<style>
-    .badge-success {
-        background-color: white;
-        color: #23CE6B;
-        border: 2px solid #23CE6B;
-    }
-</style>

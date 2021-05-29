@@ -13,6 +13,6 @@ def rating_icon(rating):
         new_rating = math.modf(float(rating))
         rem = 5 - new_rating[1]
         if new_rating[0] >= 0.5 and new_rating[0] <= 0.9:
-            return mark_safe('<i class="text-secondary fas fa-star"></i>' * int(rating)) + mark_safe('<i class="text-secondary fas fa-star-half-alt"></i>')
+            return mark_safe('<i style="color: #6EB257" class="fas fa-star"></i>' * int(new_rating[1])) + mark_safe('<i style="color: #6EB257" class="fas fa-star-half-alt"></i>')
         else:
-            return mark_safe('<i class="text-secondary fas fa-star"></i>' * int(rating)) + mark_safe('<i class="far fa-star"></i>' * int(rem))
+            return mark_safe('<i style="color: #6EB257" class="fas fa-star"></i>' * int(new_rating[1])) + mark_safe('<i  style="color: #6EB257" class="far fa-star"></i>' * int(rem))

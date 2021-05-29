@@ -5,15 +5,13 @@
 
 {% include 'partials/nav_header.html' %}
 
-<div style="padding-top: 100px;" class="container">
-  <div class="row justify-content-center align-items-center">
-    <div class="col-md-6">
-      <h2 style="font-weight: 600;" class="text-left">Strains</h2>
-      <hr/>
-      {% include "partials/strains/strain_list.html" %}
-    </div>
+<div style="padding-top: 100px;" class="container-fluid">
+  <h2 style="font-weight: 600;" class="text-left">Explore Strains</h2>
+  <hr/>
+  <div class="row">
+    {% include "partials/strains/strain_list.html" %}
   </div>
-</div> <!--/.container-->
+</div> <!--/.container-fluid -->
 
 <div class="container">
   {% include "partials/strains/strains_pagination.html" %}

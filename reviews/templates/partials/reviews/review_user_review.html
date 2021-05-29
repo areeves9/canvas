@@ -1,0 +1,10 @@
+<div class="col-12 mt-4">
+    <div class="card">
+      <div class="card-body">
+        <!-- review media markup -->
+        {% with rating=review.rating %}
+        {% include 'partials/reviews/review_media.html' %}
+        {% endwith %}
+        </div>
+    </div>
+</div> <!-- .col-12.mt-4 -->

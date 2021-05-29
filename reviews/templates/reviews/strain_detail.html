@@ -7,63 +7,62 @@
 {% include "messages_display.html" %}
 {% load rating_icon %}
 <div style="padding-top: 100px;" id="taco" class="container">
-  <div class="row">
-    <!-- strain photo -->
-    <div class="col-sm-6 mb-4">
-      {% include 'partials/strains/strain_like_button.html' %}
-      <h2 style="font-weight: 600;" class="text-left">{{ strain }}</h2>
-      {% include "partials/strains/strain_detail_photo.html" %}
-    </div> <!--/.col-sm-6-->
-    <!-- strain details -->
-    <div class="col-sm-6">
-      <ul style="font-weight: 600;" class="list-group list-group-horizontal">
-        {% with rating=strain.get_average_rating %}
-        <li class="list-group-item border-0 m-1 mt-n1 p-0 bg-light">
-            <span style="color: #23CE6B;">{% if rating %}{{ rating }}{% endif %}</span>
-        </li>
-        <li class="list-group-item border-0 m-1 mt-n2 p-0 bg-light">
-          {% if rating %}
-          {{ rating|rating_icon }}
-          {% else %}
-          <p style="font-weight: 600;">Be the first to  <a style="color: #23CE6B; text-decoration: underline;" href="{% url 'reviews:strain_review' strain.id %}">review</a> {{ strain }}.</p>
-          {% endif %}
-        </li>
-
-        {% endwith %}
-        <li class="list-group-item border-0 m-1 mt-n1 p-0"> 
-            <a style="color: #23CE6B; text-decoration: underline;" href="{% url 'reviews:strain_reviews' strain.id %}">
-              {% if rating %}({{ strain.user_review.all.count }}){% endif %}
-            </a>
-        </li>
-      </ul>
-      
+<div class="row">
+  <!-- strain photo -->
+  <div class="col-sm-6 mb-4">
+    {% with users_like=strain.users_like.all %}
+    {% include 'partials/strains/strain_like_button.html' %}
+    {% endwith %}
+    <h2 style="font-weight: 600;" class="text-left">{{ strain }}</h2>
+    <hr/>
+    <div class="card">
+      <img class="card-img-top" src="{{ strain.photo_url }}" />
+    </div>
+  </div> <!--/.col-sm-6-->
+  <!-- strain details -->
+  <div class="col-12">
+    <ul style="font-weight: 600;" class="list-group list-group-horizontal">
+      {% with rating=strain.get_average_rating %}
+      {% if rating %}
+      <li class="list-group-item border-0 m-1 mt-n1 p-0 bg-light text-dark">
+          <span>{{ rating }}</span>
+      </li>
+      {% endif %}
+      <li class="list-group-item border-0 m-1 mt-n1 p-0 bg-light">
+        {% if rating %}
+        {{ rating|rating_icon }}
+        {% else %}
+        <p style="font-weight: 600;">Be the first to  <a style="color: #6eb257; text-decoration: underline;" href="{% url 'reviews:strain_review' strain.id %}">review</a> {{ strain }}.</p>
+        {% endif %}
+      </li>
+      {% endwith %}
       {% with count=strain.user_review.all.count %}
       {% if count > 0 %}
-      {% include 'partials/reviews/review_count.html' %}
+      <li class="list-group-item border-0 m-1 mt-n1 p-0 bg-light text-dark">
+        <span>({{ count }})</span>
+      </li>
       {% endif %}
       {% endwith %}
-      {% if strain.lineage %}
-      <hr/>
-      {% include "partials/strains/strain_detail_lineage.html" %}
-      {% endif %}
-    </div> <!--/.col-sm-6-->
-  </div> <!--/.row-->
+    </ul>
+    
+    {% if strain.lineage %}
+    {% include "partials/strains/strain_detail_lineage.html" %}
+    {% endif %}
+  </div> <!--/.col-sm-6-->
+</div> <!--/.row-->
 <!-- strain summary from leafly.com -->
-  <div class="row">
-    <div class="col-12">
-      {% include 'partials/strains/strain_detail_summary.html' %}
-    </div>
-    <div class="col-12">
-      {% include 'partials/strains/strain_detail_genetics.html' %}
-    </div>
-  </div>
-  {% include "partials/reviews/review_user_submissions.html" %}
+<div class="row">
+  {% include 'partials/strains/strain_detail_summary.html' %}
+  {% include 'partials/strains/strain_detail_genetics.html' %}
+  {% include 'partials/reviews/review_strain_photos.html' %}
+</div>
+{% include "partials/reviews/review_user_reviews_container.html" %}
 </div>
 
 <style>
-  div.alert {
-    margin-top: 50px;
-  }
+div.alert {
+  margin-top: 50px;
+}
 </style>
 
 {% endblock %}
@@ -71,51 +70,50 @@
 {% block domready %}
 
 
-document.getElementById('mcontainer').addEventListener('click', function(event){
-  const anchor = event.target;
-  if (anchor.className === 'show-link') {
-    event.preventDefault();
-    const less = event.target.parentNode.firstElementChild;
-    const dots = less.firstElementChild;
-    const more = less.nextElementSibling;
-    if (dots.style.display === 'inline') {
-      anchor.innerHTML = 'Show Less';
-      less.style.dislay = 'none';
-      dots.style.display = 'none';
-      more.style.display = 'inline';
-      console.log(more)
-
-    } else {
-
-      less.style.display = 'inline';
-      dots.style.display = 'inline';
-      more.style.display = 'none';
-    };
+document.getElementById('userReviewContainer').addEventListener('click', function(event){
+const anchor = event.target;
+if (anchor.className === 'show-link') {
+  event.preventDefault();
+  const less = event.target.parentNode.firstElementChild;
+  const dots = less.firstElementChild;
+  const more = less.nextElementSibling;
+  console.log(less)
+  if (dots.style.display === 'inline') {
+    less.style.display = 'none';
+    dots.style.display = 'none';
+    more.style.display = 'inline';
+    anchor.innerHTML = 'Show Less';
+  } else {
+    anchor.innerHTML = 'Read More';
+    less.style.display = 'inline';
+    dots.style.display = 'inline';
+    more.style.display = 'none';
   };
+};
 });
 
 $('a.strain-like').click(function(e){
-  e.preventDefault();
-  console.log('hello');
-  $.post('{% url "reviews:strain_like" %}',
+e.preventDefault();
+console.log('hello');
+$.post('{% url "reviews:strain_like" %}',
 {
-  id: $(this).data('id'),
-  action: $(this).data('action')
+id: $(this).data('id'),
+action: $(this).data('action')
 },
-  function(data){
-    if (data['status'] == 'ok')
-  {
-    var previous_action = $('a.strain-like').data('action');
-    // toggle data-action
-    $('a.strain-like').data('action', previous_action == 'like' ? 'unlike' : 'like');
-    // toggle heart icon
-    $('a.strain-like').html(previous_action == 'like' ? 
-    `<i style="position: relative; left: 8px; top: 7px; color: #23CE6B;" class="fas fa-heart"></i>` : 
-    `<i style="position: relative; left: 8px; top: 7px; color: #23CE6B;" class="far fa-heart"></i>`);
-    // update total likes
-    var previous_likes = parseInt($('span.count .total').text());
-    $('span.count .total').text(previous_action == 'like' ? previous_likes + 1 : previous_likes - 1);
-  }});
+function(data){
+  if (data['status'] == 'ok')
+{
+  var previous_action = $('a.strain-like').data('action');
+  // toggle data-action
+  $('a.strain-like').data('action', previous_action == 'like' ? 'unlike' : 'like');
+  // toggle heart icon
+  $('a.strain-like').html(previous_action == 'like' ? 
+  `<i style="color: #6eb257;" class="fas fa-heart"></i>` : 
+  `<i style="color: #6eb257;" class="far fa-heart"></i>`);
+  // update total likes
+  var previous_likes = parseInt($('span.count .total').text());
+  $('span.count .total').text(previous_action == 'like' ? previous_likes + 1 : previous_likes - 1);
+}});
 });
 
 {% endblock %}
