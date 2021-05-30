@@ -1,10 +1,12 @@
 {% load rating_icon %}
 
 {% for review in reviews %}
-  <div class="card mb-4">
+{% with users_like=review.users_like.all %}
+  <div class="card mb-3">
     {% include "partials/reviews/review_card_header.html" %}
     {% include "partials/reviews/review_card_photo.html" %}
     {% include "partials/reviews/review_card_body.html" %}
   </div>
 </a>
+{% endwith %}
 {% endfor %}

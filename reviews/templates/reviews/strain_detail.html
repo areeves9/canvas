@@ -94,7 +94,6 @@ if (anchor.className === 'show-link') {
 
 $('a.strain-like').click(function(e){
 e.preventDefault();
-console.log('hello');
 $.post('{% url "reviews:strain_like" %}',
 {
 id: $(this).data('id'),

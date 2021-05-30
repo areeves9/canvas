@@ -1,13 +1,10 @@
 <div class="card-header bg-white">
     <a href="{% url 'accounts:user' review.user %}" class="text-decoration-none">
-      <img style="height: 3rem; width: 3rem;" class="rounded-circle" src="{{ review.user.profile.photo.url }}"/>
-      <h6 class="text-dark d-inline ml-1">
-        <b>
-          {{ review.user }}
-        </b>
-      </h6>
+      <img style="height: 2rem; width: 2rem;" class="ml-n2 rounded-circle" src="{{ review.user.profile.photo.url }}"/>
+      <span style="font-weight: 600; position: absolute; top: 10px;" class="ml-2 text-dark mb-2">{{ review.user }}</span>
     </a>
-    <a class="d-block mt-2 float-right">
+    <span style="font-size: 0.8rem; position: absolute; top: 28px; left: 52px;" class="text-secondary">{{ review.strain }}</span>
+    <!-- <a class="d-block mt-2 float-right">
       <i class="fas fa-ellipsis-h"></i>
-    </a>
+    </a> -->
 </div>
