@@ -3,7 +3,6 @@
 <h5 class="text-left">Reviews</h5>
     {% for review in review_list %}
     <div class="row">
-
     <div id="pills-home" role="tabpanel" aria-labelledby="pills-home-tab" 
     class="tab-pane fade show active">
         <div class="col-12 mt-4">
@@ -16,19 +15,15 @@
                     {% endif %}
                 </a>
                 <div class="media-body">
-                    <h5 class="d-inline ml-1">
-                        <a href="{% url 'reviews:review_detail' review.id%}">
-                            {{ review.strain }}
-                        </a>
-                    </h5>
-                    <span class="float-left">
-                        {% include "partials/strains/strain_review_method_icon.html" %}
-                    </span>
-                    <p>{{ review.content }}</p>
+                    <h5 class="d-inline ml-1">{{ review.strain }}</h5> • <h6 class="d-inline">{{ review.title }}</h6>
+                    <span class="mb-3 d-block">{{ review.rating|rating_icon }}</span>
+                    {% include 'partials/reviews/review_method_badge.html' %}
                 </div> <!--/.media-body-->
             </div> <!--/.media-->
         </div> <!--/.col-12-->
     </div>
 </div> <!--/.row-->
+<hr/>
+
 {% endfor %}
 
