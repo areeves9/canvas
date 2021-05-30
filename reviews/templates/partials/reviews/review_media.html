@@ -12,10 +12,12 @@
           <span style="display: inline;" class="dots" data-id="{{ review.id }}">...</span>
         </span>
         <span style="display: none;" class="more" data-id="{{ review.id }}">{{ review.content }}</span>
+        {% if review.content|length >= 200 %}
         <a class="show-link" 
         style="color: #6eb257; font-weight: 600; text-decoration: underline;"
         data-id="{{ review.id }}" 
         href="#">Read More</a>
+        {% endif %}
       </p>
         {% include 'partials/reviews/review_method_badge.html' %}
     </div> <!-- .media-body -->
