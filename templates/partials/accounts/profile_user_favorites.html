@@ -8,7 +8,7 @@
         {% for strain in user.strains_liked.all %}
         <div id="pills-home" role="tabpanel" aria-labelledby="pills-home-tab" 
         class="tab-pane fade show active">
-            <div class="card m-1">
+            <div class="card m-1 border-0 bg-light shadow-sm">
                 <a href="{{ strain.get_absolute_url }}">
                     {% if strain.photo_url %}
                     <img class="card-img-top" src="{{ strain.photo_url }}" style="object-fit: cover; height: 325px; width: 325px;" alt="Card image cap">
@@ -17,19 +17,9 @@
                     {% endif %}
                 </a>
                 <div class="card-body">
-
-                    <span class="float-right"><i class="fas fa-heart text-success"></i> {{ strain.users_like.all.count }}</span>
-                    <h5 class="card-title">
-                        <a href="{% url 'reviews:strain_detail' strain.id %}">{{ strain }}</a>
+                    <h5 class="card-title text-dark text-center">
+                        <a class="text-decoration-none text-dark" href="{% url 'reviews:strain_detail' strain.id %}">{{ strain }}</a>
                     </h5>
-
-                    {% if strain.user_review.count > 0 %}
-                    <p class="card-text">{{ strain.get_average_rating|floatformat:1 }} <i class="text-success fas fa-star"></i>
-                        • {{ strain.user_review.count }} review{{ strain.user_review|pluralize:'s' }}
-                    </p> 
-                    {% else %}
-                    <p class="card-text">No reviews yet.</p>
-                    {% endif %}
                 </div> <!--/.card-body-->
             </div>
         </div>

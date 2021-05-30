@@ -17,11 +17,10 @@
 {% block domready %}
 
 $('#reviewList').click(function(e){
-  e.preventDefault();
-  const anchor = e.target.parentElement;
-
+  
   if (e.target.parentElement.className == 'review-like') {
-    console.log('hello3')
+    e.preventDefault();
+    const anchor = e.target.parentElement;
     $.post('{% url "reviews:review_like" %}',
     {
       id: $(anchor).data('id'),
