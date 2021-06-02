@@ -52,6 +52,7 @@
 
 <div class="container">
   <div class="row bg-white">
+
     <div class="col-3 col-md-4">
       <!--mobile-responsive-->
       {% if user.profile.photo %}
@@ -68,7 +69,9 @@
       {% with total_followers=user.followers.count %}
       {% with total_following=user.following.count %}
     </div>
-    <div id="buttonContainer" class="bg-white col-6 col-md-7 mb-4">
+
+    <div class="bg-white col-6 col-md-7 mb-4">
+      
       <!--mobile-responsive-->
       <h3 class="d-block d-sm-none text-left">{{ user.username }}</h3>
       {% if request.user.profile.id == user.profile.id %}
@@ -77,15 +80,17 @@
       </a>
       {% endif %}
       <!--desktop-responsive-->
-      {% if request.user.profile.id != user.profile.id %}
+      <div id="buttonContainer1">
+        {% if request.user.profile.id != user.profile.id %}
         <a href="#" data-id="{{ user.id }}" data-action="{% if request.user in user.followers.all %}un{% endif %}follow" class="w-25 float-right follow btn btn-sm btn-info d-none d-sm-block">
-        {% if request.user not in user.followers.all %}
+          {% if request.user not in user.followers.all %}
           Follow
-        {% else %}
+          {% else %}
           Unfollow
+          {% endif %}
+        </a>
         {% endif %}
-      </a>
-      {% endif %}
+      </div>
       {% if request.user.profile.id == user.profile.id %}
       <a class="w-25 float-right btn btn-sm btn-block btn-outline-secondary d-none d-sm-block" href="{% url 'accounts:update' %}">
         <b>Edit Profile</b>
@@ -97,8 +102,7 @@
       </span>
       <p class="d-none d-sm-block text-left"><b>{{ user.first_name }}</b></p>
       <p class="d-none d-sm-block text-left mt-n3">{{ user.profile.bio }}</p>
-      
-    </div>
+    </div> <!--/.col-->
   </div> <!--/.row-->
   <div class="bg-white row d-block d-sm-none">
     <div class="col">
@@ -106,21 +110,23 @@
       <p class="text-left mt-n3">{{ user.profile.bio }}</p>
     </div>
   </div>
-  <div>
+    
+    
+  <!--mobile-responsive-->
+  <div id="buttonContainer">
     {% if request.user.profile.id != user.profile.id %}
-    <a href="#" data-id="{{ user.id }}" data-action="{% if request.user in user.followers.all %}un{% endif %}follow" class="follow mb-4 mt-3 mx-auto btn btn-block btn-info d-sm-none">
+    <a href="#" data-id="{{ user.id }}" data-action="{% if request.user in user.followers.all %}un{% endif %}follow" class="w-50 follow mb-4 mt-3 mx-auto btn btn-block btn-info d-sm-none">
       {% if request.user not in user.followers.all %}
-        Follow
+      Follow 
       {% else %}
-        Unfollow
+      Unfollow
       {% endif %}
     </a>
-    {% endif %}
+  {% endif %}
   </div>
-    <span class="d-block d-sm-none">
-      {% include "partials/accounts/profile_horizontal_list.html" %}
-    </span>
-
+  <span class="d-block d-sm-none">
+    {% include "partials/accounts/profile_horizontal_list.html" %}
+  </span>
 
   <ul class="nav nav-fill nav-pills mx-auto w-50 mb-3" id="pills-tab" role="tablist">
     <li class="nav-item">
@@ -190,11 +196,35 @@ buttonContainer.addEventListener('click', function(event) {
         };
     });
 
+    const buttonContainer1 = document.getElementById('buttonContainer1');
+    buttonContainer1.addEventListener('click', function(event) {
+      console.log('fired2')
+      if (event.target.classList.contains = 'follow') {
+        const anchor = event.target;
+        $.post('{% url "accounts:user_follow" %}',
+            {
+              id: $(anchor).data('id'),
+              action: $(anchor).data('action')
+            },
+            function(data){
+              if (data['status'] == 'ok') {
+                var previous_action = $(anchor).data('action');
+        
+                $(anchor).data('action', previous_action == 'follow' ? 'unfollow' : 'follow');
+                $(anchor).text(previous_action == 'follow' ? 'Unfollow' : 'Follow');
+        
+                var previous_followers = parseInt($('total-followers').text());
+                $('total-followers').text(previous_action == 'follow' ? previous_followers + 1 : previous_followers -1);
+              };
+            });
+            };
+        });
+
   const modalBog = document.getElementById('modalBog');
   modalBog.addEventListener('click', function(event) {
-    console.log('fired2')
-    if (event.target.classList.contains = 'follow' && event.target.nodeName == 'A') {
-        event.preventDefault()
+    console.log(event.target)
+    if (event.target.hasAttribute('data-action')) {
+        event.preventDefault();
         const anchor = event.target;
         $.post('{% url "accounts:user_follow" %}',
         {
