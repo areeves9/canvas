@@ -15,7 +15,8 @@
                     {% endif %}
                 </a>
                 <div class="media-body">
-                    <h5 class="d-inline ml-1">{{ review.strain }}</h5> • <h6 class="d-inline">{{ review.title }}</h6>
+                    <h5 class="">{{ review.strain }}</h5> 
+                    <h6 class="mt-n2 d-block text-secondary">{{ review.title }}</h6>
                     <span class="mb-3 d-block">{{ review.rating|rating_icon }}</span>
                     {% include 'partials/reviews/review_method_badge.html' %}
                 </div> <!--/.media-body-->

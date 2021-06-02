@@ -1,15 +1,13 @@
 {% load rating_icon %}
 <div class="card-body">
-    <span class="d-block text-left mt-n2">{{ review.rating|rating_icon }}
-        <a style="{% if request.user in users_like %}text-decoration: none !important; float: right; color: #FF6663;{% else %} text-decoration: none !important; float: right; color: black;{% endif %}"
-            class="review-like"
-            data-id="{{ review.id }}"
-            data-action="{% if request.user in users_like %}un{% endif %}like"
-            href="{% url 'reviews:review_like' %}">
-            <i class="mt-1 {% if request.user in users_like %}
-            fas fa-heart{% else %}far fa-heart{% endif %}"></i> 
-        </a>
-    </span>
+    <a style="{% if request.user in users_like %}text-decoration: none !important; float: right; color: #FF6663;{% else %} text-decoration: none !important; float: right; color: black;{% endif %}"
+        class="review-like"
+        data-id="{{ review.id }}"
+        data-action="{% if request.user in users_like %}un{% endif %}like"
+        href="{% url 'reviews:review_like' %}">
+        <i class="mt-1 {% if request.user in users_like %}
+        fas fa-heart{% else %}far fa-heart{% endif %}"></i> 
+    </a>
     <p style="font-size: 14px;" class="mt-1 card-text">
         <span class="mr-1 font-weight-bold">
             {{ review.user }}

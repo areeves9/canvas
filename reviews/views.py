@@ -292,11 +292,6 @@ def strains(request):
     return render(request, "reviews/strains.html", context)
 
 
-def autocomplete(request):
-    data = list(Strain.objects.all().values())
-    return JsonResponse(data, safe=False)
-
-
 @login_required
 def strain_detail(request, id=None):
     strain = get_object_or_404(Strain, id=id)
