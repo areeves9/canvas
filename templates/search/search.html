@@ -28,25 +28,29 @@
           {% endif %}
           <div class="media-body">
             <h5 class="mt-0">
-              <a href="{{ result.object.get_absolute_url }}">
+              <a class="text-decoration-none text-dark" href="{{ result.object.get_absolute_url }}">
                 {{ result.object.title }}
                 {{ result.object.name }}
               </a>
             </h5>
-            <p>
-              {% if result.object.content %}
-              {{ result.object.content }}
-              {% elif result.object.summary %}
-              {{ result.object.summary }}
-              {% endif %}
+            {% load get_class %}
+            {% if result.object|get_class == 'Review' %}
+            <p style="font-size: 14px;" class="mt-n2 text-secondary">{{ result.object.strain }}</p>
+            {% elif result.object|get_class == 'Strain' %}
+            {% if result.object.genetics == None %}
+            <p style="font-size: 14px;" class="mt-n2 text-secondary">No genetics data</p>
+            {% else %}
+            <p style="font-size: 14px;" class="mt-n2 text-secondary">{{ result.object.genetics }}</p>
+            {% endif %}
+            {% endif %}
+            <span style="max-width: 75px;" class="d-block badge badge-pill bg-light text-muted border border-muted p-2">
               {% load get_class %}
               {% if result.object|get_class == 'Strain' %}
-              (Strain)
+              Strain
               {% elif result.object|get_class == 'Review' %}
-              (Review)
+              Review
               {% endif %}
-            </p>
-            <p>{{ result.object.user }}</p>
+            </span>
           </div> <!--/.media-body-->
         </div> <!--/.media-->
       <hr/>

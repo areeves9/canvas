@@ -4,22 +4,21 @@
 {% block content %}
 
 <div class="container header-container">
-  <nav class="navbar navbar-expand-lg navbar-light bg-white border border-bottom-1 fixed-top">
+  <nav class="navbar navbar-expand-lg border border-bottom-0 fixed-top">
     {% if request.user != user %}
     <a href="{{ request.META.HTTP_REFERER }}">
       <i class="fas fa-chevron-left"></i>
     </a>
     {% endif %}
-    <ul class="nav navbar-nav navbar-logo mx-auto">
-      <li class="nav-item text-center">
-        <a class="text-dark nav-link font-weight-bold" href="#">{{ user }}</a>
+    <ul class="nav navbar-nav ml-auto">
+      <li class="nav-item">
+        {% if request.user == user %}
+        <a data-toggle="modal" data-target="#profileSettingsModal" class="font-weight-bold text-dark" href="{% url 'accounts:logout' %}">
+          <i style="font-size: 1.1rem;" class="fas fa-bars"></i>
+        </a>
+        {% endif %}
       </li>
-
     </ul>
-    
-      <a data-toggle="modal" data-target="#profileSettingsModal" class="font-weight-bold text-dark" href="{% url 'accounts:logout' %}">
-        <i style="font-size: 1.1rem;" class="fas fa-bars"></i>
-      </a>
   </nav>
 </div>
 
@@ -52,7 +51,7 @@
 {% include 'messages_display.html' %}
 
 <div class="container">
-  <div class="row mt-5">
+  <div class="row bg-white">
     <div class="col-3 col-md-4">
       <!--mobile-responsive-->
       {% if user.profile.photo %}
@@ -69,11 +68,11 @@
       {% with total_followers=user.followers.count %}
       {% with total_following=user.following.count %}
     </div>
-    <div class="col-6 col-md-7 mb-4">
+    <div id="buttonContainer" class="bg-white col-6 col-md-7 mb-4">
       <!--mobile-responsive-->
       <h3 class="d-block d-sm-none text-left">{{ user.username }}</h3>
       {% if request.user.profile.id == user.profile.id %}
-      <a class="d-block d-sm-none btn btn-block btn-sm btn-outline-dark" href="{% url 'accounts:update' %}">
+      <a class="w-75 d-sm-none btn btn-block btn-sm btn-outline-dark" href="{% url 'accounts:update' %}">
         <b>Edit Profile</b>
       </a>
       {% endif %}
@@ -101,24 +100,27 @@
       
     </div>
   </div> <!--/.row-->
-  <div class="row d-block d-sm-none">
+  <div class="bg-white row d-block d-sm-none">
     <div class="col">
       <p class="text-left"><b>{{ user.first_name }}</b></p>
       <p class="text-left mt-n3">{{ user.profile.bio }}</p>
     </div>
   </div>
-  {% if request.user.profile.id != user.profile.id %}
-  <a href="#" data-id="{{ user.id }}" data-action="{% if request.user in user.followers.all %}un{% endif %}follow" class="follow mb-4 mt-3 mx-auto btn btn-block btn-info d-block d-sm-none">
-    {% if request.user not in user.followers.all %}
-      Follow
-    {% else %}
-      Unfollow
+  <div>
+    {% if request.user.profile.id != user.profile.id %}
+    <a href="#" data-id="{{ user.id }}" data-action="{% if request.user in user.followers.all %}un{% endif %}follow" class="follow mb-4 mt-3 mx-auto btn btn-block btn-info d-sm-none">
+      {% if request.user not in user.followers.all %}
+        Follow
+      {% else %}
+        Unfollow
+      {% endif %}
+    </a>
     {% endif %}
-  </a>
-  {% endif %}
-  <span class="d-block d-sm-none">
-    {% include "partials/accounts/profile_horizontal_list.html" %}
-  </span>
+  </div>
+    <span class="d-block d-sm-none">
+      {% include "partials/accounts/profile_horizontal_list.html" %}
+    </span>
+
 
   <ul class="nav nav-fill nav-pills mx-auto w-50 mb-3" id="pills-tab" role="tablist">
     <li class="nav-item">
@@ -164,24 +166,55 @@
 {% endblock %}
 
 {% block domready %}
-  $('a.follow').click(function(e){
-    e.preventDefault();
+const buttonContainer = document.getElementById('buttonContainer');
+buttonContainer.addEventListener('click', function(event) {
+  console.log('fired1')
+  if (event.target.classList.contains = 'follow') {
+    const anchor = event.target;
     $.post('{% url "accounts:user_follow" %}',
-    {
-      id: $(this).data('id'),
-      action: $(this).data('action')
-    },
-    function(data){
-      if (data['status'] == 'ok') {
-        var previous_action = $('a.follow').data('action');
+        {
+          id: $(anchor).data('id'),
+          action: $(anchor).data('action')
+        },
+        function(data){
+          if (data['status'] == 'ok') {
+            var previous_action = $(anchor).data('action');
+    
+            $(anchor).data('action', previous_action == 'follow' ? 'unfollow' : 'follow');
+            $(anchor).text(previous_action == 'follow' ? 'Unfollow' : 'Follow');
+    
+            var previous_followers = parseInt($('total-followers').text());
+            $('total-followers').text(previous_action == 'follow' ? previous_followers + 1 : previous_followers -1);
+          };
+        });
+        };
+    });
 
-        $('a.follow').data('action', previous_action == 'follow' ? 'unfollow' : 'follow');
-        $('a.follow').text(previous_action == 'follow' ? 'Unfollow' : 'Follow');
+  const modalBog = document.getElementById('modalBog');
+  modalBog.addEventListener('click', function(event) {
+    console.log('fired2')
+    if (event.target.classList.contains = 'follow' && event.target.nodeName == 'A') {
+        event.preventDefault()
+        const anchor = event.target;
+        $.post('{% url "accounts:user_follow" %}',
+        {
+          id: $(anchor).data('id'),
+          action: $(anchor).data('action')
+        },
+        function(data){
+          if (data['status'] == 'ok') {
+            var previous_action = $(anchor).data('action');
+    
+            $(anchor).data('action', previous_action == 'follow' ? 'unfollow' : 'follow');
+            $(anchor).text(previous_action == 'follow' ? 'Unfollow' : 'Follow');
+    
+            var previous_followers = parseInt($('total-followers').text());
+            $('total-followers').text(previous_action == 'follow' ? previous_followers + 1 : previous_followers -1);
+          };
+        });
+        };
+    });
 
-        var previous_followers = parseInt($('total-followers').text());
-        $('total-followers').text(previous_action == 'follow' ? previous_followers + 1 : previous_followers -1);
-      }
-    }
-    );
-  });
+
+
 {% endblock %}

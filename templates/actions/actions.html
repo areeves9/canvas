@@ -3,7 +3,7 @@
 {% load get_class %}
 
 {% block content %}
-<div class="container header-container">
+<!-- <div class="container header-container">
   <nav class="navbar navbar-expand-lg navbar-light bg-white border border-bottom-1 fixed-top">
     <ul class="nav navbar-nav navbar-logo mx-auto">
       <li class="nav-item text-center">
@@ -11,9 +11,11 @@
       </li>
     </ul>
   </nav>
-</div>
+</div> -->
 
-<div class="container-fluid">
+<div class="container">
+  <h2 style="font-weight: 600;" class="mt-3 text-left">Activity</h2>
+  <hr/>
     {% for action in actions %}
     {% if action.target %}
 

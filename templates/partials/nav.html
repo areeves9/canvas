@@ -1,27 +1,21 @@
 <nav class="navbar fixed-bottom navbar-expand-lg navbar-light bg-white border border-top-1">
-    <ul class="navbar-nav nav-fill w-100">
+    <ul style="font-size: 1.5rem;" class="navbar-nav nav-fill w-100">
         <!-- Reviews -->
         <li class="nav-item">
             <a class="nav-link {% if nav == 'home' %}active{% endif %}" href="{% url 'reviews:reviews' %}">
-                <i class="fas fa-home fa-2x"></i>
+                <i class="fas fa-home"></i>
             </a>
         </li>
         <!-- Strains -->
         <li class="nav-item">
             <a class="nav-link {% if nav == 'strains' %}active{% endif %}" href="{% url 'reviews:strains' %}">
-                <i class="fas fa-cannabis fa-2x"></i>
-            </a>
-        </li>
-        <!-- Search -->
-        <li class="nav-item">
-            <a class="nav-link {% if request.get_full_path == '/reviews/reviews-search/' %}active{% endif %}" href="{% url 'reviews:reviews_search' %}">
-                <i class="fas fa-search fa-2x"></i>
+                <i class="fas fa-cannabis"></i>
             </a>
         </li>
         <!-- Activity -->
         <li class="nav-item">
             <a class="nav-link {% if nav == 'actions' %}active{% endif %}" href="{% url 'accounts:actions' %}">
-                <i class="far fa-heart fa-2x"></i>
+                <i class="far fa-heart"></i>
             </a>
         </li>
         <!-- Profile -->
@@ -30,7 +24,7 @@
                 {% if request.user.profile.photo %}
                 <img style="height: 2rem; width: 2rem;" class="rounded-circle {% if nav == 'profile' %}img-thumbnail border border-dark{% endif %}" src="{{ request.user.profile.photo.url }}" />
                 {% else %}
-                <i class="far fa-user-circle fa-2x"></i>
+                <i class="far fa-user-circle"></i>
                 {% endif %}
             </a>
         </li>

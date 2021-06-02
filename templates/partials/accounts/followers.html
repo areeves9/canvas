@@ -18,12 +18,9 @@
             <img style="height: 53px; width: 53px;" class="rounded-circle p-1 mr-3" src="http://placehold.it/250x250"/>
             {% endif %}
             <div class="media-body">
-                {% if request.user.id != follower.id %}
-                <a href="#" data-id="{{ follower.id }}" data-action="{% if request.user in follower.followers.all %}un{% endif %}follow" class="follow float-right font-weight-bold btn btn-sm btn-primary">
-                    {% if request.user in follower.followers.all %}Un{% endif %}follow</a>
-                {% endif %}
-                <h5 class="mt-0"><a href="{% url 'accounts:user' follower.username %}">{{ follower }}</a></h5>
-                <p>{{ follower.first_name }}</p>
+                <h5 class="mt-0">
+                  <a class="text-decoration-none text-dark" href="{% url 'accounts:user' follower.username %}">{{ follower }}</a></h5>
+                <p class="mt-n2 text-muted">{{ follower.first_name }}</p>
             </div> <!--/.media-body-->
         </div> <!--/.media-->
           {% endfor %}

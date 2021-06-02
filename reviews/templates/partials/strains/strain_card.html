@@ -2,13 +2,15 @@
 <a style="text-decoration: none;" class="text-dark" href="{{ strain.get_absolute_url }}">
   {% include 'partials/strains/strain_detail_photo.html' %}
   <div class="card mb-4 shadow-sm" style="border: 0;">
-    <div class="card-body bg-light">
+    <div class="card-body">
       <h4 class="card-title text-center">{{ strain }}</h4>
       {% load rating_icon %}
       {% if rating > 0 %}
-      <span class="d-block text-center mt-n2">{{ rating|rating_icon }}</span>
+      <span class="d-block text-center mt-n2">
+        <h5>{{ rating|rating_icon }}</h5>
+      </span>
       {% else %}
-      <a class="btn d-block shadow-sm" 
+      <a class="d-block w-50 mx-auto btn rounded-pill shadow" 
       style="background-color: #6EB257; color: #FFF; font-weight: 600; letter-spacing: 1px;" 
       href="{% url 'reviews:strain_review' strain.id %}">Review</a>
       {% endif %}
