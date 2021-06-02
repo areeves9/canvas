@@ -9,7 +9,7 @@
             <span aria-hidden="true">&times;</span>
           </button>
         </div>
-      <div class="modal-body">
+      <div id="modalBog" class="modal-body">
         {% for following in user.following.all %}
         <div class="media">
           {% if following.profile.photo %}
@@ -17,16 +17,14 @@
           {% else %}
           <img style="height: 53px; width: 53px;" class="rounded-circle p-1 mr-3" src="http://placehold.it/250x250"/>
           {% endif %}
-          <div id="modalBog" class="media-body">
+          <div class="media-body">
+            <a class="text-decoration-none text-dark" href="{% url 'accounts:user' following.username %}">{{ following }}</a>
             {% if request.user.id == user.id %}
             <a href="#" data-id="{{ following.id }}" data-action="{% if request.user in following.followers.all %}un{% endif %}follow" class="follow float-right font-weight-bold btn btn-sm btn-primary">
               {% if request.user in following.followers.all %}Un{% endif %}follow
             </a>
             {% endif %}
-            <h5 class="mt-0">
-              <a class="text-decoration-none text-dark" href="{% url 'accounts:user' following.username %}">{{ following }}</a>
-            </h5>
-            <p class="mt-n2 text-muted">{{ following.first_name }}</p>
+            <p class="mt-n2 text-muted">{{ follower.first_name }}</p>
           </div> <!--/.media-body-->
         </div> <!--/.media-->
         {% endfor %}
