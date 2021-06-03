@@ -54,6 +54,7 @@ INSTALLED_APPS = [
     'accounts',
     'reviews',
     'actions',
+    'bootstrap3',
 ]
 
 MIDDLEWARE = [

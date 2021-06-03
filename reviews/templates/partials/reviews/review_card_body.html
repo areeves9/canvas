@@ -1,6 +1,7 @@
 {% load rating_icon %}
 <div class="card-body">
-    <a style="{% if request.user in users_like %}text-decoration: none !important; float: right; color: #FF6663;{% else %} text-decoration: none !important; float: right; color: black;{% endif %}"
+ 
+    <a style="{% if request.user in users_like %}margin-right: 1rem; text-decoration: none !important; color: #FF6663; font-size: 1.4rem;{% else %}margin-right: 1rem; text-decoration: none !important; color: black; font-size: 1.4rem;{% endif %}"
         class="review-like"
         data-id="{{ review.id }}"
         data-action="{% if request.user in users_like %}un{% endif %}like"
@@ -8,7 +9,15 @@
         <i class="mt-1 {% if request.user in users_like %}
         fas fa-heart{% else %}far fa-heart{% endif %}"></i> 
     </a>
-    <p style="font-size: 14px;" class="mt-1 card-text">
+     
+    <!-- <a href="{% url 'reviews:share_strain' review.id %}" 
+    class="review-share"
+    style="text-decoration: none; color: black; font-size: 1.4rem;">
+    <i class="far fa-paper-plane"></i>
+    </a> -->
+  
+
+    <p style="font-size: 1rem;" class="mt-1 card-text">
         <span class="mr-1 font-weight-bold">
             {{ review.user }}
         </span>
@@ -26,3 +35,22 @@
     {% include 'partials/reviews/review_method_badge.html' %}
     <span class="d-block text-muted mt-3" style="font-size: 0.8rem;">{{ review.timestamp|timesince }} ago</span>
 </div>
+
+<style>
+ul {
+    list-style-type: none;
+    margin: 0;
+    padding: 0;
+}
+
+li {
+    display: inline-block;
+    float: left;
+}
+
+li a {
+  text-align: center;
+  padding: 16px;
+  text-decoration: none;
+}
+</style>

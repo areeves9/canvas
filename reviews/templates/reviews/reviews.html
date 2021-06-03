@@ -35,8 +35,8 @@ $('#reviewList').click(function(e){
         $(anchor).data('action', previous_action == 'like' ? 'unlike' : 'like');
         // toggle heart icon
         $(anchor).html(previous_action == 'like' ? 
-        `<i style="color: #FF6663;" class="mt-1 float-right fas fa-heart"></i>` : 
-        `<i style="color: black;" class="mt-1 float-right far fa-heart"></i>`);
+        `<i style="color: #FF6663;" class="mt-1 fas fa-heart"></i>` : 
+        `<i style="color: black;" class="mt-1 far fa-heart"></i>`);
         // update total likes
         var previous_likes = parseInt($('span.count .total').text());
         $('span.count .total').text(previous_action == 'like' ? previous_likes + 1 : previous_likes - 1);
