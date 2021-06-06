@@ -1,0 +1,9 @@
+<div id="followingModalBody" class="modal-body">
+    {% if user.following.all|length == 0%}
+    <p>No accounts followed...yet</p>
+    {% else %}
+    {% for following in user.following.all %}
+    {% include 'partials/accounts/following_modal_body_media.html' %}
+    {% endfor %}
+    {% endif %}
+</div> <!--/.modal-body-->
