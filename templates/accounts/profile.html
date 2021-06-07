@@ -23,55 +23,37 @@
 </div>
 
 <!-- Modal -->
-<div class="modal fade" id="profileSettingsModal" tabindex="-1" role="dialog" aria-labelledby="profileSettingsModalTitle" aria-hidden="true">
-  <div class="modal-dialog modal-dialog-centered" role="document">
-    <div class="modal-content">
-      <div class="modal-header border-bottom-0">
-        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-          <i class="fas fa-times"></i>
-        </button>
-      </div>
-      
-      <div class="modal-body">
-        <ul class="list-group">
-          <li class="list-group-item">
-            <a class="text-dark" href="{% url 'accounts:password_change' %}">
-              <i class="fas fa-lock"></i> Change Password</li>
-            </a>
-          <li class="list-group-item">
-            <a class="text-dark" href="{% url 'accounts:logout' %}">
-              <i class="fas fa-sign-out-alt"></i> Logout</li>
-            </a>
-        </ul>
-      </div>
-    </div>
-  </div>
-</div>
+{% include 'partials/accounts/profile_settings_modal.html' %}
 
+<!-- Messages -->
 {% include 'messages_display.html' %}
 
 <div class="container">
   <div class="row bg-white">
-
     <div class="col-3 col-md-4">
       <!--mobile-responsive-->
       {% if user.profile.photo %}
-      <img class="d-block d-sm-none mr-auto mb-4 rounded-circle img-fluid" alt="Responsive image" src="{{ user.profile.photo.url }}" style="width: 4rem; height: 4rem;"/>
+      <img class="d-block d-sm-none mr-auto mb-4 rounded-circle img-fluid" 
+        alt="Responsive image" src="{{ user.profile.photo.url }}" 
+        style="width: 4rem; height: 4rem;"/>
       {% else %}
-      <img class="d-block d-sm-none mx-auto mb-4 rounded-circle img-fluid" src="http://placehold.it/250x250" style="width: 80px; height: 80px;"/>
+      <img class="d-block d-sm-none mx-auto mb-4 rounded-circle img-fluid" 
+        src="http://placehold.it/250x250" style="width: 80px; height: 80px;"/>
       {% endif %}
       <!--desktop-responsive-->
       {% if user.profile.photo %}
-      <img class="d-none d-sm-block mx-auto mb-4 rounded-circle img-fluid" alt="Responsive image" src="{{ user.profile.photo.url }}" style="width: 160px; height: 160px;"/>
+      <img class="d-none d-sm-block mx-auto mb-4 rounded-circle img-fluid" 
+        alt="Responsive image" src="{{ user.profile.photo.url }}" 
+        style="width: 160px; height: 160px;"/>
       {% else %}
-      <img class="d-none d-sm-block mx-auto mb-4 border border-dark shadow rounded-circle img-fluid" src="http://placehold.it/250x250" style="width: 160px; height: 160px;"/>
+      <img class="d-none d-sm-block mx-auto mb-4 rounded-circle img-fluid" 
+        src="http://placehold.it/250x250" style="width: 160px; height: 160px;"/>
       {% endif %}
       {% with total_followers=user.followers.count %}
       {% with total_following=user.following.count %}
     </div>
 
     <div class="bg-white col-6 col-md-7 mb-4">
-      
       <!--mobile-responsive-->
       <h3 class="d-block d-sm-none text-left">{{ user.username }}</h3>
       {% if request.user.profile.id == user.profile.id %}
@@ -110,7 +92,6 @@
       <p class="text-left mt-n3">{{ user.profile.bio }}</p>
     </div>
   </div>
-    
     
   <!--mobile-responsive-->
   <div id="buttonContainer">
@@ -163,7 +144,7 @@
 </style>
 
 {% include "partials/accounts/followers.html" %}
-{% include "partials/accounts/following.html" %}
+{% include "partials/accounts/following_modal.html" %}
 
 
 {% endwith %}
@@ -220,8 +201,8 @@ buttonContainer.addEventListener('click', function(event) {
             };
         });
 
-  const modalBog = document.getElementById('modalBog');
-  modalBog.addEventListener('click', function(event) {
+  const followingModalBody = document.getElementById('followingModalBody');
+  followingModalBody.addEventListener('click', function(event) {
     console.log(event.target)
     if (event.target.hasAttribute('data-action')) {
         event.preventDefault();

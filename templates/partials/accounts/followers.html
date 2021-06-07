@@ -1,31 +1,14 @@
-
-  <!-- Modal -->
-  <div class="modal" id="followersModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLongTitle" aria-hidden="true">
-    <div class="modal-dialog modal-dialog-centered" role="document">
-      <div class="modal-content">
-        <div class="modal-header">
-          <h5 class="modal-title text-center" id="exampleModalLongTitle">Followers</h5>
-          <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-            <span aria-hidden="true">&times;</span>
-          </button>
-        </div>
-    <div class="modal-body">
-        {% for follower in user.followers.all %}
-        <div class="media">
-            {% if follower.profile.photo %}
-            <img style="height: 53px; width: 53px;" class="rounded-circle p-1 mr-3" src="{{ follower.profile.photo.url }}" alt="Generic placeholder image">
-            {% else %}
-            <img style="height: 53px; width: 53px;" class="rounded-circle p-1 mr-3" src="http://placehold.it/250x250"/>
-            {% endif %}
-            <div class="media-body">
-                <h5 class="mt-0">
-                  <a class="text-decoration-none text-dark" href="{% url 'accounts:user' follower.username %}">{{ follower }}</a>
-                </h5>
-                <p class="mt-n2 text-muted">{{ follower.first_name }}</p>
-            </div> <!--/.media-body-->
-        </div> <!--/.media-->
-          {% endfor %}
-        </div>
+ <!-- Modal -->
+<div class="modal" id="followersModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLongTitle" aria-hidden="true">
+  <div class="modal-dialog modal-dialog-centered" role="document">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h5 class="modal-title text-center" id="exampleModalLongTitle">Followers</h5>
+        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+          <span aria-hidden="true">&times;</span>
+        </button>
       </div>
+      {% include 'partials/accounts/followers_modal_body.html' %}
     </div>
   </div>
+</div>
