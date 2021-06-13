@@ -1,4 +1,6 @@
 from django import forms
+from django_starfield import Stars
+
 from django.utils.text import slugify
 from reviews.models import Review, Comment
 
@@ -16,6 +18,8 @@ class ReviewForm(forms.ModelForm):
     photo = forms.ImageField(
         required=True,
     )
+    rating = forms.IntegerField(widget=Stars)
+    method = forms.ChoiceField(),
 
     class Meta:
         model = Review
@@ -37,6 +41,7 @@ class ReviewForm(forms.ModelForm):
         widgets = {
             'title': forms.TextInput(attrs={'placeholder': 'Title'}),
             'content': forms.Textarea(attrs={'placeholder': 'Description'}),
+            'method': forms.RadioSelect(),
         }
 
     def save(self):

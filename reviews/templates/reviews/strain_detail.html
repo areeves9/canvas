@@ -24,11 +24,11 @@
     <ul style="font-weight: 600;" class="list-group list-group-horizontal">
       {% with rating=strain.get_average_rating %}
       {% if rating %}
-      <li class="list-group-item border-0 m-1 mt-n1 p-0 bg-light text-dark">
+      <li class="list-group-item border-0 m-1 mt-n1 p-0 text-dark">
           <span>{{ rating }}</span>
       </li>
       {% endif %}
-      <li class="list-group-item border-0 m-1 mt-n1 p-0 bg-light">
+      <li class="list-group-item border-0 m-1 mt-n1 p-0">
         {% if rating %}
         {{ rating|rating_icon }}
         {% else %}
@@ -38,7 +38,7 @@
       {% endwith %}
       {% with count=strain.user_review.all.count %}
       {% if count > 0 %}
-      <li class="list-group-item border-0 m-1 mt-n1 p-0 bg-light text-dark">
+      <li class="list-group-item border-0 m-1 mt-n1 p-0 text-dark">
         <span>({{ count }})</span>
       </li>
       {% endif %}

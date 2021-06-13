@@ -18,7 +18,8 @@
       <form method="POST" action="" enctype="multipart/form-data" class="form">
         {% csrf_token %}
         {{ form|crispy }}
-        <button type=submit class="mx-auto btn btn-block btn-info">
+        <button type=submit style="background-color:#6eb257; color: white; font-weight: 600; font-size: 1.2rem; letter-spacing: 1px;" 
+        class="mx-auto mt-3 mb-3 btn btn-block shadow">
            Submit
         </button>
       </form>

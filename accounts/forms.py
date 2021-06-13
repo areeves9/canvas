@@ -24,6 +24,9 @@ class ProfileForm(forms.ModelForm):
             "birthdate",
             "photo",
         )
+        widgets = {
+            'birthdate': forms.NumberInput(attrs={'type': 'date'}),
+        }
 
 
 class LoginForm(AuthenticationForm):

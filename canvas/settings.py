@@ -24,7 +24,7 @@ BASE_DIR = Path(__file__).resolve().parent.parent
 
 SECRET_KEY = os.environ['CANVAS_KEY']
 
-DEBUG = False
+DEBUG = True
 
 ALLOWED_HOSTS = ['canvasreviews.herokuapp.com', '.herokuapp.com']
 
@@ -34,6 +34,8 @@ EMAIL_PORT = 587
 EMAIL_HOST_USER = os.environ['CANVAS_EMAIL_HOST_USER']
 EMAIL_HOST_PASSWORD = os.environ['CANVAS_EMAIL_PW']
 EMAIL_USE_TLS = True
+
+STARFIELD_COLOUR = '#6EB257'
 
 
 
@@ -55,6 +57,7 @@ INSTALLED_APPS = [
     'reviews',
     'actions',
     'bootstrap3',
+    'django_starfield',
 ]
 
 MIDDLEWARE = [
@@ -174,8 +177,8 @@ sentry_sdk.init(
     integrations=[DjangoIntegration()]
 )
 
-# if DEBUG:
-#     try:
-#         from .local_settings import *
-#     except ImportError:
-#         pass
+if DEBUG:
+    try:
+        from .local_settings import *
+    except ImportError:
+        pass
