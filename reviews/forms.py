@@ -1,7 +1,8 @@
 from django import forms
+from django.utils.text import slugify
+
 from django_starfield import Stars
 
-from django.utils.text import slugify
 from reviews.models import Review, Comment
 
 
