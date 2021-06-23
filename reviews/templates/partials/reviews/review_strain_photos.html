@@ -1,8 +1,6 @@
-{% if review.photo in reivews %}
 <div class="col-12 mb-3">
     <h5 class="d-inline font-weight-bold">Photos of {{ strain }}</h5>
 </div>
-{% endif %}
 <div style="overflow-x: auto; overflow-y: hidden;" class="d-flex flex-row flex-nowrap">
     {% for review in reviews|slice:4 %}
     {% if review.photo %}

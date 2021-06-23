@@ -1,1 +1,13 @@
-<button type="button" class="btn btn-success" id="id-{{ widget.name }}" name="{{ widget.name }}">{{ widget.value }}</button>
+{% with id=widget.attrs.id %}
+<div{% if id %} id="{{ id }}"{% endif %} {% if widget.attrs.class %} class="{{ widget.attrs.class }}"{% endif %} data-toggle="buttons">
+    {% for group, options, index in widget.optgroups %}
+    {% for option in options %}
+    {% include option.template_name with widget=option %}
+    {% endfor %}
+    {% endfor %}    
+</div>
+{% endwith %}
+
+
+
+
