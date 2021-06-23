@@ -1,6 +1,6 @@
 <div class="media">
     <a href="{% url 'accounts:user' review.user %}">
-      <img style="height: 5rem; width: 5rem;" class="rounded-circle mr-3" src="{{ review.user.profile.photo.url }}" alt="Generic placeholder image">
+      <img style="height: 5rem; width: 5rem;" class="rounded-circle mr-3" src="{{ review.user.profile.photo.url }}">
     </a>
     <div class="media-body">
       <a class="text-dark" href="{% url 'accounts:user' review.user %}">

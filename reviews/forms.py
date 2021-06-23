@@ -4,6 +4,7 @@ from django.utils.text import slugify
 from django_starfield import Stars
 
 from reviews.models import Review, Comment
+from reviews.widgets import MethodSelectWidget
 
 
 class ShareReviewForm(forms.Form):
@@ -16,33 +17,35 @@ class ShareReviewForm(forms.Form):
 
 
 class ReviewForm(forms.ModelForm):
-    photo = forms.ImageField(
-        required=True,
-    )
-    rating = forms.IntegerField(widget=Stars)
-    method = forms.ChoiceField(),
+    def __init__(self, *args, **kwargs):
+        super(ReviewForm, self).__init__(*args, **kwargs)
+        self.fields['rating'].label = ""
+
+    photo = forms.ImageField(required=True)
+    rating = forms.IntegerField(widget=Stars, required=True)
 
     class Meta:
         model = Review
         fields = [
+            "rating",
             "title",
             "method",
             "content",
             "photo",
-            "rating",
         ]
         labels = {
-            'title': '',
             'content': '',
             'method': '',
+            'rating': '',
+            'title': '',
         }
         help_texts = {
             'method': 'Choose method of consumption'
         }
         widgets = {
-            'title': forms.TextInput(attrs={'placeholder': 'Title'}),
             'content': forms.Textarea(attrs={'placeholder': 'Description'}),
-            'method': forms.RadioSelect(),
+            'method': MethodSelectWidget(attrs={'class': 'btn-group btn-group-toggle mb-3'}),
+            'title': forms.TextInput(attrs={'placeholder': 'Title'}),
         }
 
     def save(self):

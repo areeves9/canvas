@@ -330,8 +330,9 @@ def strain_review(request, id=None):
             review.save()
             create_action(request.user, 'wrote', review)
             messages.success(request, "Review saved.")
-            return HttpResponseRedirect(review.get_absolute_url())
+            return HttpResponseRedirect(reverse('reviews:reviews'))
         else:
+            print('error')
             messages.error(request, "Review failed to save.")
 
     else:
