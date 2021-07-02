@@ -35,7 +35,7 @@ python manage.py runserver
 
 ## Images
 
-![strains](strains.png | width=100)
+<img src="strains.png" width="100" height="100">
 
 ![strainProfile](strainProfile.png | width=100)
 
