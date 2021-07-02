@@ -36,10 +36,10 @@ python manage.py runserver
 ## Images
 
 <img src="strains.png" width="250">
-
-![strainProfile](strainProfile.png | width=100)
-
-![feed](feed.png | width=100)
+<br/>
+<img src="strainProfile.png" width="250">
+<br/>
+<img src="feed.png" width="250">
 
 
 
