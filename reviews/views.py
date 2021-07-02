@@ -43,7 +43,7 @@ def reviews(request):
         context = {
             "reviews": reviews,
         }
-        return render(request, "partials/review_card.html", context)
+        return render(request, "partials/reviews/review_card.html", context)
     context = {
         "reviews": reviews,
         "nav": 'home',
@@ -277,7 +277,7 @@ def strain_share(request, id=None):
 @login_required
 def strains(request):
     strain_list = Strain.objects.all().order_by("name")
-    paginator = Paginator(strain_list, 18)
+    paginator = Paginator(strain_list, 16)
     page = request.GET.get('page')
     try:
         strains = paginator.page(page)

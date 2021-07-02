@@ -20,6 +20,7 @@
         {% endif %}
         <div class="form-group">
           {{ form.rating.errors }}
+          <p class="text-muted mb-n1">Rate this strain</p>
           {{ form.rating|as_crispy_field }}
 
           {{ form.method.errors }}

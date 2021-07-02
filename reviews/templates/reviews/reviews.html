@@ -72,14 +72,11 @@ $(window).scroll(function() {
     block_request = true;
     page += 1;
     $.get('?page=' + page, function(data) {
-
-      console.log('hello');
-
       if(data == '') {
         empty_page = true;
       } else {
         block_request = false;
-        $('#review-list').append(data);
+        $('#reviewList').append(data);
       }
          });
        }
