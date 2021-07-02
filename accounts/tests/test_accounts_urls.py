@@ -13,12 +13,3 @@ class TestUrls:
     def test_password_change_url(self):
         path = reverse('accounts:password_change')
         assert resolve(path).view_name == 'accounts:password_change'
-
-
-
-    
-
-    # def test_review_detail_url(self):
-    #     path = reverse('accoounts:register', kwargs={'id': 1})
-    #     assert resolve(path).view_name == 'reviews:review_detail'
-

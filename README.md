@@ -33,3 +33,15 @@ Run the server.
 python manage.py runserver
 ```
 
+## Images
+
+![strains](strains.png)
+
+![strainProfile](strainProfile.png)
+
+![feed](feed.png)
+
+
+
+
+
