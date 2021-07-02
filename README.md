@@ -35,11 +35,11 @@ python manage.py runserver
 
 ## Images
 
-![strains](strains.png)
+![strains](strains.png | width=100)
 
-![strainProfile](strainProfile.png)
+![strainProfile](strainProfile.png | width=100)
 
-![feed](feed.png)
+![feed](feed.png | width=100)
 
 
 
