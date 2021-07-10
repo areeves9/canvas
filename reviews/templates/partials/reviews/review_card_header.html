@@ -10,8 +10,8 @@
   <span style="font-size: 0.8rem; position: absolute; top: 28px; left: 52px;" class="text-secondary">{{ review.strain }}</span>
 </div>
 
-<div class="modal fade w-75" id="exampleModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
-  <div class="modal-dialog" role="document">
+<div class="modal fade" id="exampleModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+  <div class="modal-dialog modal-dialog-centered modal-sm" role="document">
     <div class="modal-content">
       <div class="modal-body">
         {% if request.user == review.user %}
@@ -19,7 +19,11 @@
         {% endif %}
         <a style="text-align: center; font-weight: 600;" class="d-block text-danger">Report</a>
         <hr/>
+        <a style="text-align: center; font-weight: 600;" class="d-block text-danger">Share</a>
+        <hr/>
+        <a id="copyLink" href="{{ request.path }}" style="text-align: center; font-weight: 600;" class="d-block text-danger">Copy Link</a>
       </div>
     </div>
   </div>
 </div>
+
