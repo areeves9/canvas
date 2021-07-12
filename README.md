@@ -6,6 +6,18 @@ cannabis strains.
 
 ## Installation
 
+Create an environment for the application dependencies using an environment manager of your choice. See [virtualenv](https://virtualenv.pypa.io/en/latest/) or [conda](https://docs.conda.io/en/latest/).
+
+```bash
+conda create --name $ENVIRONMENT_NAME python
+```
+
+Activate the environment.
+
+```bash
+conda activate $ENVIRONMENT_NAME
+```
+
 Use the package manager [pip](https://pip.pypa.io/en/stable/) to install 
 the dependencies located in requirements.txt.
 
@@ -34,6 +46,8 @@ python manage.py runserver
 ```
 
 ## Images
+
+Mobile
 
 <img src="strains.png" width="250">
 <br/>

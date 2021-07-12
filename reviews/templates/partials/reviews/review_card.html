@@ -2,11 +2,13 @@
 
 {% for review in reviews %}
 {% with users_like=review.users_like.all %}
-  <div class="card mb-3">
-    {% include "partials/reviews/review_card_header.html" %}
-    {% include "partials/reviews/review_card_photo.html" %}
-    {% include "partials/reviews/review_card_body.html" %}
-  </div>
-</a>
+
+<!--Medium size display-->
+<div class="card mb-3">
+  {% include "partials/reviews/review_card_header.html" %}
+  {% include "partials/reviews/review_card_photo.html" %}
+  {% include "partials/reviews/review_card_body.html" %}
+</div>
+
 {% endwith %}
 {% endfor %}

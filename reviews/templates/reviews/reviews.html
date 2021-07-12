@@ -8,15 +8,16 @@
 
 <div id="reviewCardContainer" class="mt-3 container">
   <div class="row justify-content-center align-items-center">
-    <div id="reviewList" class="col-sm-6 mt-5">
+    <!--hide on mobile-->
+    <div id="reviewList" class="col-md-6 mt-5">
       <h2 style="font-weight: 600;" class="mt-3 text-left">Latest Reviews</h2>
       {% include 'messages_display.html' %}
-      <div id="myAlert" style="display: none; position: fixed; bottom: 4rem; left: 0px; z-index: 9999; margin: 0.9rem; background-color: #6eb257 !important; border: #6eb257 !important; color: #FFF; font-weight: 500;" class="alert fade show rounded" role="alert">
+      <div id="myAlert" style="display: none; position: fixed; bottom: 4rem; left: 0px; z-index: 9999; background-color: #23ce6b !important; border: #6eb257 !important; color: #FFF; font-weight: 500;" class="alert fade show rounded" role="alert">
         <i style="color: #FFF; font-size: 1.5rem; margin-right: 1rem;" class="far fa-check-circle"></i>  
         Link copied to clipboard!
       </div>
         {% include "partials/reviews/review_card.html" %}
-    </div> <!--/.col-sm-6-->
+    </div> <!--/.col-md-7.col-lg-7.mt-5-->
   </div> <!--/.row-->
 </div> <!--/.container-->
 

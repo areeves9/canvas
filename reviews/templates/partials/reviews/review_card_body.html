@@ -1,5 +1,5 @@
 {% load rating_icon %}
-<div class="card-body border-top">
+<div class="card-body border-0">
     <a style="{% if request.user in users_like %}margin-right: 1rem; text-decoration: none !important; color: #FF6663; font-size: 1.4rem;{% else %}margin-right: 1rem; text-decoration: none !important; color: black; font-size: 1.4rem;{% endif %}"
         class="review-like"
         data-id="{{ review.id }}"
@@ -9,6 +9,7 @@
         fas fa-heart{% else %}far fa-heart{% endif %}"></i> 
     </a>
 
+    {% include 'partials/reviews/review_method_badge.html' %}
     <p style="font-size: 1rem;" class="mt-1 card-text">
         <span class="mr-1 font-weight-bold">
             <a style="color: black; text-decoration: none;" 
@@ -27,8 +28,7 @@
         <a href="#" style="color: #6c757d;" class="show-link">more</a>
         {% endif %}
     </p>
-    {% include 'partials/reviews/review_method_badge.html' %}
-    <span class="d-block text-muted mt-3" style="font-size: 0.8rem;">{{ review.timestamp|timesince }} ago</span>
+    <span class="d-block text-muted mt-n2" style="font-size: 0.8rem;">{{ review.timestamp|timesince }} ago</span>
 </div>
 
 <style>

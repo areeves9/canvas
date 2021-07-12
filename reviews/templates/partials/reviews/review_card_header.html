@@ -15,6 +15,8 @@
     <div class="modal-content">
       <div class="modal-body">
         {% if request.user == review.user %}
+        <a href="{% url 'reviews:review_update' review.id %}" class="text-danger">Edit</a>
+        <hr/>
         <a href="{% url 'reviews:review_delete' review.id %}" class="text-danger">Delete</a>
         {% endif %}
         <a style="text-align: center; font-weight: 600;" class="d-block text-danger">Report</a>
