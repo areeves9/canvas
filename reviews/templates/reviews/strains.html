@@ -5,23 +5,25 @@
 
 {% include 'partials/nav_header.html' %}
 
-<div style="padding-top: 100px;" class="container-fluid">
-  <h2 style="font-weight: 600;" class="text-left">Explore Strains</h2>
-  <hr/>
+<div class="container-fluid">
+  <div class="row">
+    <div class="col-12 mt-5">
+      <h2 style="font-weight: 600;" class="text-left mt-3">Explore Strains</h2>
+      <hr/>
+
+    </div>
+  </div>
   <div class="row">
     {% include "partials/strains/strain_list.html" %}
   </div>
 </div> <!--/.container-fluid -->
 
-<div class="container">
-  {% include "partials/strains/strains_pagination.html" %}
-</div>
-
 <style>
-  .header-container {
-    padding-bottom: 100px;
+  body {
+    background-color: #f8f9fa;
   }
 </style>
+
 {% endblock %}
 
 

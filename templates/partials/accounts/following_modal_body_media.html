@@ -11,6 +11,7 @@
         {% if request.user in following.followers.all %}Un{% endif %}follow
       </a>
       {% endif %}
+      <!-- {% include 'partials/accounts/follow_button.html' %} -->
       <p class="mt-n1 text-muted">{{ following.first_name }}</p>
     </div> <!--/.media-body-->
 </div> <!--/.media-->

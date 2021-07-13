@@ -1,11 +1,10 @@
 {% load rating_icon %}
 
 <div id="userReviewContainer" class="row mt-4">
-    <div class="col-sm-6">
-      <h5 class="mt-5 d-inline font-weight-bold">
+    <div class="col-sm-6 mb-5">
+      <h5 class="font-weight-bold">
         {{ strain }} reviews <span style="color: #6eb257; font-size: 1rem; text-decoration: underline;">({{ reviews.count }})</span>
       </h5>
-      <!-- create review button -->
       {% include 'partials/reviews/review_button.html' %}
     </div>  <!-- .col-12 -->
     {% if reviews %}

@@ -1,15 +1,15 @@
-<ul class="mt-4 mb-4 list-group list-group-horizontal">
-    <li class="text-center list-group-item border border-left-0 border-right-0">
-        <h6><b>{{ review_numbers }}</b> Reviews</h6>
+<ul style="font-size: 14px;" class="mt-4 list-group list-group-horizontal">
+    <li class="text-center list-group-item border border-0">
+        <b>{{ review_numbers }}</b> Reviews
     </li>
-    <li class="text-center list-group-item border border-left-0 border-right-0">
-        <h6>
-            <a class="text-dark text-decoration-none" data-toggle="modal" href="#followersModal"><b id="total-followers">{{ total_followers }}</b> Followers</a>
-        </h6>
+    <li class="text-center list-group-item border border-0">
+            <a class="text-dark text-decoration-none" data-toggle="modal" href="#followersModal">
+                <span id="total-followers" class="font-weight-bold">
+                    {{ total_followers }}
+                </span> Followers
+            </a>
     </li>
-    <li class="text-center list-group-item border border-left-0 border-right-0">
-        <h6>
+    <li class="text-center list-group-item border border-0">
             <a class="text-dark text-decoration-none" data-toggle="modal" href="#followingModal"><b>{{ total_following }}</b> Following</a>
-        </h6>
     </li>
 </ul>
