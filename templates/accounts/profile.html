@@ -9,53 +9,84 @@
 <!-- Messages -->
 {% include 'messages_display.html' %}
 
-<div class="container mt-3">
+<!--desktop-responsive-->
+<div class="container d-none d-sm-block mt-4">
+  <div class="row justify-content-center align-items-center">
+    <div class="col-3">
+      {% if user.profile.photo %}
+      <img class="d-none d-sm-block mx-auto mb-4 rounded-circle img-fluid" 
+        alt="Responsive image" src="{{ user.profile.photo.url }}" 
+        style="width: 9rem; height: 9rem;"/>
+      {% else %}
+      <img class="d-none d-sm-block mx-auto mb-4 rounded-circle img-fluid" 
+        src="http://placehold.it/250x250" style="width: 5rem; height: 5rem;"/>
+      {% endif %}
+    </div>
+    <div class="col-6">
+      <h3 class="d-inline mr-3">{{ user.username }}</h3>
+      {% if request.user.profile.id == user.profile.id %}
+      <a class="d-inline mr-3 btn btn-sm btn-outline-secondary" href="{% url 'accounts:update' %}">
+        <b>Edit Profile</b>
+      </a>
+      <span style="position: absolute; top: 10px;">
+        <i style="font-size: 1.4rem;" class="fas fa-cog"></i>
+      </span>
+      {% endif %}
+      {% with total_followers=user.followers.count %}
+      {% with total_following=user.following.count %}
+      {% include "partials/accounts/profile_horizontal_list.html" %}
+      {% endwith %}
+      {% endwith %}
+      <p class="text-left"><b>{{ user.first_name }}</b></p>
+      <p class="text-left mt-n3">{{ user.profile.bio }}</p>
+    </div>
+  </div> <!--/.row.justify-content-center-->
+</div> <!--/.container-->
+
+<!--mobile-responsive-->
+<div class="container d-block d-sm-none">
   <div class="row">
     <div class="col-12 mb-3">
-      <!--mobile-responsive-->
       {% if request.user == user %}
       <a data-toggle="modal" data-target="#profileSettingsModal" class="mt-2 font-weight-bold text-dark float-right" href="{% url 'accounts:logout' %}">
         <i style="font-size: 1.1rem;" class="fas fa-bars"></i>
       </a>
       {% endif %}
+      <!--user's profile-->
       {% if request.user == user %}
-      <h4 class="d-block d-sm-none text-left font-weight-bold">{{ user.username }}</h4>
+      <h4 class="text-left font-weight-bold">{{ user.username }}</h4>
       {% else %}
-      <h5 class="d-block d-sm-none text-center">{{ user.username }}</h5>
+      <!--visiting someone else's profile-->
+      <h5 class="text-center">{{ user.username }}</h5>
       {% endif %}
-    </div>
+    </div> <!--/.col-12-->
   </div> <!--/.row-->
+  
   <div class="row">
+    <!--profile photo-->
     <div class="col-3 col-md-3">
-
       <!--mobile-responsive-->
       {% if user.profile.photo %}
       <img class="d-block d-sm-none mr-auto mb-4 rounded-circle img-fluid" 
         alt="Responsive image" src="{{ user.profile.photo.url }}" 
-        style="width: 4rem; height: 4rem;"/>
+        style="width: 5rem; height: 5rem;"/>
       {% else %}
       <img class="d-block d-sm-none mx-auto mb-4 rounded-circle img-fluid" 
-        src="http://placehold.it/250x250" style="width: 80px; height: 80px;"/>
+        src="http://placehold.it/250x250" style="width: 5rem; height: 5rem;"/>
       {% endif %}
-      <!--desktop-responsive-->
-      {% if user.profile.photo %}
-      <img class="d-none d-sm-block mx-auto mb-4 rounded-circle img-fluid" 
-        alt="Responsive image" src="{{ user.profile.photo.url }}" 
-        style="width: 160px; height: 160px;"/>
-      {% else %}
-      <img class="d-none d-sm-block mx-auto mb-4 rounded-circle img-fluid" 
-        src="http://placehold.it/250x250" style="width: 160px; height: 160px;"/>
-      {% endif %}
+
       {% with total_followers=user.followers.count %}
       {% with total_following=user.following.count %}
     </div>
-    <div class="col-9 col-md-9 mb-4">
-      <span class="d-block d-sm-none mt-n4">
+    <!--mobile-->
+    <div class="col-8 d-block d-sm-none">
+      <span class="d-block mt-n3">
         {% include "partials/accounts/profile_horizontal_list.html" %}
       </span>
     </div>
   </div> <!--/.row-->
-  <div class="row d-block d-sm-none mb-3">
+
+  <div class="row mb-3">
     <div class="col">
       <p class="text-left"><b>{{ user.first_name }}</b></p>
       <p class="text-left mt-n3">{{ user.profile.bio }}</p>
@@ -67,44 +98,32 @@
       <span id="buttonContainer">
         {% include 'partials/accounts/follow_button.html' %}
       </span>
-    </div>
-  </div>
-      
-      
-   
-      <!-- <h1 class="d-none d-sm-block">{{ user.username }}</h1>
-      {% if request.user.profile.id == user.profile.id %}
-      <a class="w-50 btn btn-sm btn-block btn-outline-secondary d-none d-sm-block" href="{% url 'accounts:update' %}">
-        <b>Edit Profile</b>
-      </a>
-      {% endif %}
-      <span class="d-none d-sm-block">
-        {% include "partials/accounts/profile_horizontal_list.html" %}
-      </span>
-      <p class="d-none d-sm-block text-left"><b>{{ user.first_name }}</b></p>
-      <p class="d-none d-sm-block text-left mt-n3">{{ user.profile.bio }}</p> -->
-
-
-
-
-  <ul class="nav nav-fill nav-pills mx-auto w-50 mb-3" id="pills-tab" role="tablist">
-    <li class="nav-item">
-      <i class="fas fa-th nav-link active" id="pills-reviews-tab" data-toggle="pill" href="#pills-reviews" role="tab" aria-controls="pills-reviews" aria-selected="true"></i>
-    </li>
-    <li class="nav-item">
-      <i class="nav-link fas fa-heart" id="pills-favs-tab" data-toggle="pill" href="#pills-favs" role="tab" aria-controls="pills-favs" aria-selected="false"></i>
-    </li>
-  </ul>
-
-  <div class="tab-content mb-4" id="pills-tabContent">
-    <div class="tab-pane show fade active" id="pills-reviews" role="tabpanel" aria-labelledby="pills-reviews-tab">
-      {% include "partials/accounts/profile_user_reviews.html" %}
-    </div>
-    <div class="tab-pane fade" id="pills-favs" role="tabpanel" aria-labelledby="pills-favs-tab">
-      {% include "partials/accounts/profile_user_favorites.html" %}
-    </div>
-  </div> <!--/.tab-content-->
+    </div> <!--.col-->
+  </div> <!--.row-->
 </div> <!--/.container-->
+
+<div class="container">
+  <div class="row justify-content-center align-items-center">
+    <ul class="nav nav-fill nav-pills mx-auto w-50 mb-3" id="pills-tab" role="tablist">
+      <li class="nav-item">
+        <i class="fas fa-th nav-link active" id="pills-reviews-tab" data-toggle="pill" href="#pills-reviews" role="tab" aria-controls="pills-reviews" aria-selected="true"></i>
+      </li>
+      <li class="nav-item">
+        <i class="nav-link fas fa-heart" id="pills-favs-tab" data-toggle="pill" href="#pills-favs" role="tab" aria-controls="pills-favs" aria-selected="false"></i>
+      </li>
+    </ul>
+    <div class="col-12 col-md-9">
+      <div class="tab-content mb-4" id="pills-tabContent">
+        <div class="tab-pane show fade active" id="pills-reviews" role="tabpanel" aria-labelledby="pills-reviews-tab">
+          {% include "partials/accounts/profile_user_reviews.html" %}
+        </div>
+        <div class="tab-pane fade" id="pills-favs" role="tabpanel" aria-labelledby="pills-favs-tab">
+          {% include "partials/accounts/profile_user_favorites.html" %}
+        </div>
+      </div> <!--/.tab-content-->
+    </div> <!--/.col-6-->
+  </div> <!--/.row-->
+</div>
 
 <style>
   .sticky {

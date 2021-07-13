@@ -1,30 +1,35 @@
 {% load rating_icon %}
 
-<h5 class="text-left">Reviews</h5>
-    {% for review in review_list %}
-    <div class="row">
-    <div id="pills-home" role="tabpanel" aria-labelledby="pills-home-tab" 
-    class="tab-pane fade show active">
-        <div class="col-12 mt-4">
-            <div class="media">
-                <a href="{% url 'reviews:review_detail' review.id %}">
-                    {% if review.photo %}
-                    <img style="height: 53px; width: 53px;" class="mr-3" src="{{ review.photo.url }}" alt="Card image cap">
-                    {% else %}
-                    <img style="height: 53px; width: 53px;" class="mr-3" src="https://via.placeholder.com/250" alt="Card image cap">
-                    {% endif %}
-                </a>
-                <div class="media-body">
-                    <h5 class="">{{ review.strain }}</h5> 
-                    <h6 class="mt-n2 d-block text-secondary">{{ review.title }}</h6>
-                    <span class="mb-3 d-block">{{ review.rating|rating_icon }}</span>
-                    {% include 'partials/reviews/review_method_badge.html' %}
-                </div> <!--/.media-body-->
-            </div> <!--/.media-->
-        </div> <!--/.col-12-->
-    </div>
-</div> <!--/.row-->
-<hr/>
+<div style="padding-bottom: 35px;" class="container">
 
-{% endfor %}
+    <h5 class="text-left">Reviews</h5>
+        {% for review in review_list %}
+        <div id="pills-home" role="tabpanel" aria-labelledby="pills-home-tab" 
+        class="tab-pane fade show active">
+        <div class="row">
+            <div class="col-12">
+                <div class="media">
+                    <a href="{% url 'reviews:review_detail' review.id %}">
+                        {% if review.photo %}
+                        <img style="height: 53px; width: 53px;" class="mr-3" src="{{ review.photo.url }}" alt="Card image cap">
+                        {% else %}
+                        <img style="height: 53px; width: 53px;" class="mr-3" src="https://via.placeholder.com/250" alt="Card image cap">
+                        {% endif %}
+                    </a>
+                    <div class="media-body">
+                        <span style="font-size: 14px;" class="float-right badge badge-pill bg-light text-muted border border-muted p-2">
+                        {% include 'partials/reviews/review_method_badge.html' %}
+                        </span>
+                        <h5 class="">{{ review.strain }}</h5> 
+                        <h6 class="mt-n2 d-block text-secondary">{{ review.title }}</h6>
+                        <span class="mb-3 d-block">{{ review.rating|rating_icon }}</span>
+                    </div> <!--/.media-body-->
+                </div> <!--/.media-->
+            </div> <!--/.col-12-->
+        </div>
+    </div> <!--/.row-->
+    <hr/>
+    
+    {% endfor %}
+</div>
 

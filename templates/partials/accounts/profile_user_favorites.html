@@ -2,16 +2,23 @@
 {% if user.strains_liked %}
 <h5 class="text-left">Favorites</h5>
 {% endif %}
-<div class="container">
+<div style="padding-bottom: 100px;" class="container">
     <div class="row justify-content-center align-items-center">
-        <!-- <div class="card-columns"> -->
         {% for strain in user.strains_liked.all %}
         <div id="pills-home" role="tabpanel" aria-labelledby="pills-home-tab" 
         class="tab-pane fade show active">
             <div class="card m-2 border-0 shadow">
-                <a href="{{ strain.get_absolute_url }}">
+                <a class="d-none d-sm-block" href="{{ strain.get_absolute_url }}">
                     {% if strain.photo_url %}
-                    <img class="card-img-top" src="{{ strain.photo_url }}" style="object-fit: cover; height: 325px; width: 325px;" alt="Card image cap">
+                    <img class="card-img-top" src="{{ strain.photo_url }}" style="object-fit: cover; height: 250px; width: 250px;" alt="Card image cap">
+                    {% else %}
+                    <img class="card-img-top" src="https://via.placeholder.com/250" style="object-fit: cover; height: 325px; width: 300px;" alt="Card image cap">
+                    {% endif %}
+                </a>
+                <!--MOBILE-->
+                <a class="d-block d-sm-none" href="{{ strain.get_absolute_url }}">
+                    {% if strain.photo_url %}
+                    <img class="card-img-top" src="{{ strain.photo_url }}" style="object-fit: cover; height: 350px; width: 350px;" alt="Card image cap">
                     {% else %}
                     <img class="card-img-top" src="https://via.placeholder.com/250" style="object-fit: cover; height: 325px; width: 300px;" alt="Card image cap">
                     {% endif %}
@@ -25,6 +32,5 @@
         </div>
         {% endfor %}
 
-            <!-- </div> /.card-columns -->
     </div> <!--/.row-->
 </div>
