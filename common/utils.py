@@ -19,11 +19,11 @@ def image_rotate(image):
                 try:
                     exif = dict(e.items())
                     if (exif[orientation]) == 3:
-                        image = image.rotate(180)
+                        image = image.rotate(180, expand=True)
                     elif (exif[orientation]) == 6:
-                        image = image.rotate(270)
+                        image = image.rotate(270, expand=True)
                     elif (exif[orientation]) == 8:
-                        image = image.rotate(90)
+                        image = image.rotate(90, expand=True)
                 except IOError as err:
                     print(err)
         except IOError as err:
@@ -32,10 +32,6 @@ def image_rotate(image):
 
 
 def image_compress(image, instance):
-    '''
-    If image height is greater than width, do ....
-    else ....
-    '''
     # maintain the aspect ratio of the orginial image with thumbnail()
     image.thumbnail((1024, 1024), Image.ANTIALIAS)
     memfile = BytesIO()

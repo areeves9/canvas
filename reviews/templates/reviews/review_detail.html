@@ -3,7 +3,7 @@
 {% load rating_icon %}
 {% block content %}
 
-<div class="container header-container">
+<!-- <div class="container header-container">
   <nav class="navbar navbar-expand-lg navbar-light bg-white border border-bottom-1 fixed-top">
     <a href="{{ request.META.HTTP_REFERER }}">
       <i class="fas fa-chevron-left"></i>
@@ -16,107 +16,22 @@
       </li>
     </ul> 
   </nav>
-</div>
+</div> -->
 
-{% include 'messages_display.html' %}
 
-{% with total_likes=review.users_like.count users_like=review.users_like.all %}
-<div class="container">
-  <div class="row mt-5">
-    <div class="mt-5 mb-4 col-12">
-      <h3 class="text-left">
-        <a class="text-decoration-none text-dark font-weight-bold font-italic" 
-          href="{{ review.strain.get_absolute_url }}"><u>{{ review.strain }}</u>
-        </a>
-      </h3>
-    </div> <!--/.mb-4.col-12-->
-    <div class="col-12">
-      {% include "partials/reviews/review_user_media_object.html" %}
-    </div>
-  </div> <!--/.row-->
-
-  <div class="row">
-    <div class="col-sm">
-      <hr/>
-      <h5 class="d-inline">{{ review }}</h5>
-      <p class="">
-        {{ review.rating|floatformat:'1' }} {{ review.rating|rating_icon }} 
-      </p>
-      <p class="mt-3">{{ review.content }}</p>
-    </div>
-  </div>
-  <div class="row">
-    <div class="col-sm-6">
-      <h5 class="mt-5">Method</h5>
-      <hr/>
-        {% include "partials/reviews/review_method_badge.html" %}
-      </h5>
-    </div>
-    <div class="col-sm-6">
-      <h5 class="mt-5">Photo</h5>
-      <hr/>
-      <div class="card">
+<div id="" class="container">
+  <div class="row justify-content-center align-items-center">
+    <!--hide on mobile-->
+    <div id="reviewList" class="col-md-6 mt-5">
+      {% include 'messages_display.html' %}
+    
+      <div class="card mb-3">
+        {% include "partials/reviews/review_card_header.html" %}
         {% include "partials/reviews/review_card_photo.html" %}
-      </div> <!--/.card-->
-    </div>
-  </div>
+        {% include "partials/reviews/review_card_body.html" %}
+      </div>
+    </div> <!--/.col-md-7.col-lg-7.mt-5-->
+  </div> <!--/.row-->
 </div> <!--/.container-->
 
-<style>
-
-</style>
-{% endwith %}
 {% endblock %}
-
-
- {% block domready %}
- $('a.follow').click(function(e){
-  e.preventDefault();
-  $.post('{% url "accounts:user_follow" %}',
-  {
-    id: $(this).data('id'),
-    action: $(this).data('action')
-  },
-  function(data){
-    if (data['status'] == 'ok') {
-      var previous_action = $('a.follow').data('action');
-
-      $('a.follow').data('action', previous_action == 'follow' ? 'unfollow' : 'follow');
-      $('a.follow').text(previous_action == 'follow' ? 'Unfollow' : 'Follow');
-
-      var previous_followers = parseInt(
-        $('span.count .total').text());
-      $('span.count .total').text(previous_action == 'follow' ? previous_followers + 1 : previous_followers -1);
-    }
-  }
-  );
-});
-      $('a.review-like').click(function(e){
-        console.log('hello');
-       e.preventDefault();
-       $.post('{% url "reviews:review_like" %}',
-         {
-           id: $(this).data('id'),
-           action: $(this).data('action')
-         },
-         function(data){
-           if (data['status'] == 'ok')
-           {
-             var previous_action = $('a.review-like').data('action');
-             // toggle data-action
-             $('a.review-like').data('action', previous_action == 'like' ? 'unlike' : 'like');
-
-// toggle heart icon
-$('a.review-like').html(previous_action == 'like' ? `<i class="fas fa-heart"></i> Unlike` : `<i class="far fa-heart"></i> Like`);
-
-
-
-
-             // update total likes
-var previous_likes = parseInt($('span.count .total').text());
-$('span.count .total').text(previous_action == 'like' ? previous_likes + 1 : previous_likes - 1);
-}
-
-});
-});
-   {% endblock %}

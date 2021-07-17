@@ -14,16 +14,17 @@
   <div class="modal-dialog modal-dialog-centered modal-sm" role="document">
     <div class="modal-content">
       <div class="modal-body">
+        <!-- {{ review.user }}
         {% if request.user == review.user %}
-        <a href="{% url 'reviews:review_update' review.id %}" class="text-danger">Edit</a>
+        <a href="{% url 'reviews:review_update' review.id %}" class="d-block text-danger">Edit</a>
         <hr/>
-        <a href="{% url 'reviews:review_delete' review.id %}" class="text-danger">Delete</a>
-        {% endif %}
+        <a href="{% url 'reviews:review_delete' review.id %}" class="d-block text-danger">Delete</a>
+        {% endif %} -->
         <a style="text-align: center; font-weight: 600;" class="d-block text-danger">Report</a>
         <hr/>
         <a style="text-align: center; font-weight: 600;" class="d-block text-danger">Share</a>
         <hr/>
-        <a id="copyLink" href="{{ request.path }}" style="text-align: center; font-weight: 600;" class="d-block text-danger">Copy Link</a>
+        <a id="copyLink" href="{{ review.get_absolute_url }}" style="text-align: center; font-weight: 600;" class="d-block text-danger">Copy Link</a>
       </div>
     </div>
   </div>

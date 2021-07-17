@@ -3,16 +3,18 @@
   {% include 'partials/strains/strain_detail_photo.html' %}
   <div class="card mb-4 shadow-sm" style="border: 0;">
     <div class="card-body">
-      <h4 class="card-title text-center">{{ strain }}</h4>
+      <h4 class="card-title text-left">{{ strain }}</h4>
       {% load rating_icon %}
       {% if rating > 0 %}
-      <span class="d-block text-center mt-n2">
-        <h5>{{ rating|rating_icon }}</h5>
+      <span class="d-block text-left mt-n2">
+        {% with count=strain.user_review.all.count %}
+        {% if count > 0 %}
+        <h5>{{ rating|rating_icon }} ({{ count }})</h5>
+        {% endif %}
+        {% endwith %}
       </span>
       {% else %}
-      <a class="d-block w-50 mx-auto btn rounded-pill shadow" 
-      style="background-color: #6EB257; color: #FFF; font-weight: 600; letter-spacing: 1px;" 
-      href="{% url 'reviews:strain_review' strain.id %}">Review</a>
+      <p style="font-weight: 600;" class="text-left mb-0">Be the first to <a style="color: #6EB257; text-decoration: none;" href="{% url 'reviews:strain_review' strain.id %}">review</a></p>
       {% endif %}
     </div>
   </div>

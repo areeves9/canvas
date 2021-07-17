@@ -1,7 +1,6 @@
 {% load rating_icon %}
 
 <div style="padding-bottom: 35px;" class="container">
-
     <h5 class="text-left">Reviews</h5>
         {% for review in review_list %}
         <div id="pills-home" role="tabpanel" aria-labelledby="pills-home-tab" 
@@ -17,12 +16,12 @@
                         {% endif %}
                     </a>
                     <div class="media-body">
-                        <span style="font-size: 14px;" class="float-right badge badge-pill bg-light text-muted border border-muted p-2">
-                        {% include 'partials/reviews/review_method_badge.html' %}
-                        </span>
+                        <span class="mb-3 d-block float-right">{{ review.rating|rating_icon }}</span>
                         <h5 class="">{{ review.strain }}</h5> 
                         <h6 class="mt-n2 d-block text-secondary">{{ review.title }}</h6>
-                        <span class="mb-3 d-block">{{ review.rating|rating_icon }}</span>
+                        <span style="font-size: 14px;" class="badge badge-pill bg-light text-muted border border-muted p-2">
+                            {% include 'partials/reviews/review_method_badge.html' %}
+                        </span>
                     </div> <!--/.media-body-->
                 </div> <!--/.media-->
             </div> <!--/.col-12-->
