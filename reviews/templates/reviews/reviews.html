@@ -5,39 +5,42 @@
 
 {% include 'partials/nav_header.html' %}
 
-<div id="reviewCardContainer" class="container-fluid d-block d-sm-none">
+<div id="reviewCardContainer" class="container">
   <div class="row justify-content-center align-items-center">
-    <!--hide on mobile-->
-    <div id="reviewList" class="col-12 p-0">
+    <div id="reviewList" class="col-12 col-md-6 p-0">
       <h2 style="font-weight: 600;" class="mt-3 text-left">Latest Reviews</h2>
       {% include 'messages_display.html' %}
-      <div id="myAlert" style="display: none; position: fixed; bottom: 4rem; left: 0px; z-index: 9999; background-color: #23ce6b !important; border: #6eb257 !important; color: #FFF; font-weight: 500;" class="alert fade show rounded" role="alert">
-        <i style="color: #FFF; font-size: 1.5rem; margin-right: 1rem;" class="far fa-check-circle"></i>  
-        Link copied to clipboard!
-      </div>
-        {% include "partials/reviews/review_card.html" %}
+      {% include "partials/reviews/review_copy_link_notification.html" %}
+      {% include "partials/reviews/review_card.html" %}
     </div> <!--/.col-12.p-0-->
   </div> <!--/.row-->
 </div> <!--/.container-->
 
-<div id="reviewCardContainer" class="container d-none d-sm-block">
-  <div class="row justify-content-center align-items-center">
-    <!--hide on mobile-->
-    <div id="reviewList1" class="col-md-6 mt-5">
-      <h2 style="font-weight: 600;" class="mt-3 text-left">Latest Reviews</h2>
-      {% include 'messages_display.html' %}
-      <div id="myAlert" style="display: none; position: fixed; bottom: 4rem; left: 0px; z-index: 9999; background-color: #23ce6b !important; border: #6eb257 !important; color: #FFF; font-weight: 500;" class="alert fade show rounded" role="alert">
-        <i style="color: #FFF; font-size: 1.5rem; margin-right: 1rem;" class="far fa-check-circle"></i>  
-        Link copied to clipboard!
-      </div>
-        {% include "partials/reviews/review_card.html" %}
-    </div> <!--/.col-md-7.col-lg-7.mt-5-->
-  </div> <!--/.row-->
-</div> <!--/.container-->
 
 <style>
   body {
     background-color: #f8f9fa;
+  }
+  #myAlert {
+    width: inherit;
+    position: fixed;
+    bottom: 10%;
+    background-color: #23ce6b; 
+    border: #6eb257 !important; 
+    color: #FFF; 
+    font-weight: 500;
+    z-index: 9999; 
+    visibility: hidden;	
+    opacity: 0;
+    -webkit-transition: all .15s ease-in;
+       -moz-transition: all .15s ease-in;
+         -o-transition: all .15s ease-in;
+            transition: all .15s ease-in;
+  }
+  #myAlert.target {
+    visibility: visible;
+    opacity: 1;
+    transform: translateY(50px);
   }
 </style>
 
@@ -54,12 +57,18 @@ document.getElementById('copyLink').addEventListener('click', e => {
     /* clipboard write failed */
     console.log('failed');
   });
-  $('#exampleModal').modal('hide');
-  document.getElementById('myAlert').style.display = 'block'; 
+
+  document.getElementById('myAlert').classList.toggle('target');
+  document.getElementById('exampleModal1').classList.toggle('hide');
+  
+  $('#exampleModal1').modal('hide')
+
   setTimeout(() => {
-    document.getElementById('myAlert').style.display = 'none'; 
-  }, 5000);
+    document.getElementById('myAlert').classList.toggle('target'); 
+  }, 3000);
 });
+
+$('#exampleModal').modal('hide');
 
 $('#reviewList').click(function(e){
   
@@ -107,6 +116,7 @@ document.getElementById('reviewCardContainer').addEventListener('click', functio
 var page = 1;
 var empty_page = false;
 var block_request = false;
+
 $(window).scroll(function() {
   var margin = $(document).height() - $(window).height() - 200;
   if  ($(window).scrollTop() > margin && empty_page == false && block_request == false){
@@ -118,7 +128,6 @@ $(window).scroll(function() {
       } else {
         block_request = false;
         $('#reviewList').append(data);
-        $('#reviewList1').append(data);
       }
          });
        }

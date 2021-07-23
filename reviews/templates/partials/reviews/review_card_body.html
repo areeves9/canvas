@@ -8,9 +8,7 @@
         <i class="mt-1 {% if request.user in users_like %}
         fas fa-heart{% else %}far fa-heart{% endif %}"></i> 
     </a>
-
     <span style="font-size: 14px;" class="float-right badge badge-pill bg-light text-muted border border-muted p-2">
-
     {% include 'partials/reviews/review_method_badge.html' %}
     </span>
     <p style="font-size: 1rem;" class="mt-1 card-text">
@@ -31,7 +29,7 @@
         <a href="#" style="color: #6c757d;" class="show-link">more</a>
         {% endif %}
     </p>
-    <span class="d-block text-muted mt-n2" style="font-size: 0.8rem;">{{ review.timestamp|timesince }} ago</span>
+    <span class="d-block text-muted mt-n3" style="font-size: 0.7rem;">{{ review.timestamp|timesince }} ago</span>
 </div>
 
 <style>

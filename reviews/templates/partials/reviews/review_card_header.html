@@ -1,7 +1,9 @@
 <div class="card-header bg-white">
-  <a class="float-right my-auto text-dark" data-toggle="modal" data-target="#exampleModal" href="#">
+
+  <a class="float-right mt-1 text-dark" data-toggle="modal" data-target="#exampleModal1" href="#">
     <i class="fas fa-ellipsis-h"></i>
   </a>
+
   <a href="{% url 'accounts:user' review.user %}" class="text-decoration-none">
     <img style="height: 2rem; width: 2rem;" class="ml-n2 rounded-circle" 
     src="{% if review.user.profile.photo %}{{ review.user.profile.photo.url }}{% else %}http://placehold.it/250x250{% endif %}"/>
@@ -9,24 +11,3 @@
   </a>
   <span style="font-size: 0.8rem; position: absolute; top: 28px; left: 52px;" class="text-secondary">{{ review.strain }}</span>
 </div>
-
-<div class="modal fade" id="exampleModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
-  <div class="modal-dialog modal-dialog-centered modal-sm" role="document">
-    <div class="modal-content">
-      <div class="modal-body">
-        <!-- {{ review.user }}
-        {% if request.user == review.user %}
-        <a href="{% url 'reviews:review_update' review.id %}" class="d-block text-danger">Edit</a>
-        <hr/>
-        <a href="{% url 'reviews:review_delete' review.id %}" class="d-block text-danger">Delete</a>
-        {% endif %} -->
-        <a style="text-align: center; font-weight: 600;" class="d-block text-danger">Report</a>
-        <hr/>
-        <a style="text-align: center; font-weight: 600;" class="d-block text-danger">Share</a>
-        <hr/>
-        <a id="copyLink" href="{{ review.get_absolute_url }}" style="text-align: center; font-weight: 600;" class="d-block text-danger">Copy Link</a>
-      </div>
-    </div>
-  </div>
-</div>
-

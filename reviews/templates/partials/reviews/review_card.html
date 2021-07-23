@@ -3,18 +3,14 @@
 {% for review in reviews %}
 {% with users_like=review.users_like.all %}
 
-<div class="card border-0 d-block d-sm-none">
+<!--Medium size display-->
+<div class="card mb-3">
   {% include "partials/reviews/review_card_header.html" %}
   {% include "partials/reviews/review_card_photo.html" %}
   {% include "partials/reviews/review_card_body.html" %}
 </div>
 
-<!--Medium size display-->
-<div class="card mb-3 d-none d-sm-block">
-  {% include "partials/reviews/review_card_header.html" %}
-  {% include "partials/reviews/review_card_photo.html" %}
-  {% include "partials/reviews/review_card_body.html" %}
-</div>
 
 {% endwith %}
+{% include 'partials/reviews/review_card_modal.html' %}
 {% endfor %}

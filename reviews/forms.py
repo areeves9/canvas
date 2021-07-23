@@ -43,7 +43,6 @@ class ReviewForm(forms.ModelForm):
         widgets = {
             'content': forms.Textarea(attrs={'placeholder': 'Description'}),
             'method': MethodSelectWidget(attrs={'class': 'btn-group btn-group-toggle mb-3'}),
-            # 'rating': StarRatingWidget(attrs={'style': 'display:none;'}),
             'title': forms.TextInput(attrs={'placeholder': 'Title'}),
         }
 
