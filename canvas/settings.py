@@ -25,7 +25,7 @@ BASE_DIR = Path(__file__).resolve().parent.parent
 
 SECRET_KEY = os.environ['CANVAS_KEY']
 
-DEBUG = False
+DEBUG = os.environ['DEBUG'] == 'True'
 
 ALLOWED_HOSTS = ['canvasreviews.herokuapp.com', 'herokuapp.com']
 
@@ -179,4 +179,16 @@ sentry_sdk.init(
 )
 
 if DEBUG is True:
-    ALLOWED_HOSTS=[]
+    ALLOWED_HOSTS = []
+
+    DATABASES = {
+        'default': {
+            'ENGINE': 'django.db.backends.postgresql_psycopg2',
+            'NAME': os.environ['DB_CANVAS_NAME'],
+            'USER': os.environ['DB_CANVAS_USER'],
+            'PASSWORD': os.environ['DB_CANVAS_PW'],
+            'HOST': 'localhost',
+            'PORT': '5432',
+
+        }
+}
