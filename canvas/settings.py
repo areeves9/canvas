@@ -27,7 +27,10 @@ SECRET_KEY = os.environ['CANVAS_KEY']
 
 DEBUG = os.environ['DEBUG']
 
-ALLOWED_HOSTS = ['127.0.0.1', 'canvasreviews.herokuapp.com', '.herokuapp.com']
+if DEBUG:
+    ALLOWED_HOSTS = []
+else:
+    ALLOWED_HOSTS = ['canvasreviews.herokuapp.com', 'herokuapp.com']
 
 # Email settings
 EMAIL_HOST = os.environ['EMAIL_HOST']
@@ -119,7 +122,7 @@ if DEBUG:
             'PORT': '5432',
         }
     }
-else:
+elif DEBUG is not True:
     DATABASES = {
         'default': {
             'ENGINE': 'django.db.backends.postgresql_psycopg2',
