@@ -178,7 +178,7 @@ sentry_sdk.init(
     integrations=[DjangoIntegration()]
 )
 
-if DEBUG:
+if DEBUG == True:
     ALLOWED_HOSTS = ['127.0.0.1']
 
     DATABASES = {
