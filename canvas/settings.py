@@ -24,23 +24,22 @@ BASE_DIR = Path(__file__).resolve().parent.parent
 
 SECRET_KEY = os.environ['CANVAS_KEY']
 
-DEBUG = False
+DEBUG = os.environ['DEBUG']
 
-ALLOWED_HOSTS = ['canvasreviews.herokuapp.com', '.herokuapp.com']
+ALLOWED_HOSTS = ['127.0.0.1', 'canvasreviews.herokuapp.com', '.herokuapp.com']
 
 # Email settings
-EMAIL_HOST = 'smtp.sendgrid.net'
+EMAIL_HOST = os.environ['EMAIL_HOST']
 EMAIL_PORT = 587
 EMAIL_HOST_USER = os.environ['CANVAS_EMAIL_HOST_USER']
 EMAIL_HOST_PASSWORD = os.environ['CANVAS_EMAIL_PW']
-EMAIL_USE_TLS = True
+EMAIL_USE_TLS = os.environ['EMAIL_USE_TLS']
 
 STARFIELD_COLOUR = '#6EB257'
 
 
 
 # Application definition
-
 INSTALLED_APPS = [
     'django.contrib.admin',
     'django.contrib.auth',
@@ -106,14 +105,22 @@ HAYSTACK_SIGNAL_PROCESSOR = 'haystack.signals.RealtimeSignalProcessor'
 
 # Database
 # https://docs.djangoproject.com/en/1.10/ref/settings/#databases
+
 DATABASES = {
     'default': {
         'ENGINE': 'django.db.backends.postgresql_psycopg2',
+        'NAME': os.environ['DB_CANVAS_NAME'],
+        'USER': os.environ['DB_CANVAS_USER'],
+        'PASSWORD': os.environ['DB_CANVAS_PW'],
+        'HOST': 'localhost',
+        'PORT': '5432',
+
     }
 }
 
-import dj_database_url
-DATABASES['default'] = dj_database_url.config()
+if DEBUG is False:
+    import dj_database_url
+    DATABASES['default'] = dj_database_url.config()
 
 
 # Password validation
@@ -155,7 +162,6 @@ LOGIN_URL = 'home'
 LOGIN_REDIRECT_URL = reverse_lazy('reviews:reviews')
 LOGOUT_REDIRECT_URL = 'home'
 
-
 STATICFILES_LOCATION = 'static'
 STATICFILES_DIRS = [
     os.path.join("reviews", "static"),
@@ -176,9 +182,3 @@ sentry_sdk.init(
     dsn=os.environ.get('SENTRY_DSN'),
     integrations=[DjangoIntegration()]
 )
-
-# if DEBUG:
-#     try:
-#         from .local_settings import *
-#     except ImportError:
-#         pass
