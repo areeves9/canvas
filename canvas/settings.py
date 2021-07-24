@@ -27,10 +27,8 @@ SECRET_KEY = os.environ['CANVAS_KEY']
 
 DEBUG = os.environ['DEBUG']
 
-if DEBUG is True:
-    ALLOWED_HOSTS = []
-else:
-    ALLOWED_HOSTS = ['canvasreviews.herokuapp.com', 'herokuapp.com']
+ALLOWED_HOSTS = ['canvasreviews.herokuapp.com', 'herokuapp.com']
+
 
 # Email settings
 EMAIL_HOST = os.environ['EMAIL_HOST']
@@ -111,25 +109,13 @@ HAYSTACK_SIGNAL_PROCESSOR = 'haystack.signals.RealtimeSignalProcessor'
 # https://docs.djangoproject.com/en/1.10/ref/settings/#databases
 import dj_database_url
 
-if DEBUG:
-    DATABASES = {
-        'default': {
-            'ENGINE': 'django.db.backends.postgresql_psycopg2',
-            'NAME': os.environ['DB_CANVAS_NAME'],
-            'USER': os.environ['DB_CANVAS_USER'],
-            'PASSWORD': os.environ['DB_CANVAS_PW'],
-            'HOST': 'localhost',
-            'PORT': '5432',
-        }
+DATABASES = {
+    'default': {
+        'ENGINE': 'django.db.backends.postgresql_psycopg2',
     }
-elif DEBUG is not True:
-    DATABASES = {
-        'default': {
-            'ENGINE': 'django.db.backends.postgresql_psycopg2',
-        }
-    }
+}
 
-    DATABASES['default'] = dj_database_url.config()
+DATABASES['default'] = dj_database_url.config()
 
 
 # Password validation
@@ -191,3 +177,17 @@ sentry_sdk.init(
     dsn=os.environ.get('SENTRY_DSN'),
     integrations=[DjangoIntegration()]
 )
+
+if DEBUG:
+    ALLOWED_HOSTS = ['127.0.0.1']
+
+    DATABASES = {
+        'default': {
+            'ENGINE': 'django.db.backends.postgresql_psycopg2',
+            'NAME': os.environ['DB_CANVAS_NAME'],
+            'USER': os.environ['DB_CANVAS_USER'],
+            'PASSWORD': os.environ['DB_CANVAS_PW'],
+            'HOST': 'localhost',
+            'PORT': '5432',
+        }
+    }
