@@ -108,13 +108,25 @@ HAYSTACK_SIGNAL_PROCESSOR = 'haystack.signals.RealtimeSignalProcessor'
 # https://docs.djangoproject.com/en/1.10/ref/settings/#databases
 import dj_database_url
 
-DATABASES = {
-    'default': {
-        'ENGINE': 'django.db.backends.postgresql_psycopg2',
+if DEBUG:
+    DATABASES = {
+        'default': {
+            'ENGINE': 'django.db.backends.postgresql_psycopg2',
+            'NAME': os.environ['DB_CANVAS_NAME'],
+            'USER': os.environ['DB_CANVAS_USER'],
+            'PASSWORD': os.environ['DB_CANVAS_PW'],
+            'HOST': 'localhost',
+            'PORT': '5432',
+        }
     }
-}
+else:
+    DATABASES = {
+        'default': {
+            'ENGINE': 'django.db.backends.postgresql_psycopg2',
+        }
+    }
 
-DATABASES['default'] = dj_database_url.config()
+    DATABASES['default'] = dj_database_url.config()
 
 
 # Password validation
