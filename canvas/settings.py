@@ -27,7 +27,7 @@ SECRET_KEY = os.environ['CANVAS_KEY']
 
 DEBUG = os.environ['DEBUG']
 
-if DEBUG:
+if DEBUG is True:
     ALLOWED_HOSTS = []
 else:
     ALLOWED_HOSTS = ['canvasreviews.herokuapp.com', 'herokuapp.com']
