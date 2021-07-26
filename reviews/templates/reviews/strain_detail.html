@@ -117,6 +117,7 @@ div.alert {
 
 document.getElementById('userReviewContainer').addEventListener('click', function(event){
 const anchor = event.target;
+console.log(anchor);
 if (anchor.className === 'show-link') {
   event.preventDefault();
   const less = event.target.parentNode.firstElementChild;
