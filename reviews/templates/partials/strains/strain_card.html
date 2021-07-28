@@ -9,7 +9,7 @@
       <span class="d-block text-left mt-n2">
         {% with count=strain.user_review.all.count %}
         {% if count > 0 %}
-        <h5>{{ rating|rating_icon }} ({{ count }})</h5>
+        <p>{{ rating|rating_icon }} ({{ count }})</p>
         {% endif %}
         {% endwith %}
       </span>

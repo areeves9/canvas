@@ -10,7 +10,7 @@
 {% include 'messages_display.html' %}
 
 <!--desktop-responsive-->
-<div class="container d-none d-sm-block mt-4">
+<div class="container d-none d-sm-block mt-3">
   <div class="row justify-content-center align-items-center">
     <div class="col-3">
       {% if user.profile.photo %}
@@ -19,16 +19,16 @@
         style="width: 9rem; height: 9rem;"/>
       {% else %}
       <img class="d-none d-sm-block mx-auto mb-4 rounded-circle img-fluid" 
-        src="http://placehold.it/250x250" style="width: 5rem; height: 5rem;"/>
+        src="http://placehold.it/250x250" style="width: 9rem; height: 9rem;"/>
       {% endif %}
     </div>
     <div class="col-6">
       <h4 class="d-inline mr-3">{{ user.username }}</h4>
       {% if request.user.profile.id == user.profile.id %}
-      <a class="d-inline mr-3 btn btn-sm btn-outline-secondary" href="{% url 'accounts:update' %}">
+      <a class="w-25 btn btn-sm btn-outline-secondary p-2" href="{% url 'accounts:update' %}">
         <b>Edit Profile</b>
       </a>
-      <a style="position: absolute; top: 10px;" data-toggle="modal" data-target="#profileSettingsModal" class="font-weight-bold text-dark float-right" href="{% url 'accounts:logout' %}">
+      <a data-toggle="modal" data-target="#profileSettingsModal" class="font-weight-bold text-dark" href="{% url 'accounts:logout' %}">
         <i style="font-size: 1.4rem;" class="fas fa-cog text-secondary"></i>
       </a>
       {% endif %}
@@ -44,7 +44,7 @@
 </div> <!--/.container-->
 
 <!--mobile-responsive-->
-<div class="container d-block d-sm-none">
+<div class="container d-block d-sm-none mt-3">
   <div class="row">
     <div class="col-12 mb-3">
       {% if request.user == user %}
@@ -64,17 +64,16 @@
   
   <div class="row">
     <!--profile photo-->
-    <div class="col-3 col-md-3">
+    <div class="col-4 col-md-3">
       <!--mobile-responsive-->
       {% if user.profile.photo %}
       <img class="d-block d-sm-none mr-auto mb-4 rounded-circle img-fluid" 
         alt="Responsive image" src="{{ user.profile.photo.url }}" 
-        style="width: 5rem; height: 5rem;"/>
+        style="width: 6rem; height: 6rem;"/>
       {% else %}
       <img class="d-block d-sm-none mx-auto mb-4 rounded-circle img-fluid" 
-        src="http://placehold.it/250x250" style="width: 5rem; height: 5rem;"/>
+        src="http://placehold.it/250x250" style="width: 6rem; height: 6rem;"/>
       {% endif %}
-
       {% with total_followers=user.followers.count %}
       {% with total_following=user.following.count %}
     </div>

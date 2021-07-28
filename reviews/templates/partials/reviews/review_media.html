@@ -13,12 +13,12 @@
         <p>
           <span class="less" style="display: inline;" data-id="{{ review.id }}">
             {{ review.content|slice:"10" }}
-            {% if review.content|length > 10 %}
+            {% if review.content|length > 200 %}
             <span style="display: inline;" class="dots" data-id="{{ review.id }}">...</span>
             {% endif %}
           </span>
           <span style="display: none;" class="more" data-id="{{ review.id }}">{{ review.content }}</span>
-          {% if review.content|length > 10 %}
+          {% if review.content|length > 200 %}
           <a class="show-link" 
           style="color: #6eb257; font-weight: 600; text-decoration: underline;"
           data-id="{{ review.id }}" 
