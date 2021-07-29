@@ -23,10 +23,10 @@
       {% endif %}
     </div>
     <div class="col-6">
-      <h4 class="d-inline mr-3">{{ user.username }}</h4>
+      <h4 style="font-weight: 300;" lass="d-inline mr-3">{{ user.username }}</h4>
       {% if request.user.profile.id == user.profile.id %}
-      <a class="w-25 btn btn-sm btn-outline-secondary p-2" href="{% url 'accounts:update' %}">
-        <b>Edit Profile</b>
+      <a class="w-25 btn border border-muted" href="{% url 'accounts:update' %}">
+        Edit Profile
       </a>
       <a data-toggle="modal" data-target="#profileSettingsModal" class="font-weight-bold text-dark" href="{% url 'accounts:logout' %}">
         <i style="font-size: 1.4rem;" class="fas fa-cog text-secondary"></i>
@@ -54,10 +54,10 @@
       {% endif %}
       <!--user's profile-->
       {% if request.user == user %}
-      <h4 class="text-left font-weight-bold">{{ user.username }}</h4>
+      <h4 style="font-weight: 300px;" class="text-left">{{ user.username }}</h4>
       {% else %}
       <!--visiting someone else's profile-->
-      <h5 class="text-center">{{ user.username }}</h5>
+      <h4 class="text-center">{{ user.username }}</h4>
       {% endif %}
     </div> <!--/.col-12-->
   </div> <!--/.row-->
@@ -69,10 +69,10 @@
       {% if user.profile.photo %}
       <img class="d-block d-sm-none mr-auto mb-4 rounded-circle img-fluid" 
         alt="Responsive image" src="{{ user.profile.photo.url }}" 
-        style="width: 6rem; height: 6rem;"/>
+        style="width: 77px; height: 77px;"/>
       {% else %}
       <img class="d-block d-sm-none mx-auto mb-4 rounded-circle img-fluid" 
-        src="http://placehold.it/250x250" style="width: 6rem; height: 6rem;"/>
+        src="http://placehold.it/250x250" style="width: 77px; height: 77px;"/>
       {% endif %}
       {% with total_followers=user.followers.count %}
       {% with total_following=user.following.count %}
@@ -90,8 +90,10 @@
       <p class="text-left"><b>{{ user.first_name }}</b></p>
       <p class="text-left mt-n3">{{ user.profile.bio }}</p>
       {% if request.user.profile.id == user.profile.id %}
-      <a class="w-100 d-sm-none btn btn-sm btn-outline-secondary" href="{% url 'accounts:update' %}">
-        <b>Edit Profile</b>
+      <a style="position: absolute; top: -2rem; left: 7rem; width: 65%;" 
+        class="mt-n3 ml-auto d-sm-none btn btn-sm btn-block border border-muted" 
+        href="{% url 'accounts:update' %}">
+        Edit Profile
       </a>
       {% endif %}
       <span id="buttonContainer">
