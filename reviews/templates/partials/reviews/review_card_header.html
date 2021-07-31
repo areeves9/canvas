@@ -9,5 +9,5 @@
     src="{% if review.user.profile.photo %}{{ review.user.profile.photo.url }}{% else %}http://placehold.it/250x250{% endif %}"/>
     <span style="font-weight: 600; position: absolute; top: 10px;" class="ml-2 text-dark mb-2">{{ review.user }}</span>
   </a>
-  <span style="font-size: 0.8rem; position: absolute; top: 28px; left: 52px;" class="text-secondary">{{ review.strain }}</span>
+  <span style="font-size: 0.8rem; position: absolute; top: 28px; left: 52px;" class="text-dark">{{ review.strain }}</span>
 </div>

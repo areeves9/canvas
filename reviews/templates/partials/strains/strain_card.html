@@ -9,12 +9,14 @@
       <span class="d-block text-left mt-n2">
         {% with count=strain.user_review.all.count %}
         {% if count > 0 %}
-        <p>{{ rating|rating_icon }} ({{ count }})</p>
+        <p>{{ rating|rating_icon }} <span style="font-size: 14px;">({{ count }})</span></p>
         {% endif %}
         {% endwith %}
       </span>
       {% else %}
-      <p style="font-weight: 600;" class="text-left mb-0">Be the first to <a style="color: #6EB257; text-decoration: none;" href="{% url 'reviews:strain_review' strain.id %}">review</a></p>
+      <p class="text-left mb-0">Be the first to 
+        <a class="emerald bold-link" href="{% url 'reviews:strain_review' strain.id %}">review</a>
+      </p>
       {% endif %}
     </div>
   </div>
