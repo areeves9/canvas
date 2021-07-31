@@ -12,7 +12,7 @@
         <hr/>
         <p>
           <span class="less" style="display: inline;" data-id="{{ review.id }}">
-            {{ review.content|slice:"10" }}
+            {{ review.content|slice:"200" }}
             {% if review.content|length > 200 %}
             <span style="display: inline;" class="dots" data-id="{{ review.id }}">...</span>
             {% endif %}
