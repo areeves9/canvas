@@ -14,6 +14,6 @@ def rating_icon(rating):
         rem = 5 - new_rating[1]
         empty_stars = rem - 1
         if new_rating[0] >= 0.5 and new_rating[0] <= 0.9:
-            return mark_safe('<i style="color: #6EB257" class="fas fa-star"></i>' * int(new_rating[1])) + mark_safe('<i style="color: #6EB257" class="fas fa-star-half-alt"></i>') + mark_safe('<i  style="color: #6EB257" class="far fa-star"></i>' * int(empty_stars))
+            return mark_safe('<i  class="emerald fas fa-star"></i>' * int(new_rating[1])) + mark_safe('<i  class="emerald emerald fas fa-star-half-alt"></i>') + mark_safe('<i   class="emerald far fa-star"></i>' * int(empty_stars))
         else:
-            return mark_safe('<i style="color: #6EB257" class="fas fa-star"></i>' * int(new_rating[1])) + mark_safe('<i  style="color: #6EB257" class="far fa-star"></i>' * int(rem))
+            return mark_safe('<i  class="emerald fas fa-star"></i>' * int(new_rating[1])) + mark_safe('<i class="emerald far fa-star"></i>' * int(rem))

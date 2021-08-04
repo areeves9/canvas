@@ -1,8 +1,9 @@
 {% load rating_icon%}
-{% if user.strains_liked %}
-<h5 class="text-left">Favorites</h5>
-{% endif %}
 <div style="padding-bottom: 100px;" class="container">
+    <h5 class="text-left">Favorites</h5>
+    {% if user.strains_liked|length == 0 %}
+    <p>Check out <a class="emerald bold-link" href="{% url 'reviews:strains' %}">strains</a></p>
+    {% endif %}
     <div class="row justify-content-center align-items-center">
         {% for strain in user.strains_liked.all %}
         <div id="pills-home" role="tabpanel" aria-labelledby="pills-home-tab" 
