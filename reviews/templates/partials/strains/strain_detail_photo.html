@@ -1,6 +1,6 @@
-{% if strain.photo_url %}
+{% if strain.photo %}
 <img class="card-img-top"
-    src="{{ strain.photo_url }}"
+    src="{{ strain.photo.url }}"
     style="object-fit: cover; height: 17rem;"
     alt="Card image cap">
 {% else %}
@@ -9,3 +9,4 @@
     style="object-fit: cover; height: 325px; width: 300px;" 
     alt="Card image cap">
 {% endif %}
+
