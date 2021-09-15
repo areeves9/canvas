@@ -45,15 +45,7 @@ Run the server.
 python manage.py runserver
 ```
 
-## Images
 
-Mobile
-
-<img src="strains.png" width="250">
-<br/>
-<img src="strainProfile.png" width="250">
-<br/>
-<img src="feed.png" width="250">
 
 
 
