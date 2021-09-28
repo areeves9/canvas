@@ -1,4 +1,5 @@
 *.pyc
+*.dump
 media_production/
 static_production/
 local_settings.py

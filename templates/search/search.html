@@ -19,9 +19,7 @@
       <div class="col-sm">
         {% for result in page.object_list %}
         <div class="media">
-          {% if result.object.photo_url %}
-          <img style="height: 53px; width: 53px;" class="mr-3" src="{{ result.object.photo_url }}" alt="Generic placeholder image">
-          {% elif result.object.photo %}
+          {% if result.object.photo %}
           <img style="height: 53px; width: 53px;" class="mr-3" src="{{ result.object.photo.url }}" alt="Generic placeholder image">
           {% else %}
           <img src="http://via.placeholder.com/53x53" class="mr-3">
