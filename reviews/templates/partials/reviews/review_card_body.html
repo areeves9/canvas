@@ -11,6 +11,21 @@
     <span style="font-size: 14px;" class="float-right badge badge-pill bg-light text-muted border border-muted p-2">
     {% include 'partials/reviews/review_method_badge.html' %}
     </span>
+    <div class="mt-3 mb-2">
+        {% for flavor in review.flavors.all %}
+        <span style="font-weight: 600; font-size: 13px; padding: 15px;" class="m-1 badge shadow-sm text-dark">
+            {% if flavor.name == 'Orange' %}
+            <i class="far fa-lemon"></i>
+            {% elif flavor.name == 'Cake'%}
+            <i class="fas fa-birthday-cake"></i>
+            {% elif flavor.name == 'Cream'%}
+            <i class="fas fa-ice-cream"></i>
+            {% endif %}
+            {{ flavor }}
+        </span>
+        {% endfor %}
+        
+    </div>
     <p style="font-size: 1rem;" class="mt-1 card-text">
         <span class="mr-1 font-weight-bold">
             <a style="color: black; text-decoration: none;" 
@@ -24,11 +39,13 @@
             <span style="display: inline;" class="dots" data-id="{{ review.id }}">...</span>
             {% endif %}
         </span>
+        
         <span class="more" style="display: none;">{{ review.content }}</span>
         {% if review.content|length >= 60 %}
         <a href="#" style="color: #6c757d;" class="show-link">more</a>
         {% endif %}
     </p>
+    
     <span class="d-block text-muted mt-n3" style="font-size: 0.7rem;">{{ review.timestamp|timesince }} ago</span>
 </div>
 

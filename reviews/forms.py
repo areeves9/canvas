@@ -4,7 +4,7 @@ from django.utils.text import slugify
 # from django_starfield import Stars
 
 from reviews.models import Review, Comment
-from reviews.widgets import MethodSelectWidget, StarRatingWidget
+from reviews.widgets import FlavorSelectWidget, MethodSelectWidget
 
 
 class ShareReviewForm(forms.Form):
@@ -26,11 +26,12 @@ class ReviewForm(forms.ModelForm):
     class Meta:
         model = Review
         fields = [
+            "content",
+            "flavors",
+            "method",
+            "photo",
             "rating",
             "title",
-            "method",
-            "content",
-            "photo",
         ]
         labels = {
             'content': '',

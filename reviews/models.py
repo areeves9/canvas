@@ -30,6 +30,13 @@ def upload_location1(instance, filename):
     return "%s/%s" % (instance, filename)
 
 
+class Flavor(models.Model):
+    name = models.CharField(max_length=60, blank=False)
+
+    def __str__(self):
+        return self.name
+
+
 class Strain(models.Model):
     name = models.CharField(max_length=60, unique=True, blank=False)
     summary = models.TextField(blank=True, null=True)
@@ -112,6 +119,7 @@ def save_strain_image(sender, instance, created, **kwargs):
 class Review(models.Model):
     title = models.CharField(max_length=35)
     content = models.TextField(max_length=500)
+    flavors = models.ManyToManyField(Flavor)
     strain = models.ForeignKey(
         Strain,
         on_delete=models.CASCADE,
@@ -164,6 +172,9 @@ class Review(models.Model):
 
     class Meta:
         ordering = ["-timestamp", "-updated"]
+
+    def get_flavors(self):
+        return "\n".join([f.name for f in self.flavors.all()])
 
     def get_absolute_url(self):
         return reverse("reviews:review_detail", kwargs={"id": self.id})
