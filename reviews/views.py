@@ -319,6 +319,7 @@ def strain_review(request, id=None):
             method = form.cleaned_data['method']
             photo = form.cleaned_data['photo']
             rating = form.cleaned_data['rating']
+            flavors = form.cleaned_data['flavors']
             user = request.user
             review.strain = strain
             review.user = user
@@ -328,6 +329,7 @@ def strain_review(request, id=None):
             review.photo = photo
             review.rating = rating
             review.save()
+            review.flavors.set(flavors)
             create_action(request.user, 'wrote', review)
             messages.success(request, "Review saved.")
             return HttpResponseRedirect(reverse('reviews:reviews'))

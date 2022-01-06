@@ -4,7 +4,8 @@ from django.utils.text import slugify
 # from django_starfield import Stars
 
 from reviews.models import Review, Comment
-from reviews.widgets import FlavorSelectWidget, MethodSelectWidget
+from reviews.widgets import MethodSelectWidget
+from .widgets import FlavorSelectWidget
 
 
 class ShareReviewForm(forms.Form):
@@ -43,6 +44,7 @@ class ReviewForm(forms.ModelForm):
         }
         widgets = {
             'content': forms.Textarea(attrs={'placeholder': 'Description'}),
+            'flavors': FlavorSelectWidget(),
             'method': MethodSelectWidget(attrs={'class': 'btn-group btn-group-toggle mb-3'}),
             'title': forms.TextInput(attrs={'placeholder': 'Title'}),
         }
@@ -50,7 +52,6 @@ class ReviewForm(forms.ModelForm):
     def save(self):
         instance = super(ReviewForm, self).save(commit=False)
         instance.slug = slugify(instance.title)
-        instance.save()
 
         return instance
 
