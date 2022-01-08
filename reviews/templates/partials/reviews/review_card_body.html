@@ -1,31 +1,7 @@
 {% load rating_icon %}
 <div id="review-card-body"class="card-body border-0">
-    <a style="{% if request.user in users_like %}margin-right: 1rem; text-decoration: none !important; font-size: 1.4rem;{% else %}margin-right: 1rem; text-decoration: none !important; color: black; font-size: 1.4rem;{% endif %}"
-        class="review-like"
-        data-id="{{ review.id }}"
-        data-action="{% if request.user in users_like %}un{% endif %}like"
-        href="{% url 'reviews:review_like' %}">
-        <i class="mt-1 {% if request.user in users_like %}
-        fas fa-heart emerald {% else %}far fa-heart{% endif %}"></i> 
-    </a>
-    <span style="font-size: 14px;" class="float-right badge badge-pill bg-light text-muted border border-muted p-2">
-    {% include 'partials/reviews/review_method_badge.html' %}
-    </span>
-    <div class="mt-3 mb-2">
-        {% for flavor in review.flavors.all %}
-        <span style="font-weight: 600; font-size: 13px; padding: 15px;" class="m-1 badge shadow-sm text-dark">
-            {% if flavor.name == 'Orange' %}
-            <i class="far fa-lemon"></i>
-            {% elif flavor.name == 'Cake'%}
-            <i class="fas fa-birthday-cake"></i>
-            {% elif flavor.name == 'Cream'%}
-            <i class="fas fa-ice-cream"></i>
-            {% endif %}
-            {{ flavor }}
-        </span>
-        {% endfor %}
-        
-    </div>
+    {% include 'partials/reviews/review_card_like_button.html' %}
+    {% include 'partials/reviews/review_card_flavors.html' %}
     <p style="font-size: 1rem;" class="mt-1 card-text">
         <span class="mr-1 font-weight-bold">
             <a style="color: black; text-decoration: none;" 

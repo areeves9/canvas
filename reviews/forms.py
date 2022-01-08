@@ -38,6 +38,7 @@ class ReviewForm(forms.ModelForm):
             'content': '',
             'method': '',
             'title': '',
+            'photo': '',
         }
         help_texts = {
             'method': 'Choose method of consumption',

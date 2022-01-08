@@ -2,8 +2,8 @@
 
 <div class="media">
     <div class="media-body">
-      <span style="font-size: 14px;" class="float-right badge badge-pill bg-light text-muted border border-muted p-2">
-        {% include 'partials/reviews/review_method_badge.html' %}
+      <span style="font-size: 0.9rem;" class="float-right badge badge-pill bg-light text-muted border border-muted p-2">
+        {% include 'partials/reviews/review_method_badge.html' %} {{ review.method }}
         </span>
         <span>{{ review.rating|rating_icon }}</span>
         <h6 style="color: #212529; font-weight: 600;" class="mt-1">

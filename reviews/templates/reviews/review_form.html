@@ -18,24 +18,27 @@
         </ul>
         {% endif %}
         <div class="form-group">
+          
+          {{ form.title.errors }}
+          {{ form.title|as_crispy_field }}
+          
+          {{ form.content.errors }}
+          {{ form.content|as_crispy_field }}
+          
+          {{ form.photo.errors }}
+          {{ form.photo|as_crispy_field }}
+          
           {{ form.rating.errors }}
-          <p class="text-muted mb-n1">Rate this strain</p>
+          <p style="margin-bottom: -1px;" class="text-muted">Rating</p>
           {{ form.rating|as_crispy_field }}
 
           {{ form.method.errors }}
+          <p style="margin-bottom: -1px;" class="text-muted">Consumption Method</p>
           {{ form.method }}
 
           {{ form.flavors.errors }}
+          <p style="margin-bottom: -1px;" class="text-muted">Flavor</p>
           {{ form.flavors }}
-
-          {{ form.title.errors }}
-          {{ form.title|as_crispy_field }}
-
-          {{ form.content.errors }}
-          {{ form.content|as_crispy_field }}
-
-          {{ form.photo.errors }}
-          {{ form.photo|as_crispy_field }}
         </div>
         <button type=submit class="strain-review-btn mx-auto mt-3 btn btn-block shadow">
            Submit
