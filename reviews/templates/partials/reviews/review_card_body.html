@@ -1,6 +1,15 @@
 {% load rating_icon %}
+
 <div id="review-card-body"class="card-body border-0">
     {% include 'partials/reviews/review_card_like_button.html' %}
+    <span class="float-right mt-2">
+        {{ review.rating|rating_icon }}
+    </span>
+    <br/>
+    <span class="mb-2 p-2 badge badge-pill text-light bg-dark">
+        {% include 'partials/reviews/review_method_badge.html' %}
+        {{ review.method }}
+    </span>
     {% include 'partials/reviews/review_card_flavors.html' %}
     <p style="font-size: 1rem;" class="mt-1 card-text">
         <span class="mr-1 font-weight-bold">
@@ -15,31 +24,10 @@
             <span style="display: inline;" class="dots" data-id="{{ review.id }}">...</span>
             {% endif %}
         </span>
-        
         <span class="more" style="display: none;">{{ review.content }}</span>
         {% if review.content|length >= 60 %}
         <a href="#" style="color: #6c757d;" class="show-link">more</a>
         {% endif %}
     </p>
-    
     <span class="d-block text-muted mt-n3" style="font-size: 0.7rem;">{{ review.timestamp|timesince }} ago</span>
 </div>
-
-<style>
-ul {
-    list-style-type: none;
-    margin: 0;
-    padding: 0;
-}
-
-li {
-    display: inline-block;
-    float: left;
-}
-
-li a {
-  text-align: center;
-  padding: 16px;
-  text-decoration: none;
-}
-</style>

@@ -1,13 +1,13 @@
 <div class="card-header bg-white">
-
   <a class="float-right mt-1 text-dark" data-toggle="modal" data-target="#exampleModal1" href="#">
     <i class="fas fa-ellipsis-h"></i>
   </a>
-
   <a href="{% url 'accounts:user' review.user %}" class="text-decoration-none">
     <img style="height: 2rem; width: 2rem;" class="ml-n2 rounded-circle" 
     src="{% if review.user.profile.photo %}{{ review.user.profile.photo.url }}{% else %}http://placehold.it/250x250{% endif %}"/>
-    <span style="position: absolute; top: 10px;" class="ml-2 text-dark mb-2">{{ review.user }}</span>
-    <span style="font-size: 0.9rem; position: absolute; top: 28px; left: 52px; font-weight: 600;" class="text-secondary">{{ review.strain }} {{ review.method }}</span>
+    <span style="font-size: 14px; position: absolute; top: 12px;" class="ml-3 text-dark font-weight-bold">{{ review.user }}</span>
+  </a>
+  <a href="{{ review.strain.get_absolute_url }}" class="text-decoration-none">
+    <span style="font-size: 12px; position: absolute; top: 30px;" class="ml-3 text-dark">{{ review.strain }}</span>
   </a>
 </div>

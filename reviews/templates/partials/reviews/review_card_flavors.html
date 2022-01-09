@@ -1,14 +1,5 @@
-<div class="mt-3 mb-2 mt-n1">
-    {% for flavor in review.flavors.all %}
-    <span style="font-weight: 600; font-size: 13px; padding: 15px;" class="m-1 badge badge-pill badge-light text-muted border border-muted">
-        {% if flavor.name == 'Orange' %}
-        <i class="far fa-lemon"></i>
-        {% elif flavor.name == 'Cake'%}
-        <i class="fas fa-birthday-cake"></i>
-        {% elif flavor.name == 'Cream'%}
-        <i class="fas fa-ice-cream"></i>
-        {% endif %}
-        {{ flavor }}
-    </span>
-    {% endfor %} 
-</div>
+{% for flavor in review.flavors.all|slice:":3" %}
+<span class="p-2 badge badge-pill badge-light text-secondary border border-muted">
+    {{ flavor }}
+</span>
+{% endfor %} 

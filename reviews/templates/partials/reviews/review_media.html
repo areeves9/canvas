@@ -2,14 +2,11 @@
 
 <div class="media">
     <div class="media-body">
-      <span style="font-size: 0.9rem;" class="float-right badge badge-pill bg-light text-muted border border-muted p-2">
-        {% include 'partials/reviews/review_method_badge.html' %} {{ review.method }}
-        </span>
-        <span>{{ review.rating|rating_icon }}</span>
-        <h6 style="color: #212529; font-weight: 600;" class="mt-1">
-          {{ review.user }}
-        </h6>
-        <hr/>
+      <h6 style="color: #212529; font-weight: 600; margin-bottom: -0.1rem;" class="mt-1 ml-1">
+        {{ review.user }}
+      </h6>
+      <span>{{ review.rating|rating_icon }} • {% include "partials/reviews/review_method_badge.html" %}</span>
+      <hr/>
         <p>
           <span class="less" style="display: inline;" data-id="{{ review.id }}">
             {{ review.content|slice:"200" }}

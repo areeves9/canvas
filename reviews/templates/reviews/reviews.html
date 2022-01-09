@@ -10,7 +10,7 @@
   <div class="row justify-content-center align-items-center">
 
     <div style="margin-bottom: 50px;" id="reviewList" class="col-12 col-md-6 p-0">
-      <h2 style="font-weight: 600;" class="text-left d-none d-sm-block">Latest Reviews</h2>
+      <h2 class="text-left d-none d-sm-block">Latest Reviews</h2>
       {% include 'messages_display.html' %}
       {% include "partials/reviews/review_copy_link_notification.html" %}
       {% include "partials/reviews/review_card.html" %}
@@ -70,7 +70,7 @@ $('#reviewList').click(function(e){
         // toggle heart icon
         $(anchor).html(previous_action == 'like' ? 
         `<i style="color: #23CE6B;" class="mt-1 fas fa-heart pulsate-fwd"></i>` : 
-        `<i style="color: #6c757d!important;" class="mt-1 far fa-heart pulsate-fwd"></i>`);
+        `<i style="color: black !important;" class="mt-1 far fa-heart pulsate-fwd"></i>`);
         // update total likes
         var previous_likes = parseInt($('span.count .total').text());
         $('span.count .total').text(previous_action == 'like' ? previous_likes + 1 : previous_likes - 1);
