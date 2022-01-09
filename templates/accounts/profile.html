@@ -212,6 +212,12 @@ buttonContainer.addEventListener('click', function(event) {
             };
         });
 
+   
+        const mediaBody = document.getElementById('mediaBody');
+        mediaBody.addEventListener('click', (event) => {
+            console.log(event.target);
+        });
+
 
 
 {% endblock %}

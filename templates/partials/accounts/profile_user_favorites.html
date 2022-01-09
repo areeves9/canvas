@@ -1,7 +1,7 @@
 {% load rating_icon%}
 <div style="padding-bottom: 100px;" class="container">
     <h5 class="text-left">Favorites</h5>
-    {% if user.strains_liked|length == 0 %}
+    {% if .all|length == 0 %}
     <p>Check out <a class="emerald bold-link" href="{% url 'reviews:strains' %}">strains</a></p>
     {% endif %}
     <div class="row justify-content-center align-items-center">

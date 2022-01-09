@@ -20,7 +20,7 @@ from django.core.paginator import Paginator, EmptyPage, PageNotAnInteger
 from django.core.exceptions import PermissionDenied
 from django.core.mail import EmailMultiAlternatives
 
-from reviews.forms import ReviewForm, CommentForm, ShareReviewForm
+from reviews.forms import ReviewForm, CommentForm, ReviewUpdateForm, ShareReviewForm
 from reviews.models import Strain, Review
 from actions.models import create_action
 
@@ -145,7 +145,7 @@ def review_update(request, id=None):
     if review.user != request.user:
         raise PermissionDenied
     elif review.user == request.user:
-        form = ReviewForm(
+        form = ReviewUpdateForm(
             request.POST or None,
             request.FILES or None,
             instance=review
@@ -160,7 +160,7 @@ def review_update(request, id=None):
             "form": form,
             "review": review,
         }
-        return render(request, "reviews/review_form.html", context)
+        return render(request, "reviews/review_update_form.html", context)
         
 
 @login_required

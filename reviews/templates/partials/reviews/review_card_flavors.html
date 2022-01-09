@@ -1,5 +1,5 @@
-{% for flavor in review.flavors.all|slice:":3" %}
-<span class="p-2 badge badge-pill badge-light text-secondary border border-muted">
-    {{ flavor }}
-</span>
-{% endfor %} 
+    {% for flavor in review.flavors.all|slice:":3" %}
+    <span class="p-2 badge badge-pill badge-light text-secondary border border-muted">
+        {{ flavor }}
+    </span>
+    {% endfor %} 

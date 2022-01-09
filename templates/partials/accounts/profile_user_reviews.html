@@ -2,7 +2,7 @@
 
 <div style="padding-bottom: 35px;" class="container">
     <h5 class="text-left">Reviews</h5>
-    {% if user.user_reviews|length == 0 %}
+    {% if user.user_reviews.all|length == 0 %}
     <p>Check out <a class="emerald bold-link" href="{% url 'reviews:reviews' %}">reviews</a></p>
     {% endif %}
         {% for review in review_list %}
@@ -11,27 +11,74 @@
         <div class="row">
             <div class="col-12">
                 <div class="media">
-                    <a href="{% url 'reviews:review_detail' review.id %}">
-                        {% if review.photo %}
-                        <img style="height: 53px; width: 53px;" class="mr-3" src="{{ review.photo.url }}" alt="Card image cap">
-                        {% else %}
-                        <img style="height: 53px; width: 53px;" class="mr-3" src="https://via.placeholder.com/250" alt="Card image cap">
+                    <!-- <a href="{% url 'reviews:review_detail' review.id %}"> -->
+                    {% if review.photo %}
+                    <img style="height: 53px; width: 53px;" class="mr-3" src="{{ review.photo.url }}" alt="Card image cap">
+                    {% else %}
+                    <img style="height: 53px; width: 53px;" class="mr-3" src="https://via.placeholder.com/250" alt="Card image cap">
+                    {% endif %}
+                    <!-- </a> -->
+                    <div id="mediaBody" class="media-body">
+                        {% if request.user == review.user %}
+                        <a href="#" class="float-right text-dark">
+                            <i class="far fa-trash-alt"></i>
+                        </a>
                         {% endif %}
-                    </a>
-                    <div class="media-body">
-                        <span class="mb-3 d-block float-right">{{ review.rating|rating_icon }}</span>
-                        <h5 class="">{{ review.strain }}</h5> 
-                        <h6 class="mt-n2 d-block text-secondary">{{ review.title }}</h6>
-                        <span style="font-size: 14px;" class="badge badge-pill bg-light text-muted border border-muted p-2">
-                            {% include 'partials/reviews/review_method_badge.html' %}
-                        </span>
+                        <span>{{ review.rating|rating_icon }}</span>
+                        <br/>
+                        <h6 class="d-inline mt-1">{{ review.strain }} • 
+                            <span style="font-weight: 12px;">
+                                {% include 'partials/reviews/review_method_badge.html' %} {{ review.method }}
+                            </span>
+                        </h6> 
+                        <br/>
                     </div> <!--/.media-body-->
                 </div> <!--/.media-->
             </div> <!--/.col-12-->
         </div>
     </div> <!--/.row-->
     <hr/>
+
+    <!-- Modal -->
+<div class="modal fade" id="deleteReviewModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+    <div class="modal-dialog" role="document">
+        <div class="modal-content">
+            <div class="modal-body">
+                <p>Are you sure you want to delete this review?</p>
+                <button type="button" class="float-right btn btn-white border border-muted text-muted" data-dismiss="modal">Close</button>
+                <a class="float-right" href="{% url 'reviews:review_delete' review.id %}">
+                    <button type="button" class="mr-1 btn btn-danger">Delete</button>
+                </a>
+            </div>
+        </div>
+    </div>
+</div>
     
     {% endfor %}
 </div>
+
+<script>
+    'use strict';
+    document.getElementById("mediaBody").addEventListener("click", (e) => {
+        if (e.target.tagName === "I") {
+            console.log(e.target.parentElement)
+            let modal = document.createElement("div");
+            modal.setAttribute("class", "modal fade");
+            modal.setAttribute("tabindex", "-1");
+            modal.innerHTML += ` <div class="modal-dialog" role="document">
+        <div class="modal-content">
+            <div class="modal-body">
+                <p>Are you sure you want to delete this review?</p>
+                <button type="button" class="float-right btn btn-white border border-muted text-muted" data-dismiss="modal">Close</button>
+                <a class="float-right" href="{% url 'reviews:review_delete' 41 %}">
+                    <button type="button" class="mr-1 btn btn-danger">Delete</button>
+                </a>
+            </div>
+        </div>
+    </div>`
+        };
+    });
+
+</script>
+
 

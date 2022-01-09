@@ -63,3 +63,15 @@ class CommentForm(forms.ModelForm):
         fields = [
             "body"
         ]
+
+
+class ReviewUpdateForm(forms.ModelForm):
+    class Meta:
+        model = Review
+        fields = [
+            "content",
+        ]
+        labels = {
+            'content': '',
+
+        }

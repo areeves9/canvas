@@ -3,13 +3,11 @@
 {% load rating_icon %}
 {% block content %}
 
-<div id="" class="container">
-  <div class="row justify-content-center align-items-center">
+<div id="" class="container mb-3">
     <!--hide on mobile-->
-    <div id="reviewList" class="col-md-6 mt-5">
+    <div id="reviewList" class="col-md-6 mt-2">
       {% include 'messages_display.html' %}
-    
-      <div class="card mb-3">
+      <div class="card">
         {% include "partials/reviews/review_card_header.html" %}
         {% include "partials/reviews/review_card_photo.html" %}
         {% include "partials/reviews/review_card_body.html" %}
