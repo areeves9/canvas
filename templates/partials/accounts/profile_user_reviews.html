@@ -19,19 +19,18 @@
                     {% endif %}
                     <!-- </a> -->
                     <div id="mediaBody" class="media-body">
-                        {% if request.user == review.user %}
-                        <a href="#" class="float-right text-dark">
-                            <i class="far fa-trash-alt"></i>
-                        </a>
-                        {% endif %}
+                            <!-- {% if request.user == review.user %}
+                            <a href="#" class="float-right text-dark">
+                                <i class="far fa-trash-alt"></i>
+                            </a>
+                            {% endif %} -->
                         <span>{{ review.rating|rating_icon }}</span>
                         <br/>
-                        <h6 class="d-inline mt-1">{{ review.strain }} • 
-                            <span style="font-weight: 12px;">
-                                {% include 'partials/reviews/review_method_badge.html' %} {{ review.method }}
-                            </span>
-                        </h6> 
+                        <h6 class="d-inline mt-1">{{ review.strain }}</h6> 
                         <br/>
+                        <span style="font-weight: 10px;" class="text-muted">
+                            {% include 'partials/reviews/review_method_badge.html' %} {{ review.method }}
+                        </span>
                     </div> <!--/.media-body-->
                 </div> <!--/.media-->
             </div> <!--/.col-12-->
