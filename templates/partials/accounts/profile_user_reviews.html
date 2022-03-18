@@ -6,7 +6,7 @@
     <p>Check out <a class="emerald bold-link" href="{% url 'reviews:reviews' %}">reviews</a></p>
     {% endif %}
         {% for review in review_list %}
-        <div id="pills-home" role="tabpanel" aria-labelledby="pills-home-tab" 
+        <div id="pills-home" role="tabpanel" aria-labelledby="pills-home-tab"
         class="tab-pane fade show active">
         <div class="row">
             <div class="col-12">
@@ -24,13 +24,13 @@
                                 <i class="far fa-trash-alt"></i>
                             </a>
                             {% endif %} -->
-                        <span>{{ review.rating|rating_icon }}</span>
-                        <br/>
-                        <h6 class="d-inline mt-1">{{ review.strain }}</h6> 
-                        <br/>
                         <span style="font-weight: 10px;" class="text-muted">
                             {% include 'partials/reviews/review_method_badge.html' %} {{ review.method }}
                         </span>
+                        <br/>
+                        <h6 class="d-inline mt-1">{{ review.strain }}</h6>
+                        <br/>
+                        <span>{{ review.rating|rating_icon }}</span>
                     </div> <!--/.media-body-->
                 </div> <!--/.media-->
             </div> <!--/.col-12-->
@@ -52,7 +52,7 @@
         </div>
     </div>
 </div>
-    
+
     {% endfor %}
 </div>
 
@@ -79,5 +79,3 @@
     });
 
 </script>
-
-
