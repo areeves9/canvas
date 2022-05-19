@@ -2,17 +2,17 @@ import os
 from common.decorators import ajax_required
 
 from email.mime.image import MIMEImage
-from django.http import (
-    HttpResponse,
-    HttpResponseRedirect,
-    JsonResponse
-)
+from django.http import HttpResponse, HttpResponseRedirect, JsonResponse
 from django.shortcuts import render, get_object_or_404
+
+from django.views.generic import ListView
 
 from django.contrib.auth.decorators import login_required
 from django.contrib import messages
 from django.views.decorators.http import require_POST
 from django.template.loader import render_to_string
+
+from django.utils.decorators import method_decorator
 
 from django.urls import reverse
 from django.core import serializers
@@ -26,29 +26,32 @@ from actions.models import create_action
 
 
 # Create your views here.
-@login_required
-def reviews(request):
-    review_list = Review.objects.all().order_by("-timestamp")
-    paginator = Paginator(review_list, 8)
-    page = request.GET.get('page')
-    try:
-        reviews = paginator.page(page)
-    except PageNotAnInteger:
-        reviews = paginator.page(1)
-    except EmptyPage:
+@method_decorator(login_required, name="dispatch")
+class ReviewListView(ListView):
+    paginate_by = 8
+    model = Review
+    context_object_name = "reviews"
+    template_name = "reviews/reviews.html"
+
+    def get_queryset(self):
+        """Return a queryset of Review objects desc by timestamp."""
+        queryset = Review.objects.all().order_by("-timestamp")
+        return queryset
+
+    def get_context_data(self, **kwargs):
+        context = super(ReviewListView, self).get_context_data(**kwargs)
+        context["nav"] = "home"
+        return context
+
+    def get(self, request, *args, **kwargs):
+        """Extend ListView.get()"""
+        self.object_list = self.get_queryset()
+
         if request.is_ajax():
-            return HttpResponse('')
-        reviews = paginator.page(paginator.num_pages)
-    if request.is_ajax():
-        context = {
-            "reviews": reviews,
-        }
-        return render(request, "partials/reviews/review_card.html", context)
-    context = {
-        "reviews": reviews,
-        "nav": 'home',
-    }
-    return render(request, "reviews/reviews.html", context)
+            return render(
+                request, "partials/reviews/review_card.html", self.get_context_data()
+            )
+        return render(request, self.template_name, self.get_context_data())
 
 
 # returns a query set of reviews filtered by strain id
@@ -57,14 +60,14 @@ def strain_reviews(request, id=None):
     review_list = Review.objects.filter(strain__id=id).all().order_by("-timestamp")
     strain = review_list.first().strain
     paginator = Paginator(review_list, 8)
-    page = request.GET.get('page')
+    page = request.GET.get("page")
     try:
         reviews = paginator.page(page)
     except PageNotAnInteger:
         reviews = paginator.page(1)
     except EmptyPage:
         if request.is_ajax():
-            return HttpResponse('')
+            return HttpResponse("")
         reviews = paginator.page(paginator.num_pages)
     if request.is_ajax():
         context = {
@@ -89,7 +92,7 @@ def review_detail(request, id=None):
         new_comment.review = review
         new_comment.user = request.user
         new_comment.save()
-        create_action(request.user, 'commented on', review)
+        create_action(request.user, "commented on", review)
         messages.success(request, "Comment posted.")
         return HttpResponseRedirect(review.get_absolute_url())
     else:
@@ -97,46 +100,46 @@ def review_detail(request, id=None):
             "review": review,
             "comments": comments,
             "comment_form": comment_form,
-            }
+        }
     return render(request, "reviews/review_detail.html", context)
 
 
 @login_required
 @require_POST
 def review_like(request):
-    review_id = request.POST.get('id')
-    action = request.POST.get('action')
+    review_id = request.POST.get("id")
+    action = request.POST.get("action")
     if review_id and action:
         try:
             review = Review.objects.get(id=review_id)
-            if action == 'like':
+            if action == "like":
                 review.users_like.add(request.user)
-                create_action(request.user, 'likes', review)
+                create_action(request.user, "likes", review)
             else:
                 review.users_like.remove(request.user)
-            return JsonResponse({'status': 'ok'})
+            return JsonResponse({"status": "ok"})
         except:
             pass
-    return JsonResponse({'status': 'ko'})
+    return JsonResponse({"status": "ko"})
 
 
 @login_required
 @require_POST
 def strain_like(request):
-    strain_id = request.POST.get('id')
-    action = request.POST.get('action')
+    strain_id = request.POST.get("id")
+    action = request.POST.get("action")
     if strain_id and action:
         try:
             strain = Strain.objects.get(id=strain_id)
-            if action == 'like':
+            if action == "like":
                 strain.users_like.add(request.user)
-                create_action(request.user, 'likes', strain)
+                create_action(request.user, "likes", strain)
             else:
                 strain.users_like.remove(request.user)
-            return JsonResponse({'status': 'ok'})
+            return JsonResponse({"status": "ok"})
         except:
             pass
-    return JsonResponse({'status': 'ko'})
+    return JsonResponse({"status": "ko"})
 
 
 @login_required
@@ -146,22 +149,20 @@ def review_update(request, id=None):
         raise PermissionDenied
     elif review.user == request.user:
         form = ReviewUpdateForm(
-            request.POST or None,
-            request.FILES or None,
-            instance=review
+            request.POST or None, request.FILES or None, instance=review
         )
         if form.is_valid():
             review = form.save()
             review.save()
-            create_action(request.user, 'updated', review)
+            create_action(request.user, "updated", review)
             messages.success(request, "Updated review {}".format(review))
-            return HttpResponseRedirect(reverse('reviews:reviews'))
+            return HttpResponseRedirect(reverse("reviews:reviews"))
         context = {
             "form": form,
             "review": review,
         }
         return render(request, "reviews/review_update_form.html", context)
-        
+
 
 @login_required
 def review_delete(request, id=None):
@@ -170,44 +171,44 @@ def review_delete(request, id=None):
         raise PermissionDenied
     elif review.user == request.user:
         review.delete()
-        create_action(request.user, 'deleted', review)
+        create_action(request.user, "deleted", review)
         messages.success(request, "Deleted review.")
-        return HttpResponseRedirect(reverse('reviews:reviews'))
+        return HttpResponseRedirect(reverse("reviews:reviews"))
 
 
 @login_required
 def review_share(request, id=None):
     review = get_object_or_404(Review, id=id)
     sent = False
-    if request.method == 'POST':
+    if request.method == "POST":
         form = ShareReviewForm(request.POST or None, request.FILES or None)
         if form.is_valid():
             cd = form.cleaned_data
             review_url = request.build_absolute_uri(review.get_absolute_url())
-            subject = '{} ({}) recommends you reading {}'.format(
+            subject = "{} ({}) recommends you reading {}".format(
                 request.user, request.user.email, review.title
-                )
+            )
             text_content = 'Read "{}" at {}.'.format(review.title, review_url)
             html_content = render_to_string(
-                            'reviews/share_review_email.html',
-                            context={
-                                'cd': cd,
-                                'review': review,
-                                'user': request.user,
-                                'review_url': review_url,
-                                }
-                        )
+                "reviews/share_review_email.html",
+                context={
+                    "cd": cd,
+                    "review": review,
+                    "user": request.user,
+                    "review_url": review_url,
+                },
+            )
             msg = EmailMultiAlternatives(
                 subject,
                 text_content,
-                os.environ['CANVAS_DEFAULT_FROM_EMAIL'],
-                [cd['send_to']]
+                os.environ["CANVAS_DEFAULT_FROM_EMAIL"],
+                [cd["send_to"]],
             )
             msg.attach_alternative(html_content, "text/html")
-            msg.mixed_subtype = 'related'
+            msg.mixed_subtype = "related"
             if review.photo:
                 msg_img = MIMEImage(review.photo.read())
-                msg_img.add_header('Content-ID', '<{}>'.format(review.photo))
+                msg_img.add_header("Content-ID", "<{}>".format(review.photo))
                 msg.attach(msg_img)
                 msg.send()
             else:
@@ -228,35 +229,35 @@ def review_share(request, id=None):
 def strain_share(request, id=None):
     strain = get_object_or_404(Strain, id=id)
     sent = False
-    if request.method == 'POST':
+    if request.method == "POST":
         form = ShareReviewForm(request.POST or None, request.FILES or None)
         if form.is_valid():
             cd = form.cleaned_data
             strain_url = request.build_absolute_uri(strain.get_absolute_url())
-            subject = '{} ({}) recommends you try {}'.format(
+            subject = "{} ({}) recommends you try {}".format(
                 request.user, request.user.email, strain.name
-                )
+            )
             text_content = 'Read "{}" at {}.'.format(strain.name, strain_url)
             html_content = render_to_string(
-                            'reviews/share_strain_email.html',
-                            context={
-                                'cd': cd,
-                                'strain': strain,
-                                'user': request.user,
-                                'strain_url': strain_url,
-                                }
-                        )
+                "reviews/share_strain_email.html",
+                context={
+                    "cd": cd,
+                    "strain": strain,
+                    "user": request.user,
+                    "strain_url": strain_url,
+                },
+            )
             msg = EmailMultiAlternatives(
                 subject,
                 text_content,
-                os.environ['CANVAS_DEFAULT_FROM_EMAIL'],
-                [cd['send_to']]
+                os.environ["CANVAS_DEFAULT_FROM_EMAIL"],
+                [cd["send_to"]],
             )
             msg.attach_alternative(html_content, "text/html")
-            msg.mixed_subtype = 'related'
+            msg.mixed_subtype = "related"
             if strain.photo:
                 msg_img = MIMEImage(strain.photo_url.read())
-                msg_img.add_header('Content-ID', '<{}>'.format(strain.photo_url))
+                msg_img.add_header("Content-ID", "<{}>".format(strain.photo_url))
                 msg.attach(msg_img)
                 msg.send()
             else:
@@ -278,7 +279,7 @@ def strain_share(request, id=None):
 def strains(request):
     strain_list = Strain.objects.all().order_by("name")
     paginator = Paginator(strain_list, 16)
-    page = request.GET.get('page')
+    page = request.GET.get("page")
     try:
         strains = paginator.page(page)
     except PageNotAnInteger:
@@ -287,7 +288,7 @@ def strains(request):
         strains = paginator.page(paginator.num_pages)
     context = {
         "strains": strains,
-        "nav": 'strains',
+        "nav": "strains",
     }
     return render(request, "reviews/strains.html", context)
 
@@ -310,16 +311,16 @@ def strain_detail(request, id=None):
 @login_required
 def strain_review(request, id=None):
     strain = get_object_or_404(Strain, id=id)
-    if request.method == 'POST':
+    if request.method == "POST":
         form = ReviewForm(request.POST or None, request.FILES or None)
         if form.is_valid():
             review = Review()
-            title = form.cleaned_data['title']
-            content = form.cleaned_data['content']
-            method = form.cleaned_data['method']
-            photo = form.cleaned_data['photo']
-            rating = form.cleaned_data['rating']
-            flavors = form.cleaned_data['flavors']
+            title = form.cleaned_data["title"]
+            content = form.cleaned_data["content"]
+            method = form.cleaned_data["method"]
+            photo = form.cleaned_data["photo"]
+            rating = form.cleaned_data["rating"]
+            flavors = form.cleaned_data["flavors"]
             user = request.user
             review.strain = strain
             review.user = user
@@ -330,11 +331,11 @@ def strain_review(request, id=None):
             review.rating = rating
             review.save()
             review.flavors.set(flavors)
-            create_action(request.user, 'wrote', review)
+            create_action(request.user, "wrote", review)
             messages.success(request, "Review saved.")
-            return HttpResponseRedirect(reverse('reviews:reviews'))
+            return HttpResponseRedirect(reverse("reviews:reviews"))
         else:
-            print('error')
+            print("error")
             messages.error(request, "Review failed to save.")
 
     else:
