@@ -366,66 +366,23 @@ class ReviewStrain(CreateView, SuccessMessageMixin):
     model = Review
     form_class = ReviewForm
     template_name = "reviews/review_form.html"
-    success_url = success_url = reverse_lazy("reviews:reviews")
     success_message = "Review saved."
 
     def form_valid(self, form):
+        """Override is_valid method and return form instance."""
         if form.is_valid():
             review = form.save()
-            # title = form.cleaned_data["title"]
-            # content = form.cleaned_data["content"]
-            # method = form.cleaned_data["method"]
-            # photo = form.cleaned_data["photo"]
-            # rating = form.cleaned_data["rating"]
-            # flavors = form.cleaned_data["flavors"]
+            flavors = form.cleaned_data["flavors"]
             user = self.request.user
-            # review.strain = get_object_or_404(Strain, id=self.kwargs.get("pk"))
+            review.strain = get_object_or_404(Strain, id=self.kwargs.get("pk"))
             review.user = user
-            # review.title = title
-            # review.content = content
-            # review.method = method
-            # review.photo = photo
-            # review.rating = rating
-            # review.save()
-            # review.flavors.set(flavors)
+            review.save()
+            review.flavors.set(flavors)
             create_action(self.request.user, "wrote", review)
             return super(ReviewStrain, self).form_valid(form)
+        else:
+            messages.error(self.request, "Review failed to save.")
 
-    # @login_required
-    # def strain_review(request, id=None):
-    #     """Return ReviewForm."""
-    #     strain = get_object_or_404(Strain, id=id)
-    #     if request.method == "POST":
-    #         form = ReviewForm(request.POST or None, request.FILES or None)
-    #         if form.is_valid():
-    #             review = Review()
-    #             title = form.cleaned_data["title"]
-    #             content = form.cleaned_data["content"]
-    #             method = form.cleaned_data["method"]
-    #             photo = form.cleaned_data["photo"]
-    #             rating = form.cleaned_data["rating"]
-    #             flavors = form.cleaned_data["flavors"]
-    #             user = request.user
-    #             review.strain = strain
-    #             review.user = user
-    #             review.title = title
-    #             review.content = content
-    #             review.method = method
-    #             review.photo = photo
-    #             review.rating = rating
-    #             review.save()
-    #             review.flavors.set(flavors)
-    #             create_action(request.user, "wrote", review)
-    #             messages.success(request, "Review saved.")
-    #             return HttpResponseRedirect(reverse("reviews:reviews"))
-    #         else:
-    #             print("error")
-    #             messages.error(request, "Review failed to save.")
-
-    #     else:
-    #         form = ReviewForm()
-    #     context = {
-    #         "form": form,
-    #         "strain": strain,
-    #     }
-    # return render(request, "reviews/review_form.html", context)
+    def get_success_url(self):
+        """Return the review list view."""
+        return reverse("reviews:reviews")
