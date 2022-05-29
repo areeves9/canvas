@@ -14,13 +14,16 @@ class ShareReviewForm(forms.Form):
 
     class Meta:
         fields = ["send_to", "subject"]
+
     pass
 
 
 class ReviewForm(forms.ModelForm):
+    """Create a Review instance."""
+
     def __init__(self, *args, **kwargs):
         super(ReviewForm, self).__init__(*args, **kwargs)
-        self.fields['rating'].label = ""
+        self.fields["rating"].label = ""
 
     photo = forms.ImageField(required=True)
 
@@ -35,19 +38,21 @@ class ReviewForm(forms.ModelForm):
             "title",
         ]
         labels = {
-            'content': '',
-            'method': '',
-            'title': '',
-            'photo': '',
+            "content": "",
+            "method": "",
+            "title": "",
+            "photo": "",
         }
         help_texts = {
-            'method': 'Choose method of consumption',
+            "method": "Choose method of consumption",
         }
         widgets = {
-            'content': forms.Textarea(attrs={'placeholder': 'Description'}),
-            'flavors': FlavorSelectWidget(),
-            'method': MethodSelectWidget(attrs={'class': 'btn-group btn-group-toggle mb-3'}),
-            'title': forms.TextInput(attrs={'placeholder': 'Title'}),
+            "content": forms.Textarea(attrs={"placeholder": "Description"}),
+            "flavors": FlavorSelectWidget(),
+            "method": MethodSelectWidget(
+                attrs={"class": "btn-group btn-group-toggle mb-3"}
+            ),
+            "title": forms.TextInput(attrs={"placeholder": "Title"}),
         }
 
     def save(self):
@@ -60,9 +65,7 @@ class ReviewForm(forms.ModelForm):
 class CommentForm(forms.ModelForm):
     class Meta:
         model = Comment
-        fields = [
-            "body"
-        ]
+        fields = ["body"]
 
 
 class ReviewUpdateForm(forms.ModelForm):
@@ -72,6 +75,5 @@ class ReviewUpdateForm(forms.ModelForm):
             "content",
         ]
         labels = {
-            'content': '',
-
+            "content": "",
         }

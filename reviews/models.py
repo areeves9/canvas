@@ -63,7 +63,7 @@ class Strain(models.Model):
         return self.name
 
     def get_absolute_url(self):
-        return reverse("reviews:strain_detail", kwargs={"id": self.id})
+        return reverse("reviews:strain_detail", kwargs={"pk": self.pk})
 
     def get_average_rating(self):
         strain_ratings = self.user_review.all()
@@ -170,7 +170,7 @@ class Review(models.Model):
         return "\n".join([f.name for f in self.flavors.all()])
 
     def get_absolute_url(self):
-        return reverse("reviews:review_detail", kwargs={"id": self.id})
+        return reverse("reviews:review_detail", kwargs={"pk": self.pk})
 
     def __str__(self):
         return self.title

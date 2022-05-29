@@ -3,25 +3,32 @@ from django.views.generic import TemplateView
 
 
 from . import views
-from reviews.views import ReviewListView
+from reviews.views import (
+    ReviewDetailView,
+    ReviewListView,
+    StrainListView,
+    StrainReviewsListView,
+    StrainDetailView,
+    ReviewUpdateView,
+    ReviewStrain,
+)
 
 app_name = "reviews"
 
 urlpatterns = [
     path("", ReviewListView.as_view(), name="reviews"),
-    # path("", views.reviews, name="review_detail"),
-    path("<id>", views.review_detail, name="review_detail"),
-    # replace this with a query param to filter reviews by strain
-    path("strain/<id>", views.strain_reviews, name="strain_reviews"),
-    path("<id>/update", views.review_update, name="review_update"),
+    path("<pk>", ReviewDetailView.as_view(), name="review_detail"),
+    path("<pk>/update", ReviewUpdateView.as_view(), name="review_update"),
     path("<id>/delete", views.review_delete, name="review_delete"),
     path("<id>/share", views.review_share, name="share_review"),
     path("like/review", views.review_like, name="review_like"),
-    path("strains/list", views.strains, name="strains"),
-    path("strains/<id>", views.strain_detail, name="strain_detail"),
-    path("strains/<id>/review", views.strain_review, name="strain_review"),
-    path("like/strain", views.strain_like, name="strain_like"),
+    # replace this with a query param to filter reviews by strain
+    path("strain/<id>", StrainReviewsListView.as_view(), name="strain_reviews"),
+    path("strains/", StrainListView.as_view(), name="strains"),
+    path("strains/<pk>/", StrainDetailView.as_view(), name="strain_detail"),
+    path("strains/<pk>/review", ReviewStrain.as_view(), name="strain_review"),
     path("strains/<id>/share", views.strain_share, name="share_strain"),
+    path("like/strain", views.strain_like, name="strain_like"),
     path(
         "search/",
         TemplateView.as_view(template_name="reviews/reviews_search.html"),
