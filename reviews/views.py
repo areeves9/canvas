@@ -30,9 +30,7 @@ from actions.models import create_action
 
 from reviews.forms import (
     ReviewForm,
-    ReviewUpdateForm,
     CommentForm,
-    ReviewUpdateForm,
     ShareReviewForm,
 )
 
@@ -114,7 +112,19 @@ class ReviewUpdateView(UpdateView):
 
     model = Review
     form_class = ReviewForm
-    success_message = f"Updated {object}."
+
+    def form_valid(self, form):
+        """Override is_valid method and return form instance."""
+        if form.is_valid():
+            review = form.save()
+            flavors = form.cleaned_data["flavors"]
+            review.save()
+            review.flavors.set(flavors)
+            create_action(self.request.user, "updated", review)
+            messages.success(self.request, "Updated review {}".format(review))
+            return super(ReviewUpdateView, self).form_valid(form)
+        else:
+            messages.error(self.request, "Review failed to save.")
 
 
 # @login_required
@@ -137,28 +147,6 @@ class ReviewUpdateView(UpdateView):
 #             "comment_form": comment_form,
 #         }
 #     return render(request, "reviews/review_detail.html", context)
-
-
-# @login_required
-# def review_update(request, id=None):
-#     review = get_object_or_404(Review, id=id)
-#     if review.user != request.user:
-#         raise PermissionDenied
-#     elif review.user == request.user:
-#         form = ReviewUpdateForm(
-#             request.POST or None, request.FILES or None, instance=review
-#         )
-#         if form.is_valid():
-#             review = form.save()
-#             review.save()
-#             create_action(request.user, "updated", review)
-#             messages.success(request, "Updated review {}".format(review))
-#             return HttpResponseRedirect(reverse("reviews:reviews"))
-#         context = {
-#             "form": form,
-#             "review": review,
-#         }
-#         return render(request, "reviews/review_update_form.html", context)
 
 
 @login_required
