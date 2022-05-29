@@ -43,6 +43,7 @@ INSTALLED_APPS = [
     "crispy_forms",
     "accounts",
     "reviews",
+    "strains",
     "actions",
     "bootstrap3",
     "django_starfield",
