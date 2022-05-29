@@ -7,56 +7,112 @@
 {% include "messages_display.html" %}
 {% load rating_icon %}
 <div style="padding-top: 4rem; padding-bottom: 4rem;" class="container">
-<div class="row">
-  <!-- strain photo -->
-  <div class="col-sm-6 mb-4">
-    {% with users_like=strain.users_like.all %}
-    {% include 'partials/strains/strain_like_button.html' %}
-    {% endwith %}
-    <h2 style="font-weight: 600;" class="text-left">{{ strain }}</h2>
-    <hr/>
-    <div class="card">
-      <img class="card-img-top" src="{{ strain.photo_url }}" />
-    </div>
-  </div> <!--/.col-sm-6-->
-  <!-- strain details -->
-  <div class="col-12">
-    <ul style="font-weight: 600;" class="list-group list-group-horizontal">
-      {% with rating=strain.get_average_rating %}
-      {% if rating %}
-      <li class="list-group-item border-0 m-1 mt-n1 p-0 text-dark">
-          <span>{{ rating }}</span>
-      </li>
-      {% endif %}
-      <li class="list-group-item border-0 m-1 mt-n1 p-0">
+  <div class="row">
+    <!-- strain photo -->
+    <div class="col-sm-6 mb-4">
+      {% with users_like=strain.users_like.all %}
+      {% include 'partials/strains/strain_like_button.html' %}
+      {% endwith %}
+      <h2 style="font-weight: 600;" class="text-left">{{ strain }}</h2>
+      <hr/>
+      <div class="card">
+        <img class="card-img-top" src="{{ strain.photo_url }}" />
+      </div>
+    </div> <!--/.col-sm-6-->
+    <!-- strain details -->
+    <div class="col-12">
+      <ul style="font-weight: 600;" class="list-group list-group-horizontal">
+        {% with rating=strain.get_average_rating %}
         {% if rating %}
-        {{ rating|rating_icon }}
-        {% else %}
-        <p>Be the first to  <a class="emerald bold-link-underline" href="{% url 'reviews:strain_review' strain.id %}">review</a> {{ strain }}.</p>
+        <li class="list-group-item border-0 m-1 mt-n1 p-0 text-dark">
+            <span>{{ rating }}</span>
+        </li>
         {% endif %}
-      </li>
-      {% endwith %}
-      {% with count=strain.user_review.all.count %}
-      {% if count > 0 %}
-      <li class="list-group-item border-0 m-1 mt-n1 p-0 text-dark">
-        <span>({{ count }})</span>
-      </li>
+        <li class="list-group-item border-0 m-1 mt-n1 p-0">
+          {% if rating %}
+          {{ rating|rating_icon }}
+          {% else %}
+          <p>Be the first to  <a class="emerald bold-link-underline" href="{% url 'reviews:strain_review' strain.id %}">review</a> {{ strain }}.</p>
+          {% endif %}
+        </li>
+        {% endwith %}
+        {% with count=strain.user_review.all.count %}
+        {% if count > 0 %}
+        <li class="list-group-item border-0 m-1 mt-n1 p-0 text-dark">
+          <span>({{ count }})</span>
+        </li>
+        {% endif %}
+        {% endwith %}
+      </ul>
+
+      {% if strain.lineage %}
+      {% include "partials/strains/strain_detail_lineage.html" %}
       {% endif %}
-      {% endwith %}
-    </ul>
-    
-    {% if strain.lineage %}
-    {% include "partials/strains/strain_detail_lineage.html" %}
-    {% endif %}
-  </div> <!--/.col-sm-6-->
-</div> <!--/.row-->
+    </div> <!--/.col-sm-6-->
+  </div> <!--/.row-->
 <!-- strain summary from leafly.com -->
-<div class="row">
-  {% include 'partials/strains/strain_detail_summary.html' %}
-  {% include 'partials/strains/strain_detail_genetics.html' %}
-  {% include 'partials/reviews/review_strain_photos.html' %}
-</div>
-{% include "partials/reviews/review_user_reviews_container.html" %}
+  <div class="row">
+    <div class="col-12">
+      <hr/>
+      {% if strain.summary %}
+      <p class="text-left">
+          {{ strain.summary }}
+      </p>
+      {% else %}
+      <p>
+          We’re still learning about the flavors and effects of {{ strain }}.
+          If you’ve smoked this strain before, tell us about it by leaving a review.
+      </p>
+      {% endif %}
+      <hr/>
+    </div>
+    {% if genetics %}
+    <div class="col-12">
+        <h5 class="mt-2 text-left font-weight-bold">Genetics</h5>
+        <p class="text-left">{{ strain.genetics }}</p>
+        <hr/>
+    </div>
+    {% endif %}
+    {% if strain.user_review.all|length > 0 %}
+    <div class="col-12 mb-3">
+        <h5 class="d-inline font-weight-bold">Photos of {{ strain }}</h5>
+    </div>
+    {% endif %}
+    <div style="overflow-x: auto; overflow-y: hidden;" class="d-flex flex-row flex-nowrap">
+        {% for review in reviews|slice:4 %}
+        {% if review.photo %}
+        <div class="col-md">
+            <div
+                class="card mb-4"
+                style="width: 235px; height: 235px;">
+                <img
+                    class="card-img-top"
+                    style="object-fit: cover; width: 235px; height: 235px;"
+                    src="{{ review.photo.url }}"
+                    alt="Card image cap">
+            </div>
+        </div>
+        {% endif %}
+        {% endfor %}
+    </div>
+  </div>
+  {% load rating_icon %}
+  <div id="userReviewContainer" class="row mt-4">
+      <div class="col-sm-6 mb-5">
+        {% if reviews %}
+        <h5 class="font-weight-bold">
+          {{ strain }} reviews <span style="color: #6eb257; font-size: 1rem; text-decoration: underline;">({{ reviews.count }})</span>
+        </h5>
+        {% endif %}
+        {% include 'partials/reviews/review_button.html' %}
+      </div>  <!-- .col-12 -->
+      {% if reviews %}
+      <!-- iteratre through related reviews -->
+      {% for review in reviews|slice:":10" %}
+      {% include 'partials/reviews/review_user_review.html' %}
+      {% endfor %}
+  </div> <!-- .row.mt-4 -->
+  {% endif %}
 </div>
 
 <style>
@@ -107,8 +163,8 @@ function(data){
   // toggle data-action
   $('a.strain-like').data('action', previous_action == 'like' ? 'unlike' : 'like');
   // toggle heart icon
-  $('a.strain-like').html(previous_action == 'like' ? 
-  `<i class="fas fa-heart pulsate-fwd"></i>` : 
+  $('a.strain-like').html(previous_action == 'like' ?
+  `<i class="fas fa-heart pulsate-fwd"></i>` :
   `<i class="text-dark far fa-heart pulsate-fwd"></i>`);
   // update total likes
   var previous_likes = parseInt($('span.count .total').text());
