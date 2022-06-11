@@ -2,13 +2,13 @@
     <ul style="font-size: 1.5rem;" class="navbar-nav nav-fill w-100">
         <!-- Reviews -->
         <li class="nav-item">
-            <a class="nav-link {% if nav == 'home' %}active{% endif %}" href="{% url 'reviews:reviews' %}">
+            <a class="nav-link {% if nav == 'home' %}active{% endif %}" href="">
                 <i class="fas fa-home"></i>
             </a>
         </li>
         <!-- Strains -->
         <li class="nav-item">
-            <a class="nav-link {% if nav == 'strains' %}active{% endif %}" href="{% url 'reviews:strains' %}">
+            <a class="nav-link {% if nav == 'strains' %}active{% endif %}" href="{% url 'strains:strains' %}">
                 <i class="fas fa-cannabis"></i>
             </a>
         </li>
@@ -39,7 +39,3 @@
         padding: 0 !important;
     }
 </style>
-
-
-
-
