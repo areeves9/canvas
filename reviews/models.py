@@ -20,6 +20,8 @@ from common.utils import image_rotate, image_compress
 headers = {
     "X-API-Key": os.environ.get("CANNABIS_REPORTS_API"),
 }
+
+
 cannabis_reports_url = "https://www.cannabisreports.com/api/v1.0/strains/search/"
 flag_api_url = "https://restcountries.eu/rest/v2/name/"
 
