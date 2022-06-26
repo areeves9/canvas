@@ -1,5 +1,5 @@
 from django.contrib import admin
-from reviews.models import Strain
+from strains.models import Strain, Flavor
 
 
 # Register your models here.
@@ -17,4 +17,18 @@ class StrainModelAdmin(admin.ModelAdmin):
         ordering = ["-name"]
 
 
+class FlavorModelAdmin(admin.ModelAdmin):
+    """Manage Flavor model in admin."""
+
+    list_display = ["name"]
+    list_display_links = ["name"]
+    list_filter = ["name"]
+
+    class Meta:
+        """Order by flavor."""
+
+        model = Flavor
+
+
 admin.site.register(Strain, StrainModelAdmin)
+admin.site.register(Flavor, FlavorModelAdmin)

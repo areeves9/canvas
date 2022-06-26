@@ -1,10 +1,10 @@
 <span style="height: 42px; width: 42px; position: relative;" class="mb-2 float-right rounded-circle shadow-lg">
-    <a href="{% url 'reviews:strain_like' %}" 
-      data-id="{{ strain.id }}" 
+    <a href="{% url 'strains:strain_like' %}"
+      data-id="{{ strain.id }}"
       data-action="{% if request.user in users_like %}un{% endif %}like"
       class="strain-like-btn float-right rounded-circle strain-like">
         <i class="{% if request.user in users_like %}
         fas fa-heart{% else %}text-dark far fa-heart{% endif %}">
-        </i> 
+        </i>
     </a>
 </span>

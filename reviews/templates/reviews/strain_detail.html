@@ -162,7 +162,7 @@ if (anchor.className === 'show-link') {
 
 $('a.strain-like').click(function(e){
 e.preventDefault();
-$.post('{% url "reviews:strain_like" %}',
+$.post('{% url "strains:strain_like" %}',
 {
 id: $(this).data('id'),
 action: $(this).data('action')

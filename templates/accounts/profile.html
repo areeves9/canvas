@@ -14,12 +14,9 @@
   <div class="row justify-content-center align-items-center">
     <div class="col-3">
       {% if user.profile.photo %}
-      <img class="d-none d-sm-block mx-auto mb-4 rounded-circle img-fluid" 
-        alt="Responsive image" src="{{ user.profile.photo.url }}" 
+      <img class="d-none d-sm-block mx-auto mb-4 rounded-circle img-fluid"
+        alt="Responsive image" src="{{ user.profile.photo.url }}"
         style="width: 9rem; height: 9rem;"/>
-      {% else %}
-      <img class="d-none d-sm-block mx-auto mb-4 rounded-circle img-fluid" 
-        src="http://placehold.it/250x250" style="width: 9rem; height: 9rem;"/>
       {% endif %}
     </div>
     <div class="col-6">
@@ -61,18 +58,15 @@
       {% endif %}
     </div> <!--/.col-12-->
   </div> <!--/.row-->
-  
+
   <div class="row">
     <!--profile photo-->
     <div class="col-4 col-md-3">
       <!--mobile-responsive-->
       {% if user.profile.photo %}
-      <img class="d-block d-sm-none mr-auto mb-4 rounded-circle img-fluid" 
-        alt="Responsive image" src="{{ user.profile.photo.url }}" 
+      <img class="d-block d-sm-none mr-auto mb-4 rounded-circle img-fluid"
+        alt="Responsive image" src="{{ user.profile.photo.url }}"
         style="width: 77px; height: 77px;"/>
-      {% else %}
-      <img class="d-block d-sm-none mx-auto mb-4 rounded-circle img-fluid" 
-        src="http://placehold.it/250x250" style="width: 77px; height: 77px;"/>
       {% endif %}
       {% with total_followers=user.followers.count %}
       {% with total_following=user.following.count %}
@@ -90,8 +84,8 @@
       <p class="text-left"><b>{{ user.first_name }}</b></p>
       <p class="text-left mt-n3">{{ user.profile.bio }}</p>
       {% if request.user.profile.id == user.profile.id %}
-      <a style="position: absolute; top: -2rem; left: 7rem; width: 65%;" 
-        class="mt-n3 ml-auto d-sm-none btn btn-sm btn-block border border-muted" 
+      <a style="position: absolute; top: -2rem; left: 7rem; width: 65%;"
+        class="mt-n3 ml-auto d-sm-none btn btn-sm btn-block border border-muted"
         href="{% url 'accounts:update' %}">
         Edit Profile
       </a>
@@ -154,7 +148,6 @@
 </style>
 
 {% include "partials/accounts/followers.html" %}
-
 {% include "partials/accounts/following_modal.html" %}
 
 
@@ -166,7 +159,6 @@
 {% block domready %}
 const buttonContainer = document.getElementById('buttonContainer');
 buttonContainer.addEventListener('click', function(event) {
-  console.log('fired1', event.target)
   if (event.target.classList.contains = 'follow') {
     const anchor = event.target;
     $.post('{% url "accounts:user_follow" %}',
@@ -177,10 +169,10 @@ buttonContainer.addEventListener('click', function(event) {
         function(data){
           if (data['status'] == 'ok') {
             var previous_action = $(anchor).data('action');
-    
+
             $(anchor).data('action', previous_action == 'follow' ? 'unfollow' : 'follow');
             $(anchor).text(previous_action == 'follow' ? 'Unfollow' : 'Follow');
-    
+
             var previous_followers = parseInt($('total-followers').text());
             $('total-followers').text(previous_action == 'follow' ? previous_followers + 1 : previous_followers -1);
           };
@@ -201,23 +193,15 @@ buttonContainer.addEventListener('click', function(event) {
             function(data){
               if (data['status'] == 'ok') {
                 var previous_action = $(anchor).data('action');
-        
+
                 $(anchor).data('action', previous_action == 'follow' ? 'unfollow' : 'follow');
                 $(anchor).text(previous_action == 'follow' ? 'Unfollow' : 'Follow');
-        
+
                 var previous_followers = parseInt($('total-followers').text());
                 $('total-followers').text(previous_action == 'follow' ? previous_followers + 1 : previous_followers -1);
               };
             });
             };
         });
-
-   
-        const mediaBody = document.getElementById('mediaBody');
-        mediaBody.addEventListener('click', (event) => {
-            console.log(event.target);
-        });
-
-
 
 {% endblock %}
