@@ -35,7 +35,7 @@ class StrainDetailView(DetailView):
 
     model = Strain
     context_object_name = "strain"
-    template_name = "reviews/strain_detail.html"
+    template_name = "strains/strain_detail.html"
 
     def get_context_data(self, **kwargs):
         context = super(StrainDetailView, self).get_context_data(**kwargs)
@@ -50,7 +50,7 @@ class StrainListView(ListView):
     """Return a paginated list of strain instances."""
 
     paginate_by = 16
-    template_name = "reviews/strains.html"
+    template_name = "strains/strains.html"
 
     def get_queryset(self):
         """Return a queryset of Review objects desc by timestamp."""
