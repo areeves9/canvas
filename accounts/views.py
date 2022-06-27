@@ -18,17 +18,20 @@ from accounts.forms import ProfileForm, UserForm, UserRegisterForm
 
 from reviews.models import Review
 from actions.models import Action, create_action
+
 # Create your views here.
 
 
 class RegistrationView(CreateView):
-    template_name = 'registration/registration_form.html'
+    template_name = "registration/registration_form.html"
     form_class = UserRegisterForm
-    success_url = reverse_lazy('reviews:reviews')
+    success_url = reverse_lazy("reviews:reviews")
 
     def form_valid(self, form):
         valid = super(RegistrationView, self).form_valid(form)
-        username, password = form.cleaned_data.get('username'), form.cleaned_data.get('password1')
+        username, password = form.cleaned_data.get("username"), form.cleaned_data.get(
+            "password1"
+        )
         new_user = authenticate(username=username, password=password)
         login(self.request, new_user)
         return valid
@@ -38,20 +41,20 @@ class RegistrationView(CreateView):
 @require_POST
 @login_required
 def user_follow(request):
-    user_id = request.POST.get('id')
-    action = request.POST.get('action')
+    user_id = request.POST.get("id")
+    action = request.POST.get("action")
     if user_id and action:
         try:
             user = User.objects.get(id=user_id)
-            if action == 'follow':
+            if action == "follow":
                 Follow.objects.get_or_create(follow_from=request.user, follow_to=user)
-                create_action(request.user, 'is following', user)
+                create_action(request.user, "is following", user)
             else:
                 Follow.objects.filter(follow_from=request.user, follow_to=user).delete()
-            return JsonResponse({'status': 'ok'})
+            return JsonResponse({"status": "ok"})
         except User.DoesNotExist:
-            return JsonResponse({'status': 'ko'})
-        return JsonResponse({'status': 'ko'})
+            return JsonResponse({"status": "ko"})
+        return JsonResponse({"status": "ko"})
 
 
 @login_required
@@ -68,7 +71,7 @@ def profile(request):
         "review_numbers": review_numbers,
         "followers": followers,
         "following": following,
-        "nav": 'profile',
+        "nav": "profile",
     }
     return render(request, "accounts/profile.html", context)
 
@@ -90,7 +93,7 @@ def profile_user(request, username=""):
             "review_numbers": review_numbers,
             "followers": followers,
             "following": following,
-            "nav": 'profile',
+            "nav": "profile",
         }
         return render(request, "accounts/profile.html", context)
 
@@ -99,7 +102,9 @@ def profile_user(request, username=""):
 def profile_update(request):
     if request.method == "POST":
         user_form = UserForm(request.POST or None, instance=request.user)
-        profile_form = ProfileForm(request.POST or None, request.FILES or None, instance=request.user.profile)
+        profile_form = ProfileForm(
+            request.POST or None, request.FILES or None, instance=request.user.profile
+        )
         if user_form.is_valid() and profile_form.is_valid():
             user = user_form.save(commit=False)
             profile = profile_form.save(commit=False)
@@ -121,10 +126,16 @@ def profile_update(request):
 
 @login_required
 def actions(request):
-    actions = Action.objects.filter(target_id__in=[review.pk for review in request.user.user_reviews.all()]).filter(target_content=10).exclude(user=request.user) | Action.objects.filter(verb='is following', target_id=request.user.pk).order_by('-created')
+    actions = Action.objects.filter(
+        target_id__in=[review.pk for review in request.user.user_reviews.all()]
+    ).filter(target_content=10).exclude(user=request.user) | Action.objects.filter(
+        verb="is following", target_id=request.user.pk
+    ).order_by(
+        "-created"
+    )
     actions = actions[:10]
     context = {
-        'actions': actions,
-        'nav': 'actions',
+        "actions": actions,
+        "nav": "actions",
     }
     return render(request, "actions/actions.html", context)
