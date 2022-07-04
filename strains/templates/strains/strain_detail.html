@@ -117,7 +117,10 @@
           {{ strain }} reviews <span style="color: #6eb257; font-size: 1rem; text-decoration: underline;">({{ reviews.count }})</span>
         </h5>
         {% endif %}
-        {% include 'partials/reviews/review_button.html' %}
+        <a class="strain-review-btn mx-auto mt-3 btn btn-block shadow"
+          href="{% url 'reviews:strain_review' strain.id %}">
+          write a review
+        </a>
       </div>  <!-- .col-12 -->
       {% if reviews %}
       <!-- iteratre through related reviews -->
