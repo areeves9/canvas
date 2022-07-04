@@ -5,6 +5,7 @@
 
 {% include 'partials/nav_header.html' %}
 {% include "messages_display.html" %}
+{% load static %}
 {% load rating_icon %}
 <div style="padding-top: 4rem; padding-bottom: 4rem;" class="container">
   <div class="row">
@@ -16,7 +17,11 @@
       <h2 style="font-weight: 600;" class="text-left">{{ strain }}</h2>
       <hr/>
       <div class="card">
-        <img class="card-img-top" src="{{ strain.photo_url }}" />
+        {% if strain.image %}
+        <img class="card-img-top" src="{{ strain.image }}" />
+        {% else %}
+        <img class="card-img-top" src="{% static 'Unknown.png' %}" />
+        {% endif %}
       </div>
     </div> <!--/.col-sm-6-->
     <!-- strain details -->
@@ -45,19 +50,16 @@
         {% endwith %}
       </ul>
 
-      {% if strain.lineage %}
-
       <hr/>
       <h5 class="mt-2 text-left font-weight-bold">Lineage</h5>
-      {% if countries %}
+      {% if strain.genetics %}
       <ul class="list-group list-group-horizontal">
-        {% for country, value in countries.items %}
+        {% for country, value in genetics.items %}
         <li class="mx-auto list-group-item p-0">
           <img style="height: 2rem; width: 3rem;" class="border border-dark" src="http://www.geognos.com/api/en/countries/flag/{{ value }}.png">
         </li>
         {% endfor %}
       </ul>
-      {% endif %}
       {% endif %}
     </div> <!--/.col-sm-6-->
   </div> <!--/.row-->
@@ -77,10 +79,10 @@
       {% endif %}
       <hr/>
     </div>
-    {% if genetics %}
+    {% if strain.lineage %}
     <div class="col-12">
         <h5 class="mt-2 text-left font-weight-bold">Genetics</h5>
-        <p class="text-left">{{ strain.genetics }}</p>
+        <p class="text-left">{{ strain.lineage.names }}</p>
         <hr/>
     </div>
     {% endif %}

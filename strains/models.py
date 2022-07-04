@@ -56,16 +56,6 @@ class Strain(models.Model):
         settings.AUTH_USER_MODEL, related_name="strains_liked", blank=True
     )
 
-    # photo = models.ImageField(
-    #     upload_to=upload_location1,
-    #     blank=True,
-    #     null=True,
-    #     height_field="height_field",
-    #     width_field="width_field",
-    # )
-    # height_field = models.IntegerField(default=0, null=True)
-    # width_field = models.IntegerField(default=0, null=True)
-
     class Meta:
         ordering = ["name"]
 

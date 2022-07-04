@@ -42,6 +42,7 @@ class StrainDetailView(DetailView):
         context["reviews"] = self.get_object().user_review.all()
         context["countries"] = self.get_object().lineage
         context["genetics"] = self.get_object().genetics
+
         return context
 
 

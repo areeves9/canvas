@@ -151,7 +151,7 @@ LOGOUT_REDIRECT_URL = "home"
 
 STATICFILES_LOCATION = "static"
 STATICFILES_DIRS = [
-    os.path.join("reviews", "static"),
+    os.path.join(BASE_DIR, "static"),
 ]
 AWS_ACCESS_KEY_ID = os.environ.get("AWS_ACCESS_KEY_ID")
 AWS_SECRET_ACCESS_KEY = os.environ.get("AWS_SECRET_ACCESS_KEY")
@@ -159,10 +159,10 @@ AWS_STORAGE_BUCKET_NAME = os.environ.get("AWS_STORAGE_BUCKET_NAME")
 AWS_S3_CUSTOM_DOMAIN = "%s.s3.amazonaws.com" % AWS_STORAGE_BUCKET_NAME
 
 STATIC_URL = "https://%s/static/" % (AWS_S3_CUSTOM_DOMAIN)
-MEDIA_URL = "https://%s/media/" % (AWS_S3_CUSTOM_DOMAIN)
-DEFAULT_FILE_STORAGE = "canvas.custom_storages.MediaRootS3BotoStorage"
 STATICFILES_STORAGE = "canvas.custom_storages.StaticRootS3BotoStorage"
 
+MEDIA_URL = "https://%s/media/" % (AWS_S3_CUSTOM_DOMAIN)
+DEFAULT_FILE_STORAGE = "canvas.custom_storages.MediaRootS3BotoStorage"
 DEFAULT_FROM_EMAIL = os.environ["CANVAS_FROM_EMAIL"]
 
 sentry_sdk.init(dsn=os.environ.get("SENTRY_DSN"), integrations=[DjangoIntegration()])
