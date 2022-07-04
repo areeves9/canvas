@@ -40,7 +40,7 @@ class StrainDetailView(DetailView):
     def get_context_data(self, **kwargs):
         context = super(StrainDetailView, self).get_context_data(**kwargs)
         context["reviews"] = self.get_object().user_review.all()
-        context["countries"] = self.get_object().lineage
+        context["lineage"] = self.get_object().lineage
         context["genetics"] = self.get_object().genetics
 
         return context

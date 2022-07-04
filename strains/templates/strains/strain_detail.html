@@ -52,9 +52,9 @@
 
       <hr/>
       <h5 class="mt-2 text-left font-weight-bold">Lineage</h5>
-      {% if strain.genetics %}
+      {% if lineage %}
       <ul class="list-group list-group-horizontal">
-        {% for country, value in genetics.items %}
+        {% for country, value in lineage.items %}
         <li class="mx-auto list-group-item p-0">
           <img style="height: 2rem; width: 3rem;" class="border border-dark" src="http://www.geognos.com/api/en/countries/flag/{{ value }}.png">
         </li>
@@ -79,10 +79,10 @@
       {% endif %}
       <hr/>
     </div>
-    {% if strain.lineage %}
+    {% if genetics %}
     <div class="col-12">
         <h5 class="mt-2 text-left font-weight-bold">Genetics</h5>
-        <p class="text-left">{{ strain.lineage.names }}</p>
+        <p class="text-left">{{ genetics.names }}</p>
         <hr/>
     </div>
     {% endif %}
