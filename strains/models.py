@@ -48,8 +48,8 @@ class Strain(models.Model):
     url = models.URLField(null=True, blank=True)
     image = models.URLField(null=True, blank=True)
     seed_company = JSONField(blank=True, null=True)
-    lineage = JSONField(blank=True, null=True)
     genetics = JSONField(blank=True, null=True)
+    lineage = JSONField(blank=True, null=True)
     created_at = models.DateTimeField()
     updated_at = models.DateTimeField()
     users_like = models.ManyToManyField(
