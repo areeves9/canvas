@@ -7,6 +7,7 @@
 
 :root {
   --emerald-color: #0c4524;
+  --font-size-l: 24px;
 }
 
 body, html {
@@ -23,7 +24,11 @@ body {
 /* Strain Detail */
 
 #strain-detail .strain-name {
-  font-weight: 100;
+  font-weight: 300;
+}
+
+#strain-detail h1, h2 {
+  font-size: var(--font-size-l);
 }
 
 .emerald {

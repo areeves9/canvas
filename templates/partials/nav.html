@@ -1,35 +1,38 @@
-<nav id="navFooter" class="navbar fixed-bottom navbar-expand-lg navbar-light bg-white border border-top-1">
-    <ul style="font-size: 1.5rem;" class="navbar-nav nav-fill w-100">
-        <!-- Reviews -->
-        <li class="nav-item">
-            <a class="nav-link {% if nav == 'home' %}active{% endif %}" href="{% url 'reviews:reviews' %}">
-                <i class="fas fa-home"></i>
-            </a>
-        </li>
-        <!-- Strains -->
-        <li class="nav-item">
-            <a class="nav-link {% if nav == 'strains' %}active{% endif %}" href="{% url 'strains:strains' %}">
-                <i class="fas fa-cannabis"></i>
-            </a>
-        </li>
-        <!-- Activity -->
-        <li class="nav-item">
-            <a class="nav-link {% if nav == 'actions' %}active{% endif %}" href="{% url 'accounts:actions' %}">
-                <i class="far fa-heart"></i>
-            </a>
-        </li>
-        <!-- Profile -->
-        <li class="nav-item">
-            <a class="nav-link {% if nav == 'profile' %}active{% endif %}" href="{% url 'accounts:user' request.user %}">
-                {% if request.user.profile.photo %}
-                <img style="height: 2rem; width: 2rem;" class="rounded-circle {% if nav == 'profile' %}img-thumbnail border border-dark{% endif %}" src="{{ request.user.profile.photo.url }}" />
-                {% else %}
-                <i class="far fa-user-circle"></i>
-                {% endif %}
-            </a>
-        </li>
-    </ul>
-</nav>
+<section id="footer" class="footer pt-5">
+
+    <nav id="navFooter" class="navbar fixed-bottom navbar-expand-lg navbar-light bg-white border border-top-1">
+        <ul style="font-size: 1.5rem;" class="navbar-nav nav-fill w-100">
+            <!-- Reviews -->
+            <li class="nav-item">
+                <a class="nav-link {% if nav == 'home' %}active{% endif %}" href="{% url 'reviews:reviews' %}">
+                    <i class="fas fa-home"></i>
+                </a>
+            </li>
+            <!-- Strains -->
+            <li class="nav-item">
+                <a class="nav-link {% if nav == 'strains' %}active{% endif %}" href="{% url 'strains:strains' %}">
+                    <i class="fas fa-cannabis"></i>
+                </a>
+            </li>
+            <!-- Activity -->
+            <li class="nav-item">
+                <a class="nav-link {% if nav == 'actions' %}active{% endif %}" href="{% url 'accounts:actions' %}">
+                    <i class="far fa-heart"></i>
+                </a>
+            </li>
+            <!-- Profile -->
+            <li class="nav-item">
+                <a class="nav-link {% if nav == 'profile' %}active{% endif %}" href="{% url 'accounts:user' request.user %}">
+                    {% if request.user.profile.photo %}
+                    <img style="height: 2rem; width: 2rem;" class="rounded-circle {% if nav == 'profile' %}img-thumbnail border border-dark{% endif %}" src="{{ request.user.profile.photo.url }}" />
+                    {% else %}
+                    <i class="far fa-user-circle"></i>
+                    {% endif %}
+                </a>
+            </li>
+        </ul>
+    </nav>
+</section>
 
 <style>
     .navbar-nav {
