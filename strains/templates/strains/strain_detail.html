@@ -7,129 +7,141 @@
 {% include "messages_display.html" %}
 {% load static %}
 {% load rating_icon %}
-<div style="padding-top: 4rem; padding-bottom: 4rem;" class="container">
-  <div class="row">
-    <!-- strain photo -->
-    <div class="col-sm-6 mb-4">
-      {% with users_like=strain.users_like.all %}
-      {% include 'partials/strains/strain_like_button.html' %}
-      {% endwith %}
-      <h2 style="font-weight: 600;" class="text-left">{{ strain }}</h2>
-      <hr/>
-      <div class="card">
-        {% if strain.image %}
-        <img class="card-img-top" src="{{ strain.image }}" />
-        {% else %}
-        <img class="card-img-top" src="{% static 'Unknown.png' %}" />
-        {% endif %}
-      </div>
-    </div> <!--/.col-sm-6-->
-    <!-- strain details -->
-    <div class="col-12">
-      <ul style="font-weight: 600;" class="list-group list-group-horizontal">
-        {% with rating=strain.get_average_rating %}
-        {% if rating %}
-        <li class="list-group-item border-0 m-1 mt-n1 p-0 text-dark">
-            <span>{{ rating }}</span>
-        </li>
-        {% endif %}
-        <li class="list-group-item border-0 m-1 mt-n1 p-0">
-          {% if rating %}
-          {{ rating|rating_icon }}
-          {% else %}
-          <p>Be the first to  <a class="emerald bold-link-underline" href="{% url 'reviews:strain_review' strain.id %}">review</a> {{ strain }}.</p>
-          {% endif %}
-        </li>
-        {% endwith %}
-        {% with count=strain.user_review.all.count %}
-        {% if count > 0 %}
-        <li class="list-group-item border-0 m-1 mt-n1 p-0 text-dark">
-          <span>({{ count }})</span>
-        </li>
-        {% endif %}
-        {% endwith %}
-      </ul>
 
-      <hr/>
-      <h5 class="mt-2 text-left font-weight-bold">Lineage</h5>
-      {% if lineage %}
-      <ul class="list-group list-group-horizontal">
-        {% for country, value in lineage.items %}
-        <li class="mx-auto list-group-item p-0">
-          <img style="height: 2rem; width: 3rem;" class="border border-dark" src="http://www.geognos.com/api/en/countries/flag/{{ value }}.png">
-        </li>
-        {% endfor %}
-      </ul>
-      {% endif %}
-    </div> <!--/.col-sm-6-->
-  </div> <!--/.row-->
-<!-- strain summary from leafly.com -->
-  <div class="row">
-    <div class="col-12">
-      <hr/>
-      {% if strain.summary %}
-      <p class="text-left">
-          {{ strain.summary }}
-      </p>
-      {% else %}
-      <p>
-          We’re still learning about the flavors and effects of {{ strain }}.
-          If you’ve smoked this strain before, tell us about it by leaving a review.
-      </p>
-      {% endif %}
-      <hr/>
-    </div>
-    {% if genetics %}
-    <div class="col-12">
-        <h5 class="mt-2 text-left font-weight-bold">Genetics</h5>
-        <p class="text-left">{{ genetics.names }}</p>
+<section id="strain-detail" class="strain-detail">
+  <div class="container pt-5">
+    <div class="row">
+      <!-- strain name -->
+      <div class="col-12 col-md-6 mb-4 mt-5 mx-auto">
+        {% with users_like=strain.users_like.all %}
+        {% endwith %}
+        <h2 class="d-none d-sm-block strain-name text-left">{{ strain }}</h2>
+        <h4 class="d-block d-sm-none strain-name text-left">{{ strain }}</h4>
         <hr/>
+        <!-- strain photo -->
+        <div class="card">
+          {% if strain.image %}
+          {% include 'partials/strains/strain_like_button.html' %}
+          <img class="card-img-top" src="{{ strain.image }}" />
+          {% else %}
+          <img class="card-img-top" src="{% static 'Unknown.png' %}" />
+          {% endif %}
+        </div>
+      </div> <!--/.col-md-6-->
+    </div> <!--/.row-->
+      <!-- strain reviews -->
+    <div class="row">
+      <div class="col-12 col-md-6 mx-auto">
+        <ul class="list-group list-group-horizontal">
+          {% with rating=strain.get_average_rating %}
+          {% if rating %}
+          <li class="list-group-item border-0 m-1 mt-n1 p-0 text-dark">
+              <span>{{ rating }}</span>
+          </li>
+          {% endif %}
+          <li class="list-group-item border-0 m-1 mt-n1 p-0">
+            {% if rating %}
+            {{ rating|rating_icon }}
+            {% else %}
+            <p>Be the first to  <a class="emerald bold-link-underline" href="{% url 'reviews:strain_review' strain.id %}">review</a> {{ strain }}.</p>
+            {% endif %}
+          </li>
+          {% endwith %}
+          {% with count=strain.user_review.all.count %}
+          {% if count > 0 %}
+          <li class="list-group-item border-0 m-1 mt-n1 p-0 text-dark">
+            <span>({{ count }})</span>
+          </li>
+          {% endif %}
+          {% endwith %}
+        </ul>
+
+        <hr/>
+        <h5 class="mt-2 text-left font-weight-bold">Lineage</h5>
+        {% if lineage %}
+        <ul class="list-group list-group-horizontal">
+          {% for country, value in lineage.items %}
+          <li class="mx-auto list-group-item p-0">
+            <img style="height: 2rem; width: 3rem;" class="border border-dark" src="http://www.geognos.com/api/en/countries/flag/{{ value }}.png">
+          </li>
+          {% endfor %}
+        </ul>
+        {% endif %}
+      </div> <!--/.col-md-6-->
+    </div> <!--/.row-->
+  <!-- strain summary from leafly.com -->
+  {% if strain.summary %}
+    <div class="row">
+      <div class="col-12 col-md-6 mx-auto">
+        <hr/>
+        <h5 class="mt-2 text-left font-weight-bold">Summary</h5>
+        <p class="text-left">
+        {{ strain.summary }}
+        </p>
+        <hr/>
+      </div>
     </div>
     {% endif %}
-    {% if strain.user_review.all|length > 0 %}
-    <div class="col-12 mb-3">
-        <h5 class="d-inline font-weight-bold">Photos of {{ strain }}</h5>
-    </div>
-    {% endif %}
-    <div style="overflow-x: auto; overflow-y: hidden;" class="d-flex flex-row flex-nowrap">
-        {% for review in reviews|slice:4 %}
-        {% if review.photo %}
-        <div class="col-md">
-            <div
-                class="card mb-4"
-                style="width: 235px; height: 235px;">
-                <img
-                    class="card-img-top"
-                    style="object-fit: cover; width: 235px; height: 235px;"
-                    src="{{ review.photo.url }}"
-                    alt="Card image cap">
-            </div>
+
+
+    <!--strain genetics-->
+      {% if genetics %}
+      <div class="row">
+        <div class="col-12 col-md-6 mx-auto">
+            <h5 class="mt-2 text-left font-weight-bold">Genetics</h5>
+            <p class="text-left">{{ genetics.names }}</p>
+            <hr/>
+        </div>
+      </div>
+      {% endif %}
+
+      <!--strain user reviews-->
+      {% if strain.user_review.all|length > 0 %}
+      <div class="row">
+        <div class="col-12 mb-3">
+            <h5 class="d-inline font-weight-bold">Photos of {{ strain }}</h5>
         </div>
         {% endif %}
-        {% endfor %}
-    </div>
-  </div>
-  {% load rating_icon %}
-  <div id="userReviewContainer" class="row mt-4">
-      <div class="col-sm-6 mb-5">
+        <div style="overflow-x: auto; overflow-y: hidden;" class="d-flex flex-row flex-nowrap">
+            {% for review in reviews|slice:4 %}
+            {% if review.photo %}
+            <div class="col-md">
+                <div
+                    class="card mb-4"
+                    style="width: 235px; height: 235px;">
+                    <img
+                        class="card-img-top"
+                        style="object-fit: cover; width: 235px; height: 235px;"
+                        src="{{ review.photo.url }}"
+                        alt="Card image cap">
+                </div>
+            </div>
+            {% endif %}
+            {% endfor %}
+        </div>
+      </div>
+    {% load rating_icon %}
+    <div id="userReviewContainer" class="row mt-4">
+        <div class="col-md-6 mb-5 mx-auto">
+          {% if reviews %}
+          <h5 class="font-weight-bold">
+            {{ strain }} reviews <span style="color: #6eb257; font-size: 1rem; text-decoration: underline;">({{ reviews.count }})</span>
+          </h5>
+          {% endif %}
+          <a class="strain-review-btn mx-auto mt-3 mb-5 btn btn-block shadow w-75"
+            href="{% url 'reviews:strain_review' strain.id %}">
+            write a review
+          </a>
+        </div>  <!-- .col-12 -->
         {% if reviews %}
-        <h5 class="font-weight-bold">
-          {{ strain }} reviews <span style="color: #6eb257; font-size: 1rem; text-decoration: underline;">({{ reviews.count }})</span>
-        </h5>
-        {% endif %}
-        <a class="strain-review-btn mx-auto mt-3 btn btn-block shadow"
-          href="{% url 'reviews:strain_review' strain.id %}">
-          write a review
-        </a>
-      </div>  <!-- .col-12 -->
-      {% if reviews %}
-      <!-- iteratre through related reviews -->
-      {% for review in reviews|slice:":10" %}
-      {% include 'partials/reviews/review_user_review.html' %}
-      {% endfor %}
-  </div> <!-- .row.mt-4 -->
-  {% endif %}
-</div>
+        <!-- iteratre through related reviews -->
+        {% for review in reviews|slice:":10" %}
+        {% include 'partials/reviews/review_user_review.html' %}
+        {% endfor %}
+    </div> <!-- .row.mt-4 -->
+    {% endif %}
+  </div>
+</section>
 
 <style>
 div.alert {

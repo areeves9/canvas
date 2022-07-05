@@ -6,7 +6,7 @@
   }
 
 :root {
-  --emerald-color: #09341b;
+  --emerald-color: #0c4524;
 }
 
 body, html {
@@ -19,6 +19,13 @@ body {
   margin-bottom: 100px !important;
   overflow-x: hidden;
 }
+
+/* Strain Detail */
+
+#strain-detail .strain-name {
+  font-weight: 100;
+}
+
 .emerald {
   color: var(--emerald-color);
 }
