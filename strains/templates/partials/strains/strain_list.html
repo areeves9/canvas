@@ -1,7 +1,7 @@
 {% load static %}
 
-    {% for strain in strains %}
-    {% with rating=strain.get_average_rating %}
+{% for strain in strains %}
+{% with rating=strain.get_average_rating %}
     <div class="strain-card col-sm-12 col-md-3 col-lg-3">
         {% load rating_icon %}
         <a style="text-decoration: none;" class="text-dark" href="{{ strain.get_absolute_url }}">
@@ -17,7 +17,7 @@
         {% endif %}
         <div class="card mb-4 shadow-sm" style="border: 0;">
             <div class="card-body">
-            <h4 class="card-title text-left">{{ strain }}</h4>
+            <h1 style="font-size: 24px;" class="card-title text-left">{{ strain|truncatechars:23 }}</h1>
             {% load rating_icon %}
             {% if rating > 0 %}
             <span class="d-block text-left mt-n2">
