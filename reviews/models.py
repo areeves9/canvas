@@ -35,6 +35,8 @@ def upload_location1(instance, filename):
 
 
 class Review(models.Model):
+    """User submitted review of a strain specific experience."""
+
     title = models.CharField(max_length=35)
     content = models.TextField(max_length=500)
     flavors = models.ManyToManyField(Flavor)
@@ -102,6 +104,8 @@ def update_image(sender, instance, **kwargs):
 
 
 class Comment(models.Model):
+    """User created review comment."""
+
     review = models.ForeignKey(
         Review, on_delete=models.CASCADE, related_name="comments"
     )

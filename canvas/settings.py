@@ -25,8 +25,6 @@ EMAIL_HOST_USER = os.environ["CANVAS_EMAIL_HOST_USER"]
 EMAIL_HOST_PASSWORD = os.environ["CANVAS_EMAIL_PW"]
 EMAIL_USE_TLS = os.environ["EMAIL_USE_TLS"]
 
-STARFIELD_COLOUR = "#6EB257"
-
 
 # Application definition
 INSTALLED_APPS = [
@@ -59,7 +57,6 @@ MIDDLEWARE = [
     "django.middleware.clickjacking.XFrameOptionsMiddleware",
 ]
 
-ROOT_URLCONF = "canvas.urls"
 
 TEMPLATES = [
     {
@@ -77,6 +74,7 @@ TEMPLATES = [
     },
 ]
 
+ROOT_URLCONF = "canvas.urls"
 WSGI_APPLICATION = "canvas.wsgi.application"
 
 ES_URL = urlparse(os.environ.get("BONSAI_URL") or "http://127.0.0.1:9200/")
@@ -149,21 +147,25 @@ LOGIN_URL = "home"
 LOGIN_REDIRECT_URL = reverse_lazy("reviews:reviews")
 LOGOUT_REDIRECT_URL = "home"
 
-STATICFILES_LOCATION = "static"
-# STATICFILES_DIRS = [
-#     os.path.join(BASE_DIR, "static"),
-# ]
-AWS_ACCESS_KEY_ID = os.environ.get("AWS_ACCESS_KEY_ID")
-AWS_SECRET_ACCESS_KEY = os.environ.get("AWS_SECRET_ACCESS_KEY")
-AWS_STORAGE_BUCKET_NAME = os.environ.get("AWS_STORAGE_BUCKET_NAME")
-AWS_S3_CUSTOM_DOMAIN = "%s.s3.amazonaws.com" % AWS_STORAGE_BUCKET_NAME
+# Static files
+if os.environ.get("ENABLE_S3"):
+    AWS_ACCESS_KEY_ID = os.environ.get("AWS_ACCESS_KEY_ID")
+    AWS_SECRET_ACCESS_KEY = os.environ.get("AWS_SECRET_ACCESS_KEY")
+    AWS_STORAGE_BUCKET_NAME = os.environ.get("AWS_STORAGE_BUCKET_NAME")
+    AWS_S3_CUSTOM_DOMAIN = "%s.s3.amazonaws.com" % AWS_STORAGE_BUCKET_NAME
 
-STATIC_URL = "https://%s/static/" % (AWS_S3_CUSTOM_DOMAIN)
-STATICFILES_STORAGE = "canvas.custom_storages.StaticRootS3BotoStorage"
+    STATIC_URL = "https://%s/static/" % (AWS_S3_CUSTOM_DOMAIN)
+    STATICFILES_STORAGE = "canvas.custom_storages.StaticRootS3BotoStorage"
 
-MEDIA_URL = "https://%s/media/" % (AWS_S3_CUSTOM_DOMAIN)
-DEFAULT_FILE_STORAGE = "canvas.custom_storages.MediaRootS3BotoStorage"
-DEFAULT_FROM_EMAIL = os.environ["CANVAS_FROM_EMAIL"]
+    MEDIA_URL = "https://%s/media/" % (AWS_S3_CUSTOM_DOMAIN)
+    DEFAULT_FILE_STORAGE = os.environ.get("DEFAULT_FILE_STORAGE")
+    DEFAULT_FROM_EMAIL = os.environ.get("CANVAS_FROM_EMAIL")
+else:
+    STATICFILES_LOCATION = "static"
+    STATICFILES_DIRS = [
+        os.path.join(BASE_DIR, "static"),
+    ]
+
 
 sentry_sdk.init(dsn=os.environ.get("SENTRY_DSN"), integrations=[DjangoIntegration()])
 
@@ -174,9 +176,9 @@ if DEBUG is True:
     DATABASES = {
         "default": {
             "ENGINE": "django.db.backends.postgresql_psycopg2",
-            "NAME": os.environ["DB_CANVAS_NAME"],
-            "USER": os.environ["DB_CANVAS_USER"],
-            "PASSWORD": os.environ["DB_CANVAS_PW"],
+            "NAME": os.environ.get("DB_CANVAS_NAME"),
+            "USER": os.environ.get("DB_CANVAS_USER"),
+            "PASSWORD": os.environ.get("DB_CANVAS_PW"),
             "HOST": "localhost",
             "PORT": "5432",
         }

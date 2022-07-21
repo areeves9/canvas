@@ -118,6 +118,7 @@ class ReviewStrain(CreateView, SuccessMessageMixin):
             return super(ReviewStrain, self).form_valid(form)
         else:
             messages.error(self.request, "Review failed to save.")
+            return self.form_class()
 
     def get_success_url(self):
         """Return the review list view."""
@@ -162,6 +163,7 @@ def review_delete(request, id=None):
 @login_required
 @require_POST
 def review_like(request):
+    """User association to a post."""
     review_id = request.POST.get("id")
     action = request.POST.get("action")
     if review_id and action:
@@ -173,7 +175,7 @@ def review_like(request):
             else:
                 review.users_like.remove(request.user)
             return JsonResponse({"status": "ok"})
-        except:
+        except Review.DoesNotExist:
             pass
     return JsonResponse({"status": "ko"})
 
