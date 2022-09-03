@@ -182,7 +182,6 @@ buttonContainer.addEventListener('click', function(event) {
 
     const buttonContainer1 = document.getElementById('buttonContainer1');
     buttonContainer1.addEventListener('click', function(event) {
-      console.log('fired2')
       if (event.target.classList.contains = 'follow') {
         const anchor = event.target;
         $.post('{% url "accounts:user_follow" %}',

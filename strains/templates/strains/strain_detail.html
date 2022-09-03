@@ -160,13 +160,11 @@ div.alert {
 
 document.getElementById('userReviewContainer').addEventListener('click', function(event){
 const anchor = event.target;
-console.log(anchor);
 if (anchor.className === 'show-link') {
   event.preventDefault();
   const less = event.target.parentNode.firstElementChild;
   const dots = less.firstElementChild;
   const more = less.nextElementSibling;
-  console.log(less)
   if (dots.style.display === 'inline') {
     less.style.display = 'none';
     dots.style.display = 'none';

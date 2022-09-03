@@ -23,6 +23,8 @@ from actions.models import Action, create_action
 
 
 class RegistrationView(CreateView):
+    """Create a new User instance."""
+
     template_name = "registration/registration_form.html"
     form_class = UserRegisterForm
     success_url = reverse_lazy("reviews:reviews")
