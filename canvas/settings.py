@@ -13,7 +13,7 @@ BASE_DIR = Path(__file__).resolve().parent.parent
 
 SECRET_KEY = os.environ["CANVAS_KEY"]
 
-DEBUG = os.environ["DEBUG"] == "True"
+DEBUG = os.environ.get("DEBUG")
 
 ALLOWED_HOSTS = ["canvasreviews.herokuapp.com", "herokuapp.com"]
 
@@ -170,7 +170,7 @@ else:
 sentry_sdk.init(dsn=os.environ.get("SENTRY_DSN"), integrations=[DjangoIntegration()])
 
 
-if DEBUG is True:
+if os.environ.get("DEBUG"):
     ALLOWED_HOSTS = []
 
     DATABASES = {
