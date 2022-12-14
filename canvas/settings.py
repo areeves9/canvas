@@ -170,7 +170,7 @@ else:
 sentry_sdk.init(dsn=os.environ.get("SENTRY_DSN"), integrations=[DjangoIntegration()])
 
 
-if os.environ.get("DEBUG"):
+if DEBUG:
     ALLOWED_HOSTS = []
 
     DATABASES = {
