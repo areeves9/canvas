@@ -19,11 +19,14 @@ ALLOWED_HOSTS = ["canvasreviews.herokuapp.com", "herokuapp.com"]
 
 
 # Email settings
-EMAIL_HOST = os.environ["EMAIL_HOST"]
-EMAIL_PORT = 587
-EMAIL_HOST_USER = os.environ["CANVAS_EMAIL_HOST_USER"]
-EMAIL_HOST_PASSWORD = os.environ["CANVAS_EMAIL_PW"]
-EMAIL_USE_TLS = os.environ["EMAIL_USE_TLS"]
+if DEBUG:
+    EMAIL_BACKEND = "django.core.mail.backends.console.EmailBackend"
+else:
+    EMAIL_HOST = os.environ["EMAIL_HOST"]
+    EMAIL_PORT = 587
+    EMAIL_HOST_USER = os.environ["CANVAS_EMAIL_HOST_USER"]
+    EMAIL_HOST_PASSWORD = os.environ["CANVAS_EMAIL_PW"]
+    EMAIL_USE_TLS = os.environ["EMAIL_USE_TLS"]
 
 
 # Application definition
