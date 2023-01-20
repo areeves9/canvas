@@ -38,6 +38,7 @@ class StrainDetailView(DetailView):
     template_name = "strains/strain_detail.html"
 
     def get_context_data(self, **kwargs):
+        """Override context variable."""
         context = super(StrainDetailView, self).get_context_data(**kwargs)
         context["reviews"] = self.get_object().user_review.all()
         context["lineage"] = self.get_object().lineage
@@ -59,6 +60,7 @@ class StrainListView(ListView):
         return queryset
 
     def get_context_data(self, **kwargs):
+        """Override context variable."""
         context = super(StrainListView, self).get_context_data(**kwargs)
         list_strain = Strain.objects.all().order_by("name")
         paginator = Paginator(list_strain, self.paginate_by)
@@ -158,6 +160,7 @@ def strain_share(request, id=None):
 @login_required
 @require_POST
 def strain_like(request):
+    """Add request user to strain likes."""
     strain_id = request.POST.get("id")
     action = request.POST.get("action")
     if strain_id and action:
