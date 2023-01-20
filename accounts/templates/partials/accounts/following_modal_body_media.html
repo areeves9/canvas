@@ -1,0 +1,17 @@
+<div class="media">
+    {% if following.profile.photo %}
+    <img style="height: 53px; width: 53px;" class="rounded-circle p-1 mr-3" src="{{ following.profile.photo.url }}" alt="Generic placeholder image">
+    {% else %}
+    <img style="height: 53px; width: 53px;" class="rounded-circle p-1 mr-3" src="http://placehold.it/250x250"/>
+    {% endif %}
+    <div class="media-body">
+      <a class="text-decoration-none text-dark" href="{% url 'accounts:user' following.username %}">{{ following }}</a>
+      {% if request.user.id == user.id %}
+      <a href="#" data-id="{{ following.id }}" data-action="{% if request.user in following.followers.all %}un{% endif %}follow" class="follow float-right font-weight-bold btn btn-sm btn-primary">
+        {% if request.user in following.followers.all %}Un{% endif %}follow
+      </a>
+      {% endif %}
+      <!-- {% include 'partials/accounts/follow_button.html' %} -->
+      <p class="mt-n1 text-muted">{{ following.first_name }}</p>
+    </div> <!--/.media-body-->
+</div> <!--/.media-->

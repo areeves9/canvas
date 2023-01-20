@@ -1,0 +1,9 @@
+<ul class="nav justify-content-center" style="list-style: none;">
+  {% if strains.has_previous %}
+  <li class="d-inline"><a class="text-dark" href="?page={{ strains.previous_page_number }}"><i class="fas fa-chevron-left"></i></a></li>
+  {% endif %}
+  <li class="d-inline"><p class="ml-5 mr-5">{{ strains.number }} of {{ strains.paginator.num_pages }}</p></li>
+  {% if strains.has_next %}
+  <li class="d-inline"><a class="text-dark" href="?page={{ strains.next_page_number }}"><i class="fas fa-chevron-right"></i></a></li>
+  {% endif %}
+</ul>

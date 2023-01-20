@@ -24,16 +24,21 @@ from accounts.forms import LoginForm
 
 
 urlpatterns = [
-    path('', LoginView.as_view(
+    path(
+        "",
+        LoginView.as_view(
             form_class=LoginForm,
-            template_name='registration/login.html',
-            redirect_authenticated_user=True
-        ), name='home'),
-    path('lightshow/', admin.site.urls),
-    path('account/', include('django.contrib.auth.urls')),
-    path('accounts/', include('accounts.urls', namespace='accounts')),
-    path('reviews/', include('reviews.urls', namespace='reviews')),
-    path('search/', include('haystack.urls')),
+            template_name="registration/login.html",
+            redirect_authenticated_user=True,
+        ),
+        name="home",
+    ),
+    path("lightshow/", admin.site.urls),
+    path("account/", include("django.contrib.auth.urls")),
+    path("accounts/", include("accounts.urls", namespace="accounts")),
+    path("reviews/", include("reviews.urls", namespace="reviews")),
+    path("strains/", include("strains.urls", namespace="strains")),
+    path("search/", include("haystack.urls")),
 ]
 
 if settings.DEBUG:

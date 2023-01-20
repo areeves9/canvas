@@ -1,0 +1,28 @@
+{% extends "base.html" %}
+{% block head_title %} Strains | {{ block.super }}{% endblock head_title %}
+
+{% load static %}
+
+{% block content %}
+
+{% include 'partials/nav_header.html' %}
+
+<div class="container-fluid">
+  <div class="row">
+    <div class="col-12 mt-5">
+      <h3 class="text-left mt-3">Explore Strains</h3>
+      <hr/>
+    </div>
+  </div>
+  <div class="row">
+    {% include "partials/strains/strain_list.html" %}
+  </div>
+</div> <!--/.container-fluid -->
+
+<style>
+  body {
+    background-color: #f8f9fa;
+  }
+</style>
+
+{% endblock %}

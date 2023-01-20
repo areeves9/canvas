@@ -1,0 +1,206 @@
+{% extends "base.html" %}
+{% block head_title %}{{ user.username }} | {{ block.super }}{% endblock head_title %}
+
+{% block content %}
+
+<!-- Modal -->
+{% include 'partials/accounts/profile_settings_modal.html' %}
+
+<!-- Messages -->
+{% include 'messages_display.html' %}
+
+<!--desktop-responsive-->
+<div class="container d-none d-sm-block mt-3">
+  <div class="row justify-content-center align-items-center">
+    <div class="col-3">
+      {% if user.profile.photo %}
+      <img class="d-none d-sm-block mx-auto mb-4 rounded-circle img-fluid"
+        alt="Responsive image" src="{{ user.profile.photo.url }}"
+        style="width: 9rem; height: 9rem;"/>
+      {% endif %}
+    </div>
+    <div class="col-6">
+      <h4 style="font-weight: 300;" lass="d-inline mr-3">{{ user.username }}</h4>
+      {% if request.user.profile.id == user.profile.id %}
+      <a class="w-25 btn border border-muted" href="{% url 'accounts:update' %}">
+        Edit Profile
+      </a>
+      <a data-toggle="modal" data-target="#profileSettingsModal" class="font-weight-bold text-dark" href="{% url 'accounts:logout' %}">
+        <i style="font-size: 1.4rem;" class="fas fa-cog text-secondary"></i>
+      </a>
+      {% endif %}
+      {% with total_followers=user.followers.count %}
+      {% with total_following=user.following.count %}
+      {% include "partials/accounts/profile_horizontal_list.html" %}
+      {% endwith %}
+      {% endwith %}
+      <p class="text-left"><b>{{ user.first_name }}</b></p>
+      <p class="text-left mt-n3">{{ user.profile.bio }}</p>
+    </div>
+  </div> <!--/.row.justify-content-center-->
+</div> <!--/.container-->
+
+<!--mobile-responsive-->
+<div class="container d-block d-sm-none mt-3">
+  <div class="row">
+    <div class="col-12 mb-3">
+      {% if request.user == user %}
+      <a data-toggle="modal" data-target="#profileSettingsModal" class="mt-2 font-weight-bold text-dark float-right" href="{% url 'accounts:logout' %}">
+        <i style="font-size: 1.1rem;" class="fas fa-bars"></i>
+      </a>
+      {% endif %}
+      <!--user's profile-->
+      {% if request.user == user %}
+      <h4 style="font-weight: 300px;" class="text-left">{{ user.username }}</h4>
+      {% else %}
+      <!--visiting someone else's profile-->
+      <h4 class="text-center">{{ user.username }}</h4>
+      {% endif %}
+    </div> <!--/.col-12-->
+  </div> <!--/.row-->
+
+  <div class="row">
+    <!--profile photo-->
+    <div class="col-4 col-md-3">
+      <!--mobile-responsive-->
+      {% if user.profile.photo %}
+      <img class="d-block d-sm-none mr-auto mb-4 rounded-circle img-fluid"
+        alt="Responsive image" src="{{ user.profile.photo.url }}"
+        style="width: 77px; height: 77px;"/>
+      {% endif %}
+      {% with total_followers=user.followers.count %}
+      {% with total_following=user.following.count %}
+    </div>
+    <!--mobile-->
+    <div class="col-8 d-block d-sm-none">
+      <span class="d-block mt-n3">
+        {% include "partials/accounts/profile_horizontal_list.html" %}
+      </span>
+    </div>
+  </div> <!--/.row-->
+
+  <div class="row mb-3">
+    <div class="col">
+      <p class="text-left"><b>{{ user.first_name }}</b></p>
+      <p class="text-left mt-n3">{{ user.profile.bio }}</p>
+      {% if request.user.profile.id == user.profile.id %}
+      <a style="position: absolute; top: -2rem; left: 7rem; width: 65%;"
+        class="mt-n3 ml-auto d-sm-none btn btn-sm btn-block border border-muted"
+        href="{% url 'accounts:update' %}">
+        Edit Profile
+      </a>
+      {% endif %}
+      <span id="buttonContainer">
+        {% include 'partials/accounts/follow_button.html' %}
+      </span>
+    </div> <!--.col-->
+  </div> <!--.row-->
+</div> <!--/.container-->
+
+<div class="container">
+  <div class="row justify-content-center align-items-center">
+    <ul class="nav nav-fill nav-pills mx-auto w-50 mb-3" id="pills-tab" role="tablist">
+      <li class="nav-item">
+        <i class="fas fa-th nav-link active light" id="pills-reviews-tab" data-toggle="pill" href="#pills-reviews" role="tab" aria-controls="pills-reviews" aria-selected="true"></i>
+      </li>
+      <li class="nav-item">
+        <i class="nav-link fas fa-heart light" id="pills-favs-tab" data-toggle="pill" href="#pills-favs" role="tab" aria-controls="pills-favs" aria-selected="false"></i>
+      </li>
+    </ul>
+    <div class="col-12 col-md-9">
+      <div class="tab-content mb-4" id="pills-tabContent">
+        <div class="tab-pane show fade active" id="pills-reviews" role="tabpanel" aria-labelledby="pills-reviews-tab">
+          {% include "partials/accounts/profile_user_reviews.html" %}
+        </div>
+        <div class="tab-pane fade" id="pills-favs" role="tabpanel" aria-labelledby="pills-favs-tab">
+          {% include "partials/accounts/profile_user_favorites.html" %}
+        </div>
+      </div> <!--/.tab-content-->
+    </div> <!--/.col-6-->
+  </div> <!--/.row.justify-content-center.align-items-center-->
+</div> <!--/.container-->
+
+<style>
+  #pills-tab .nav-item {
+    font-size: 1.2rem;
+  }
+  .sticky {
+    position: -webkit-sticky;
+  }
+  .light {
+    color: #adb5bd;
+  }
+  i.nav-link.active {
+    background-color: black !important;
+  }
+  .header-container {
+    padding-bottom: 50px;
+  }
+  div.alert {
+    margin-top: 0px;
+  }
+  i.nav-link.active {
+    border-radius: 0%;
+    border-bottom: solid 2px black !important;
+    background-color: white !important;
+    color: black !important;
+  }
+</style>
+
+{% include "partials/accounts/followers.html" %}
+{% include "partials/accounts/following_modal.html" %}
+
+
+{% endwith %}
+{% endwith %}
+
+{% endblock %}
+
+{% block domready %}
+const buttonContainer = document.getElementById('buttonContainer');
+buttonContainer.addEventListener('click', function(event) {
+  if (event.target.classList.contains = 'follow') {
+    const anchor = event.target;
+    $.post('{% url "accounts:user_follow" %}',
+        {
+          id: $(anchor).data('id'),
+          action: $(anchor).data('action')
+        },
+        function(data){
+          if (data['status'] == 'ok') {
+            var previous_action = $(anchor).data('action');
+
+            $(anchor).data('action', previous_action == 'follow' ? 'unfollow' : 'follow');
+            $(anchor).text(previous_action == 'follow' ? 'Unfollow' : 'Follow');
+
+            var previous_followers = parseInt($('total-followers').text());
+            $('total-followers').text(previous_action == 'follow' ? previous_followers + 1 : previous_followers -1);
+          };
+        });
+        };
+    });
+
+    const buttonContainer1 = document.getElementById('buttonContainer1');
+    buttonContainer1.addEventListener('click', function(event) {
+      if (event.target.classList.contains = 'follow') {
+        const anchor = event.target;
+        $.post('{% url "accounts:user_follow" %}',
+            {
+              id: $(anchor).data('id'),
+              action: $(anchor).data('action')
+            },
+            function(data){
+              if (data['status'] == 'ok') {
+                var previous_action = $(anchor).data('action');
+
+                $(anchor).data('action', previous_action == 'follow' ? 'unfollow' : 'follow');
+                $(anchor).text(previous_action == 'follow' ? 'Unfollow' : 'Follow');
+
+                var previous_followers = parseInt($('total-followers').text());
+                $('total-followers').text(previous_action == 'follow' ? previous_followers + 1 : previous_followers -1);
+              };
+            });
+            };
+        });
+
+{% endblock %}

@@ -1,0 +1,13 @@
+<div class="media">
+    {% if follower.profile.photo %}
+    <img style="height: 53px; width: 53px;" class="rounded-circle p-1 mr-3" src="{{ follower.profile.photo.url }}" alt="Generic placeholder image">
+    {% else %}
+    <img style="height: 53px; width: 53px;" class="rounded-circle p-1 mr-3" src="http://placehold.it/250x250"/>
+    {% endif %}
+    <div class="media-body">
+        <h5 class="mt-0">
+          <a class="text-decoration-none text-dark" href="{% url 'accounts:user' follower.username %}">{{ follower }}</a>
+        </h5>
+        <p class="mt-n1 text-muted">{{ follower.first_name }}</p>
+    </div> <!--/.media-body-->
+</div> <!--/.media-->

@@ -33,26 +33,24 @@ document.getElementById('copyLink').addEventListener('click', e => {
   e.preventDefault();
   navigator.clipboard.writeText(e.target.href).then(() => {
     /* clipboard successfully set */
-    console.log('set');
   }, () => {
     /* clipboard write failed */
-    console.log('failed');
   });
 
   document.getElementById('myAlert').classList.toggle('target');
   document.getElementById('exampleModal1').classList.toggle('hide');
-  
+
   $('#exampleModal1').modal('hide')
 
   setTimeout(() => {
-    document.getElementById('myAlert').classList.toggle('target'); 
+    document.getElementById('myAlert').classList.toggle('target');
   }, 3000);
 });
 
 $('#exampleModal').modal('hide');
 
 $('#reviewList').click(function(e){
-  
+
   if (e.target.parentElement.className == 'review-like') {
     e.preventDefault();
     const anchor = e.target.parentElement;
@@ -68,13 +66,13 @@ $('#reviewList').click(function(e){
         // toggle data-action
         $(anchor).data('action', previous_action == 'like' ? 'unlike' : 'like');
         // toggle heart icon
-        $(anchor).html(previous_action == 'like' ? 
-        `<i style="color: #23CE6B;" class="mt-1 fas fa-heart pulsate-fwd"></i>` : 
+        $(anchor).html(previous_action == 'like' ?
+        `<i style="color: #23CE6B;" class="mt-1 fas fa-heart pulsate-fwd"></i>` :
         `<i style="color: black !important;" class="mt-1 far fa-heart pulsate-fwd"></i>`);
         // update total likes
         var previous_likes = parseInt($('span.count .total').text());
         $('span.count .total').text(previous_action == 'like' ? previous_likes + 1 : previous_likes - 1);
-      
+
   }})};
   });
 

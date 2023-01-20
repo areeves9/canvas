@@ -1,7 +1,8 @@
 latest.dump
 *.pyc
 *.dump
+*.csv
 media_production/
 static_production/
 local_settings.py
-reviews/static/reviews/images
+strains/static/

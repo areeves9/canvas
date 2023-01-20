@@ -1,0 +1,10 @@
+<div class="modal-body">
+    {% if user.followers.all|length == 0 %}
+    <p>This account has no followers...yet</p>
+    {% else %}
+
+    {% for follower in user.followers.all %}
+    {% include 'partials/accounts/followers_modal_body_media.html' %}
+    {% endfor %}
+    {% endif %}
+</div>

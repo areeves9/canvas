@@ -5,11 +5,12 @@ from PIL import Image, ExifTags
 
 
 def image_rotate(image):
-    if hasattr(image, '_getexif'):
+    """Correct image orientation based on EXIF meta data."""
+    if hasattr(image, "_getexif"):
         try:
             # iterate through the EXIF tags
             for orientation in ExifTags.TAGS.keys():
-                if ExifTags.TAGS[orientation] == 'Orientation':
+                if ExifTags.TAGS[orientation] == "Orientation":
                     break
             # get image exif metadata
             e = image._getexif()
@@ -32,7 +33,7 @@ def image_rotate(image):
 
 
 def image_compress(image, instance):
-    # maintain the aspect ratio of the orginial image with thumbnail()
+    """Maintain the aspect ratio of the orginial image with thumbnail."""
     image.thumbnail((1024, 1024), Image.ANTIALIAS)
     memfile = BytesIO()
     image.save(memfile, "JPEG", optimize=True)

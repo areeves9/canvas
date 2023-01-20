@@ -26,10 +26,12 @@ def upload_location(instance, filename):
 
 
 class Profile(models.Model):
+    """A model with a one-to-one relationship with User."""
+
     user = models.OneToOneField(
         settings.AUTH_USER_MODEL,
         on_delete=models.CASCADE,
-        related_name='profile',
+        related_name="profile",
     )
     bio = models.TextField(max_length=1000, blank=True)
     location = models.CharField(max_length=30, blank=True)
@@ -45,7 +47,7 @@ class Profile(models.Model):
     height_field = models.IntegerField(default=0, null=True)
 
     def __str__(self):
-        return 'Profile: {}'.format(self.user)
+        return "Profile: {}".format(self.user)
 
 
 @receiver(post_save, sender=Profile)
@@ -58,26 +60,20 @@ def update_image(sender, instance, **kwargs):
 
 class Follow(models.Model):
     follow_from = models.ForeignKey(
-        User,
-        on_delete=models.CASCADE,
-        related_name='follow_from'
+        User, on_delete=models.CASCADE, related_name="follow_from"
     )
     follow_to = models.ForeignKey(
-        User,
-        on_delete=models.CASCADE,
-        related_name='follow_to'
+        User, on_delete=models.CASCADE, related_name="follow_to"
     )
     created = models.DateTimeField(auto_now_add=True, db_index=True)
 
     def __str__(self):
-        return '%s follows %s' % (self.follow_from, self.follow_to)
+        return "%s follows %s" % (self.follow_from, self.follow_to)
 
 
 User.add_to_class(
-    'following', models.ManyToManyField(
-        'self',
-        through=Follow,
-        related_name='followers',
-        symmetrical=False
-    )
+    "following",
+    models.ManyToManyField(
+        "self", through=Follow, related_name="followers", symmetrical=False
+    ),
 )

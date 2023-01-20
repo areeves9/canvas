@@ -1,0 +1,33 @@
+{% load rating_icon%}
+<div style="padding-bottom: 100px;" class="container">
+    <h5 class="text-left">Favorites</h5>
+    {% if .all|length == 0 %}
+    <p>Check out <a class="emerald bold-link" href="{% url 'strains:strains' %}">strains</a></p>
+    {% endif %}
+    <div class="row justify-content-center align-items-center">
+        {% for strain in user.strains_liked.all %}
+        <div id="pills-home" role="tabpanel" aria-labelledby="pills-home-tab"
+        class="tab-pane fade show active">
+            <div class="card m-2 border-0 shadow">
+                <a class="d-none d-sm-block" href="{{ strain.get_absolute_url }}">
+                    {% if strain.photo_url %}
+                    <img class="card-img-top" src="{{ strain.photo_url }}" style="object-fit: cover; height: 250px; width: 250px;" alt="Card image cap">
+                    {% endif %}
+                </a>
+                <!--MOBILE-->
+                <a class="d-block d-sm-none" href="{{ strain.get_absolute_url }}">
+                    {% if strain.photo_url %}
+                    <img class="card-img-top" src="{{ strain.photo_url }}" style="object-fit: cover; height: 350px; width: 350px;" alt="Card image cap">
+                    {% endif %}
+                </a>
+                <div class="card-body">
+                    <h5 class="card-title text-dark text-center">
+                        <a class="text-decoration-none text-dark" href="{% url 'strains:strain_detail' strain.id %}">{{ strain }}</a>
+                    </h5>
+                </div> <!--/.card-body-->
+            </div>
+        </div>
+        {% endfor %}
+
+    </div> <!--/.row-->
+</div>
