@@ -6,29 +6,21 @@ from PIL import Image, ExifTags
 
 def image_rotate(image):
     """Correct image orientation based on EXIF meta data."""
-    if hasattr(image, "_getexif"):
-        try:
-            # iterate through the EXIF tags
+    try:
+        exif_data = image._getexif()
+        if exif_data:
             for orientation in ExifTags.TAGS.keys():
                 if ExifTags.TAGS[orientation] == "Orientation":
                     break
-            # get image exif metadata
-            e = image._getexif()
-            # check if e exists
-            if e is not None:
-                # get dictionary of exif key-value pairs
-                try:
-                    exif = dict(e.items())
-                    if (exif[orientation]) == 3:
-                        image = image.rotate(180, expand=True)
-                    elif (exif[orientation]) == 6:
-                        image = image.rotate(270, expand=True)
-                    elif (exif[orientation]) == 8:
-                        image = image.rotate(90, expand=True)
-                except IOError as err:
-                    print(err)
-        except IOError as err:
-            print("I/O error: {0}".format(err))
+            exif = dict(exif_data.items())
+            if exif[orientation] == 3:
+                image = image.rotate(180, expand=True)
+            elif exif[orientation] == 6:
+                image = image.rotate(270, expand=True)
+            elif exif_data[orientation] == 8:
+                image = image.rotate(90, expand=True)
+    except IOError as err:
+        print("I/O error: {0}".format(err))
     return image
 
 
