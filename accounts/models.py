@@ -1,27 +1,16 @@
-from PIL import Image
-from django.db import models
+"""Models for canvas.accounts."""
+
 from django.conf import settings
 from django.contrib.auth.models import User
-from django.db.models.signals import post_save
-from django.dispatch import receiver
+from django.db import models
 
-from common.utils import image_rotate, image_compress
+from common.tasks import process_photo_for_upload
 
 # Create your models here.
 
 
-@receiver(post_save, sender=User)
-def create_user_profile(sender, instance, created, **kwargs):
-    if created:
-        Profile.objects.create(user=instance)
-
-
-@receiver(post_save, sender=User)
-def save_user_profile(sender, instance, **kwargs):
-    instance.profile.save()
-
-
 def upload_location(instance, filename):
+    """Set file path for upload."""
     return "%s/%s" % (instance.user, filename)
 
 
@@ -47,18 +36,18 @@ class Profile(models.Model):
     height_field = models.IntegerField(default=0, null=True)
 
     def __str__(self):
+        """Represent instance as a string."""
         return "Profile: {}".format(self.user)
 
-
-@receiver(post_save, sender=Profile)
-def update_image(sender, instance, **kwargs):
-    # does the image exist?
-    if instance.photo:
-        image = Image.open(instance.photo)
-        return image_compress(image_rotate(image), instance)
+    def process_photo(self):
+        """Run task to rotate and resize photo before upload."""
+        # if not self.id and not self.photo:
+        process_photo_for_upload.delay(self.id)
 
 
 class Follow(models.Model):
+    """Table to relate two users in a follow relationship."""
+
     follow_from = models.ForeignKey(
         User, on_delete=models.CASCADE, related_name="follow_from"
     )
@@ -68,6 +57,7 @@ class Follow(models.Model):
     created = models.DateTimeField(auto_now_add=True, db_index=True)
 
     def __str__(self):
+        """String representation of a Follow."""
         return "%s follows %s" % (self.follow_from, self.follow_to)
 
 

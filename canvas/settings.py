@@ -186,3 +186,8 @@ if DEBUG:
             "PORT": "5432",
         }
     }
+
+# Celery Configuration Options
+CELERY_TIMEZONE = "US/Pacific"
+CELERY_TASK_TRACK_STARTED = True
+CELERY_TASK_TIME_LIMIT = 30 * 60

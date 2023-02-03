@@ -1,18 +1,17 @@
 import os
+
 import requests
+from django.conf import settings
 from django.db import models
 from django.db.models import JSONField
+from django.db.models.signals import post_save
 from django.dispatch import receiver
-from django.db.models.signals import pre_save, post_save
 from django.urls import reverse
-from django.conf import settings
-
 from PIL import Image
 
+# from common.tasks import process_photo_for_upload
+from common.utils import image_compress, image_rotate
 from strains.models import Flavor, Strain
-
-from common.utils import image_rotate, image_compress
-
 
 # Create your models here.
 
@@ -84,20 +83,31 @@ class Review(models.Model):
     )
 
     class Meta:
+        """Meta class for Strain."""
+
         ordering = ["-timestamp", "-updated"]
 
     def get_flavors(self):
+        """Get related flavors to a Strain."""
         return "\n".join([f.name for f in self.flavors.all()])
 
     def get_absolute_url(self):
+        """Get absolute url of an instance."""
         return reverse("reviews:review_detail", kwargs={"pk": self.pk})
 
     def __str__(self):
+        """String representation of a Review instance."""
         return self.title
+
+    # def process_photo(self):
+    #     """Run task to rotate and resize photo before upload."""
+    #     if not self.id and not self.photo:
+    #     process_photo_for_upload.delay(self.id)
 
 
 @receiver(post_save, sender=Review)
 def update_image(sender, instance, **kwargs):
+    """Process the review photo."""
     if instance.photo:
         image = Image.open(instance.photo)
         return image_compress(image_rotate(image), instance)
