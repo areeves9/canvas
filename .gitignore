@@ -1,4 +1,7 @@
 latest.dump
+*.png
+*.jpg
+*.jpeg
 *.pyc
 *.dump
 *.csv
