@@ -63,6 +63,9 @@ python manage.py runserver
 
 ## Next Features
 * Updated create view UI
+* Light/Dark UI toggle
+* Admin upload strains by CSV
+* Admin upload users by CSV
 
 
 
