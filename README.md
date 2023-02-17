@@ -66,6 +66,7 @@ python manage.py runserver
 * Light/Dark UI toggle
 * Admin upload strains by CSV
 * Admin upload users by CSV
+* Dockerize
 
 
 
