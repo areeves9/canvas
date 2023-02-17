@@ -15,6 +15,7 @@ cannabis strains.
 ## :artificial_satellite: Technologies
 * Python
 * Django
+* Django auth
 * PostgreSQL
 * AWS S3
 * Bootstrap
