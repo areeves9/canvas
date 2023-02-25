@@ -9,7 +9,7 @@ from django.dispatch import receiver
 from django.urls import reverse
 from PIL import Image
 
-# from common.tasks import process_photo_for_upload
+from common.tasks import process_photo_for_upload
 from common.utils import image_compress, image_rotate
 from strains.models import Flavor, Strain
 
